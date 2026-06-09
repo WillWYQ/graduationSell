@@ -1,0 +1,83 @@
+# ── LLM / AI secrets ─────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+config/secrets.*
+anthropic_key*
+openai_key*
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+dist/
+build/
+.next/
+out/
+.nuxt/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# ── Item photos (local + CDN only — do NOT commit to git) ────────────────────
+# All seller-managed files live in content/.
+# Upload photos to CDN with: pnpm upload-images
+# Keep a personal backup of your content/ folder (external drive / cloud backup).
+# content/**/*.json and content/config.ts ARE committed.
+# content/contact/ (QR codes) IS committed — it's tiny.
+# lib/generated/image-manifest.json IS committed.
+content/items/**/*.jpg
+content/items/**/*.jpeg
+content/items/**/*.png
+content/items/**/*.webp
+content/items/**/*.gif
+content/items/**/*.JPG
+content/items/**/*.JPEG
+content/items/**/*.PNG
+content/items/**/*.WEBP
+content/items/**/*.GIF
+
+# ── Generated public asset copies (populated at build/dev time) ──────────────
+public/items/
+public/contact/
+
+# ── Incremental upload cache (seller's machine only) ─────────────────────────
+.image-cache/
+
+# ── Generated build artifacts (rebuilt on every next build) ──────────────────
+# image-manifest.json is intentionally NOT listed here — it IS committed.
+# search-index.json is written to public/ (not lib/generated/) so SearchBar can fetch it via HTTP.
+public/search-index.json
+
+# ── Editor / IDE ──────────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.next.nosync

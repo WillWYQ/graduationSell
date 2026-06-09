@@ -1,0 +1,44 @@
+"use client";
+
+import { useId } from "react";
+
+export type SortKey = "date-desc" | "price-asc" | "price-desc" | "condition-asc";
+
+const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: "date-desc", label: "Newest first" },
+  { value: "price-asc", label: "Price: low → high" },
+  { value: "price-desc", label: "Price: high → low" },
+  { value: "condition-asc", label: "Condition: best first" },
+];
+
+type SortSelectProps = {
+  value: SortKey;
+  onChange: (value: SortKey) => void;
+};
+
+export function SortSelect({ value, onChange }: SortSelectProps) {
+  const id = useId();
+
+  return (
+    <div className="flex items-center gap-2">
+      <label
+        htmlFor={id}
+        className="whitespace-nowrap text-xs text-foreground/50"
+      >
+        Sort by
+      </label>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value as SortKey)}
+        className="rounded-md border-0 bg-foreground/5 px-2.5 py-1.5 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/50"
+      >
+        {SORT_OPTIONS.map((opt) => (
+          <option key={opt.value} value={opt.value} className="bg-surface text-foreground">
+            {opt.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
