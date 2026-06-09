@@ -168,6 +168,16 @@ async function buildItem(
     // Item folder might not be readable in all environments
   }
 
+  // Fall back to manifest when local image files aren't present (e.g. CI build)
+  if (filenames.length === 0) {
+    const prefix = `${categorySlug}/${itemSlug}/`;
+    filenames = Object.keys(manifest)
+      .filter((k) => k.startsWith(prefix))
+      .map((k) => k.slice(prefix.length))
+      .filter((f) => IMAGE_EXT.test(f))
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  }
+
   const images = filenames.map((f) =>
     resolveImageUrl(manifest, `${categorySlug}/${itemSlug}/${f}`),
   );
