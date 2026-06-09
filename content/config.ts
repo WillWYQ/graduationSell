@@ -7,14 +7,12 @@ import type { SiteConfig } from "@/lib/config/types";
 export const siteConfig: SiteConfig = {
   // ── Identity ─────────────────────────────────────────────────────────────
   name: "UsedExchange",
-  tagline: "Quality second-hand items — local pickup preferred.",
-  logo: "/logo.svg", // path in /public, or "" for text logo
-  // logo: "", // path in /public, or "" for text logo
+  tagline: "YQ's College Graduation Sell",
+  logo: "/logo.svg",
 
   // ── Deployment ───────────────────────────────────────────────────────────
-  deploymentMode: "static", // "static" (GitHub Pages / any host) | "vercel"
-  baseUrl: "https://usedexchangeproject.willsleep.dev", // update before first deploy
-  // baseUrl: "https://your-domain.com", // update before first deploy
+  deploymentMode: "static",
+  baseUrl: "https://graduationsell.willsleep.dev",
 
   // ── Image Storage ─────────────────────────────────────────────────────────
   imageStorage: {
@@ -25,40 +23,36 @@ export const siteConfig: SiteConfig = {
     // "local"         → copy to public/items/ (local dev and self-hosted builds)
   },
 
-  // ── Seller location ───────────────────────────────────────────────────────
+  // ── Seller Location ───────────────────────────────────────────────────────
   // Used for distance-based price tier resolution.
   // Find coords: maps.google.com → right-click → "What's here?"
   // These are embedded in the built site and visible in page source.
   location: {
-    lat: 37.7749,
-    lng: -122.4194,
-    label: "San Francisco, CA",
+    lat: 39.4667,
+    lng: -87.4139,
+    label: "Terre Haute, IN",
   },
 
-  // ── Content defaults ──────────────────────────────────────────────────────
+  // ── Content Defaults ──────────────────────────────────────────────────────
   currency: "USD",
   recentlyListedCount: 6,
-  soldItemRetentionDays: 3, // 0 = keep forever; -1 = hide immediately
-  // /sold renders every sold item ever (it's a permanent, ever-growing static
-  // page in a fully-exported site — there's no pagination at request time).
-  // Cap how many of the most-recent sold items are rendered so the exported
-  // HTML and build time don't grow unbounded over years of use. Older items
-  // remain in content/ (and count toward the header total) — only the grid
-  // is capped. Set to 0 to render every item with no cap.
+  soldItemRetentionDays: 3,
   soldArchiveDisplayLimit: 200,
 
   // ── Contact ───────────────────────────────────────────────────────────────
   contact: {
-    reveal_behavior: "click", // "click" | "always"
+    reveal_behavior: "click",
     platforms: [
-      { type: "email", value: "you@example.com" },
-      { type: "instagram", value: "your_handle" },
-      { type: "discord", value: "123456789012345678" },
-      // { type: "wechat", qr_image: "/contact/wechat-qr.png", label: "WeChat" },
+      { type: "email", value: "medal_pulses.71@icloud.com" },
+      { type: "wechat", qr_image: "/contact/wechat-qr.JPG", label: "WeChat" },
+      { type: "facebook", value: "https://www.facebook.com/profile.php?id=100090821215189" },
+      { type: "venmo", value: "WillWYQ" },
+      { type: "zelle", qr_image: "/contact/zelle.JPG", label: "Zelle" },
+      { type: "linkedin", value: "yueqiaowang" },
     ],
   },
 
-  // ── Home page ─────────────────────────────────────────────────────────────
+  // ── Home Page ─────────────────────────────────────────────────────────────
   hero: {
     cta_label: "Browse Items",
     cta_href: "#categories",
@@ -66,31 +60,29 @@ export const siteConfig: SiteConfig = {
 
   // ── SEO ───────────────────────────────────────────────────────────────────
   meta: {
-    description: "Personal second-hand marketplace.",
+    description: "YQ's College Graduation Sell — quality second-hand items from a 3BR home in Terre Haute, IN.",
     twitterHandle: "",
   },
 
   // ── UI Component Slots ────────────────────────────────────────────────────
   // See DESIGN.md §18 for the full list of options per slot.
   ui: {
-    background: "none",
-    itemGrid: "simple",
-    gallery: "simple",
-    itemCard: "simple",
+    background: "shooting-stars",
+    itemGrid:   "focus-cards",
+    gallery:    "apple-cards-carousel",
+    itemCard:   "wobble-card",
   },
 
-  // ── Dark mode ─────────────────────────────────────────────────────────────
-  // "media" → follows OS/browser preference (default)
-  // "class" → manual toggle via SiteHeader button (future extension)
+  // ── Dark Mode ─────────────────────────────────────────────────────────────
   darkMode: "media",
 
   // ── Analytics ─────────────────────────────────────────────────────────────
   analytics: {
-    vercel: false, // enable only on Vercel deployments
+    vercel: false,
     speedInsights: false,
   },
 
-  // ── Full-text search ──────────────────────────────────────────────────────
+  // ── Full-Text Search ──────────────────────────────────────────────────────
   search: {
     enabled: true,
     placeholder: "Search items...",
@@ -106,15 +98,15 @@ export const siteConfig: SiteConfig = {
   // Run /translate-items to batch-fill name_zh / description_zh in item.json.
   i18n: {
     defaultLocale: "en",
-    availableLocales: ["en"],
+    availableLocales: ["en", "zh"],
     showLocaleSwitcher: true,
     strings: {
-      heroTagline: "",
-      recentlyListed: "",
-      browseAll: "",
-      makeOffer: "",
-      contactSeller: "",
-      soldBanner: "",
+      heroTagline:      "",
+      recentlyListed:   "",
+      browseAll:        "",
+      makeOffer:        "",
+      contactSeller:    "",
+      soldBanner:       "",
       soldArchiveTitle: "",
     },
   },
