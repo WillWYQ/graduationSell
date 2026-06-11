@@ -1,0 +1,23 @@
+{
+  "name": "Waterdrop CoreRO C1H Instant Hot Countertop Reverse Osmosis System",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 10 mi)", "miles_max": 10, "amount": 220 },
+      { "label": "11 – 30 mi", "miles_min": 10, "miles_max": 30, "amount": 240 },
+      { "label": "Shipping (Buyer pays shipping)", "miles_min": 30, "amount": 260 }
+    ],
+    "negotiable": true
+  },
+  "description": "Waterdrop CoreRO C1H instant-hot countertop reverse osmosis system. NSF/ANSI 58 & 372 certified, 6-stage filtration, no installation required, 3:1 pure-to-drain ratio. Dispenses both hot and ambient-temperature filtered water.",
+  "condition": "good",
+  "brand": "Waterdrop",
+  "model": "WD-C1H",
+  "color": "gray",
+  "quantity": 1,
+  "dimensions": { "length": 15.6, "width": 10.9, "height": 17.0, "unit": "in" },
+  "status": "available",
+  "listed_date": "2026-06-11",
+  "tags": ["reverse-osmosis", "water-filter", "countertop", "instant-hot-water", "waterdrop"],
+  "original_source": "Waterdrop",
+  "original_link": "https://www.waterdropfilter.com/products/countertop-instant-hot-ro-system-corero-system-c1h"
+}

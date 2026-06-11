@@ -1,0 +1,25 @@
+{
+  "name": "AO Smith Whole House Salt-Free Descaler System (AO-WH-DSCLR)",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 10 mi)", "miles_max": 10, "amount": 260 },
+      { "label": "11 – 30 mi", "miles_min": 10, "miles_max": 30, "amount": 280 },
+      { "label": "Shipping (Buyer pays shipping)", "miles_min": 30, "amount": 300 }
+    ],
+    "negotiable": true
+  },
+  "description": "AO Smith whole-house salt-free descaler system (model AO-WH-DSCLR). Reduces scale buildup in pipes and plumbing without salt, chemicals, or electricity — works with city or well water. Rated for 600,000 gallons / 6 years. Includes shut-off valve, hose adapter, and nipple. Never used, box opened but item is unused.",
+  "condition": "like-new",
+  "brand": "AO Smith",
+  "model": "AO-WH-DSCLR",
+  "color": "black",
+  "quantity": 1,
+  "dimensions": { "length": 30, "width": 9.25, "height": 9.25, "unit": "in" },
+  "weight": { "value": 12, "unit": "lb" },
+  "status": "available",
+  "listed_date": "2026-06-11",
+  "tags": ["water-descaler", "salt-free", "whole-house", "water-conditioner", "ao-smith", "open-box"],
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/AO-Smith-Whole-Salt-Free-Descaler/dp/B07R8FF5Q9",
+  "original_price": 399.99
+}

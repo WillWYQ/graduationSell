@@ -1,0 +1,20 @@
+{
+  "name": "Logitech Z150 Compact 2.0 Stereo Speakers",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 5 mi)", "miles_max": 5, "amount": 10 },
+      { "label": "6 – 20 mi", "miles_min": 5, "miles_max": 20, "amount": 12 },
+      { "label": "Shipping", "miles_min": 20, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Logitech Z150 compact 2.0 stereo speakers in the original retail box. Includes both speakers and the AC power adapter. Compact desktop design with a built-in volume/power knob.",
+  "condition": "like-new",
+  "brand": "Logitech",
+  "model": "Z150",
+  "color": "black",
+  "quantity": 1,
+  "status": "available",
+  "listed_date": "2026-06-11",
+  "tags": ["speakers", "computer-speakers", "logitech", "stereo-speakers", "desktop-speakers"]
+}
