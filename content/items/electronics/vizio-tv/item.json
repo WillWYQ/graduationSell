@@ -1,8 +1,74 @@
 {
   "name": "Vizio Tv",
-  "status": "draft",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 50
+      },
+      {
+        "label": "16 – 100 mi",
+        "miles_min": 16,
+        "miles_max": 100,
+        "amount": 80
+      },
+      {
+        "label": "Shipping (buyer pays)",
+        "miles_min": 101,
+        "amount": 70
+      }
+    ],
+    "negotiable": false,
+    "show_tiers": false
+  },
+  "description": "The VIZIO V405-G9 is an entry-level 40-inch 4K HDR Smart LED TV released in 2019. It features a native 3840 x 2160 resolution, full-array LED backlighting, Dolby Vision support, and VIZIO's SmartCast platform with built-in Chromecast. Key Specifications:\nScreen Size: 39.5\" diagonal\nResolution: 4K Ultra HD (3840 × 2160)\nHDR Support: Dolby Vision, HDR10, HLG\nRefresh Rate: 60 Hz\nSmart TV Platform: VIZIO SmartCast (Access to Netflix, Prime Video, Hulu, Disney+)\nConnectivity: 3 HDMI ports, 1 USB port, Wi-Fi, and Ethernet\nAudio: 2 x 8W speakers with DTS Studio Sound\nDimensions (with stand): 35.5\" x 22.5\" x 7.5\"\nDimensions (without stand): 35.5\" x 20.5\" x 3.0\"\nWeight: 10.1 lbs (with stand), 9.8 lbs (without stand)\nOverall, the VIZIO V405-G9 offers good value for its price point, providing a decent picture quality and smart features for casual viewers.",
   "condition": "good",
+  "brand": "Vizio",
+  "model": "V405 - G9",
+  "age_years": 7,
+  "dimensions": {
+    "length": 8.36,
+    "width": 35.5,
+    "height": 22.7,
+    "unit": "inches"
+  },
+  "weight": {
+    "value": 15.2,
+    "unit": "lbs"
+  },
+  "color": "",
+  "quantity": 1,
+  "original_source": "UNKNOWN",
+  "original_link": "https://www.bestbuy.com/product/vizio-40-class-v-series-led-4k-uhd-smartcast-tv/J369J2QC6H",
+  "original_price": 239.99,
+  "status": "available",
   "listed_date": "2026-06-11",
-  "description": "",
-  "tags": []
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": true,
+  "previous_lowest_price": 100,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "electronics",
+    "tv",
+    "vizio",
+    "4k",
+    "smart tv"
+  ],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "  Vizio 电视",
+  "description_zh": " VIZIO V405-G9 是一款入门级的 40 英寸 4K HDR 智能 LED 电视，于 2019 年发布。它具有原生 3840 x 2160 分辨率、全阵列 LED 背光、Dolby Vision 支持以及 VIZIO 的 SmartCast 平台，内置 Chromecast。主要规格：\n屏幕尺寸：39.5 英寸对角线\n分辨率：4K 超高清（3840 × 2160）\nHDR 支持：Dolby Vision、HDR10、HLG\n刷新率：60 Hz\n智能电视平台：VIZIO SmartCast（访问 Netflix、Prime Video、Hulu、Disney+）\n连接性：3 个 HDMI 端口，1 个 USB 端口，Wi-Fi 和以太网\n音频：2 x 8W 扬声器，支持 DTS Studio Sound\n尺寸（带底座）：35.5 英寸 x 22.5 英寸 x 7.5 英寸\n尺寸（不带底座）：35.5 英寸 x 20.5 英寸 x 3.0 英寸\n重量：10.1 磅（带底座），9.8 磅（不带底座）\n总体而言，VIZIO V405-G9 在其价格点上提供了良好的价值，为休闲观众提供了不错的画质和智能功能。",
 }
