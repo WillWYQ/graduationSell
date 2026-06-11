@@ -4,9 +4,28 @@
   "price": {
     "currency": "USD",
     "tiers": [
-      { "label": "Local pickup (≤ 5 mi)",  "miles_max": 5,  "amount": 65 },
-      { "label": "6 – 20 mi",              "miles_min": 5,  "miles_max": 20, "amount": 75 },
-      { "label": "Shipping",               "miles_min": 20, "amount": 95 }
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 80
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 100
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 150
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 95
+      }
     ],
     "negotiable": true
   },
@@ -17,5 +36,13 @@
   "model": "G920",
   "status": "available",
   "listed_date": "2026-06-09",
-  "tags": ["gaming", "racing wheel", "sim racing", "xbox", "pc", "logitech", "g920"]
+  "tags": [
+    "gaming",
+    "racing wheel",
+    "sim racing",
+    "xbox",
+    "pc",
+    "logitech",
+    "g920"
+  ]
 }
