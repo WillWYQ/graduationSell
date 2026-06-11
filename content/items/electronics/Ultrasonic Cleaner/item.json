@@ -1,0 +1,21 @@
+{
+  "name": "Househerb Ultrasonic Retainer Cleaner (Dental Cleaning Pod)",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 5 mi)", "miles_max": 5, "amount": 15 },
+      { "label": "6 – 20 mi", "miles_min": 5, "miles_max": 20, "amount": 18 },
+      { "label": "Shipping (Buyer pays shipping)  ", "miles_min": 20, "amount": 20 }
+    ],
+    "negotiable": true
+  },
+  "description": "Ultrasonic cleaner for retainers, dentures, mouth guards, and clear aligners. Compact white unit with a removable basin, power button, and original packaging/manual included. Appears open-box / unused.",
+  "condition": "like-new",
+  "brand": "Househerb",
+  "color": "white",
+  "quantity": 1,
+  "status": "draft",
+  "listed_date": "2026-06-11",
+  "tags": ["ultrasonic-cleaner", "dental-care", "retainer-cleaner", "denture-cleaner", "personal-care"],
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0FM3Z9NNN"
+}

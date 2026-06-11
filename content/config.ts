@@ -67,10 +67,10 @@ export const siteConfig: SiteConfig = {
   // ── UI Component Slots ────────────────────────────────────────────────────
   // See DESIGN.md §18 for the full list of options per slot.
   ui: {
-    background: "shooting-stars",
-    itemGrid:   "focus-cards",
+    background: "background-gradient-animation",
+    itemGrid:   "bento-grid",
     gallery:    "apple-cards-carousel",
-    itemCard:   "wobble-card",
+    itemCard:   "card-spotlight",
   },
 
   // ── Analytics ─────────────────────────────────────────────────────────────

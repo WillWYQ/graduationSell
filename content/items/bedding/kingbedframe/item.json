@@ -1,0 +1,19 @@
+{
+  "name": "Folding Metal Platform Bed Frame – King (Splits into Two Twin XL)",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 20 mi)", "miles_max": 20, "amount": 50 },
+      { "label": "20 – 100 mi (bring help loading)", "miles_min": 20, "miles_max": 100, "amount": 80 },
+      { "label": "100 – 500 mi (bring help loading)", "miles_min": 100, "amount": 150 }
+      
+    ],
+    "negotiable": true
+  },
+  "description": "Sturdy black metal folding platform bed frame in king size, with a center support bar for stability — no box spring needed. Can be disassembled and reconfigured into two separate Twin XL frames if needed. Shows normal signs of use but structurally solid.",
+  "condition": "good",
+  "color": "black",
+  "quantity": 1,
+  "status": "draft",
+  "listed_date": "2026-06-11",
+  "tags": ["bed-frame", "king-bed", "twin-xl", "metal-frame", "platform-bed", "foldable"]
+}

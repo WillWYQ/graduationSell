@@ -1,0 +1,21 @@
+{
+  "name": "Vintage Belt-Drive Record Player with Wockoder Bookshelf Speakers (Bluetooth, 3-Speed)",
+  "price": {
+    "tiers": [
+      { "label": "Local pickup (≤ 10 mi)", "miles_max": 10, "amount": 35 },
+      { "label": "11 – 20 mi", "miles_min": 11, "miles_max": 20, "amount": 45 },
+      { "label": "Shipping (Buyer pays shipping)", "miles_min": 20, "amount": 50 }
+    ],
+    "negotiable": true
+  },
+  "description": "Retro-style black wooden belt-drive turntable for vinyl records, paired with external Wockoder dual stereo bookshelf speakers. Plays records at 3 speeds, supports wireless AUX/Bluetooth input, and has a headphone jack with auto-stop function. A complete vinyl listening setup ready to use.",
+  "condition": "good",
+  "brand": "Wockoder",
+  "color": "black",
+  "quantity": 1,
+  "status": "draft",
+  "listed_date": "2026-06-11",
+  "tags": ["record-player", "turntable", "vinyl", "bluetooth", "bookshelf-speakers", "retro"],
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0FMHYJMLK"
+}
