@@ -128,6 +128,16 @@ UI 基于 [Aceternity UI](https://ui.aceternity.com)（React + Tailwind CSS）�
 | `"vercel-blob"` | Vercel 部署 | 图片排除——从 Blob CDN 提供 | 1 个环境变量，一次性 |
 | `"local"` | 本地开发/自托管（无大小顾虑） | 图片包含在输出中 | 无 |
 
+#### 隐私：上传时自动剥离 EXIF/GPS 元数据
+
+手机相机会在 JPEG/PNG/WebP 文件中嵌入 EXIF 元数据——包括拍摄地点的 GPS 坐标。`pnpm upload-images` 在上传任何新增或变更的图片前，会通过 `sharp`（`lib/images/stripMetadata.ts`）对其重新编码：
+
+- 应用 EXIF 方向标签（确保图片显示方向不变），然后丢弃该标签。
+- 剥离其余所有 EXIF/IPTC/XMP 元数据，包括 GPS 经纬度。
+- GIF 原样透传——GIF 本身没有 EXIF 段，且重新编码动图会导致其坍缩为单帧。
+
+此处理仅在 `pnpm upload-images`（图片真正离开卖家设备的环节）发生。`content/items/` 中的本地文件以及 `pnpm dev` 使用的 `public/items/` 副本不受影响。每次运行后的汇总行会报告剥离的图片数量，例如 `🔒 stripped EXIF/GPS metadata from 3/3 uploaded image(s)`。
+
 ---
 
 ## 4. 文件系统内容模型
@@ -197,9 +207,12 @@ content/                            ← ★ 卖家唯一需要接触的文件夹
       { "label": "邮寄",            "miles_min": 30,  "amount": 35 }
     ],
     "negotiable": true,   // 布尔值，默认 false；价格后渲染"可议"
-    "show_tiers": false   // 布尔值，默认 false；买家是否可在物品详情页展开
+    "show_tiers": false,  // 布尔值，默认 false；买家是否可在物品详情页展开
                           //   "查看所有价格档位"。默认关闭——卖家可能不希望
                           //   买家看到例如自提比邮寄便宜多少。
+    "shipping_payer": "buyer"  // "seller" | "buyer"，可选；覆盖
+                          //   siteConfig.shipping.defaultPayer。
+                          //   仅在 siteConfig.shipping.enabled 为 true 时有意义。见 §21。
   },
 
   // ── 物品详情 ──────────────────────────────────────────────────────────────
@@ -269,6 +282,7 @@ content/                            ← ★ 卖家唯一需要接触的文件夹
 | `price.tiers` | `[]` → 显示"联系询价" |
 | `price.negotiable` | `false` |
 | `price.show_tiers` | `false` → 对买家隐藏"查看所有价格档位"切换 |
+| `price.shipping_payer` | 缺失时回退到 `siteConfig.shipping.defaultPayer`（见 §21） |
 | `condition` | `"good"` |
 | `quantity` | `1` |
 | `status` | `"available"` |
@@ -314,8 +328,15 @@ contact: {
   platforms: [
     { type: "email",     value: "you@example.com" },
     { type: "discord",   value: "123456789012345678" },
+    { type: "facebook",  value: "your.username" },
+    // ^ 也可以直接粘贴完整主页链接（例如没有自定义用户名时的
+    //   "https://www.facebook.com/profile.php?id=..."）——两种写法效果相同。
     { type: "instagram", value: "your_handle" },
     { type: "whatsapp",  value: "+11234567890" },
+    { type: "linkedin",  value: "in/your-name" },
+    // ^ 个人主页用 "in/<id>"，公司主页用 "company/<id>"。
+    //   只填 "your-name" 也可以，会自动当作 "in/your-name"；
+    //   粘贴完整链接（如 "https://www.linkedin.com/in/your-name"）也可以。
     { type: "venmo",     value: "your_username" },
     { type: "zelle",     qr_image: "/contact/zelle-qr.png", label: "Zelle" },
     { type: "wechat",    qr_image: "/contact/wechat-qr.png", label: "WeChat" },
@@ -330,8 +351,10 @@ contact: {
 |---|---|
 | `email` | `mailto:{value}` |
 | `discord` | `https://discord.com/users/{value}` — 在浏览器或 Discord 应用中打开私信 |
+| `facebook` | `https://facebook.com/{value}` — 若粘贴完整主页链接，会自动归一化为其路径（如 `profile.php?id=...`），不会被重复编码 |
 | `instagram` | `https://instagram.com/{value}` |
 | `whatsapp` | `https://wa.me/{value}`（去掉开头的 `+`） |
+| `linkedin` | `https://linkedin.com/{value}` — 会保留 `/` 分隔符（不做 `%` 编码）；只填用户名时自动视为 `in/{value}` |
 | `venmo`（链接） | `https://venmo.com/u/{value}` |
 | `venmo`（二维码） | 打开含 `<img src={qr_image}>` 的弹窗 |
 | `zelle` | 仅二维码弹窗——无公开主页 URL；需要 `qr_image` |
@@ -567,6 +590,15 @@ export const siteConfig: SiteConfig = {
   currency: "USD",
   recentlyListedCount: 6,
   soldItemRetentionDays: 3,
+
+  // ── 运费计算器（可选）────────────────────────────────────────────────────
+  // 不设置或 enabled: false → 完全不影响站点。见 §21。
+  // shipping: {
+  //   enabled: true,
+  //   proxyUrl: "https://shipping-rate-proxy.<your-subdomain>.workers.dev",
+  //   defaultPayer: "buyer",  // "seller" | "buyer"
+  //   origin: { zip: "94103", country: "US" },
+  // },
 
   contact: {
     reveal_behavior: "click",
@@ -1063,3 +1095,115 @@ AI 询问 8 个方面并生成完整配置：身份（名称、标语）、位�
 | **GitHub Copilot（聊天）** | 打开技能文件 → 粘贴为上下文 → 附上照片 |
 | **Claude.ai** | 粘贴技能文件内容 + 上传照片 → 要求 AI 按指令操作 |
 | **任何有能力的 AI** | 粘贴技能文件 + 描述需求；指令是自包含的 |
+
+---
+
+## 21. 运费计算器集成（可选）
+
+> 实现 `docs/FEATURES_ROADMAP.md` §4.3 中描述的 v3 路线图项目。
+
+### 概述
+
+默认情况下，开放式"邮寄"价格档位（`miles_max` 缺失的档位——见 §17）显示卖家在
+`item.json` 中手填的固定金额。本节新增一个**可选**的实时运费估算功能，数据来源
+为承运商运费聚合服务（Shippo 或 EasyPost），基于买家的邮递区号（ZIP code）和物品
+的 `weight`/`dimensions` 计算。
+
+该功能**默认关闭**，对未配置的站点**零影响**：`siteConfig.shipping` 为
+`undefined`，`ShippingEstimator` 渲染为 `null`，不发送任何网络请求。
+
+### 为何需要 Cloudflare Worker
+
+UsedExchange 是完全静态导出的站点，没有服务器，CI 中也不持有任何凭证（§3「部署
+模式」）。承运商运费 API（Shippo、EasyPost）需要密钥，该密钥**绝不能**进入浏览器
+打包文件。解决方案是一个独立部署的小型 **Cloudflare Worker** ——
+`workers/shipping-rate-proxy/`——通过 `wrangler secret` 持有密钥，并暴露一个受
+CORS 限制的 POST 端点。卖家已经为 R2 图床注册了 Cloudflare 账号（§3「图片存储架
+构」），因此这复用了现有基础设施，而非引入新的服务商。
+
+### 架构
+
+```
+买家在物品详情页的 ShippingEstimator 中输入 ZIP code
+   │
+   ▼
+useShippingRate()（components/pricing/useShippingRate.ts，client）
+   │  POST { destinationZip, destinationCountry, weight, dimensions, currency }
+   ▼
+Cloudflare Worker — workers/shipping-rate-proxy/
+   │  以 wrangler secret 持有 SHIPPO_API_KEY / EASYPOST_API_KEY
+   │  调用 Shippo 或 EasyPost Rates API；返回最便宜的费率
+   ▼
+{ amount, currency, carrier, service, estimatedDays }
+   │
+   ▼
+ShippingEstimator 显示估算结果（payer = "buyer"）
+   或显示"免运费（卖家负担）"（payer = "seller"）
+```
+
+`resolveItemPrice()`（§17，`lib/utils/pricing.ts`）**保持不变**——运费估算是
+附加的展示元素，不会修改已解析档位的价格。
+
+### 配置 — `siteConfig.shipping`
+
+```ts
+shipping?: {
+  enabled: boolean;
+  proxyUrl: string;               // Cloudflare Worker URL
+  defaultPayer: "seller" | "buyer";
+  origin: { zip: string; country: string }; // ISO 3166-1 alpha-2
+};
+```
+
+不设置或 `enabled: false` → 功能完全不生效。完整模板见 §13（默认注释掉）。
+
+### 单件物品覆盖 — `price.shipping_payer`
+
+```jsonc
+"price": {
+  "tiers": [ /* ... */ ],
+  "shipping_payer": "buyer" // "seller" | "buyer"，可选
+}
+```
+
+为单件物品覆盖 `siteConfig.shipping.defaultPayer`——例如卖家通常承担运费，但希望
+某件较重/超大的物品改为买家承担运费。
+
+### 显示条件——估算器何时出现
+
+`canEstimateShipping()`（`lib/utils/shipping.ts`）要求**同时满足**：
+
+1. `siteConfig.shipping.enabled === true`
+2. 该物品同时设置了 `weight` 和 `dimensions`
+3. 买家的**已解析价格档位**是开放式的"邮寄"档位（`miles_max` 缺失——与 §17 约定一致）
+
+自提档位永远不受影响。
+
+### 按付款方显示
+
+| `resolveShippingPayer()` 结果 | 买家看到的内容 |
+|---|---|
+| `"buyer"` | ZIP 输入框 + 实时估算："+ $12.50 shipping (USPS Priority Mail, ~2d)" |
+| `"seller"` | 静态文字："免运费（卖家负担）"——无 ZIP 输入框，不暴露具体费率 |
+
+### 隐私与优雅降级
+
+- 买家的 ZIP code 仅存在于 `ShippingEstimator` 的组件 state 中——绝不写入
+  `localStorage`、cookie 或任何持久化存储。与访客地理位置（§17「隐私保证」）的
+  保证一致。
+- 若 Worker 不可达、配置错误或未返回任何费率，`useShippingRate` 会解析为
+  `{ status: "error" }`，`ShippingEstimator` 显示 `t.shippingUnavailable`
+  （"无法取得运费估算"）——页面其余部分不受影响。
+
+### 部署
+
+完整设置流程见
+[`workers/shipping-rate-proxy/README.md`](../workers/shipping-rate-proxy/README.md)
+（获取 API 密钥、配置 `wrangler.toml`、`wrangler secret put`、`wrangler deploy`），
+或运行 `/setup-shipping` 获取对话式引导。
+
+### 新增 i18n 字符串
+
+新增 6 个 `UIStrings` key（加入定价表相关分组）：
+`shippingEstimateLabel`、`shippingZipPlaceholder`、`shippingCalculating`、
+`shippingUnavailable`、`shippingIncludedBySeller`、`shippingEstimateSuffix`。

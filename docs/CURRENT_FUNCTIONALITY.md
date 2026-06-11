@@ -118,6 +118,14 @@ Visitor coordinates never leave the browser. Seller coordinates are in the stati
 - **Static HTML:** always shows highest tier (never blank before JS loads)
 - **Pending state:** shows fallback (highest) price — no card-level spinners
 
+### Shipping Cost Estimation (Optional)
+Disabled by default — sellers opt in via `siteConfig.shipping.enabled`. When enabled, items in the open-ended "Shipping" tier (the one without `miles_max`) and with `weight` + `dimensions` set show a live shipping estimate:
+
+- **Seller pays shipping** (`siteConfig.shipping.defaultPayer: "seller"`, or `price.shipping_payer: "seller"` per item) → shows "Free shipping (included by seller)", no input needed.
+- **Buyer pays shipping** (default) → buyer enters their ZIP code; the site calls a Cloudflare Worker proxy, which queries Shippo or EasyPost and returns the cheapest live rate.
+
+API keys for the shipping provider live only in the Cloudflare Worker (`workers/shipping-rate-proxy/`), never in the static site bundle. See [DESIGN.md §21](DESIGN.md) and `.claude/commands/setup-shipping.md`.
+
 ---
 
 ## Photo Gallery & Image Storage
@@ -137,6 +145,9 @@ During `pnpm upload-images`, advisory warnings are printed (never block) for:
 - Images > 8 MB (unnecessarily large)
 - Item folders with no `cover.*` named image
 - Item folders with no images at all
+
+### Photo Privacy — EXIF/GPS Stripping
+Every new or changed JPEG/PNG/WebP photo is automatically re-encoded via `sharp` (`lib/images/stripMetadata.ts`) before `pnpm upload-images` sends it to the CDN — this removes all EXIF/IPTC/XMP metadata, including GPS location, while auto-rotating the image so it still displays right-side-up. GIFs pass through unchanged. Original files in `content/items/` are untouched; `pnpm dev` and `pnpm build` (dev-sync/build-check) are unaffected.
 
 ---
 
@@ -200,12 +211,12 @@ Site header + "Page not found" + link home.
 | Email | `mailto:{address}?subject=...&body=...` (pre-filled) |
 | WhatsApp | `https://wa.me/{number}?text=...` (pre-filled) |
 | Venmo | `https://venmo.com/u/{username}?txn=pay&note={item}` (pre-filled) |
-| Facebook | `https://facebook.com/{username}` |
+| Facebook | `https://facebook.com/{username}` — a pasted full profile URL (e.g. `profile.php?id=...`) is normalized rather than double-encoded |
 | Instagram | `https://instagram.com/{handle}` |
 | Snapchat | `https://snapchat.com/add/{username}` |
 | Twitter/X | `https://x.com/{handle}` |
 | TikTok | `https://tiktok.com/{handle}` |
-| LinkedIn | `https://linkedin.com/{path}` |
+| LinkedIn | `https://linkedin.com/{path}` — `/` is preserved (not %-encoded); a bare handle defaults to `in/{handle}` |
 | YouTube | `https://youtube.com/{channel}` |
 
 **QR-code modal** (no public profile URL):
@@ -319,7 +330,7 @@ Scripts run on the seller's machine. All write only to `content/`.
 | `pnpm upload-images` | Upload photos to CDN, update manifest, print backup reminder |
 | `pnpm push` | Stage `content/` + manifest, commit with default message, and push |
 | `pnpm mark-sold <cat>/<name>` | Set `status: "sold"` and `sold_date: today` without editing JSON |
-| `pnpm create-item <cat>/<name>` | Create new item folder + `item.json` from template |
+| `pnpm create-item <cat>/<name>` | Create new item folder + `item.json` pre-filled with all 38 schema fields (DESIGN.md §5) |
 | `pnpm new <cat>/<name>` | Shorthand for `create-item` |
 | `pnpm create-template [cat]` | Create a `_template.json` for a category (or global) |
 

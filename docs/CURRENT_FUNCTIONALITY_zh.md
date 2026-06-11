@@ -118,6 +118,14 @@ content/
 - **静态 HTML：** 始终显示最高档位（JS 加载前不会留空）
 - **待定状态：** 显示回退（最高）价格——卡片级别无加载占位符
 
+### 运费估算（可选）
+默认关闭——卖家通过 `siteConfig.shipping.enabled` 开启。开启后，对于落在开放式"邮寄"档位（即没有 `miles_max` 的档位）且设置了 `weight` 和 `dimensions` 的物品，会显示实时运费估算：
+
+- **卖家承担运费**（`siteConfig.shipping.defaultPayer: "seller"`，或单品级 `price.shipping_payer: "seller"`）→ 显示"包邮（卖家承担运费）"，无需输入。
+- **买家承担运费**（默认）→ 买家输入邮编；站点调用 Cloudflare Worker 代理，由其查询 Shippo 或 EasyPost 并返回最低实时运费。
+
+运费服务商的 API 密钥仅存于 Cloudflare Worker（`workers/shipping-rate-proxy/`），绝不出现在静态站点构建产物中。详见 [DESIGN_zh.md §21](DESIGN_zh.md) 和 `.claude/commands/setup-shipping.md`。
+
 ---
 
 ## 照片图库与图片存储
@@ -137,6 +145,9 @@ content/
 - 图片 > 8 MB（不必要地大）
 - 物品文件夹中没有名为 `cover.*` 的图片
 - 物品文件夹中完全没有图片
+
+### 照片隐私——自动剥离 EXIF/GPS 元数据
+每张新增或变更的 JPEG/PNG/WebP 照片在 `pnpm upload-images` 上传到 CDN 之前，都会自动通过 `sharp`（`lib/images/stripMetadata.ts`）重新编码——移除全部 EXIF/IPTC/XMP 元数据（包括 GPS 位置），同时自动旋正方向以保证显示效果不变。GIF 原样透传。`content/items/` 中的原始文件不受影响；`pnpm dev` 与 `pnpm build`（dev-sync/build-check）也不受影响。
 
 ---
 
@@ -200,12 +211,12 @@ content/
 | Email | `mailto:{address}?subject=...&body=...`（预填） |
 | WhatsApp | `https://wa.me/{number}?text=...`（预填） |
 | Venmo | `https://venmo.com/u/{username}?txn=pay&note={item}`（预填） |
-| Facebook | `https://facebook.com/{username}` |
+| Facebook | `https://facebook.com/{username}` — 若粘贴完整主页链接（如 `profile.php?id=...`），会自动归一化为路径，不会被重复编码 |
 | Instagram | `https://instagram.com/{handle}` |
 | Snapchat | `https://snapchat.com/add/{username}` |
 | Twitter/X | `https://x.com/{handle}` |
 | TikTok | `https://tiktok.com/{handle}` |
-| LinkedIn | `https://linkedin.com/{path}` |
+| LinkedIn | `https://linkedin.com/{path}` — 会保留 `/`（不做 `%` 编码）；只填用户名时自动视为 `in/{handle}` |
 | YouTube | `https://youtube.com/{channel}` |
 
 **二维码弹窗式**（无公开个人主页链接）：
@@ -308,7 +319,7 @@ AI 会询问 8 个方面：店铺名称、位置（从描述解析经纬度）�
 | `pnpm upload-images` | 上传照片到 CDN，更新清单，打印备份提醒 |
 | `pnpm push` | 暂存 `content/` 和清单文件、提交（默认消息）并推送 |
 | `pnpm mark-sold <cat>/<name>` | 将 `status` 设为 `"sold"` 并记录 `sold_date`，无需手动编辑 JSON |
-| `pnpm create-item <cat>/<name>` | 从模板创建新物品文件夹 + `item.json` |
+| `pnpm create-item <cat>/<name>` | 创建新物品文件夹 + 预填全部 38 个 schema 字段的 `item.json`（参见 DESIGN.md §5） |
 | `pnpm new <cat>/<name>` | `create-item` 的简写 |
 | `pnpm create-template [cat]` | 为某分类（或全局）创建 `_template.json` |
 

@@ -31,7 +31,7 @@ usedExchange/
 │   ├── intro/                        ← ProjectIntro + UISlotPlayground + projectIntro.dictionary（6 语言文案）
 │   ├── item/                         ← 所有物品渲染组件（见下方物品组件说明）
 │   ├── layout/                       ← Breadcrumb, SiteHeader, SiteFooter
-│   ├── pricing/                      ← DistancePricingContext, LocationPriceBar, useDistancePricing, useGeolocation
+│   ├── pricing/                      ← DistancePricingContext, LocationPriceBar, useDistancePricing, useGeolocation, useShippingRate
 │   ├── search/                       ← SearchBar, SearchBarClient, useSearch
 │   ├── theme/                        ← ThemeProvider, ThemeToggle
 │   ├── ui/                           ← Aceternity UI 库（27 个组件，由 `pnpm setup-ui` 一次性安装）
@@ -75,6 +75,7 @@ usedExchange/
 │       ├── index.ts                  ← 重导出 cn()（clsx + tailwind-merge）
 │       ├── jsonld.ts                 ← buildProductJsonLd(), buildBreadcrumbJsonLd()
 │       ├── pricing.ts                ← resolveItemPrice(price, resolved)——禁止 "use client"
+│       ├── shipping.ts               ← isShippingTier()、resolveShippingPayer()、canEstimateShipping()——禁止 "use client"
 │       ├── slug.ts                   ← isValidSlug()——kebab-case 验证
 │       └── templateStatus.ts         ← isTemplateConfigured()——检测未配置的模板
 │
@@ -96,6 +97,12 @@ usedExchange/
 │   ├── ci.yml                        ← 提交时类型检查 + lint + 测试
 │   ├── deploy.yml                    ← 从 release 分支构建并部署到 GitHub Pages
 │   └── release-seller.yml            ← 自动化发布分支管理
+│
+├── workers/                           ← 独立部署的 Cloudflare Workers（拥有自己的 tsconfig/eslint 范围）
+│   └── shipping-rate-proxy/          ← 可选：运费计算代理（见 DESIGN_zh.md §21）
+│       ├── src/index.ts              ← fetch 处理函数——调用 Shippo/EasyPost，返回最低运费
+│       ├── wrangler.toml             ← Worker 配置（变量与密钥见 workers/shipping-rate-proxy/README.md）
+│       └── README.md                 ← 部署指南 + API 约定
 │
 ├── next.config.ts                    ← 静态导出配置、图片域名
 ├── tsconfig.json                     ← strict + noUncheckedIndexedAccess + @/* 路径别名
@@ -147,6 +154,28 @@ content/items/**/item.json
     │       ▼
     └─► resolveItemPrice()        从 price.tiers 中选择匹配的 PriceTier
             （lib/utils/pricing.ts——可在服务端和客户端导入）
+```
+
+### 运费估算（可选，客户端运行时）
+
+```
+ShippingEstimator（components/item/ShippingEstimator.tsx）
+    │  仅当 canEstimateShipping() 为真时渲染——见 lib/utils/shipping.ts
+    │
+    ├─► resolveShippingPayer() === "seller"
+    │       └─► 渲染 t.shippingIncludedBySeller（不发起网络请求）
+    │
+    └─► resolveShippingPayer() === "buyer"
+            │  买家输入目的地邮编
+            ▼  useShippingRate()（components/pricing/useShippingRate.ts）
+            POST siteConfig.shipping.proxyUrl
+                { destinationZip, destinationCountry, weight, dimensions, currency }
+            │
+            ▼  workers/shipping-rate-proxy（Cloudflare Worker——持有 API 密钥）
+            调用 Shippo 或 EasyPost，返回最低运费
+            │
+            ▼  ShippingRate { amount, currency, carrier, service, estimatedDays }
+            内联展示；出错时显示 t.shippingUnavailable
 ```
 
 ### 图片上传（仅在卖家本机）
@@ -207,6 +236,20 @@ resolveItemPrice(price: Price, resolved: ResolvedDistance): PriceTier | null
 
 **⚠ 此文件绝对不能添加 `"use client"`**——该函数既在服务端组件中调用（SSG 初始渲染，确保静态 HTML 不会显示空白价格），也在 `useDistancePricing`（客户端 hook）中调用。添加 `"use client"` 会破坏服务端导入路径。
 
+### `lib/utils/shipping.ts` — 运费可用性与承担方解析
+
+```ts
+isShippingTier(tier: PriceTier | null): boolean
+resolveShippingPayer(price: Price, shipping: NonNullable<SiteConfig["shipping"]>): "seller" | "buyer"
+canEstimateShipping(shipping, weight, dimensions, resolvedTier): boolean
+```
+
+- `isShippingTier()`——仅当为开放档位（无 `miles_max`）时返回 `true`，按惯例代表"运费"档位（见 DESIGN_zh.md §17）。
+- `resolveShippingPayer()`——`price.shipping_payer`（单品覆盖）缺失时回退到 `siteConfig.shipping.defaultPayer`。
+- `canEstimateShipping()`——决定 `ShippingEstimator` 是否渲染：要求 `shipping.enabled` 为真、物品同时具有 `weight` 和 `dimensions`，且解析后的档位为运费档位。
+
+**与 `pricing.ts` 相同的不变性：禁止 `"use client"`**——保持纯函数以便单元测试，并同时供服务端渲染的物品页和客户端 `ShippingEstimator` 组件复用。完整功能设计见 DESIGN_zh.md §21。
+
 ### `lib/images/` — 存储适配器模式
 
 `ImageStorageAdapter` 接口（定义在 `lib/images/adapter.ts`）由三个类实现：
@@ -217,7 +260,9 @@ resolveItemPrice(price: Price, resolved: ResolvedDistance): PriceTier | null
 | `VercelBlobAdapter` | `"vercel-blob"` | `lib/images/vercel-blob.ts` |
 | `LocalAdapter` | `"local"` | `lib/images/local.ts` |
 
-`scripts/sync-images.ts` 在运行时根据 `siteConfig.imageStorage.provider` 实例化正确的适配器。三个适配器均实现 `syncImage(sourcePath, manifestKey, checksum)` 和通过 `loadChecksums`/`getUpdatedChecksums` 实现的增量跳过机制。
+`scripts/sync-images.ts` 在运行时根据 `siteConfig.imageStorage.provider` 实例化正确的适配器。三个适配器均实现 `syncImage(sourcePath, manifestKey, checksum, body?)` 和通过 `loadChecksums`/`getUpdatedChecksums` 实现的增量跳过机制。
+
+**`lib/images/stripMetadata.ts`** —— `stripImageMetadata(input: Buffer, ext: string): Promise<Buffer>`。由 `scripts/sync-images.ts` 的 `runUpload()` 调用，在上传前用 `sharp` 对每个新增/变更的 JPEG、PNG、WebP 重新编码，去除全部 EXIF/IPTC/XMP 元数据（包括 GPS 坐标），同时应用 EXIF 方向标签以保证图片显示方向不变。处理后的字节作为可选的 `body` 参数传给 `syncImage`，各适配器会优先使用它而不是直接读取 `sourcePath`。GIF 原样透传（本身没有 EXIF 段，且重新编码会导致动画坍缩为单帧）。
 
 ### `lib/utils/concurrency.ts`
 
@@ -290,6 +335,7 @@ isTemplateConfigured(): boolean
 
 **始终为客户端组件**（文件顶部包含 `"use client"`）：
 - 所有定价组件：`DistancePricingContext`、`LocationPriceBar`、`useDistancePricing`、`useGeolocation`
+- 运费估算（可选，见 DESIGN_zh.md §21）：`useShippingRate`、`ShippingEstimator`
 - 所有 i18n 运行时：`LocaleProvider`、`LocaleSwitcher`、`useLocale`、`useT`
 - 所有过滤器：`FilterBar`、`SortSelect`、`useFilters`
 - 搜索：`SearchBarClient`、`useSearch`
@@ -328,6 +374,7 @@ isTemplateConfigured(): boolean
 | `LocalizedItemContent` | 客户端 | 语言为 `zh` 时渲染 `nameZh`/`descriptionZh` |
 | `PricingSection` | 客户端 | 已解析档位显示 + "查看所有档位"切换 |
 | `PricingTable` / `PricingTableToggle` | 客户端 | 可展开的完整档位列表 |
+| `ShippingEstimator` | 客户端 | 可选运费估算（见 DESIGN_zh.md §21） |
 | `MakeOfferButton` | 客户端 | `negotiable: true` 且设置了 `minAcceptableOffer` 时显示 |
 | `ConditionBadge` | 客户端 | 成色标签徽章 |
 | `ConditionGuide` | 客户端 | `?` 弹出说明成色等级 |
@@ -427,6 +474,9 @@ gh-pages   ← 线上站点（GitHub Pages 管理分支）
 | 草稿物品无静态路由 | 加载器可见性过滤器从 `generateStaticParams` 中排除 `status: "draft"` |
 | `soldItemRetentionDays: -1` 立即隐藏 | `isSoldItemVisible()` 中的显式 `< 0` 判断 |
 | 无 `sold_date` 的已售物品保持可见 | 保守默认：无日期 → 无到期依据 |
+| `lib/utils/shipping.ts` 无 `"use client"` | 与 `pricing.ts` 同理——服务端页面渲染与 `ShippingEstimator` 共用 |
+| 运费 API 密钥永不进入浏览器 | 仅以 `wrangler secret` 形式存于 `workers/shipping-rate-proxy`；静态站点只知道 `siteConfig.shipping.proxyUrl` |
+| `workers/` 不参与根目录构建/lint/测试 | `tsconfig.json` 的 `exclude`、`eslint.config.mjs` 的 `ignores`——拥有独立 `package.json` 的子项目 |
 
 ---
 
@@ -458,6 +508,7 @@ gh-pages   ← 线上站点（GitHub Pages 管理分支）
 | 组件架构 + `"use client"` 清单 | [DESIGN_zh.md §12](DESIGN_zh.md) |
 | UI 插槽选项（27 个 Aceternity 组件） | [DESIGN_zh.md §18](DESIGN_zh.md) |
 | 已售物品留存公式 | [DESIGN_zh.md §8](DESIGN_zh.md) |
+| 运费计算器集成（可选） | [DESIGN_zh.md §21](DESIGN_zh.md)、[workers/shipping-rate-proxy/README.md](../workers/shipping-rate-proxy/README.md) |
 | 部署清单 | [TECH_REQUIREMENTS_zh.md §19](TECH_REQUIREMENTS_zh.md) |
 | 测试策略 | [TECH_REQUIREMENTS_zh.md §25](TECH_REQUIREMENTS_zh.md) |
 | CDN 配置说明 | [setup_instruction_zh.md](setup_instruction_zh.md) |
