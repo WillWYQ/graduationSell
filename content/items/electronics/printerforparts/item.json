@@ -1,0 +1,68 @@
+{
+  "name": "Printerforparts",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 5
+      },
+      {
+        "label": "16 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 10
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 100,
+        "amount": 15
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": false
+  },
+  "description": "Canon Multifunction Printer (Model K10392) sold strictly for parts or repair. Non-working condition, ideal for salvaging components. No cords, cables, or ink included. Priced low for a quick local pickup or cheap shipping.",
+  "condition": "for parts or not working",
+  "brand": "Canon",
+  "model": "K10392",
+  "age_years": null,
+  "dimensions": {
+    "length": 44.5,
+    "width": 33.0,
+    "height": 16.3,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 6.3,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "eBay",
+  "original_link": "https://ebay.com",
+  "original_price": null,
+  "status": "draft",
+  "listed_date": "2026-06-11",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 1,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Canon", "Printer", "For Parts", "Cheap", "Scrap", "Repair"],
+  "category_override": "",
+  "meta_description": "Super cheap non-working Canon printer for parts or repair.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "",
+  "description_zh": ""
+}

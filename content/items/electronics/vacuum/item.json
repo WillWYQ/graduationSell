@@ -1,0 +1,81 @@
+{
+  "name": "Bissell CleanView Upright Vacuum",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 40
+      },
+      {
+        "label": "16 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 50
+      },
+      {
+        "label": "100 - 150 mi",
+        "miles_min": 100,
+        "miles_max": 150,
+        "amount": 65
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 150,
+        "amount": 50
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": false
+  },
+  "description": "Powerful bagless upright vacuum cleaner featuring OnePass Technology with a specialized brush design to clean on the initial pass. Uses a Multi-Cyclonic cleaning system for consistent suction and includes a 2.0L bottom easy-empty dirt tank. Comes equipped with a 25-foot power cord, a 6-foot hose, a 13.5-inch cleaning path width, and standard on-board tools (TurboBrush tool, dusting brush, crevice tool, and extension wand). Suitable for multiple surface types including low pile carpet, stairs, and bare floors.",
+  "condition": "good",
+  "brand": "BISSELL",
+  "model": "1330",
+  "age_years": null,
+  "dimensions": {
+    "length": 31.75,
+    "width": 34.29,
+    "height": 111.76,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 7.03,
+    "unit": "kg"
+  },
+  "color": "Green",
+  "quantity": 1,
+  "original_source": "BISSELL Official Website",
+  "original_link": "https://www.bissell.com/en-us/product/cleanview-with-onepass-technology-upright-vacuum-1330.html",
+  "original_price": 99.99,
+  "status": "draft",
+  "listed_date": "2026-06-11",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "https://www.youtube.com/watch?v=5xhVMXMppDI",
+  "tags": [
+    "vacuum",
+    "upright vacuum",
+    "bagless",
+    "bissell",
+    "cleanview",
+    "appliances"
+  ],
+  "category_override": "Household Appliances",
+  "meta_description": "Buy a pre-owned BISSELL CleanView Upright Vacuum 1330 in good condition. Features powerful cyclonic suction, bagless easy-empty tank, and multi-surface attachments.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "必胜 CleanView 直立式吸尘器",
+  "description_zh": "搭载 OnePass 技术的高效无袋直立式吸尘器，配有独特的滚刷设计，可在初次吸尘时高效清洁。采用多气旋清洁系统提供持久吸力，配备 2.0 升大容量易倾倒集尘盒。带有 25 英尺电源线、6 英尺软管、13.5 英寸清洁宽度，并随附车载清洁工具（涡轮除螨刷、除尘刷、缝隙吸头和延长杆）。适用于低绒地毯、楼梯和硬质地面等多种材质表面。"
+}
