@@ -17,9 +17,11 @@ Open Claude Code inside your project folder. The AI will automatically read your
 
 ## 1. Adding a New Item
 
+**Quick answer: yes, you create one folder per item. The AI generates everything inside it.**
+
 ### Step 1 — Create a folder for the item
 
-Inside `content/items/`, create a new folder. The folder name becomes part of the URL, so keep it short and lowercase with hyphens.
+Inside `content/items/`, create a new folder for each item you want to sell. The folder name becomes part of the URL, so keep it short and lowercase with hyphens.
 
 Example:
 ```
@@ -96,7 +98,9 @@ pnpm create-item electronics/iphone-14-pro
 
 This creates an empty `item.json` template. Fill in the details manually, set `status: "draft"` until it's ready, and add photos later.
 
-You can also create a reusable template for a whole category:
+> **Note:** the category folder (`content/items/electronics/` in this example) must already exist. If it's a brand-new category, create the folder first (see [Step 1](#1-adding-a-new-item)), then run the command above.
+
+You can also create a reusable template for a whole category (same precondition — the category folder must already exist):
 
 ```
 pnpm create-template electronics

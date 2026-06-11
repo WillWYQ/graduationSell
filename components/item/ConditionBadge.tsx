@@ -4,6 +4,7 @@ import type { Condition } from "@/lib/content/types";
 import { clsx } from "clsx";
 import { useT } from "@/components/i18n/useT";
 
+// Colour classes are locale-independent; labels come from useT().
 const CONDITION_CLASSES: Record<Condition, string> = {
   new: "bg-emerald-500/15 text-emerald-700 ring-emerald-500/30 dark:text-emerald-300",
   "like-new": "bg-cyan-500/15 text-cyan-700 ring-cyan-500/30 dark:text-cyan-300",
@@ -27,7 +28,8 @@ export function ConditionBadge({ condition, className }: ConditionBadgeProps) {
     "for-parts": t.conditionForParts,
   };
   const label = conditionLabels[condition] ?? condition;
-  const classes = CONDITION_CLASSES[condition] ?? "bg-foreground/10 text-foreground/50 ring-foreground/20";
+  const classes =
+    CONDITION_CLASSES[condition] ?? "bg-foreground/10 text-foreground/50 ring-foreground/20";
   return (
     <span
       className={clsx(

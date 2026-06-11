@@ -1396,7 +1396,6 @@ export default { plugins: { "@tailwindcss/postcss": {} } };
 - No toggle needed; no user action required; no JavaScript involved
 - All Tailwind `dark:` variant classes respond to OS/browser `prefers-color-scheme`
 - Aceternity components installed via `npx shadcn@latest` are Tailwind v4 compatible
-- `siteConfig.darkMode` is typed `"media" | "class"`. The `"class"` variant is a future extension (requires toggle button in SiteHeader + persisted preference; see DESIGN.md §19)
 
 ---
 
@@ -1552,86 +1551,103 @@ The sitemap only generates when `siteConfig.sitemap.enabled === true`. The `post
 
 **Design:** Single-instance multi-locale. All locale variants are bundled into one deployment. Visitors switch language at runtime via the `LocaleSwitcher` component in `SiteHeader`. The selected locale is persisted in `localStorage`; SSG static HTML always renders `defaultLocale`.
 
+### Two translation layers
+
+| Layer | What it covers | Where it lives | Who fills it |
+|---|---|---|---|
+| **UI strings** | All 71 button/label/badge/header strings | `content/config.ts` → `i18n.translations.{locale}` | Seller (via `/setup` or manual edit) |
+| **Item content** | `name` and `description` per item | `content/items/**/item.json` → `name_{locale}`, `description_{locale}` | `/translate-items` AI skill or manual edit |
+
 ### SiteConfig i18n type (`lib/config/types.ts`)
 
 ```ts
 export type I18nConfig = {
-  defaultLocale: string;           // ISO 639-1; rendered in static HTML (SSG)
-  availableLocales: string[];      // all supported locales; LocaleSwitcher shown when length > 1
-  showLocaleSwitcher: boolean;     // show toggle in SiteHeader (overridden to false if locales ≤ 1)
-  strings: UIStrings;              // UI string overrides per the defaultLocale
+  defaultLocale: string;                          // ISO 639-1; rendered in static HTML (SSG)
+  availableLocales: string[];                     // all supported locales; LocaleSwitcher shown when length > 1
+  showLocaleSwitcher: boolean;                    // show toggle in SiteHeader
+  translations: Record<string, Partial<UIStrings>>; // per-locale UI string dictionaries
 };
 ```
 
-### Locale switching runtime architecture
+### `UIStrings` type (71 keys, `lib/config/types.ts`)
+
+Covers every visible UI label: navigation links, section headings, contact labels, offer form, share button, metadata table headers, condition/status badges, filter/sort options, freshness label, page banners, condition guide descriptions, location bar strings, pricing table headers.
+
+The `EN_FALLBACK` constant in `lib/i18n/translations.ts` provides the built-in English default for every key — guarantees no UI label is ever blank even if `content/config.ts` is misconfigured.
+
+### Runtime architecture — locale switching
 
 ```
 Visitor loads page
   │
-  ├── SSG HTML renders with defaultLocale content (e.g. item.name, not item.name_zh)
+  ├── SSG HTML renders with defaultLocale content (item.name, not item.name_zh)
   │
   └── LocaleProvider (client component wrapping app/layout.tsx children)
         ├── reads localStorage.getItem("locale")
         ├── falls back to siteConfig.i18n.defaultLocale if absent or not in availableLocales
         ├── exposes { locale, setLocale } via React context
-        └── triggers re-render of all localised fields after hydration
+        └── triggers re-render of all client components after hydration
 
 LocaleSwitcher (client component in SiteHeader)
   ├── hidden when siteConfig.i18n.availableLocales.length <= 1
-  ├── renders buttons/select for each available locale
   └── on change: calls setLocale(newLocale) + localStorage.setItem("locale", newLocale)
 
-useLocale() hook
-  └── reads locale from LocaleProvider context
-      used by all item-rendering components instead of reading siteConfig.i18n.defaultLocale directly
+useLocale() hook — reads active locale from LocaleProvider context
+useT() hook     — returns the active locale's UIStrings dict (merged: EN_FALLBACK → defaultLocale dict → activeLocale dict)
 ```
 
-### `lib/utils/i18n.ts`
+### `lib/i18n/` module
+
+```ts
+// lib/i18n/translations.ts
+// EN_FALLBACK: UIStrings — built-in English default for all 71 keys.
+// Used by both useT() (client) and getTranslations() (server) as the safety net.
+
+// lib/i18n/getTranslations.ts
+// Server-side string resolution. Always resolves against defaultLocale.
+// Used by Server Components (app pages) that cannot call hooks.
+export function getTranslations(): UIStrings
+
+// components/i18n/useT.ts  (client)
+// Resolution order: EN_FALLBACK → defaultLocale dict → activeLocale dict
+export function useT(): UIStrings
+```
+
+### `lib/utils/i18n.ts` — item-level locale resolution
 
 ```ts
 // Returns the localised field value for the given locale, falling back to the English default.
 // Example: getLocalizedField(item, "name", "zh") → item.name_zh ?? item.name
-// Example: getLocalizedField(item, "description", "es") → item.description_es ?? item.description
 export function getLocalizedField(
   item: Record<string, unknown>,
   field: string,    // e.g. "name", "description"
   locale: string    // e.g. "zh", "es"
 ): string
-
-// Returns a UI string from siteConfig.i18n.strings, falling back to the built-in English default.
-// locale parameter reserved for future per-locale UIStrings support.
-export function t(key: keyof UIStrings, locale?: string): string
 ```
 
-Visitor-facing renders of `name` and `description` live in **client** components — `ItemCard` (card title) and `LocalizedItemContent` (detail-page `<h1>` + react-markdown description). Each calls `getLocalizedField(item, …, locale)` with `locale` from `useLocale()`. During the SSG/SSR pass the `LocaleProvider` supplies its initial value (`siteConfig.i18n.defaultLocale`), so the static HTML carries the **default-locale** text; after hydration the component re-renders in the visitor's chosen locale if `localStorage` holds a different one. A React component cannot conditionally call a hook, so localisation is never performed in a server component: server-only surfaces (`generateMetadata`, `<title>`, OG tags, JSON-LD, the breadcrumb leaf) read `siteConfig.i18n.defaultLocale` directly and are **not** runtime-switchable.
+### Client vs server surfaces
 
-> **SEO note (intentional v1 limitation):** Only `defaultLocale` content appears in the static HTML and the crawlable metadata/JSON-LD. Non-default locales are rendered client-side after the visitor switches and are not separately indexed. Per-locale URLs / `hreflang` alternates are a future extension beyond v1 scope.
+Visitor-facing renders of `name` and `description` live in **client** components — `ItemCard` and `LocalizedItemContent` — and call `getLocalizedField(item, …, locale)` with `locale` from `useLocale()`. All other client components call `useT()` for UI labels. During SSG the `LocaleProvider` supplies `defaultLocale` as the initial value, so the static HTML always carries the default language; after hydration client components re-render in the visitor's chosen locale.
 
-**`UIStrings` type** (defined in `lib/config/types.ts` and used by `SiteConfig.i18n.strings`):
+Server-only surfaces (`generateMetadata`, `<title>`, OG tags, JSON-LD) call `getTranslations()` which always returns the `defaultLocale` dict — they are **not** runtime-switchable.
 
-```ts
-export type UIStrings = {
-  heroTagline: string;     // hero section tagline; falls back to siteConfig.tagline
-  recentlyListed: string;  // "Recently Listed" section heading
-  browseAll: string;       // "Browse All" link label
-  makeOffer: string;       // "Make an Offer" button label
-  contactSeller: string;   // "Contact Seller" toggle label
-  soldBanner: string;      // "SOLD" banner text on sold item pages
-};
-```
+> **SEO note (intentional v1 limitation):** Only `defaultLocale` content appears in static HTML and crawlable metadata/JSON-LD. Non-default locales are rendered client-side after the visitor switches. Per-locale URLs / `hreflang` alternates are a future extension.
 
-All fields default to their built-in English strings when the value is `""`. `UIStrings` covers the `defaultLocale`; per-locale UI strings are provided by the item fields themselves.
+### Build-time completeness enforcement
+
+`scripts/check-config.ts` validates on every build that every locale in `availableLocales` has a `translations` entry with all 71 required keys. Build fails with a descriptive error if any locale is missing or incomplete — prevents silent English fallback.
 
 ### Adding a new locale
 
-1. Add `name_{locale}` and `description_{locale}` to the Zod schema (`lib/content/schema.ts`) and `Item` type (`lib/content/types.ts`) — mirrors the existing `name_zh` / `description_zh` pattern.
-2. Add the locale code to `siteConfig.i18n.availableLocales` in `content/config.ts`.
-3. Run `/translate-items` AI skill (DESIGN.md §20 Skill 3) to batch-fill translations, or add `name_{locale}` / `description_{locale}` fields to `item.json` manually.
-4. `LocaleSwitcher` appears automatically once `availableLocales.length > 1`.
+1. Add the locale code to `siteConfig.i18n.availableLocales` in `content/config.ts`.
+2. Add a `translations.{locale}` block with all 71 `UIStrings` keys translated.
+3. Add `name_{locale}` and `description_{locale}` to the Zod schema (`lib/content/schema.ts`) and `Item` type (`lib/content/types.ts`) — mirrors the existing `name_zh` / `description_zh` pattern.
+4. Run `/translate-items` AI skill to batch-fill `name_{locale}` / `description_{locale}` on each `item.json`, or add them manually.
+5. `LocaleSwitcher` appears automatically once `availableLocales.length > 1`.
 
-> **Locale fallback:** `getLocalizedField` silently falls back to English for any locale whose `name_{locale}` field is absent or empty — no crash, no broken renders. Items without translations display in `defaultLocale` until translations are added. This makes adding a new locale a non-breaking, fully incremental change.
+> **Locale fallback:** `getLocalizedField` silently falls back to English for any item whose `name_{locale}` field is absent or empty — no crash, no broken renders. `useT()` / `getTranslations()` fall back through `EN_FALLBACK` so no UI label is ever blank.
 
-> **v1 ships concrete `zh` support.** The `name_zh` / `description_zh` fields are in the Zod schema and `Item` type. `es` and other locales follow the same additive pattern.
+> **v1 ships concrete `zh` support.** The `name_zh` / `description_zh` fields are in the Zod schema and `Item` type. Other locales follow the same additive pattern.
 
 ---
 

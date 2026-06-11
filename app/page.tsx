@@ -8,6 +8,7 @@ import { CategoryGrid } from "@/components/category/CategoryGrid";
 import { RecentlyListedSection } from "@/components/home/RecentlyListedSection";
 import { RecentlyViewed } from "@/components/common/RecentlyViewed";
 import { ProjectIntro } from "@/components/intro/ProjectIntro";
+import { getTranslations } from "@/lib/i18n/getTranslations";
 
 // Memoised per-request so generateMetadata and HomePage share one parse pass.
 const getHomePageData = cache(loadHomePageData);
@@ -46,7 +47,8 @@ export default async function HomePage() {
 
   const { categories, recentItems } = await getHomePageData();
 
-  const tagline = siteConfig.i18n.strings.heroTagline || siteConfig.tagline;
+  const tagline = siteConfig.tagline;
+  const t = getTranslations();
 
   return (
     <>
@@ -74,7 +76,7 @@ export default async function HomePage() {
           id="categories-heading"
           className="mb-4 text-xl font-semibold text-foreground"
         >
-          Browse by Category
+          {t.categoriesHeading}
         </h2>
         <CategoryGrid categories={categories} />
       </section>

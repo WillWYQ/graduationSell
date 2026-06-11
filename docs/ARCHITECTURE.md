@@ -14,7 +14,7 @@ usedExchange/
 │   ├── layout.tsx                    ← Root layout: ThemeProvider > LocaleProvider > BackgroundEffect > SiteHeader/Footer
 │   ├── globals.css                   ← Tailwind v4 directives + CSS custom properties
 │   ├── page.tsx                      ← Home page (/)
-│   ├── about/page.tsx                ← Project intro for the template's own demo domain
+│   ├── about/page.tsx                ← Project intro: shown at "/" pre-setup, permanent home afterwards
 │   ├── all/page.tsx                  ← Browse All (/all)
 │   ├── sold/page.tsx                 ← Sold Archive (/sold)
 │   ├── not-found.tsx                 ← Global 404 page
@@ -27,15 +27,16 @@ usedExchange/
 │   ├── contact/                      ← ContactSection, PlatformButton, QRModal
 │   ├── filters/                      ← FilterBar, SortSelect, useFilters
 │   ├── home/                         ← RecentlyListedSection
-│   ├── i18n/                         ← LocaleProvider, LocaleSwitcher, useLocale
-│   ├── intro/                        ← ProjectIntro (shown before seller configures baseUrl)
+│   ├── i18n/                         ← LocaleProvider, LocaleSwitcher, useLocale, useT
+│   ├── intro/                        ← ProjectIntro + UISlotPlayground + projectIntro.dictionary (6-locale copy)
 │   ├── item/                         ← All item-rendering components (see §Item Components)
 │   ├── layout/                       ← Breadcrumb, SiteHeader, SiteFooter
 │   ├── pricing/                      ← DistancePricingContext, LocationPriceBar, useDistancePricing, useGeolocation
 │   ├── search/                       ← SearchBar, SearchBarClient, useSearch
 │   ├── theme/                        ← ThemeProvider, ThemeToggle
 │   ├── ui/                           ← Aceternity UI library (27 components; installed once by `pnpm setup-ui`)
-│   └── ui-adapters/                  ← BackgroundEffect, GalleryAdapter, ItemCardAdapter, ItemGridAdapter
+│   ├── ui-adapters/                  ← BackgroundEffect, GalleryAdapter, ItemCardAdapter, ItemGridAdapter
+│   └── *-demo.tsx                    ← Unused Aceternity demo scaffolds (not imported; safe to remove)
 │
 ├── content/                          ← ⚠️ THE ONLY FOLDER SELLERS EVER TOUCH
 │   ├── config.ts                     ← SiteConfig export (must match lib/config/types.ts)
@@ -61,6 +62,9 @@ usedExchange/
 │   │   ├── local.ts                  ← LocalAdapter + copyIfChanged helper
 │   │   ├── normalizeR2Url.ts         ← Strips trailing slash from R2 public URL
 │   │   └── vercel-blob.ts            ← VercelBlobAdapter
+│   ├── i18n/
+│   │   ├── translations.ts           ← EN_FALLBACK: UIStrings — built-in English defaults for all 71 keys
+│   │   └── getTranslations.ts        ← getTranslations(): UIStrings — server-side resolution (always defaultLocale)
 │   ├── search/index.ts               ← buildSearchIndex(): SearchIndexEntry[]
 │   ├── ui/types.ts                   ← UIConfig type (background, itemGrid, gallery, itemCard slots)
 │   └── utils/
@@ -266,7 +270,7 @@ Returns `true` once the seller has replaced `baseUrl` with a real domain (i.e. i
 ```
 <html>
   <body>
-    <ThemeProvider>          ← next-themes, follows siteConfig.darkMode
+    <ThemeProvider>          ← next-themes, class-based, defaultTheme="system"; ThemeToggle persists choice
       <LocaleProvider>       ← locale state in localStorage; exposes useLocale()
         <BackgroundEffect>   ← reads siteConfig.ui.background, renders Aceternity background
           <SiteHeader />     ← logo, search bar (when enabled), locale switcher
@@ -287,19 +291,21 @@ Server Components render static HTML during `next build`. The client boundary is
 
 **Always Client Components** (`"use client"` at the top):
 - All pricing: `DistancePricingContext`, `LocationPriceBar`, `useDistancePricing`, `useGeolocation`
-- All i18n runtime: `LocaleProvider`, `LocaleSwitcher`, `useLocale`
+- All i18n runtime: `LocaleProvider`, `LocaleSwitcher`, `useLocale`, `useT`
 - All filtering: `FilterBar`, `SortSelect`, `useFilters`
 - Search: `SearchBarClient`, `useSearch`
 - `RecentlyViewed`, `ShareButton`, `MakeOfferButton`, `QRModal`
 - `ThemeProvider`, `ThemeToggle`
+- UI-string consumers: `SiteHeader`, `MetadataTable`, `ConditionBadge`, `StatusBadge`, `ConditionGuide`, `PricingTable`, `PricingTableToggle`, `FreshnessLabel`, `RecentlyListedSection`, `ContactSection`
+- Item detail UI: `ItemGallery`, `LocalizedItemContent`
 - All `components/ui/*` (Aceternity) components
 
 **Server Components** (no `"use client"`):
-- All `app/*/page.tsx` files
+- All `app/*/page.tsx` files (use `getTranslations()` for any UI strings needed server-side)
 - `CategoryGrid`, `CategoryCard`
 - `ItemGrid`, `ItemCard`
-- `Breadcrumb`, `SiteHeader`, `SiteFooter`
-- `MetadataTable`, `StatusBadge`, `ConditionBadge`, `QuantityBadge`, `TextbookBadge`, `FreshnessLabel`
+- `Breadcrumb`, `SiteFooter`
+- `QuantityBadge`, `TextbookBadge`
 - `JsonLd`, `AdaptiveImage`
 
 ### UI Slot Adapters (`components/ui-adapters/`)
@@ -324,13 +330,13 @@ Four adapters read `siteConfig.ui.*` at render time and forward to the appropria
 | `PricingSection` | Client | Resolved tier display + "View all tiers" toggle |
 | `PricingTable` / `PricingTableToggle` | Client | Full tier list expandable |
 | `MakeOfferButton` | Client | Appears when `negotiable: true` and `minAcceptableOffer` is set |
-| `ConditionBadge` | Server | Condition label chip |
+| `ConditionBadge` | Client | Condition label chip |
 | `ConditionGuide` | Client | `?` popover explaining condition scale |
-| `StatusBadge` | Server | `available`/`pending`/`reserved`/`sold` pill |
+| `StatusBadge` | Client | `available`/`pending`/`reserved`/`sold` pill |
 | `QuantityBadge` | Server | "3 available" badge when `quantity > 1` |
 | `FreshnessLabel` | Client | "Listed 3 days ago" relative timestamp |
 | `TextbookBadge` | Server | Course + edition + ISBN section |
-| `MetadataTable` | Server | Brand, model, dimensions, weight, original source/price |
+| `MetadataTable` | Client | Brand, model, dimensions, weight, original source/price |
 
 ---
 
@@ -460,4 +466,4 @@ See [`.env.example`](../.env.example) for setup instructions and [setup_instruct
 | Testing strategy | [TECH_REQUIREMENTS.md §25](TECH_REQUIREMENTS.md) |
 | CDN setup walkthrough | [setup_instruction.md](setup_instruction.md) |
 | Seller operations guide | [../SETUP_GUIDE.md](../SETUP_GUIDE.md) |
-| 15-phase build plan | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) |
+| 16-phase build plan (Phases 0–15) | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) |

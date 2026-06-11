@@ -14,7 +14,7 @@ usedExchange/
 │   ├── layout.tsx                    ← 根布局：ThemeProvider > LocaleProvider > BackgroundEffect > SiteHeader/Footer
 │   ├── globals.css                   ← Tailwind v4 指令 + CSS 自定义属性
 │   ├── page.tsx                      ← 首页 (/)
-│   ├── about/page.tsx                ← 模板演示域名下的项目介绍页
+│   ├── about/page.tsx                ← 项目介绍页：配置前显示于 "/"，配置后作为永久入口
 │   ├── all/page.tsx                  ← 全部浏览 (/all)
 │   ├── sold/page.tsx                 ← 已售档案 (/sold)
 │   ├── not-found.tsx                 ← 全局 404 页面
@@ -27,15 +27,16 @@ usedExchange/
 │   ├── contact/                      ← ContactSection, PlatformButton, QRModal
 │   ├── filters/                      ← FilterBar, SortSelect, useFilters
 │   ├── home/                         ← RecentlyListedSection
-│   ├── i18n/                         ← LocaleProvider, LocaleSwitcher, useLocale
-│   ├── intro/                        ← ProjectIntro（卖家配置 baseUrl 前显示）
+│   ├── i18n/                         ← LocaleProvider, LocaleSwitcher, useLocale, useT
+│   ├── intro/                        ← ProjectIntro + UISlotPlayground + projectIntro.dictionary（6 语言文案）
 │   ├── item/                         ← 所有物品渲染组件（见下方物品组件说明）
 │   ├── layout/                       ← Breadcrumb, SiteHeader, SiteFooter
 │   ├── pricing/                      ← DistancePricingContext, LocationPriceBar, useDistancePricing, useGeolocation
 │   ├── search/                       ← SearchBar, SearchBarClient, useSearch
 │   ├── theme/                        ← ThemeProvider, ThemeToggle
 │   ├── ui/                           ← Aceternity UI 库（27 个组件，由 `pnpm setup-ui` 一次性安装）
-│   └── ui-adapters/                  ← BackgroundEffect, GalleryAdapter, ItemCardAdapter, ItemGridAdapter
+│   ├── ui-adapters/                  ← BackgroundEffect, GalleryAdapter, ItemCardAdapter, ItemGridAdapter
+│   └── *-demo.tsx                    ← 未使用的 Aceternity 演示脚手架（无引用，可安全删除）
 │
 ├── content/                          ← ⚠️ 卖家唯一需要操作的文件夹
 │   ├── config.ts                     ← SiteConfig 导出（须与 lib/config/types.ts 一致）
@@ -61,6 +62,9 @@ usedExchange/
 │   │   ├── local.ts                  ← LocalAdapter + copyIfChanged 辅助函数
 │   │   ├── normalizeR2Url.ts         ← 去除 R2 公开 URL 末尾斜杠
 │   │   └── vercel-blob.ts            ← VercelBlobAdapter
+│   ├── i18n/
+│   │   ├── translations.ts           ← EN_FALLBACK: UIStrings——所有 71 个键的内置英文默认值
+│   │   └── getTranslations.ts        ← getTranslations(): UIStrings——服务端解析（始终返回 defaultLocale）
 │   ├── search/index.ts               ← buildSearchIndex(): SearchIndexEntry[]
 │   ├── ui/types.ts                   ← UIConfig 类型（background、itemGrid、gallery、itemCard 插槽）
 │   └── utils/
@@ -265,7 +269,7 @@ isTemplateConfigured(): boolean
 ```
 <html>
   <body>
-    <ThemeProvider>          ← next-themes，遵循 siteConfig.darkMode
+    <ThemeProvider>          ← next-themes，class 方式，defaultTheme="system"；ThemeToggle 持久化用户选择
       <LocaleProvider>       ← 语言状态存储于 localStorage；暴露 useLocale()
         <BackgroundEffect>   ← 读取 siteConfig.ui.background，渲染 Aceternity 背景
           <SiteHeader />     ← Logo、搜索栏（启用时）、语言切换器
@@ -286,19 +290,21 @@ isTemplateConfigured(): boolean
 
 **始终为客户端组件**（文件顶部包含 `"use client"`）：
 - 所有定价组件：`DistancePricingContext`、`LocationPriceBar`、`useDistancePricing`、`useGeolocation`
-- 所有 i18n 运行时：`LocaleProvider`、`LocaleSwitcher`、`useLocale`
+- 所有 i18n 运行时：`LocaleProvider`、`LocaleSwitcher`、`useLocale`、`useT`
 - 所有过滤器：`FilterBar`、`SortSelect`、`useFilters`
 - 搜索：`SearchBarClient`、`useSearch`
 - `RecentlyViewed`、`ShareButton`、`MakeOfferButton`、`QRModal`
 - `ThemeProvider`、`ThemeToggle`
+- UI 字符串消费者：`SiteHeader`、`MetadataTable`、`ConditionBadge`、`StatusBadge`、`ConditionGuide`、`PricingTable`、`PricingTableToggle`、`FreshnessLabel`、`RecentlyListedSection`、`ContactSection`
+- 物品详情 UI：`ItemGallery`、`LocalizedItemContent`
 - 所有 `components/ui/*`（Aceternity）组件
 
 **服务端组件**（不含 `"use client"`）：
-- 所有 `app/*/page.tsx` 文件
+- 所有 `app/*/page.tsx` 文件（需要 UI 字符串时使用 `getTranslations()`）
 - `CategoryGrid`、`CategoryCard`
 - `ItemGrid`、`ItemCard`
-- `Breadcrumb`、`SiteHeader`、`SiteFooter`
-- `MetadataTable`、`StatusBadge`、`ConditionBadge`、`QuantityBadge`、`TextbookBadge`、`FreshnessLabel`
+- `Breadcrumb`、`SiteFooter`
+- `QuantityBadge`、`TextbookBadge`
 - `JsonLd`、`AdaptiveImage`
 
 ### UI 插槽适配器（`components/ui-adapters/`）
@@ -323,13 +329,13 @@ isTemplateConfigured(): boolean
 | `PricingSection` | 客户端 | 已解析档位显示 + "查看所有档位"切换 |
 | `PricingTable` / `PricingTableToggle` | 客户端 | 可展开的完整档位列表 |
 | `MakeOfferButton` | 客户端 | `negotiable: true` 且设置了 `minAcceptableOffer` 时显示 |
-| `ConditionBadge` | 服务端 | 成色标签徽章 |
+| `ConditionBadge` | 客户端 | 成色标签徽章 |
 | `ConditionGuide` | 客户端 | `?` 弹出说明成色等级 |
-| `StatusBadge` | 服务端 | `available`/`pending`/`reserved`/`sold` 标签 |
+| `StatusBadge` | 客户端 | `available`/`pending`/`reserved`/`sold` 标签 |
 | `QuantityBadge` | 服务端 | `quantity > 1` 时显示"3 件在售" |
 | `FreshnessLabel` | 客户端 | "3 天前上架"相对时间戳 |
 | `TextbookBadge` | 服务端 | 课程 + 版次 + ISBN 区块 |
-| `MetadataTable` | 服务端 | 品牌、型号、尺寸、重量、原始购买来源/价格 |
+| `MetadataTable` | 客户端 | 品牌、型号、尺寸、重量、原始购买来源/价格 |
 
 ---
 

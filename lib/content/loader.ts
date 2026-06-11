@@ -168,7 +168,9 @@ async function buildItem(
     // Item folder might not be readable in all environments
   }
 
-  // Fall back to manifest when local image files aren't present (e.g. CI build)
+  // CI builders only have item.json checked out; image files live on the CDN.
+  // When readdir finds nothing, derive filenames from manifest keys so images
+  // resolve correctly without the local files being present.
   if (filenames.length === 0) {
     const prefix = `${categorySlug}/${itemSlug}/`;
     filenames = Object.keys(manifest)

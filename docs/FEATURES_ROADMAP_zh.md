@@ -22,7 +22,7 @@
 | Vercel Analytics + Speed Insights 🎓 | Hobby 计划免费；通过配置启用 |
 | Schema 字段扩展 🎓 | stripe_payment_link、pickup_windows、no_lowball、price_reduced、youtube_link、isbn、course、edition、semester_listed、name_zh、description_zh、venmo_payment_request、min_acceptable_offer |
 | 客户端全文搜索 🎓👤 | fuse.js；构建时索引；头部搜索栏 |
-| 自动深色模式（系统设置）🎓 | Tailwind v4 默认（`prefers-color-scheme`）——无需切换按钮 |
+| 深色模式（自动 + 手动切换）🎓 | 默认跟随系统偏好（`prefers-color-scheme`）；页头 `ThemeToggle` 允许访客手动切换，由 `next-themes` 持久化 |
 | 卖家 CLI 工具 🎓👤 | `pnpm create-item`、`pnpm create-template`、`pnpm new`、`pnpm mark-sold` |
 | "浏览全部"跨分类页 🎓👤 | `/all` 路由，含完整筛选 + 排序 |
 | "出价"流程 🎓👤 | 内联表单 + 预填联系消息；`min_acceptable_offer` 门槛 |
@@ -33,7 +33,7 @@
 | Twitter/X + Pinterest 富卡片 🎓👤 | `twitter:card: "summary_large_image"` + `og:type: "product"` |
 | 教材专属字段和分类 🎓 | isbn、course、edition、semester_listed；比价链接 |
 | 非技术用户设置指南 👤 | `SETUP_GUIDE.md`，纯英文；仅涉及 `content/` 操作 |
-| 国际化——多语言支持 🎓👤 | 单次部署多语区（运行时 LocaleSwitcher）；`name_zh`/`description_zh` 模式；`/translate-items` 技能 |
+| 国际化——多语言支持 🎓👤 | 单次部署多语区（运行时 LocaleSwitcher）；`name_zh`/`description_zh` 模式；`siteConfig.i18n.translations.{locale}`（67 个 UIStrings 键）；`useT()` hook；`/translate-items` 技能 |
 | Venmo + Zelle 支付（二维码或链接）🎓👤 | Venmo：链接式或二维码；Zelle：仅二维码 |
 
 ---
@@ -177,10 +177,10 @@ pnpm semester-end
 
 ---
 
-### 2.3 深色模式 🎓
+### 2.3 深色模式 🎓 ✅ v1 已包含
 **工作量：** M · **价值：** ⭐⭐
 
-`tailwind darkMode: 'class'` + `SiteHeader` 中的切换按钮 + 首次加载时的系统偏好检测。所有 Aceternity 组件均支持深色模式。
+`SiteHeader` 中的 `ThemeToggle` 按钮 + `next-themes`（class 方式）：默认跟随访客的操作系统/浏览器偏好，并将明确选择持久化到 `localStorage`。所有 Aceternity 组件均支持深色模式。
 
 ---
 

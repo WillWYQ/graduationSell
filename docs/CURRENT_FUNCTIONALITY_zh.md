@@ -261,12 +261,15 @@ AI 会询问 8 个方面：店铺名称、位置（从描述解析经纬度）�
 批量将物品列表翻译成其他语言。在 `siteConfig.i18n.availableLocales` 中添加语区后调用此技能。
 
 ```
-1. 在 siteConfig.i18n.availableLocales 中添加目标语区（如 ["en", "zh"]）
-2. 在项目目录中打开 Claude Code（或类似 AI 工具）
-3. 输入：/translate-items（或"将我的物品翻译成中文"）
-4. 审阅 AI 为每件物品显示的翻译建议
-5. 确认 → AI 将 name_{locale} / description_{locale} 写入每个 item.json
+1. 将目标语区代码加入 siteConfig.i18n.availableLocales（如 ["en", "zh"]）
+2. 在 content/config.ts 中添加 translations.{locale} 块，翻译全部 71 个 UI 字符串键
+3. 在项目目录中打开 Claude Code（或类似 AI 工具）
+4. 输入：/translate-items（或"将我的物品翻译成中文"）
+5. 审阅 AI 为每件物品显示的翻译建议
+6. 确认 → AI 将 name_{locale} / description_{locale} 写入每个 item.json
 ```
+
+注意：`/translate-items` 仅处理物品级别的 `name_{locale}` / `description_{locale}` 字段——UI 字符串（按钮、徽章、标题等）的翻译需要手动填写 `translations.{locale}` 块，或通过 `/setup` 重新配置。
 
 ### 无需 API 密钥
 
@@ -278,9 +281,11 @@ AI 会询问 8 个方面：店铺名称、位置（从描述解析经纬度）�
 
 访客可用多种语言浏览列表，并可随时切换。
 
-- **对访客：** 配置了多个语区时，站点头部会出现语言切换器（`LocaleSwitcher`）。切换语言会立即更新物品名称和描述——无需刷新页面。所选语言保存在浏览器 `localStorage` 中，跨页面和跨访问持久有效。
-- **对卖家：** 在 `siteConfig.i18n.availableLocales` 中添加语区代码（如 `["en", "zh"]`），然后为每件物品填写 `name_zh` / `description_zh`——手动填写或使用 `/translate-items` AI 技能。
-- **优雅回退：** 没有翻译的物品显示默认语言——不会留空或报错。
+- **对访客：** 配置了多个语区时，站点头部会出现语言切换器（`LocaleSwitcher`）。切换语言会立即更新物品名称、描述以及所有 UI 标签（按钮、徽章、标题）——无需刷新页面。所选语言保存在浏览器 `localStorage` 中，跨页面和跨访问持久有效。
+- **对卖家：** 添加新语言需要两步：
+  1. 将语区代码加入 `siteConfig.i18n.availableLocales`（如 `["en", "zh"]`），**并**在 `content/config.ts` 中添加包含全部 71 个 UI 字符串键（已翻译）的 `translations.{locale}` 块。该块缺失或不完整时构建将失败。
+  2. 为每件物品填写 `name_zh` / `description_zh`——手动填写或使用 `/translate-items` AI 技能。
+- **优雅回退：** 没有翻译的物品显示默认语言——不会留空或报错。任何缺失的 UI 字符串键回退到内置英文默认值。
 - **单次部署：** 所有语言在同一次构建中发布；没有独立的多语言站点。
 - **保留默认语言的内容：** 页面 `<title>`、社交分享（OG）标签和搜索引擎结构化数据以 `defaultLocale` 渲染——爬虫索引的是这个版本。页面内切换是阅读便利功能；多语言 URL 是未来增强。
 
@@ -349,11 +354,11 @@ AI 会询问 8 个方面：店铺名称、位置（从描述解析经纬度）�
 | Hero | `hero.cta_label`、`hero.cta_href` |
 | SEO | `meta.description`、`meta.twitterHandle` |
 | UI 槽位 | `ui.background`、`ui.itemGrid`、`ui.gallery`、`ui.itemCard` |
-| 深色模式 | `darkMode: "media"`（自动跟随系统） |
+| 深色模式 | 页头切换按钮（浅色/深色/跟随系统，由 `next-themes` 持久化） |
 | 分析 | `analytics.vercel`、`analytics.speedInsights` |
 | 搜索 | `search.enabled`、`search.placeholder` |
 | 站点地图 | `sitemap.enabled` |
-| 国际化 | `i18n.defaultLocale`、`i18n.availableLocales`、`i18n.showLocaleSwitcher`、`i18n.strings.*` |
+| 国际化 | `i18n.defaultLocale`、`i18n.availableLocales`、`i18n.showLocaleSwitcher`、`i18n.translations.{locale}.*`（71 个 UI 字符串键） |
 
 ---
 
@@ -390,7 +395,7 @@ AI 会询问 8 个方面：店铺名称、位置（从描述解析经纬度）�
 
 ## 深色模式
 
-自动——通过 Tailwind v4 默认的 `prefers-color-scheme` 行为跟随访客的操作系统/浏览器深色/浅色偏好（无需 `darkMode` 指令）。无需切换按钮；无需用户操作。所有 Aceternity 组件均支持深色模式。
+页头的太阳/月亮切换按钮（`ThemeToggle`）让访客在浅色与深色主题之间切换。默认跟随访客的操作系统/浏览器偏好（`system`），一旦访客做出明确选择，会通过 `next-themes` 以 class 方式持久化（存储于 `localStorage`）。所有 Aceternity 组件均支持深色模式。
 
 ---
 

@@ -72,7 +72,7 @@ Ask:
 
 Map to: `imageStorage.provider` (`"cloudflare-r2"` / `"vercel-blob"` / `"local"`)
 
-If they choose Cloudflare R2 or Vercel Blob, remind them: "You'll need to add your API keys to a `.env.local` file. See SETUP_GUIDE.md for instructions."
+If they choose Cloudflare R2 or Vercel Blob, offer: "Would you like me to walk you through the R2 setup step by step right now, or will you follow the guide in `docs/setup_instruction.md` on your own?"
 
 ---
 
@@ -138,47 +138,59 @@ Map to: `currency`, `recentlyListedCount`, `soldItemRetentionDays`
 
 ### Group 7 — Appearance
 
+**Before presenting options, read `lib/ui/types.ts` to get the live list of valid values.** The options below are current as of the last update but the type file is authoritative — if they differ, use the type file.
+
 Ask:
 > Let's choose your visual style. I'll describe the options.
 >
 > **Background effect** (what's behind your content):
 > - `none` — clean white/dark background (default, loads fastest)
 > - `aurora` — slow animated colour gradient
-> - `particles` — floating particles
-> - `stars` — starfield
-> - `beams` — light beams
-> - (or any of: `grid`, `dots`, `globe`, `waves`, `sparkles`, `canvas`, `vortex`, `spotlight`, `noise`)
+> - `shooting-stars` — floating shooting-star particles
+> - `meteors` — streaking meteor effect
+> - `vortex` — spinning vortex tunnel
+> - `wavy` — gentle wave animation
+> - `spotlight` / `spotlight-new` — cursor-following spotlight
+> - `background-beams` / `background-beams-collision` — animated light beams
+> - `background-gradient-animation` — shifting gradient
+> - `background-boxes` — animated box grid
+> - `grid-and-dot` — static dot-grid pattern
+> - `background-lines` — subtle line pattern
 >
-> Which background would you like? (Type the name or "none")
+> Which background would you like? (Type the exact value, or "none")
 
 > **Item grid style** (how item cards are arranged):
 > - `simple` — clean CSS grid (recommended)
-> - `wavy-background` — items float on a subtle wave
-> - `focused-cards` — cards expand on hover
+> - `focus-cards` — cards expand and dim others on hover
+> - `bento-grid` — variable-size bento layout
+> - `layout-grid` — masonry-style layout
 >
-> Which grid style? (Type the name or "simple")
+> Which grid style? (Type the exact value, or "simple")
 
 > **Gallery style** (photo viewer on item detail pages):
 > - `simple` — main image + thumbnail strip (recommended)
-> - `card-stack` — swipeable card stack
-> - `lens` — zoom magnifier on hover
-> - `parallax` — depth effect on scroll
+> - `apple-cards-carousel` — swipeable card carousel
+> - `images-slider` — full-width sliding images
+> - `carousel` — standard auto-advancing carousel
+> - `parallax-scroll` — depth parallax on scroll
 >
 > Which gallery style?
 
 > **Item card style** (how individual item cards look):
 > - `simple` — clean card with shadow (recommended)
+> - `wobble-card` — wobbles on hover
 > - `3d-card` — lifts in 3D on hover
-> - `background-gradient` — gradient on hover
 > - `card-spotlight` — spotlight follows cursor
+> - `card-hover-effect` — subtle lift and glow
 > - `direction-aware-hover` — hover effect follows mouse direction
-> - `glare-card` — glare effect
-> - `animated-border` — animated border
+> - `glare-card` — glare/shine effect
 > - `evervault-card` — matrix-style pattern
 >
 > Which card style?
 
 Map to: `ui.background`, `ui.itemGrid`, `ui.gallery`, `ui.itemCard`
+
+After the seller picks, **validate each value against `lib/ui/types.ts`** before writing the config. If a value isn't in the type, tell the seller and ask them to pick from the real list.
 
 ---
 
@@ -194,9 +206,11 @@ If yes:
 
 > For Chinese: do you want Simplified Chinese (简体, mainland China standard) or Traditional Chinese (繁體, Taiwan/HK standard)?
 
-Note: If multiple locales are configured, a language switcher will appear in the site header. Sellers then use `/translate-items` to add translations to their listings.
+Note: If multiple locales are configured, a language switcher will appear in the site header.
 
-Map to: `i18n.defaultLocale`, `i18n.availableLocales`
+> **UI strings vs item translations:** The `translations` block in `content/config.ts` controls all 67 UI labels (buttons, headers, badges, filters). If the seller adds a locale (e.g. `"zh"`), they must add a `translations.zh` block with every key translated — the build will fail otherwise. Item-level translations (`name_zh`, `description_zh`) are separate and handled by `/translate-items`.
+
+Map to: `i18n.defaultLocale`, `i18n.availableLocales`, `i18n.translations`
 
 ---
 
@@ -207,17 +221,20 @@ After the config questions, ask:
 
 For each category name the seller provides:
 1. Suggest a URL-friendly slug (lowercase, hyphens): "Outdoor Gear" → `outdoor-gear`
-2. Suggest a display name and an icon from the Tabler Icons set
+2. Suggest a display name and a matching emoji icon
 3. Confirm the list before creating folders
 
 Then generate a `_category.json` for each new category that doesn't already exist:
 ```json
 {
-  "displayName": "Electronics",
-  "icon": "device-laptop",
-  "sortOrder": 10
+  "display_name": "Electronics",
+  "description": "Laptops, phones, cables, and other tech.",
+  "icon": "💻",
+  "sort_order": 10
 }
 ```
+
+Use an appropriate emoji for `icon`. Use snake_case for all keys (`display_name`, `sort_order`).
 
 **Only create folders and `_category.json` files inside `content/items/`.** Never modify any other files.
 
@@ -285,9 +302,6 @@ export const siteConfig: SiteConfig = {
     itemCard:   "{{ui.itemCard}}",
   },
 
-  // ── Dark Mode ─────────────────────────────────────────────────────────────
-  darkMode: "media",
-
   // ── Analytics ─────────────────────────────────────────────────────────────
   analytics: {
     vercel:        false,
@@ -306,17 +320,103 @@ export const siteConfig: SiteConfig = {
   },
 
   // ── Internationalisation ──────────────────────────────────────────────────
+  // To add a language: add its code to availableLocales, add a matching
+  // translations.{locale} block below with all 67 keys translated, then
+  // run /translate-items to batch-fill name_{locale} / description_{locale}
+  // on each item.json. The build fails if a locale is in availableLocales
+  // but its translations entry is missing or incomplete.
   i18n: {
     defaultLocale: "{{i18n.defaultLocale}}",
     availableLocales: [{{i18n.availableLocales}}],
     showLocaleSwitcher: true,
-    strings: {
-      heroTagline:    "",
-      recentlyListed: "",
-      browseAll:      "",
-      makeOffer:      "",
-      contactSeller:  "",
-      soldBanner:     "",
+    translations: {
+      "{{i18n.defaultLocale}}": {
+        // ── Navigation ────────────────────────────────────────────────────
+        home: "Home",
+        about: "About",
+        browseAll: "Browse All",
+        // ── Section headings ──────────────────────────────────────────────
+        recentlyListed: "Recently Listed",
+        recentlyViewed: "Recently Viewed",
+        // ── Contact ───────────────────────────────────────────────────────
+        contactSeller: "Contact Seller",
+        itemSold: "Item sold",
+        preferredPayment: "Preferred payment",
+        // ── Make-offer form ───────────────────────────────────────────────
+        makeOffer: "Make an Offer",
+        yourOffer: "Your offer",
+        send: "Send",
+        belowMinimumOffer: "That offer is below the minimum we can accept. Please try a higher amount.",
+        // ── Share button ──────────────────────────────────────────────────
+        share: "Share",
+        copied: "Copied!",
+        linkCopied: "Link copied!",
+        // ── Item metadata labels ───────────────────────────────────────────
+        brand: "Brand",
+        model: "Model",
+        age: "Age",
+        color: "Color",
+        dimensions: "Dimensions",
+        weight: "Weight",
+        originalSource: "Original Source",
+        originalPrice: "Original Price",
+        // ── Condition badge labels ─────────────────────────────────────────
+        conditionNew: "New",
+        conditionLikeNew: "Like New",
+        conditionGood: "Good",
+        conditionFair: "Fair",
+        conditionForParts: "For Parts",
+        // ── Status badge labels ────────────────────────────────────────────
+        statusAvailable: "Available",
+        statusPending: "Pending",
+        statusReserved: "Reserved",
+        statusSold: "Sold",
+        statusDraft: "Draft",
+        // ── Filter / sort bar ──────────────────────────────────────────────
+        filterShowSold: "Show sold",
+        filterPrice: "Price",
+        sortBy: "Sort by",
+        sortNewestFirst: "Newest first",
+        sortPriceLow: "Price: low → high",
+        sortPriceHigh: "Price: high → low",
+        sortConditionBest: "Condition: best first",
+        // ── Freshness label ────────────────────────────────────────────────
+        listed: "Listed",
+        // ── Page titles and banners ────────────────────────────────────────
+        soldBanner: "This item has been sold",
+        soldArchiveTitle: "Sold Archive",
+        // ── Condition guide panel ──────────────────────────────────────────
+        conditionGuideTitle: "Condition Guide",
+        conditionNewDesc: "Unopened, unused. Original packaging intact.",
+        conditionLikeNewDesc: "Used briefly. No visible wear. May be without original box.",
+        conditionGoodDesc: "Normal signs of use. Fully functional. Minor cosmetic marks.",
+        conditionFairDesc: "Visible wear or light damage. Works as expected.",
+        conditionForPartsDesc: "Not fully functional. Sold as-is for repair or parts.",
+        // ── Location / distance price bar ──────────────────────────────────
+        detectingLocation: "Detecting location…",
+        fromSeller: "from seller",
+        locationDetected: "Location detected",
+        enterManually: "Enter manually",
+        distanceManualLabel: "(manual)",
+        distanceUnit: "mi",
+        apply: "Apply",
+        pricesAtPickupRate: "Prices shown at pickup rate",
+        enterDistance: "Enter distance",
+        edit: "Edit",
+        clear: "Clear",
+        // ── Pricing table ──────────────────────────────────────────────────
+        contactForPrice: "Contact seller for pricing details.",
+        contactForPricingShort: "Contact seller for pricing",
+        pricingLabelHeader: "Label",
+        pricingDistanceHeader: "Distance",
+        pricingPriceHeader: "Price",
+        pickup: "Pickup",
+        obo: "OBO",
+        hidePricingTiers: "Hide pricing tiers",
+        viewAllPricingTiers: "View all pricing tiers",
+      },
+      // Add more locales here — uncomment and translate all keys, e.g.:
+      // zh: { home: "首頁", about: "關於", browseAll: "瀏覽全部", ... },
     },
   },
 };
