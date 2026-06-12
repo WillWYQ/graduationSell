@@ -1,0 +1,80 @@
+{
+  "name": "Simple Trending 2-Tier Coffee Pod Holder & Storage Drawer",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 15
+      },
+      {
+        "label": "Delivery / 15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 30
+      },
+      {
+        "label": "Shipping / 100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": true
+  },
+  "description": "Selling a Simple Trending 2-tier sliding coffee pod organizer storage drawer in good condition. Built with a sturdy metal frame designed to support your coffee maker or espresso machine directly on top to save valuable counter space. Features double-layer sliding drawers that smoothly glide out for easy access, holding up to 63 large K-Cups or 80 small capsules. Clean, black finish with rubberized non-slip feet to protect surfaces and minimize vibration. Minor normal kitchen use cosmetic wear, but completely clean and structurally perfect.",
+  "condition": "good",
+  "brand": "Simple Trending",
+  "model": "2-Tier Sliding Drawer",
+  "age_years": null,
+  "dimensions": {
+    "length": 50.8,
+    "width": 25.4,
+    "height": 14.73,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 1.0,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 24.99,
+  "status": "available",
+  "listed_date": "2026-06-12",
+  "sold_date": null,
+  "preferred_payment": [
+    "Venmo",
+    "Zelle",
+    "Cash"
+  ],
+  "contact_note": "Please message to coordinate local pickup or shipping arrangements.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 12,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "coffee pod holder",
+    "k-cup organizer",
+    "storage drawer",
+    "coffee station",
+    "simple trending",
+    "kitchen storage"
+  ],
+  "category_override": "",
+  "meta_description": "Used Simple Trending 2-tier sliding coffee pod storage organizer in good condition. Black metal construction, 63 K-Cup capacity.",
+  "isbn": "",
+  "course": "",
+  "edition": "Standard",
+  "semester_listed": "",
+  "name_zh": "Simple Trending 双层抽屉式咖啡胶囊收纳盒",
+  "description_zh": "出一款成色良好的 Simple Trending 金属双层抽屉式咖啡胶囊收纳盒。采用坚固的金属框架，顶部可直接承托咖啡机或胶囊机，极大节省厨房台面空间。双层滑轨抽屉推拉顺滑，大容量设计可容纳多达 63 粒大号 K-Cup 胶囊或 80 粒小号胶囊。黑色外观，底部带有防滑减震垫。整体清洁干净，有轻微正常厨房使用痕迹，无任何结构损坏。"
+}

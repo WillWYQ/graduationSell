@@ -1,0 +1,81 @@
+{
+  "name": "Logitech MX Ergo Wireless Trackball Mouse (Micro-USB Version)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 20
+      },
+      {
+        "label": "Delivery / 15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 30
+      },
+      {
+        "label": "Shipping / 100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 40
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": true
+  },
+  "description": "Selling an original Logitech MX Ergo wireless trackball mouse in good condition. This is the classic version featuring a Micro-USB charging port and full compatibility with the Logitech Unifying USB receiver. Designed with an adjustable magnetic hinge that allows you to tilt the trackball between 0 and 20 degrees for personalized hand posture and reduced muscle strain. Trackball roll is smooth, and all buttons click crisp and clear. Shows minor cosmetic signs of use on the soft rubber grip but operates perfectly. Does not include original packaging.",
+  "condition": "good",
+  "brand": "Logitech",
+  "model": "MX Ergo (Micro-USB)",
+  "age_years": null,
+  "dimensions": {
+    "length": 13.25,
+    "width": 9.98,
+    "height": 5.14,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 0.259,
+    "unit": "kg"
+  },
+  "color": "Graphite",
+  "quantity": 1,
+  "original_source": "Logitech",
+  "original_link": "https://logitech.com",
+  "original_price": 99.99,
+  "status": "available",
+  "listed_date": "2026-06-12",
+  "sold_date": null,
+  "preferred_payment": [
+    "Venmo",
+    "Zelle",
+    "Cash"
+  ],
+  "contact_note": "Please message to arrange local pickup or shipping confirmation.",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 35,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "https://youtube.com",
+  "tags": [
+    "mouse",
+    "logitech",
+    "mx ergo",
+    "trackball",
+    "wireless mouse",
+    "ergonomic",
+    "office electronics"
+  ],
+  "category_override": "Electronics",
+  "meta_description": "Used original Logitech MX Ergo wireless trackball mouse in good condition. Micro-USB charging version, 0 to 20-degree adjustable tilt.",
+  "isbn": "",
+  "course": "",
+  "edition": "Original (Micro-USB)",
+  "semester_listed": "",
+  "name_zh": "罗技 MX Ergo 无线轨迹球鼠标 (Micro-USB版)",
+  "description_zh": "出低使用率原装罗技 MX Ergo 无线轨迹球鼠标，成色良好。该版本为经典的 Micro-USB 充电接口版本，完美兼容罗技 Unifying 优联接收器。自带可调节磁性底座，可在 0 度到 20 度之间自由调节倾斜角度，大幅减轻手腕疲劳。轨迹球滚动顺滑，按键反馈清脆。橡胶表面有轻微日常正常使用痕迹，功能无任何故障，不带原包装。"
+}

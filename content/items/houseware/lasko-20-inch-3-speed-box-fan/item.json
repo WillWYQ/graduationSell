@@ -1,0 +1,81 @@
+{
+  "name": "Lasko 20-Inch 3-Speed Box Fan",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 10
+      },
+      {
+        "label": "Delivery / 15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 25
+      },
+      {
+        "label": "Shipping / 100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": true
+  },
+  "description": "Selling a standard Lasko 20-inch box fan in good condition. Features 3 quiet speeds with a top-mounted manual control knob and a built-in carry handle for easy portability. The fan operates with Save-Smart energy efficiency and provides a powerful airflow up to 1820 CFM to keep any bedroom, living room, or workspace cool. The unit runs cleanly and smoothly. Minor superficial cosmetic wear from normal household use, but functions perfectly.",
+  "condition": "good",
+  "brand": "Lasko",
+  "model": "3733 / B20200",
+  "age_years": null,
+  "dimensions": {
+    "length": 54.6,
+    "width": 11.4,
+    "height": 55.2,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 3.3,
+    "unit": "kg"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Lasko",
+  "original_link": "https://lasko.com",
+  "original_price": 24.98,
+  "status": "available",
+  "listed_date": "2026-06-12",
+  "sold_date": null,
+  "preferred_payment": [
+    "Venmo",
+    "Zelle",
+    "Cash"
+  ],
+  "contact_note": "Please message to arrange local pickup or shipping confirmation.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 8,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "fan",
+    "lasko",
+    "box fan",
+    "cooling fan",
+    "air circulator",
+    "appliances",
+    "household"
+  ],
+  "category_override": "",
+  "meta_description": "Used Lasko 20-inch 3-speed box fan in good condition. White finish, top-mounted manual controls, lightweight portable design.",
+  "isbn": "",
+  "course": "",
+  "edition": "Standard",
+  "semester_listed": "",
+  "name_zh": "罗技 Lasko 20寸三档家用方型落地扇",
+  "description_zh": "出一台成色良好的 Lasko 20英寸方形排风扇/落地扇。具备 3 档静音风速调节，顶部设有手动控制旋钮，自带便携提手。采用 Save-Smart 节能设计，风力强劲。机身干净，运转正常，仅有轻微日常使用留下的痕迹，功能完全完好。"
+}

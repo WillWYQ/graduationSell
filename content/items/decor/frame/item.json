@@ -1,12 +1,12 @@
 {
-  "name": "Printerforparts",
+  "name": "Frame",
   "price": {
     "currency": "USD",
     "tiers": [
       {
         "label": "Pickup / ≤ 15 mi",
         "miles_max": 15,
-        "amount": 5
+        "amount": 10
       },
       {
         "label": "16 – 100 mi",
@@ -15,52 +15,60 @@
         "amount": 10
       },
       {
-        "label": "Shipping",
+        "label": "100 – 200 mi",
         "miles_min": 100,
-        "amount": 15
+        "miles_max": 200,
+        "amount": 10
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 10
       }
     ],
-    "negotiable": true,
+    "negotiable": false,
     "show_tiers": false
   },
-  "description": "Canon Multifunction Printer (Model K10392) sold strictly for parts or repair. Non-working condition, ideal for salvaging components. No cords, cables, or ink included. Priced low for a quick local pickup or cheap shipping.",
-  "condition": "For Parts",
-  "brand": "Canon",
-  "model": "K10392",
+  "description": "multiple picture frame",
+  "condition": "good",
+  "brand": "",
+  "model": "",
   "age_years": null,
   "dimensions": {
-    "length": 44.5,
-    "width": 33.0,
-    "height": 16.3,
+    "length": null,
+    "width": null,
+    "height": null,
     "unit": "cm"
   },
   "weight": {
-    "value": 6.3,
+    "value": null,
     "unit": "kg"
   },
-  "color": "Black",
+  "color": "",
   "quantity": 1,
+  "original_source": "",
+  "original_link": "",
   "original_price": null,
   "status": "available",
-  "listed_date": "2026-06-11",
+  "listed_date": "2026-06-12",
   "sold_date": null,
   "preferred_payment": [],
   "contact_note": "",
   "no_lowball": false,
   "price_reduced": false,
   "previous_lowest_price": null,
-  "min_acceptable_offer": 1,
+  "min_acceptable_offer": null,
   "stripe_payment_link": "",
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": ["Canon", "Printer", "For Parts", "Cheap", "Scrap", "Repair"],
+  "tags": [],
   "category_override": "",
-  "meta_description": "Super cheap non-working Canon printer for parts or repair.",
+  "meta_description": "",
   "isbn": "",
   "course": "",
   "edition": "",
   "semester_listed": "",
-  "name_zh": "",
-  "description_zh": ""
+  "name_zh": "相框",
+  "description_zh": "多张照片的相框"
 }

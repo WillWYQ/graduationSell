@@ -1,0 +1,74 @@
+{
+  "name": "Shark EZ Robot Vacuum with Self-Empty Base (RV912S / RV9124S3US)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 15 mi",
+        "miles_max": 15,
+        "amount": 80
+      },
+      {
+        "label": "16 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 90
+      },
+      {
+        "label": "100 - 150 mi",
+        "miles_min": 100,
+        "miles_max": 150,
+        "amount": 100
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 150,
+        "amount": 110
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": true
+  },
+  "description": "Selling a Shark EZ Robot Vacuum (Model RV9124S3US / RV912S) with its companion bagless self-emptying base. It features row-by-row methodical cleaning, Wi-Fi connectivity for app scheduling, and a base that holds up to 30 days of dust and pet hair. It is in FAIR condition, showing visible scuffs, scratches, and typical wear on the outer plastic bumper from navigating furniture, but it remains fully operational. Includes the vacuum, self-empty dock, power cable, and installed brushes/filter. May need a replacement filter or side brushes soon depending on preference.",
+  "condition": "fair",
+  "brand": "Shark",
+  "model": "RV9124S3US",
+  "age_years": 4,
+  "dimensions": {
+    "length": 34.0,
+    "width": 47.0,
+    "height": 29.0,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 5.55,
+    "unit": "kg"
+  },
+  "color": "Dark Gray",
+  "quantity": 1,
+  "original_source": "Walmart / Best Buy",
+  "original_link": "https://www.bestbuy.com/product/shark-ez-robot-vacuum-rv912s-with-self-empty-base-bagless-wi-fi-dark-gray/JXJVXGZ5RS",
+  "original_price": 499.00,
+  "status": "available",
+  "listed_date": "2026-06-12",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo"],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 70,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["robot vacuum", "shark ez", "self empty", "smart home", "vacuum cleaner", "pet hair"],
+  "category_override": "Household Appliances",
+  "meta_description": "Buy a used Shark EZ Robot Vacuum with Self-Empty Base (RV9124S3US) in fair condition. Fully functional automated home cleaning at a heavy discount.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Shark 智能扫地机器人带自动集尘座 (RV9124S3US)",
+  "description_zh": "转让一台 Shark EZ 智能扫地机器人（型号 RV9124S3US），配有原装自动集尘底座（可容纳30天垃圾）。支持App和Wi-Fi定时清扫。成色为 Fair（一般），机身和保险杠有明显划痕与磨损，但完全可以正常工作。包含机器人、集尘座和电源线。便宜转让。"
+}
