@@ -30,6 +30,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={siteConfig.i18n.defaultLocale} suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-80RNM8H0WW"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-80RNM8H0WW');
+          `}
+        </script>
+      </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider>
           <LocaleProvider>
