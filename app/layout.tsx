@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/content/config";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -31,17 +32,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={siteConfig.i18n.defaultLocale} suppressHydrationWarning>
       <head>
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-80RNM8H0WW"></script>
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
+        <Script
+          id="google-gtag"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-80RNM8H0WW"
+        />
+        <Script id="google-gtag-inline" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
-            gtag('config', 'G-80RNM8H0WW');
-          `}
-        </script>
+            gtag('config', 'G-80RNM8H0WW');`}
+        </Script>
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider>
