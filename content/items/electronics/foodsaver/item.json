@@ -1,0 +1,73 @@
+{
+  "name": "Vacuum Sealer Machine",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 15
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 25
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 22
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "White kitchen vacuum sealer machine with a digital display control panel. Features multiple food sealing modes including vacuum seal, single seal, external vacuum, and pulse functions. Great condition, selling for cheap as part of a graduation yard sale!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["vacuum sealer", "kitchen appliance", "yard sale", "moving sale", "graduation sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "家用食品真空封口机",
+  "description_zh": "白色家用抽真空封口机，带数字显示面板。支持真空、单封、外抽和点抽。毕业甩卖，超级便宜，功能完好。"
+}

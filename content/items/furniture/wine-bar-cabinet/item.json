@@ -1,0 +1,73 @@
+{
+  "name": "yacchi home Multi-functional Wine Bar Cabinet Bakers Rack",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 25
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 45
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 75
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 55
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Multi-functional kitchen bakers rack and wine bar cabinet featuring a smart LED light strip and built-in power outlets (2 USB ports & 2 AC outlets). Designed with 6 spacious storage levels, a 4-tier wine rack holding up to 24 bottles, hanging glass holders, and removable S-shaped hooks. Sturdy dark wood boards with a reinforced black metal frame. Perfect for a coffee bar, liquor storage, or kitchen organizer. Selling cheap for a graduation yard sale! Note: Appliances and bottles shown in the photo are not included.",
+  "condition": "Good",
+  "brand": "yacchi home",
+  "model": "869",
+  "age_years": null,
+  "dimensions": {
+    "length": 94,
+    "width": 45,
+    "height": 180,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Grey / Dark Wood",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 69.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["bakers rack", "wine rack", "bar cabinet", "coffee bar", "kitchen storage", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "yacchi home 多功能带插座LED咖啡吧台置物架",
+  "description_zh": "多功能厨房置物架/置物架/酒吧柜，自带智能RGB LED灯带和内置电源插座（2个USB接口+2个三插插座）。拥有6层超大储物空间，包含可放24瓶红酒的4层酒架、高脚杯吊架以及可自由组合的S型挂钩。深色木纹板搭配黑色加固铁框，非常适合用作咖啡机操作台、酒水收纳或厨房微波炉架。毕业搬家超级低价出！（照片中的咖啡机、瓶罐等非卖品不包含在内）"
+}

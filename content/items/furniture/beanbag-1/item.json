@@ -1,0 +1,73 @@
+{
+  "name": "Giant 1.5m Foam-Filled Bean Bag Chair",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 20
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 35
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 50
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 40
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Large grey bean bag chair with a 1.5m diameter. Premium shredded foam filling provides excellent support and won't go flat over time compared to traditional beans. Comes with a soft, durable fabric cover and a built-in handle for easy moving. Super comfortable for lounging, gaming, or reading. Perfect addition to any living room or bedroom. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": 150,
+    "width": 150,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Grey",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["bean bag", "foam chair", "lounger", "living room furniture", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "1.5米直径海绵填充巨型懒人沙发",
+  "description_zh": "灰色大号懒人沙发豆豆袋，直径达1.5米。内部采用高弹记忆海绵填充，相比普通泡沫颗粒更不易塌陷，支撑力更好。外套触感舒适亲肤，自带提手方便移动。无论是打游戏、看书还是躺平都超级舒服。毕业搬家低价甩卖！"
+}

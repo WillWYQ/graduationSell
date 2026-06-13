@@ -1,0 +1,73 @@
+{
+  "name": "Logitech Z200 Multimedia PC Speakers",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 10
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 20
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 32
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 19
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Logitech Z200 Stereo Multimedia Speakers delivering 10 Watts peak power for rich, room-filling sound. Features integrated volume and front-facing power controls, an adjustable side bass tone control dial, a handy headphone jack, and an auxiliary input. Modern sleek design with distinctive white trim circles. Perfect upgrade for computer setups, laptops, or smartphones. Good condition, works flawlessly, and selling cheap for a graduation moving sale!",
+  "condition": "Good",
+  "brand": "Logitech",
+  "model": "Z200",
+  "age_years": null,
+  "dimensions": {
+    "length": 12,
+    "width": 9,
+    "height": 23,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 1.0,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Logitech",
+  "original_link": "https://www.amazon.com/Logitech-Multimedia-Speakers-Multiple-Devices/dp/B00EZ9XKCM",
+  "original_price": 39.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["logitech speakers", "pc speakers", "computer audio", "stereo sound", "desktop speakers", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "罗技 Logitech Z200 有线多媒体电脑音箱",
+  "description_zh": "罗技 Logitech Z200 桌面多媒体有线双声道2.0音箱。拥有 10W 峰值功率，音质清脆均衡，带前置独立音量和电源开关调节旋钮，侧面配有低音调节轮，且自带方便的耳机孔和 AUX 音频输入插口。时尚的黑白配外观，极其适合连接电脑、笔记本或手机提升音效。功能完好，毕业清仓超便宜出！"
+}

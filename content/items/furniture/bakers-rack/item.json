@@ -1,0 +1,73 @@
+{
+  "name": "YATINEY 4-Tier Bakers Rack with Power Outlets",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 25
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 45
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 75
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 55
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "YATINEY 4-tier kitchen bakers rack and microwave stand in rustic brown. Features integrated power outlets with built-in circuit breaker protection for safely running kitchen appliances like coffee makers or blenders. Designed with multiple storage shelves and includes S-shaped hooks for hanging mugs or utensils. Sturdy metallic frame with rustic wood-toned shelves. Excellent for a space-saving coffee bar station or pantry organizer. Selling cheap for graduation moving sale! Note: Appliances and items on the rack are not included.",
+  "condition": "Good",
+  "brand": "YATINEY",
+  "model": "HB31BR / BF-052",
+  "age_years": null,
+  "dimensions": {
+    "length": 80,
+    "width": 38,
+    "height": 134,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Rustic Brown",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0CDBVMR9P?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_2",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["bakers rack", "microwave stand", "coffee bar", "kitchen rack", "storage shelf", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "YATINEY 4层带插座复古风厨房置物架",
+  "description_zh": "YATINEY 4层美式复古风厨房置物架/微波炉架。带有集成电源插座，具备断路器保护功能，可安全为咖啡机、破壁机等厨房小家电供电。多层储物设计，附带S型挂钩方便悬挂杯子或厨具。金属铁框搭配复古棕色木板，稳固耐用，非常适合作为省空间的咖啡吧台或厨房收纳。毕业低价清仓！（照片中架子上的电器和杂物为非卖品，不包含在内）"
+}

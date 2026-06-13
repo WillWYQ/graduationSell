@@ -1,0 +1,73 @@
+{
+  "name": "INABULETWO 4-in-1 Multifunctional Pet Hair Remover Tool",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 3
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 10
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 20
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 12
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "INABULETWO 4-in-1 manual pet hair remover tool for furniture, carpets, and clothes. Features an extendable 17.3-inch ergonomic handle and a 7.3-inch wide dual-action brush head to effortlessly lift cat and dog fur. Reusable and washable design with gentle polyester bristles that trap floating hair without stripping fabric. Eco-friendly alternative to disposable lint rollers. Excellent condition. Selling for cheap as part of a graduation yard sale!",
+  "condition": "Good",
+  "brand": "INABULETWO",
+  "model": "LY003",
+  "age_years": null,
+  "dimensions": {
+    "length": 44,
+    "width": 18,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0FBRRTNXG?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_5&th=1",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["pet hair remover", "lint brush", "fur remover", "dog hair cleaner", "lint roller", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "INABULETWO 四合一多功能除毛刷静电粘毛器",
+  "description_zh": "INABULETWO 品牌四合一家用多功能宠物除毛工具。配有 17.3 英寸加长人体工学手柄和 7.3 英寸宽双效刷头，可轻松清理沙发、床单、地毯和衣物上的猫狗毛发。采用可水洗材质，环保耐用，免去更换粘纸滤芯的麻烦，温和的静电刷面在吸附浮毛的同时保护衣物织面。状态极好，毕业搬家几美金低价打包甩卖！"
+}

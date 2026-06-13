@@ -1,0 +1,73 @@
+{
+  "name": "Samsung CRG9 49 Inch Dual QHD Curved Odyssey Gaming Monitor",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 400
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 430
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 500
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 460
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Samsung CRG9 (C49RG9X / LC49RG90SSNXZA) 49-inch super ultrawide 32:9 curved QLED gaming monitor. Features an immersive 1800R curvature and a massive Dual QHD (5120 x 1440) resolution—equivalent to two 27-inch QHD monitors side by side. Equipped with a 120Hz refresh rate, HDR1000 peak brightness, and AMD FreeSync Premium Pro for ultra-smooth, tear-free gameplay. Includes Picture-by-Picture (PBP) multi-source multitasking and a height/tilt/swivel adjustable stand. Great condition, perfect for immersive gaming, video editing, or massive WFH productivity. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "Samsung",
+  "model": "C49RG9X (CRG9)",
+  "age_years": null,
+  "dimensions": {
+    "length": 120,
+    "width": 35,
+    "height": 52,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 14.6,
+    "unit": "kg"
+  },
+  "color": "Charcoal Black",
+  "quantity": 1,
+  "original_source": "Samsung",
+  "original_link": "https://samsung.com",
+  "original_price": 999.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Samsung Odyssey", "CRG9", "ultrawide monitor", "49 inch monitor", "gaming monitor", "curved monitor", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "三星 Samsung CRG9 49英寸32:9带鱼屏曲面电竞显示器",
+  "description_zh": "三星 Samsung CRG90系列（型号：C49RG9X / LC49RG90SSNXZA）49英寸 32:9 超宽曲面 QLED 游戏/办公显示器。拥有 5120x1440 双千兆（Dual QHD）分辨率，等同于两台 27 英寸 2K 显示器无缝并排拼接。具备 120Hz 刷新率、HDR1000 峰值亮度、QLED 量子点色彩技术以及 AMD FreeSync Premium Pro 专业防撕裂支持。支持 PBP 双画面多源同时输入、多任务分屏分栏，配有原厂可升降旋转调节的重型支架。成色极佳，无论是极客游戏、剪辑调色还是码农多窗办公都是顶配神器。毕业搬家低价痛快甩卖！"
+}

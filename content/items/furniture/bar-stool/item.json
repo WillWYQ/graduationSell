@@ -1,0 +1,73 @@
+{
+  "name": "Wooden Round Top Bar Stool *3",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 5
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 15
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 20
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 22
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Solid wooden bar stool with a classic round top and built-in footrests. Sturdy construction with natural wood grain finish. Features minor surface marks from normal use, perfect for kitchen counters, bars, or extra seating. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Natural Wood",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["stool", "bar stool", "wooden chair", "kitchen stool", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "实木圆形高脚凳",
+  "description_zh": "实木圆形高脚吧台凳，自带防滑落落脚横梁。全实木结构结实稳固，表面因正常使用留有轻微痕迹。非常适合放在厨房吧台、中岛或者用作备用座椅。毕业搬家低价甩卖！"
+}

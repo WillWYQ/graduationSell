@@ -1,0 +1,73 @@
+{
+  "name": "INABULETWO Reusable Pet Hair Removal Gloves (2 Pack)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 4
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 10
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 20
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 12
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "INABULETWO 2-pack reusable pet hair removal grooming gloves. Powered by advanced static technology to effortlessly attract and lift cat and dog fur, lint, and dust in one swipe. Features a smart bidirectional bristle design that automatically gathers loose hair into easy-to-discard clumps. Soft, washable, and gentle on fabrics and skin. Great eco-friendly alternative to disposable sticky rollers for sofas, clothes, bedding, and car seats. Great condition, selling for cheap as part of a graduation yard sale!",
+  "condition": "Good",
+  "brand": "INABULETWO",
+  "model": "LY8899",
+  "age_years": null,
+  "dimensions": {
+    "length": 23,
+    "width": 17,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 0.06,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 2,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0F9GMG6TG?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_6&th=1",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["pet hair remover", "grooming glove", "fur remover mitt", "lint roller alternative", "cat dog brush", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "INABULETWO 双面静电吸毛宠物除毛手套 (两只装)",
+  "description_zh": "INABULETWO 品牌双色便携宠物除毛粘毛手套（2只装）。采用物理静电原理，滑过织面即可快速吸附猫狗浮毛、衣物起球和灰尘。独特的双向密齿设计能在来回刷动的过程中将毛发自动聚拢成条，极易成块剥离清理。材质柔软可水洗，环保耐用。非常适合清理沙发、床单、大衣以及汽车座椅。状态良好，毕业清仓打包便宜卖！"
+}

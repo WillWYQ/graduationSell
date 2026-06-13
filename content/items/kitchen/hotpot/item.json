@@ -1,0 +1,73 @@
+{
+  "name": "Electric Dual-Sided Shabu Shabu Hot Pot (Lid Missing)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 10
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 20
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 25
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Electric dual-sided Shabu Shabu and Mongolian hot pot in a vibrant red finish. Features a built-in internal divider that lets you enjoy two different broth flavors at the same time. Equipped with integrated cool-touch handles for safe carrying and an adjustable temperature control dial on the front plug base. Serves 2-6 people perfectly. Please note: The original transparent glass lid is missing, but the heating element and pot work perfectly. Selling very cheap for a graduation yard sale!",
+  "condition": "Fair",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": 30,
+    "width": 30,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Red",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["electric hot pot", "shabu shabu", "mongolian hot pot", "dual sided pot", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "多功能一体式双面电热鸳鸯火锅 (无盖)",
+  "description_zh": "红色大容量一体式家用电热鸳鸯火锅。内设一体成型S型隔断，支持同时享用两种不同口味的底料（如麻辣与清汤）。两侧带有防烫把手，前方配有可调节多档控温旋钮，插电即用。加热速度快，满足2-6人聚餐需求。特别说明：原装透明玻璃盖子已丢失（不含盖子），但加热功能完全正常，不影响涮火锅。毕业搬家无脑低价处理！"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "Dell PowerEdge Dual-CPU Rack Server Chassis",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 80
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 100
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 150
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 95
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Dell PowerEdge enterprise rack mount server chassis featuring a dual-socket motherboard equipped with two CPUs. Solid industrial metallic casing with integrated front airflow ventilation grids and configuration matrices. Shows some minor cosmetic scuffs and surface dust from standard server rack deployment, but the frame is robust and structural integrity is perfect. Great for high-density computing, homelab enthusiasts, network setups, or virtualization. Selling cheap as-is for a graduation moving sale!",
+  "condition": "Good",
+  "brand": "Dell",
+  "model": "PowerEdge Series (Dual CPU)",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Silver / Black",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Dell server", "PowerEdge", "dual CPU", "rack server", "homelab", "networking", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "戴尔 Dell PowerEdge 双路CPU机架式服务器机箱",
+  "description_zh": "戴尔 Dell PowerEdge 系列企业级机架式服务器。主板采用双路插槽设计，已配置安装两个CPU处理器。全金属加固机身，带原厂前置面板接口配置指示图。外观有正常机房上架留下的轻微划痕与浮灰，整体骨架坚固。高密度计算性能，非常适合留学生组建家庭个人实验室（Homelab）、跑虚拟机集群、做网络软路由等。毕业搬家低价清仓处理！"
+}

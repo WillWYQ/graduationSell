@@ -1,0 +1,73 @@
+{
+  "name": "Olee Sleep 10 Inch Gel Infused Layer Top Memory Foam Mattress (Full Size)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 40
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 60
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 100
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 80
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Olee Sleep 10-inch gel-infused layer top memory foam mattress in Full size (Model: 10FM01F). Features a multi-layer breathable foam structure including cooling gel memory foam that regulates sleeping temperature and disperses body heat. Designed with convoluted high-density support layers to adapt to body contour, isolating motion and relieving pressure points. Wrapped in a premium jacquard protective cover. Fully complies with federal flammability standard 16 CFR Part 1633. Clean, well-maintained, and works perfectly on platform bases or frames. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "Olee Sleep",
+  "model": "10FM01F",
+  "age_years": null,
+  "dimensions": {
+    "length": 190,
+    "width": 137,
+    "height": 25,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "White / Blue",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://www.walmart.com/ip/olee-sleep-10-inch-gel-infused-layer-top-memory-foam-mattress-blue-full/597736023",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Olee Sleep", "mattress", "full size mattress", "memory foam", "gel mattress", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Olee Sleep 10英寸凝胶记忆棉双人床垫 (Full Size)",
+  "description_zh": "Olee Sleep 品牌10英寸厚（约25厘米）凝胶记忆海绵双人床垫（Full Size，型号：10FM01F）。多层科学高密度舒压海绵结构，顶层特别添加清凉凝胶记忆棉，能够有效分散身体热量、调节睡眠体温，兼具极佳的独立承重与抗干扰防抖效果。外层配有透气提花保护套。非常干净无污渍，可直接搭配排骨架床架使用。毕业搬家低价打包清仓！"
+}

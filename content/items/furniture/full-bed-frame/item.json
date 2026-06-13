@@ -1,0 +1,73 @@
+{
+  "name": "ZINUS Lorelai 14 Inch Metal Platform Bed Frame (Full Size)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 35
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 55
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 95
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 75
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "ZINUS Lorelai 14-inch heavy-duty metal platform bed frame in Full size. Built with reinforced alloy steel slats providing robust mattress support without the need for a box spring. Features a clean, minimalist black silhouette and offers a generous 12.4 inches of clear under-bed space perfect for luggage or storage bins. Quick and easy to assemble or disassemble. Great condition with original alignment marking stickers still attached. Perfect for bedrooms, student apartments, or guest rooms. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "ZINUS",
+  "model": "Lorelai (OLB-SMPB-14F)",
+  "age_years": null,
+  "dimensions": {
+    "length": 189,
+    "width": 136,
+    "height": 36,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 15.8,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/Zinus-Lorelei-Platforma-Mattress-Foundation/dp/B071JGCBH8",
+  "original_price": 105.00,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["bed frame", "Zinus", "full size bed", "metal platform", "pantry storage", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "ZINUS 舒达 14英寸金属全钢强力承重双人床架 (Full Size)",
+  "description_zh": "ZINUS（舒达）Lorelai 系列 14 英寸高重型金属坚固双人床架（Full Size，约1.37米宽）。全合金钢加粗排骨架结构，支撑力极强，无需额外配置弹簧床垫盒（Box Spring）即可直接放置记忆棉、乳胶或弹簧床垫。拥有高达 12.4 英寸（约 31 厘米）的床底净空储物空间，极其方便收纳行李箱和储物箱。拆装极其简单方便，骨架稳固无异响，带有原厂防错拼组装标识。状态良好，毕业搬家极低价处理！"
+}

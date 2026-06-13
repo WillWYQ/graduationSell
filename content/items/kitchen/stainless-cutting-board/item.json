@@ -1,0 +1,73 @@
+{
+  "name": "INZOO All-Stainless Steel Double-Sided Cutting Board",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 8
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 18
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 20
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "INZOO premium double-sided all-stainless steel cutting board (Model: MX293). Crafted from high-hardness food-grade 304 stainless steel. Features a sleek brushed finish on one side and a textured honeycomb pattern on the other for versatile use. Non-porous, antibacterial surface protection that inhibits mold and odors. Brand new in its original clear plastic shrink wrap package. Perfect hygienic addition to your kitchen for prepping meats or vegetables. Selling cheap for graduation moving sale!",
+  "condition": "New",
+  "brand": "INZOO",
+  "model": "MX293",
+  "age_years": null,
+  "dimensions": {
+    "length": 43,
+    "width": 28,
+    "height": 1,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 1.9,
+    "unit": "kg"
+  },
+  "color": "Silver",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["cutting board", "chopping board", "stainless steel", "INZOO", "kitchenware", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "INZOO 全不锈钢双面防霉切菜砧板",
+  "description_zh": "INZOO 品牌全不锈钢双面切菜板（型号：MX293）。采用食品级高硬度 304 不锈钢材质，一面为精细拉丝面，另一面为蜂窝防滑纹理结构，满足不同食材处理需求。不吸水、不易滋生细菌，从源头防霉防异味。全新带原厂塑封包装，毕业搬家超低价甩卖！"
+}

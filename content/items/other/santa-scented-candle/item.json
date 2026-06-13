@@ -1,0 +1,73 @@
+{
+  "name": "Custom Handmade Santa Claus Low-Temperature BDSM Scented Candle",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 30
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 45
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 50
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 38
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Handmade Santa Claus low-temperature BDSM drip candle. Formulated with a premium blend of natural beeswax, coconut wax, and soy wax, ensuring a safe and skin-friendly melting point perfect for temperature play. The unique fragrance is inspired by well-known designer perfumes. Available for custom orders and color variations. Selling for $30 as part of our graduation yard sale!",
+  "condition": "New",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Pink and Red",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["low temperature candle", "wax play", "handmade candle", "scented candle", "Santa Claus", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "手工定制圣诞老人低温SM情趣香薰蜡烛",
+  "description_zh": "纯手工制作的圣诞老人造型低温SM滴蜡情趣香薰蜡烛。采用天然蜂蜡、椰子蜡和纯豆蜡科学配比混合而成，严格控制熔点，安全不伤皮肤，专为低温情趣调教与感官游戏设计。香味灵感来源于知名大牌香水，高级好闻。支持个性化颜色和款式定制，毕业甩卖特价30美金起！"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "GIGABYTE M27Q 27 Inch 165Hz 1440P KVM Gaming Monitor",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 120
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 140
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 180
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 150
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "GIGABYTE M27Q 27-inch QHD (2560 x 1440) SuperSpeed IPS gaming monitor. Features a blazing fast 165Hz refresh rate (overclockable to 170Hz) and a 0.5ms (MPRT) response time for ultra-smooth gameplay. Supports studio-grade VESA DisplayHDR400 and a wide 92% DCI-P3 color gamut. Equipped with a built-in KVM switch that allows you to control multiple devices (like a gaming PC and a work laptop) with one set of keyboard and mouse. Versatile connectivity options including USB Type-C, DisplayPort, and HDMI ports. Great condition, perfect upgrade for both gaming and productivity setup. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "GIGABYTE",
+  "model": "M27Q",
+  "age_years": null,
+  "dimensions": {
+    "length": 61.5,
+    "width": 19.3,
+    "height": 53.6,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 5.5,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://us.amazon.com/Gigabyte-Monitor-Display-Response-FreeSync/dp/B08JWCHR5N",
+  "original_price": 329.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["GIGABYTE", "M27Q", "gaming monitor", "1440p monitor", "2K monitor", "KVM monitor", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "技嘉 GIGABYTE M27Q 27英寸 2K 170Hz KVM电竞显示器",
+  "description_zh": "技嘉 GIGABYTE M27Q 27英寸 2K WQHD (2560x1440) 高刷SuperSpeed IPS专业电竞/办公显示器。拥有原生 165Hz 刷新率（可超频至 170Hz） 和 0.5ms 极速响应时间。通过 VESA DisplayHDR400 认证，拥有 92% DCI-P3 广色域。最大亮点是内置 KVM 功能，支持用一套键盘鼠标在两台设备（如游戏台式机和办公笔记本）之间一键无缝切换。接口丰富，带 Type-C（支持全功能输入）、DP 以及双 HDMI。成色好无坏点，毕业搬家低价打包诚心出！"
+}

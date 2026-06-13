@@ -1,0 +1,73 @@
+{
+  "name": "Yoobure 5-Tier Corner Shelf Stand with LED Lights",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 20
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 35
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 55
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 42
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Yoobure 5-tier tall corner bookshelf with built-in smart LED light strips. Features customizable RGB colors and dynamic lighting modes controllable via app or remote control. Designed with a 90° right angle to fit snugly into any wall corner, saving space while maximizing storage. Elegant reddish-brown wood tiers paired with a steady black steel frame. Excellent condition, includes an extra bottom support foot for maximum stability. Perfect as a bookshelf, plant stand, or ambient room decor. Selling cheap for graduation moving sale! Note: Books, guitar, and other decorative items shown in the photo are not included.",
+  "condition": "Good",
+  "brand": "Yoobure",
+  "model": "B0D8FG7CK2",
+  "age_years": null,
+  "dimensions": {
+    "length": 33,
+    "width": 45,
+    "height": 170,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Reddish Brown",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0D8FG7CK2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_1",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["corner shelf", "bookshelf", "LED shelf", "plant stand", "display bookcase", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Yoobure 5层带LED氛围灯复古风转角置物架",
+  "description_zh": "Yoobure 5层高款转角书架/置物架，自带内置智能LED炫彩灯带，可通过手机App或遥控器调节多种色彩及动态律动模式。后侧采用90度直角设计，完美贴合墙角，极省空间。红棕色复古木纹板搭配黑色坚固钢架，底部带有额外的支撑脚以防倾倒，稳固安全。非常适合作为书架、绿植架或房间氛围装饰。毕业清仓超低价转让！（照片中的书籍、吉他等仅作展示，非卖品不包含在内）"
+}

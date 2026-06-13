@@ -1,0 +1,73 @@
+{
+  "name": "Linksys SE3008 8-Port Gigabit Ethernet Switch",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 12
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 22
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 35
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 20
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Linksys SE3008 8-port Gigabit Ethernet unmanaged switch. Offers stable network expansion with auto-sensing wired connection speeds up to 1000 Mbps. Built with a durable metallic chassis and integrated power-saving features. Perfect for expanding internet ports for streaming, gaming, or home offices. Comes with its original retail box as shown. Great condition, selling cheap for graduation moving sale!",
+  "condition": "Like New",
+  "brand": "Linksys",
+  "model": "SE3008",
+  "age_years": null,
+  "dimensions": {
+    "length": 15,
+    "width": 8,
+    "height": 3,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 0.1,
+    "unit": "kg"
+  },
+  "color": "Black / Blue",
+  "quantity": 1,
+  "original_source": "Best Buy",
+  "original_link": "https://www.bestbuy.com/product/linksys-8-port-gigabit-ethernet-switch-black/JXWP4KQ48H",
+  "original_price": 44.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["ethernet switch", "gigabit switch", "network hub", "Linksys", "internet splitter", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "领势 Linksys SE3008 8口千兆以太网交换机",
+  "description_zh": "领势 Linksys SE3008 8端口千兆以太网有线网络交换机（分流器）。即插即用免配置，支持高达 1000 Mbps 千兆有线传输，全金属外壳散热好、坚固耐用。自带原厂包装盒（包装盒一角有轻微磨损，不影响内部设备）。完美扩充家里的网口，适合多设备上网、看4K视频或多端联机。毕业搬家超低价转让！"
+}

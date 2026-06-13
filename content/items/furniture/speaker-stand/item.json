@@ -1,0 +1,73 @@
+{
+  "name": "USX MOUNT Height Adjustable Universal Speaker Stands (1 Pair)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 15
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 25
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 42
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 26
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "USX MOUNT universal floor speaker stands (1 pair, Model: XAS502). Designed with an adjustable collar mechanism to extend the height from 30.0 to 39.1 inches, perfect for setting satellite or small bookshelf speakers at optimal ear level. Features a heavy-duty alloy steel square base with a loading capacity of up to 11 lbs per stand. Includes a built-in internal channel for clean cable management, plus rubber feet and carpet nails for multi-surface stability. Excellent condition, ideal for surround sound setups. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "USX MOUNT",
+  "model": "XAS502 / B09BZ6GN1D",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": 99,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 3.1,
+    "unit": "kg"
+  },
+  "color": "Black",
+  "quantity": 2,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B09BZ6GN1D?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_3&th=1",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["speaker stands", "surround sound", "bookshelf speaker mount", "satellite speaker stand", "home theater", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "USX MOUNT 可调节高度通用环绕音箱落地支架 (一对装)",
+  "description_zh": "USX MOUNT 品牌通用款有线环绕音箱/卫星箱落地金属支架（一对/两支装，型号：XAS502）。高度可通过内置锁扣在 30.0 英寸至 39.1 英寸（约 76-99 厘米）之间自由随心调节，轻松将音响固定在最佳听音高度。单支高强度合金钢底座可稳固承重达 11 磅（约 5 公斤）。带有隐藏式走线槽保证整洁，附赠硬地橡胶脚垫及地毯防滑钉。品相良好，毕业低价打包转让！"
+}

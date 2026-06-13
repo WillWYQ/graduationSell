@@ -1,0 +1,73 @@
+{
+  "name": "IKEA LISABO Dining Table and Chairs Set",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 60
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 90
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 140
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 200,
+        "amount": 110
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "IKEA LISABO dining table (ash veneer) with matching chairs. Minimalist design with a natural wood grain look and sturdy solid wood edges. Very easy to assemble and disassemble with a single screw per leg mechanism. Perfect as a dining table or study desk. Selling cheap for graduation moving sale!",
+  "condition": "Good",
+  "brand": "IKEA",
+  "model": "LISABO",
+  "age_years": null,
+  "dimensions": {
+    "length": 140,
+    "width": 78,
+    "height": 74,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Ash",
+  "quantity": 1,
+  "original_source": "IKEA",
+  "original_link": "https://www.ikea.com/us/en/p/lisabo-table-ash-veneer-70294339/",
+  "original_price": 299.99,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["IKEA", "LISABO", "dining table", "desk", "chairs set", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "宜家 LISABO 白蜡木餐桌椅组合",
+  "description_zh": "宜家 LISABO 系列白蜡木贴面餐桌及配套椅子。极简风格，木纹自然，带实木边缘。单螺丝固定结构，拆装极其简单方便。适合做餐桌或书桌工作台。毕业搬家低价打包转让！"
+}
