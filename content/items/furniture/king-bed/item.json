@@ -1,0 +1,69 @@
+{
+  "name": "Modern Luxury Upholstered King Size Platform Bed Frame",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 200
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 300
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 500
+      },
+     
+    ],
+    "negotiable": true
+  },
+  "description": "Modern minimalist luxury King-size upholstered platform bed frame. Features a premium low-profile wrap-around design with plush velvet/fabric upholstery in a versatile dark grey tone. Includes a comfortable padded rectangular headboard that is soft to lean against for reading or watching TV. Sturdy structural support eliminating the need for a box spring. Excellent condition, very clean and well-maintained. Perfect upgrade for a master bedroom. Selling cheap for graduation moving sale! Note: Mattress, pillows, and bedding sheets are not included.",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": 220,
+    "width": 210,
+    "height": 100,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg"
+  },
+  "color": "Dark Grey",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["king bed", "platform bed", "upholstered bed", "grey bed frame", "master bedroom", "moving sale", "yard sale"],
+  "category_override": "",
+  "meta_description": "",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "现代极简软包大号双人床架 (King Size)",
+  "description_zh": "意式现代极简风 King Size（加 critical 双人床）软包落地榻榻米床架。采用高级深灰色亲肤织物/微绒面料全包裹设计，低重心防撞。配有加厚填充的舒适长方形靠背软包床头，倚靠看书看电视非常舒适。排骨架支撑结构稳固无异响，无需额外配置弹簧床盒（Box Spring）。成色极新，干净无污渍。主卧升级首选，毕业搬家超值特价转让！（注：转让仅限床架，不包含照片中的床垫、枕头及被褥）"
+}
