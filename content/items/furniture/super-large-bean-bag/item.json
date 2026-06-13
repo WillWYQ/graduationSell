@@ -1,49 +1,36 @@
 {
-  "name": "Super Large Bean Bag",
+  "name": "Giant 7-Foot Memory Foam Bean Bag Chair - Charcoal Grey",
   "price": {
     "currency": "USD",
     "tiers": [
-      {
-        "label": "Pickup / ≤ 5 mi",
-        "miles_max": 5,
-        "amount": 0
-      },
-      {
-        "label": "6 – 15 mi",
-        "miles_min": 5,
-        "miles_max": 15,
-        "amount": 0
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 15,
-        "amount": 0
-      }
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 80 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 150 },
+      { "label": "Shipping", "miles_min": 200, "amount": 95 }
     ],
-    "negotiable": false,
-    "show_tiers": false
+    "negotiable": true
   },
-  "description": "",
-  "condition": "good",
+  "description": "Selling this absolute beast of a bean bag! It has a massive 2-meter (roughly 78.7-inch) diameter. Honestly, calling it a 'chair' is an understatement—it’s more like a private, fluffy island. It’s perfect for intense gaming marathons, Netflix binging, or just questioning your life choices on a Sunday afternoon. It is so unbelievably soft and giant that it can easily fit two adults, or just one person who wants to completely disappear from reality. The microfiber cover is removable and fully washable. Condition is excellent and super clean. Warning: Once you sink into this thing, you might need a search and rescue team to help you get back up. Pickup is highly preferred because shipping this cloud requires serious effort!",
+  "condition": "conditionGood",
   "brand": "",
   "model": "",
   "age_years": null,
   "dimensions": {
-    "length": null,
-    "width": null,
-    "height": null,
+    "length": 182,
+    "width": 182,
+    "height": 90,
     "unit": "cm"
   },
   "weight": {
     "value": null,
     "unit": "kg"
   },
-  "color": "",
+  "color": "Charcoal Grey",
   "quantity": 1,
   "original_source": "",
   "original_link": "",
   "original_price": null,
-  "status": "draft",
+  "status": "available",
   "listed_date": "2026-06-13",
   "sold_date": null,
   "preferred_payment": [],
@@ -56,13 +43,13 @@
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [],
+  "tags": ["bean bag", "furniture", "giant bean bag", "lounger", "gaming chair", "living room"],
   "category_override": "",
-  "meta_description": "",
+  "meta_description": "Super comfy and massive 2m / 7-foot giant bean bag chair in charcoal grey. Perfect for lounging, gaming, and relaxing.",
   "isbn": "",
   "course": "",
   "edition": "",
   "semester_listed": "",
-  "name_zh": "",
-  "description_zh": ""
+  "name_zh": "巨型2米懒人沙发大豆袋",
+  "description_zh": "转让一个超大号2米直径（约78.7英寸）的懒人沙发！这不仅是个椅子，简直像一个松软的小岛，巨舒服。无论是打游戏、刷剧还是午睡都完美。空间大到可以轻松躺下两个成年人。微纤维外套可以拆卸清洗，整体非常干净。注意：躺上去太舒服，可能需要别人拉你才能起来！由于体积庞大，强烈建议自提！"
 }

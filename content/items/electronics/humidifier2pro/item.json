@@ -1,0 +1,55 @@
+{
+  "name": "Xiaomi Mijia Smart Evaporative Humidifier 2 Pro",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 85 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 130 },
+      { "label": "Shipping", "miles_min": 200, "amount": 105 }
+    ],
+    "negotiable": true
+  },
+  "description": "Upgrade your indoor air game with the powerhouse: the Xiaomi Mijia Smart Evaporative Humidifier 2 Pro! This isn't your average weak desktop mister; this Pro version is an absolute beast with a massive 600mL/h humidification rate that can hydrate a whole large room in minutes. It uses natural, mist-free cold evaporation (with an optional electric heating mode to turbocharge evaporation), so absolutely ZERO white dust on your expensive wood furniture or electronics. Your tap water is perfectly fine here! It features a built-in UV-C light that sterilizes the water system, ensuring 99.9% bacteria-free pure moisture. Plus, it has a beautiful circular OLED smart screen on top that shows humidity levels with smooth animations. Super whisper-quiet in sleep mode, huge 5L water tank that easily lasts through the weekend, and integrates perfectly with the Mi Home app (just set your app location to China for full smart access!). Gently used, super clean, and ready to save your skin and nose this winter.",
+  "condition": "conditionLikeNew",
+  "brand": "Xiaomi",
+  "model": "Mijia Smart Evaporative Humidifier 2 Pro (CJSJSQ02LX)",
+  "age_years": null,
+  "dimensions": {
+    "length": 24,
+    "width": 24,
+    "height": 51,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 3.9,
+    "unit": "kg"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "AliExpress / eBay",
+  "original_link": "",
+  "original_price": 180,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["xiaomi", "mijia", "humidifier 2 pro", "smart home", "mist free", "evaporative", "uv-c sterilization"],
+  "category_override": "",
+  "meta_description": "Like-new Xiaomi Mijia Smart Evaporative Humidifier 2 Pro. 5L capacity, 600mL/h huge output, mist-free, UV-C sterilized, and ultra quiet.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "小米米家纯净式智能加湿器 2 Pro",
+  "description_zh": "更正信息，转让一台顶配“大水牛”——米家纯净式智能加湿器 2 Pro！拥有 600mL/h 的超大加湿量，带电加热辅助蒸发，大房间也能几分钟变水润。纯净无雾冷蒸发技术，可以直接加自来水，完全不会在家具和木地板上留白粉。内置 UV-C 紫外线杀菌系统，抗菌率达 99.9%，吹出来的空气非常健康。顶部自带圆形 OLED 智能动画显示屏，科技感拉满。5L 超大水箱，睡眠模式极度安静，成色极新，功能完好。（提示：米家 App 地区需设为‘中国’即可远程遥控）。"
+}

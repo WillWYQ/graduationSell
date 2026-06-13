@@ -1,0 +1,55 @@
+{
+  "name": "SmartCat Pioneer Pet Ultimate 32-Inch Sisal Cat Scratching Post",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 30 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 45 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 65 },
+      { "label": "Shipping", "miles_min": 200, "amount": 50 }
+    ],
+    "negotiable": true
+  },
+  "description": "Save your expensive couch and curtains with the absolute gold standard of cat furniture: the SmartCat Ultimate Scratching Post! This legendary tower stands a proud 32 inches tall, allowing your feline overlord to fully stretch vertically, tone those muscles, and properly express their daily rage. Unlike those cheap, flimsy posts that wobble and scare your cat away, this beast features a massive, heavy-duty 16\" x 16\" wooden base that completely eliminates tipping. It’s wrapped in premium, ultra-durable woven sisal fiber that doesn't shred into an annoying mess like cardboard does. It’s neutrally toned, looking more like a minimalist sculpture than pet gear. Lightly and lovingly tested by a connoisseur of claws, with plenty of life left to survive years of future attacks. Your cat will thank you (or at least ignore you with more respect).",
+  "condition": "conditionGood",
+  "brand": "SmartCat",
+  "model": "Ultimate Scratching Post (3832)",
+  "age_years": null,
+  "dimensions": {
+    "length": 40.6,
+    "width": 40.6,
+    "height": 81.3,
+    "unit": "cm"
+  },
+  "weight": {
+    "value": 7.2,
+    "unit": "kg"
+  },
+  "color": "Beige / Natural Wood",
+  "quantity": 1,
+  "original_source": "Chewy / Petco / Amazon",
+  "original_link": "",
+  "original_price": 60,
+  "status": "available",
+  "listed_date": "2026-06-13",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["cat scratcher", "smartcat", "pioneer pet", "cat scratching post", "pet supplies", "sisal scratcher", "cat furniture"],
+  "category_override": "",
+  "meta_description": "Sturdy, gently used SmartCat Ultimate 32\" Sisal Cat Scratching Post. Heavy 16x16 base, mist-free woven sisal, prevents furniture scratching.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "SmartCat 32英寸巨型稳固剑麻猫抓柱",
+  "description_zh": "拯救沙发的神器来了！出猫界大名鼎鼎的 SmartCat 32英寸（约81厘米）巨型猫抓柱。高度非常够，能让猫咪完全站立拉伸舒展筋骨。16x16英寸的超大木质加重底座，稳如泰山，猫咪怎么猛扑都不会晃动翻倒。表面采用的是高强度密织剑麻毯，比普通麻绳或纸板耐磨百倍，且不容易掉屑。有轻微使用痕迹，结构完美，极为结实。强烈建议自提！"
+}
