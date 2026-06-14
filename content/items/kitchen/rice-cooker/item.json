@@ -1,0 +1,55 @@
+{
+  "name": "Aroma 8-Cup Digital Rice Cooker and Food Steamer",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 10 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 30 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 50 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Looking for a reliable kitchen workhorse on a tight budget? This well-loved Aroma 8-Cup Digital Rice Cooker and Food Steamer is looking for its next home! It shows obvious signs of cosmetic wear, and the inner pot has noticeable scratches/scuffs from regular cooking, but it still works perfectly fine. Features smart programmable digital controls for white/brown rice, delay timer, and automatic keep-warm. Perfect for college students or temporary apartment setups who just want a cheap, functional cooker without paying full retail price!",
+  "condition": "fair",
+  "brand": "Aroma Housewares",
+  "model": "ARC-914SBD",
+  "age_years": null,
+  "dimensions": {
+    "length": 8.6,
+    "width": 9.3,
+    "height": 8.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 4.2,
+    "unit": "lbs"
+  },
+  "color": "Stainless Steel / Black",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": 34.99,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Shows cosmetic wear and scratches on the inner pot, priced low accordingly! Fully tested and functions flawlessly. Porch pickup available.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 7.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Cheap Rice Cooker", "Used Kitchen Appliance", "Aroma Housewares", "Budget Friendly", "Student Essentials", "Functional Wear"],
+  "category_override": "Appliances - Small Kitchen Appliances",
+  "meta_description": "Pre-owned Aroma 8-cup digital rice cooker in fair condition. Shows obvious cosmetic wear and pot scratches, but fully functional. Great budget price.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Aroma 8杯量智能多功能电饭煲（内胆有刮痕/低价出）",
+  "description_zh": "预算有限或临时落脚的留学生必备！这款Aroma 8杯量多功能智能电饭煲处于正常工作状态。外观有明显使用痕迹，内胆也有比较清晰的锅底刮痕和磨损，因此特意降价廉售。按键和功能（煮饭、蒸煮、预约、自动保温）全部灵敏正常。如果你不介意成色，只想买个能正常焖饭煮面、性价比极高的实用锅具，它绝对是完美选择！"
+}

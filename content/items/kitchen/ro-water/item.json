@@ -1,0 +1,55 @@
+{
+  "name": "Waterdrop C1H Countertop Instant Hot Reverse Osmosis System",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 80 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 160 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 75 }
+    ],
+    "negotiable": true
+  },
+  "description": "Say goodbye to waiting for the kettle to boil! This premium Waterdrop C1H Countertop Reverse Osmosis (RO) Purifier is a complete game-changer for your daily hydration. Combining advanced 6-stage RO filtration with cutting-edge 3-second instant heating technology, it lets you dispense crystal-clear pure water at 5 adjustable temperatures (ambient up to 203°F) perfectly tailored for tea, coffee, oatmeal, or formula. Zero installation required—just plug it in anywhere from your kitchen counter to your office or RV. Features a smart LED screen for real-time TDS tracking, customized volume dispensing, and filter life updates. Note: The system functions flawlessly, but it is highly recommended that the buyer purchases a fresh new replacement filter (model WD-C1RF) online for optimal purification performance!",
+  "condition": "good",
+  "brand": "Waterdrop",
+  "model": "C1H",
+  "age_years": null,
+  "dimensions": {
+    "length": 11.7,
+    "width": 8.3,
+    "height": 13.7,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 14.0,
+    "unit": "lbs"
+  },
+  "color": "Space Grey / Black",
+  "quantity": 1,
+  "original_source": "Waterdrop Official",
+  "original_link": "https://www.waterdropfilter.com/products/countertop-instant-hot-ro-system-corero-system-c1h",
+  "original_price": 299.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The unit has been thoroughly drained, wiped down, and sanitized. Fully functional and dispenses piping hot water perfectly! Please plan to buy a brand new filter replacement (model WD-C1RF) online to enjoy the freshest taste.",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 80.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Waterdrop C1H", "Instant Hot Water", "Countertop RO System", "Reverse Osmosis Dispenser", "Kitchen Appliance", "Apartment Essentials", "Water Purifier"],
+  "category_override": "Appliances - Water Coolers & Filters",
+  "meta_description": "Pre-owned Waterdrop C1H instant hot water countertop reverse osmosis system in good condition. 3s heating, 5 temperature settings, smart LED touch screen.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Waterdrop (水滴) C1H 台式即热反渗透智能净水直饮机",
+  "description_zh": "高端多功能直饮神机！Waterdrop C1H 净水机将高端6级反渗透（RO）深层过滤与“3秒即热”功能完美结合。完全免安装，插电即用。带有智能触控大屏，实时监测过滤前后TDS水质。支持五档水温调节（常温至203°F热水）以及多档定量出水。机器保养得非常好，加热及出水状态极其完美。注：为保证最佳的水质与出水口感，强烈建议买家入手后自行在线上购买并更换全新滤芯（对应滤芯型号为 WD-C1RF）。"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Quecoo T12-959 OLED Digital Soldering Iron Station",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 30 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 45 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 35 }
+    ],
+    "negotiable": true
+  },
+  "description": "Upgrade your workbench with this high-performance electronic welding tool! The Quecoo T12-959 is a premium digital soldering station equipped with a sharp OLED display that reads accurate real-time temperatures. It heats up to your desired temperature in just seconds thanks to the high-efficiency T12 heating element design. Features a rugged aluminum alloy body shell, an easy-to-use control dial, and intelligent auto-sleep / auto-standby functions to preserve your tip life and maximize workshop safety. Perfect for precise circuit board repairs, DIY tech projects, and electronic prototyping!",
+  "condition": "good",
+  "brand": "Quecoo",
+  "model": "T12-959",
+  "age_years": null,
+  "dimensions": {
+    "length": 5.5,
+    "width": 3.5,
+    "height": 1.6,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 1.1,
+    "unit": "lbs"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "amazon",
+  "original_link": "https://www.amazon.com/QUECOO-Soldering-Standby-Automatically-Electronic-SET1/dp/B09TVMFB9D?th=1",
+  "original_price": 55.99,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes the main station body, handle cord, and power plug. Fully tested and heats up incredibly fast. Pick up anytime!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 20.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Soldering Station", "Quecoo T12", "T12-959", "Welding Iron", "Electronics Repair", "Lab Equipment"],
+  "category_override": "Electronics - Other Electronics",
+  "meta_description": "Pre-owned Quecoo T12-959 OLED digital soldering station in good condition. Rapid heating, aluminum alloy case, auto-sleep function for electronics repair.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Quecoo 酷高 T12-959 OLED数码调温电子焊台",
+  "description_zh": "电子手工、电路维修及飞线改板的高性能生产力工具！这款 Quecoo (酷高) T12-959 智能数码焊台，采用全铝合金喷砂外壳，质感扎实。正面配有高清晰度 OLED 蓝光数字显示屏，实时温度一目了然。基于高效的 T12 发热芯系统，实现数秒内极速升温和优秀的温度补偿性能。支持智能自动休眠及自动待机功能，有效保护烙铁头并防止干烧。整体功能完美，发热迅速稳定。"
+}

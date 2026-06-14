@@ -1,0 +1,48 @@
+{
+  "name": "Modern Minimalist TV Bench with Drawers",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 80 },
+
+    ],
+    "negotiable": true
+  },
+  "description": "Upgrade your entertainment hub with this sleek, modern TV console! It features a beautiful contrast between its rich walnut/brown wood frame and three clean, minimalist white drawer fronts. It keeps your living room look flawlessly organized by tucking away gaming consoles, controllers, and remotes, while the built-in cable management routes messy wires completely out of sight. Structurally rock-solid and in fantastic shape—ready to add instant modern style to your space!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+
+  "weight": {
+    "value": 35.3,
+    "unit": "lbs"
+  },
+  "color": "White / Brown Wood Veneer",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo"],
+  "contact_note": "Please bring a truck or a spacious SUV for pickup. Happy to assist with loading it into your vehicle!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 65.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["TV Stand", "Media Console", "Entertainment Center", "Modern Design", "Storage Drawers", "Living Room Furniture"],
+  "category_override": "Furniture - TV Stands & Entertainment Centers",
+  "meta_description": "Pre-owned modern TV Bench in good condition. White drawers with a dark brown wood frame. Built-in cable management, local delivery and pickup options.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "现代拼色电视柜带抽屉",
+  "description_zh": "非常经典的北欧风现代电视柜！深色木纹框架搭配三组极简纯白无把手抽屉，拼色外观颜值极高。后面自带走线孔，隐藏凌乱线缆，收纳空间巨大。整体框架非常结实，成色良好，轻微使用痕迹，放在卧室或者客厅都非常有高级感。"
+}

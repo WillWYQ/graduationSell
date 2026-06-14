@@ -1,0 +1,55 @@
+{
+  "name": "IKEA KULLEN 5-Drawer Chest",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 45 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 65 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 115 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Max out your bedroom storage without breaking the bank! This clean, minimalist IKEA KULLEN 5-drawer chest of drawers comes in a sleek black-brown finish that effortlessly coordinates with any modern room layout. It features two smaller top drawers perfect for socks, accessories, or tech clutter, alongside three deep, spacious lower drawers that hold an impressive amount of clothes. Built-in drawer stops keep everything gliding smoothly and safely. A timeless, sturdy apartment essential that saves tons of floor space!",
+  "condition": "good",
+  "brand": "IKEA",
+  "model": "KULLEN",
+  "age_years": null,
+  "dimensions": {
+    "length": 27.5,
+    "width": 15.7,
+    "height": 44.1,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 68.3,
+    "unit": "lbs"
+  },
+  "color": "Black-Brown",
+  "quantity": 1,
+  "original_source": "IKEA Store",
+  "original_link": "https://www.ikea.com/gb/en/p/kullen-chest-of-5-drawers-white-20393662/",
+  "original_price": 99.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The chest is pre-assembled and ready to use, saving you hours of painful IKEA building! Please bring a spacious SUV or a truck for pickup, and an extra pair of hands to help load it.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 35.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["IKEA Kullen", "5 Drawer Chest", "Dresser", "Bedroom Furniture", "Black Brown Dresser", "Storage Drawers"],
+  "category_override": "Furniture - Dressers & Chests of Drawers",
+  "meta_description": "Pre-owned IKEA KULLEN 5-drawer chest in good condition. Minimalist black-brown vertical dresser, built-in drawer stops. Perfect apartment storage solution.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "宜家 IKEA KULLEN 五斗柜/抽屉柜",
+  "description_zh": "小户型、卧室扩容收纳首选神柜！这款经典的宜家 KULLEN 系列五斗抽屉柜，采用极简现代的黑褐色外观。上方带有两个小型抽屉，非常适合收纳袜子、配饰或数码杂物；下方则是三层加深大抽屉，衣物收纳量极其惊人。自带防脱落抽屉滑轨。最棒的是它已经完全组装好了，直接帮您省去了数小时复杂的拼装地狱！成色良好，结构稳固。"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Eventek KPS305D Variable DC Bench Power Supply (30V/5A)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 50 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 60 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 95 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 50 }
+    ],
+    "negotiable": true
+  },
+  "description": "Up for grabs is a precise, highly reliable lab partner for your workshop! This Eventek KPS305D Variable DC Bench Power Supply delivers a continuously adjustable 0-30V voltage and 0-5A current output. Perfect for circuit prototyping, electronics repairing, DIY testing, 3D printer calibration, or phone maintenance. It features crisp dual digital LED displays alongside individual Coarse and Fine adjustment knobs to easily lock in your exact electrical parameters. Designed with a built-in smart temperature-controlled cooling fan and comprehensive safety protection protocols (over-voltage, short-circuit, and overload limits). Compact, lightweight, and functions flawlessly!",
+  "condition": "good",
+  "brand": "Eventek",
+  "model": "KPS305D",
+  "age_years": null,
+  "dimensions": {
+    "length": 8.6,
+    "width": 3.2,
+    "height": 6.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 2.9,
+    "unit": "lbs"
+  },
+  "color": "White / Grey Frame",
+  "quantity": 1,
+  "original_source": "newegg",
+  "original_link": "https://www.neweggbusiness.com/product/product.aspx?item=9sivb0ejmd5439&bri=9b-0af-00ah-006b4",
+  "original_price": 99.99,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes the power supply unit and US power cord. Fully tested, clean, and in perfect working order. Ready for porch pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 20.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["DC Power Supply", "Bench Power Supply", "Eventek KPS305D", "Lab Equipment", "Electronics Repair", "Variable Power Supply"],
+  "category_override": "Electronics - Other Electronics",
+  "meta_description": "Pre-owned Eventek KPS305D variable DC bench power supply (30V 5A) in good condition. Features dual LED display, coarse & fine tuning, smart cooling fan.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Eventek KPS305D 可调式直流稳压维修实验电源 (30V/5A)",
+  "description_zh": "电子DIY、电路板维修与硬件逆向工程的硬核伴侣！这款 Eventek KPS305D 可调式直流实验电源，支持 0-30V 电压与 0-5A 电流的精准连续调节。正面带有清晰的电压/电流双数字 LED 核心显示屏，并配备粗调（Coarse）与精调（Fine）四颗旋钮，微调对齐数据非常省心。机器内部集成智能温控散热风扇，具备完善的过压保护和短路限流安全机制。整体小巧便携不占地方，功能一切正常。"
+}

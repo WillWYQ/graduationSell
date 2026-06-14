@@ -1,0 +1,55 @@
+{
+  "name": "Sleek Silver Metal Frame Full-Length Floor Mirror",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 55 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Check out your daily outfits in style! This modern, minimalist full-length dressing mirror features a gorgeous, ultra-thin brushed silver metal frame that seamlessly coordinates with any bedroom or entryway decor. Designed with an adjustable built-in easel stand on the back, it stands completely free and rock-solid without needing any wall drilling or hardware. It provides a crystal-clear, true-to-reflection image with zero distortion. Super lightweight and effortless to move around whenever you want to refresh your room layout!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": 15.8,
+    "width": 1.5,
+    "height": 59.1,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 11.2,
+    "unit": "lbs"
+  },
+  "color": "Brushed Silver / Chrome",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The back easel support legs fold completely flat in seconds, making it incredibly slim and easy to fit inside any standard car for a quick pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Full Length Mirror", "Floor Mirror", "Dressing Mirror", "Silver Metal Frame", "Easel Stand Mirror", "Bedroom Furniture"],
+  "category_override": "Home Decor - Mirrors",
+  "meta_description": "Pre-owned sleek full-length floor mirror with a brushed silver thin metal frame and built-in folding easel stand. Ideal for bedrooms or apartments.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "现代银色窄边全身落地穿衣镜",
+  "description_zh": "小户型及卧室标配的极简窄边全身镜！带有拉丝银色/铬色金属质感边框，时尚又百搭。自带人字后支架（Easel stand），无需在墙上钻孔即可稳固站立。采用高清防爆镜面，反射真实不失真。整体非常轻便，后支架可以完全折叠成纯平面，即使普通轿车也能轻松运走，搬家或挪动位置毫不费力。"
+}

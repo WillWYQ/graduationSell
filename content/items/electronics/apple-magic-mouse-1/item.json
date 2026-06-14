@@ -1,0 +1,55 @@
+{
+  "name": "Apple Magic Mouse (1st Generation / AA Battery Powered)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 85 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Experience the classic that started it all! This genuine 1st Generation Apple Magic Mouse (Model A1296) brings Apple's iconic minimalist design right to your desktop. Unlike the newer version, this 1st Gen treasure is powered by 2 standard AA batteries, meaning you never have to plug it in upside down and wait to charge—just pop in fresh batteries and you are instantly back to work! Features a seamless Multi-Touch top surface that supports intuitive multi-directional scrolling and fluid macOS gestures. Fully tested, pairs flawlessly via Bluetooth with Macs or iPads, and tracks smoothly with its precision laser sensor!",
+  "condition": "good",
+  "brand": "Apple",
+  "model": "Magic Mouse 1st Gen (A1296)",
+  "age_years": null,
+  "dimensions": {
+    "length": 4.5,
+    "width": 2.3,
+    "height": 0.9,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 0.23,
+    "unit": "lbs"
+  },
+  "color": "Silver / White",
+  "quantity": 1,
+  "original_source": "Apple Store",
+  "original_link": "https://camelcamelcamel.com/Apple-MB829LL-A-Magic-Mouse/product/B002TLTGM6",
+  "original_price": 69.99,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Requires 2 AA batteries (not included). The aluminum bottom cover plate is present and locks securely. Fully tested, sanitized, and ready to pair. Porch pickup ready!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Apple Magic Mouse", "Magic Mouse 1", "A1296", "Wireless Mouse", "Mac Accessories", "AA Battery Mouse"],
+  "category_override": "Electronics - Computers & Accessories",
+  "meta_description": "Pre-owned genuine 1st Gen Apple Magic Mouse (Model A1296) in good condition. Laser tracking sensor, multi-touch gesture surface, powered by 2 AA batteries.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "苹果 Apple Magic Mouse 妙控无线蓝牙鼠标 1代 (电池版/A1296)",
+  "description_zh": "非常经典的苹果一代电池版 Magic Mouse 妙控鼠标（型号 A1296）！与二代相比，最大的优势在于它采用2节五号（AA）电池供电，完全没有“必须底朝天插线充电”的尴尬，没电时直接换电池即可秒复活。正面依旧是一整块无缝 Multi-Touch 多点触控表面，完美支持 macOS 系统的各种多手指丝滑手势与全方位滚动。背面铝合金电池盖完好且锁扣紧实。蓝牙连接迅速，激光定位精准，功能完好。"
+}

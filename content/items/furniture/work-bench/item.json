@@ -1,0 +1,55 @@
+{
+  "name": "Heavy-Duty 2-Tier Industrial Metal Workbench",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 65 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 85 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 135 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Need a rock-solid, zero-wobble workspace that can handle your heaviest gear? This high-quality, industrial-grade metal workbench is an absolute beast! Standing at a comfortable 1-meter high, it is perfectly optimized for standing projects, tech benchmarking, or as an ultra-stable 3D printer station. Features a heavy-duty all-metal reinforced frame with an incredibly practical lower/mid shelves for organized storage (perfect for hiding power strips, boxes, or printers). It also comes with built-in cable management oval cutouts to keep your wires perfectly routed. Rock-solid construction that will outlast any standard cheap desk!",
+  "condition": "good",
+  "brand": "",
+  "model": "Industrial Station Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 47.2,
+    "width": 30,
+    "height": 35.4,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 44.1,
+    "unit": "lbs"
+  },
+  "color": "Industrial Grey / Platinum Silver",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": 220.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Extremely sturdy and in great shape. Perfect for garages, server room setups, or tech workshops. Please bring a vehicle large enough to transport a 4-foot assembled metal desk!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 50.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Metal Workbench", "Industrial Desk", "3D Printer Table", "Heavy Duty Station", "Garage Furniture", "Tech Desk"],
+  "category_override": "Furniture - Desks & Home Office Furniture",
+  "meta_description": "Pre-owned heavy-duty 2-tier industrial metal workbench in good condition. 1m high, features built-in cable management and lower shelf storage.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "1米高重型双层工业金属工作台/3D打印电脑桌",
+  "description_zh": "全网最稳固、拒绝任何摇晃的硬核全金属多功能工作桌！整体高度约为1米（39.4英寸），非常符合人体工学，站立操作或者搭配高脚椅都很舒适。全钢制加厚框架极其沉稳，作为电脑桌、3D打印机机位、甚至车库手工台都稳如泰山。自带中/下层隐藏式双层置物架，收纳空间惊人，同时后方配有标志性的双大号走线孔。用料扎实坚固，完爆任何市面普通木质电脑桌，成色良好。"
+}

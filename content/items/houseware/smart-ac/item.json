@@ -1,0 +1,55 @@
+{
+  "name": "Hisense 7000-BTU DOE Vented Wi-Fi Smart Portable Air Conditioner",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 399 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 420 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 470 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Beat the summer heat with a truly premium smart cooling solution! This powerful Hisense 7000-BTU (DOE) Portable Air Conditioner is a dream come true for both general users and smart home enthusiasts. It features seamless Wi-Fi connectivity and connects natively via the ConnectLife app. More importantly for power users, it has flawless local integration with Home Assistant (HA), allowing you to easily bridge it to Apple HomeKit for Siri voice control and advanced automation setup. Extremely efficient 3-in-1 design (Cool, Fan, Dehumidifier) with a top-mounted automatic oscillating vent. This unit is in pristine, near-new condition and works perfectly. Listed at close to original retail price due to its top-tier smart home capabilities and perfect state!",
+  "condition": "good",
+  "brand": "Hisense",
+  "model": "AP0722CW1W",
+  "age_years": null,
+  "dimensions": {
+    "length": 16.9,
+    "width": 12.8,
+    "height": 27.4,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 54.0,
+    "unit": "lbs"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Lowe's",
+  "original_link": "https://lowes.com",
+  "original_price": 449.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Perfect working condition with window exhaust hose and original remote control included. Firmware is updated and ready to pair with your smart home network setup.",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 350.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Hisense Portable AC", "Smart Air Conditioner", "7000 BTU AC", "Home Assistant WiFi", "HomeKit Bridged", "3-in-1 Cooler", "ConnectLife"],
+  "category_override": "Appliances - Air Conditioners",
+  "meta_description": "Pre-owned Hisense 7000-BTU smart portable air conditioner in excellent condition. Features Wi-Fi connectivity, Home Assistant and HomeKit integration, original retail value.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "海信 Hisense 7000-BTU 智能移动空调（支持 Wi-Fi / HA 与 HomeKit 智能联动）",
+  "description_zh": "夏日高端续命神器，更是智能家居爱好者的终极福音！这台海信 7000-BTU (DOE) 智能可移动空调自带 Wi-Fi 芯片，除了用官方 ConnectLife 远程控制外，还能完美本地接入 Home Assistant (HA) 系统。你可以轻松通过 HA 把它作为 Bridge 桥接引入苹果 Apple HomeKit，直接唤醒 Siri 语音调温或者配合传感器做全屋自动化。集制冷、送风、除湿三合一，成色极新，状态极佳。因智能化联动功能无敌且基本全新，现接近原价高性价比转让给懂它的极客玩家。"
+}

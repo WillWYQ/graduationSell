@@ -1,0 +1,55 @@
+{
+  "name": "Minimalist Detachable Wooden Coffee Table",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 55 },
+      { "label": "Shipping", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Looking for the ultimate lightweight, hassle-free centerpiece for your living room? This sleek, minimalist dark walnut wood grain coffee table is an absolute apartment essential! It features an incredibly practical detachable design—the legs twist right off easily without any complex tools needed, making moving days or storage a total breeze. Perfect as a stylish low coffee table, a casual floor-seating dining spot, or an entertainment hub. Super sturdy yet light enough to rearrange single-handedly!",
+  "condition": "Good",
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": 35.4,
+    "width": 21.6,
+    "height": 17.7,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 11.5,
+    "unit": "lbs"
+  },
+  "color": "Dark Brown Walnut Wood Grain",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Legs can be detached upon request before pickup so it can easily fit into any sedan or standard car trunk!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Coffee Table", "Living Room Furniture", "Detachable Legs", "Apartment Essentials", "Walnut Wood Grain", "Low Table"],
+  "category_override": "Furniture - Coffee Tables",
+  "meta_description": "Pre-owned minimalist detachable coffee table in dark walnut wood grain. Legs unscrew easily for hassle-free transport. Great for small apartments.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "极简深木纹可拆卸短茶几",
+  "description_zh": "搬家神器、小户型/公寓必备的一款极简深胡桃木纹茶几！最大的特点就是桌腿完全可拆卸，旋转拧下即可，不需要任何复杂的螺丝刀工具。无论是搬家还是不用时收纳都极其方便，放轿车后备箱毫无压力。质轻好挪动，平时作为客厅茶几、席地而坐的追剧小饭桌都极其实用，成色良好。"
+}

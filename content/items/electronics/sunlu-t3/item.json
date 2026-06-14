@@ -1,0 +1,55 @@
+{
+  "name": "SUNLU Terminator 3 (T3) Smart 3D Printer",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 90 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 110 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 160 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Unlock your creativity with this high-speed, beginner-friendly smart 3D printer! The SUNLU Terminator 3 (T3) features an advanced fast-printing algorithm that boosts speeds up to 250mm/s without sacrificing quality. It comes equipped with smart clog detection, filament breakage detection, and a convenient resume-printing function after power outages. The stable metal frame design ensures high precision, and the magnetic flexible build plate makes popping off finished prints incredibly easy. Fully functional, calibrated, and ready to go for your next DIY prototyping project!",
+  "condition": "good",
+  "brand": "SUNLU",
+  "model": "Terminator 3 (T3)",
+  "age_years": null,
+  "dimensions": {
+    "length": 17.3,
+    "width": 16.1,
+    "height": 22.8,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 15.9,
+    "unit": "lbs"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 229.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully assembled, tested, and ready to plug in. Local porch pickup only as it's pre-assembled. Great for anyone getting into 3D printing!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 75.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["SUNLU T3", "3D Printer", "Smart Printer", "High Speed 3D Printer", "Terminator 3", "Tech Gadgets"],
+  "category_override": "Electronics - Computers & Accessories",
+  "meta_description": "Pre-owned SUNLU Terminator 3 (T3) smart 3D printer in good condition. 250mm/s high-speed printing, clog detection, and resume printing capabilities.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "三绿 SUNLU Terminator 3 (T3) 智能高速3D打印机",
+  "description_zh": "极客和DIY玩家的手工造物神器！这款经典的 SUNLU Terminator 3 (T3) 智能3D打印机，主打高达 250mm/s 的高速打印算法，相比传统打印机成型速度大幅提升。机身自带智能断料检测、堵头智能检测以及断电续打功能，避免耗材浪费。配备磁吸磁性软膜平台，打印完成后只需轻轻一弯即可完美取件。机身框架扎实稳定，成色极佳，功能完全正常。"
+}

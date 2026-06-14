@@ -1,0 +1,55 @@
+{
+  "name": "Lenovo ThinkPad P1 Gen 4 Mobile Workstation (Rose-Hulman's Choice)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 490 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 510 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 560 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 490 }
+    ],
+    "negotiable": true
+  },
+  "description": "Chosen by Rose-Hulman as the standard freshman laptop package! I'm primarily a Mac user, so this absolute beast of a machine has been sitting in its sleeve and was hardly ever used. Unleash extreme commercial-grade performance anywhere you go! This premium Lenovo ThinkPad P1 Gen 4 is a lightweight engineering powerhouse wrapped in a high-end Carbon Fiber weave top cover and a solid Magnesium Alloy bottom chassis. Packing an 8-core 11th Gen Intel Core i7-11800H processor, 16GB of fast 3200MHz RAM, a 512GB NVMe SSD, and a dedicated 4GB graphics card, it breezes through complex CAD modeling, 3D rendering, heavy data compiling, and IDE software required for classes. Features a stunning, color-accurate 16-inch 16:10 professional anti-glare display with narrow bezels, dual smart cooling fans, and that legendary ThinkPad durability. Practically like-new and ready to tackle your entire engineering curriculum!",
+  "condition": "good",
+  "brand": "Lenovo",
+  "model": "ThinkPad P1 Gen 4 (20Y4536Y00)",
+  "age_years": null,
+  "dimensions": {
+    "length": 14.1,
+    "width": 10.0,
+    "height": 0.7,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 3.99,
+    "unit": "lbs"
+  },
+  "color": "Deep Black / Carbon Fiber Weave",
+  "quantity": 1,
+  "original_source": "Lenovo Official Store",
+  "original_link": "https://lenovo.com",
+  "original_price": 2199.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Perfect for incoming Rose-Hulman freshmen or engineering students! Avoid the university markup. Laptop has been fully factory reset, meticulously cleaned, and sanitized. Includes original Lenovo high-capacity charging block. Available for immediate local pickup around Terre Haute!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 430.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Rose Hulman Laptop", "ThinkPad P1", "Lenovo Workstation", "P1 Gen 4", "Engineering Laptop", "RHIT Freshman", "CAD Laptop"],
+  "category_override": "Electronics - Computers & Accessories",
+  "meta_description": "Like-new Lenovo ThinkPad P1 Gen 4 16\" mobile workstation. Official Rose-Hulman freshman computer specification. Features i7-11800H, 16GB RAM, 512GB SSD, and 4GB dedicated graphics card.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "联想 Lenovo ThinkPad P1 Gen 4 碳纤维工程移动工作站 (Rose-Hulman新生官方机)",
+  "description_zh": "Rose-Hulman（罗斯-豪曼理工学院）大一新生官方选配指定型号！由于我是坚定的 Mac 用户，这台性能怪兽买来后几乎一直闲置，使用率极低，成色极新。搭载酷睿 i7-11800H 强劲标压处理器、16GB 内存、512GB 高速固态以及 4GB 独立显卡，完美通过学校各类重型 CAD 建模、3D 渲染和编程编译课程软件的官方认证。碳纤维顶盖搭配镁合金底壳，兼顾极致坚固与便携。比从学校直接购买划算太多，完美应对接下来的大学工科作业！"
+}

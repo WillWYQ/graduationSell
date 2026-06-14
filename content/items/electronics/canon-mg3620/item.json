@@ -1,0 +1,55 @@
+{
+  "name": "Canon PIXMA MG3620 Wireless All-in-One Inkjet Printer",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 50 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 60 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 70 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 60 }
+    ],
+    "negotiable": true
+  },
+  "description": "Ditch the library lines and print from the comfort of your own home! This sleek, white Canon PIXMA MG3620 is the ultimate space-saving 3-in-1 workhorse that effortlessly prints, copies, and scans. Equipped with seamless wireless connectivity, it allows you to print photos, homework, or boarding passes directly from your smartphone, tablet, or laptop via AirPrint and Mopria. Features auto 2-sided duplex printing to cut your paper usage in half. Fully functional, compact, and super clean—ready to tackle your daily home or office tasks!",
+  "condition": "good",
+  "brand": "Canon",
+  "model": "PIXMA MG3620",
+  "age_years": null,
+  "dimensions": {
+    "length": 12.0,
+    "width": 17.7,
+    "height": 6.0,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 11.9,
+    "unit": "lbs"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B010A7TZ76?ref_=ppx_hzod_title_dt_b_fed_asin_title_0_0&th=1",
+  "original_price": 109.00,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The printer is in great physical condition and powers on perfectly. Please note: Depending on your current needs, you may want to pop in a fresh set of Canon 240/241 ink cartridges to ensure crisp color output!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 30.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Canon Printer", "Pixma MG3620", "Wireless Printer", "All in One Printer", "Home Office", "Inkjet Scanner"],
+  "category_override": "Electronics - Computers & Accessories",
+  "meta_description": "Pre-owned white Canon PIXMA MG3620 wireless all-in-one inkjet printer in good condition. Features mobile device printing, auto duplex 2-sided printing, scanning and copying.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "佳能 Canon PIXMA MG3620 无线多功能一体彩色喷墨打印机",
+  "description_zh": "小巧高效的居家办公/学生必备神器！这款白色佳能 PIXMA MG3620 无线三合一打印机，集无线打印、复印、扫描于一体。自带Wi-Fi芯片，支持手机、平板和电脑无线直连，使用 AirPrint 或 Mopria 一键出单。支持自动双面打印（Auto Duplex），省时又省纸。机身成色极新，功能完全正常，摆在桌上完全不占地方。"
+}

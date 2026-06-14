@@ -1,0 +1,55 @@
+{
+  "name": "Hakko FA-400 Benchtop Solder Smoke Absorber",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 40 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 55 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 60 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 45 }
+    ],
+    "negotiable": true
+  },
+  "description": "Protect your lungs and keep your workshop air clear with this premium benchtop solder smoke absorber! The Hakko FA-400 is the industry standard for removing toxic fumes, flux smoke, and unpleasant odors from your soldering workspace. Designed with a highly efficient activated carbon filter sheet, it quickly draws in and captures airborne contaminants. It features an ESD-safe rugged housing, a high-performance low-noise internal exhaust fan, and an ingenious dual-angle stand design—lay it flat for maximum high-velocity suction or stand it vertically for standard benchtop filtering. Fully functional, exceptionally clean, and an absolute health necessity for any serious hardware hacker or electronics repair tech!",
+  "condition": "good",
+  "brand": "Hakko",
+  "model": "FA-400",
+  "age_years": null,
+  "dimensions": {
+    "length": 6.5,
+    "width": 5.1,
+    "height": 2.2,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 2.0,
+    "unit": "lbs"
+  },
+  "color": "Blue / Yellow Accent",
+  "quantity": 1,
+  "original_source": "hakkousa",
+  "original_link": "https://hakkousa.com/fa-400-smoke-absorber.html",
+  "original_price": 81.67,
+  "status": "available",
+  "listed_date": "2026-06-14",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes the FA-400 smoke absorber unit and a clean activated carbon filter sheet already installed. Thoroughly wiped down and functions perfectly. Ready for pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 25.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Hakko FA-400", "Smoke Absorber", "Fume Extractor", "Solder Filter", "Electronics Workshop", "ESD Safe Equipment"],
+  "category_override": "Electronics - Other Electronics",
+  "meta_description": "Pre-owned Hakko FA-400 benchtop solder smoke absorber in good condition. Features ESD-safe body, activated carbon filtration, dual-angle operation, low noise exhaust fan.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "白光 Hakko FA-400 台式防静电焊锡抽烟机/吸烟仪",
+  "description_zh": "电子硬件工程师和DIY焊接玩家守护肺部健康的终极利器！这款工业级白光 Hakko FA-400 台式吸烟仪，能高效吸除和过滤焊接时产生的松香有害烟雾、松香气味和松香残渣。采用高品质活性炭滤网，配合内部大吸力、低噪音的排风扇。具有卓越的 ESD-Safe 防静电设计，完全不会损伤脆弱的电路板芯片。机身支持独特的双角度放置：平放时可实现近距离高速强力吸除，立放时适合标准台面排烟。整体成色非常干净，运转平稳正常。"
+}
