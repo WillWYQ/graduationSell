@@ -1,0 +1,55 @@
+{
+  "name": "Rug Doctor Deep Carpet Cleaner Upright Machine",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 110 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 130 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 180 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 110 }
+    ],
+    "negotiable": true
+  },
+  "description": "Stop renting and own professional-grade cleaning power! This genuine Rug Doctor Deep Carpet Cleaner (Model DCC-1) delivers industrial-strength extraction right to your home. It features a Dual Cross-Action brush system with two rows of bristles that vibrate and scrub deeply to clean every carpet fiber from all angles in a single pass. Equipped with a Super Boost Spray dial to toggle on extra solution for stubborn pet stains or heavy-foot-traffic zones, and a simple-lift dual tank system that separates clean water from dirty wastewater effortlessly. Also includes a long flexible hose attachment with an upholstery tool perfect for cleaning stairs, couches, or detailing vehicle interiors. Exceptionally powerful, well-maintained, and ready to make your rugs look brand new!",
+  "condition": "good",
+  "brand": "Rug Doctor",
+  "model": "DCC-1",
+  "age_years": null,
+  "dimensions": {
+    "length": 12.0,
+    "width": 12.5,
+    "height": 28.0,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 24.0,
+    "unit": "lbs"
+  },
+  "color": "Red / Gray",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://www.walmart.com/ip/Rug-Doctor-Deep-Carpet-Cleaner-Upright-Red-Gray/39671830",
+  "original_price": 299.99,
+  "status": "available",
+  "listed_date": "2026-06-16",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully tested, holds pressure perfectly with zero leaks, and both intake and spray pumps work flawlessly. Thoroughly rinsed, deep-cleaned, and ready for pickup!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 85.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Rug Doctor", "Carpet Cleaner", "DCC-1", "Shampooer Machine", "Pet Stain Remover", "Upholstery Cleaner", "Home Appliances"],
+  "category_override": "Appliances - Other Small Appliances",
+  "meta_description": "Pre-owned Rug Doctor DCC-1 upright deep carpet cleaner in good condition. Dual cross-action brushes, super boost spray dial, upholstery tool hose included.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "地毯地垫深层清洗专家 Rug Doctor DCC-1 家用立式抽吸清洗机/洗地机",
+  "description_zh": "告别昂贵的地毯租借，一步到位拥有一家专业级的地毯深层洗护神器！这款经典的 Rug Doctor DCC-1 家用立式地毯清洗机，搭载独家的 Dual Cross-Action 双重交叉震动毛刷系统，能在单次推行中从各个角度强力揉搓、洗净每一根地毯纤维。机身配有 Super Boost 强力喷雾拨轮，可针对顽固污渍或高频踩踏区域追加高浓度洗剂；采用双独立透明大水箱，净污分离，倾倒清洗绝不弄脏手。随机额外附送超长软管及沙发布艺手持吸头，不仅能洗楼梯、清理沙发垫，还能为汽车织物内饰做精细清洗。泵压稳定，吸力强劲，全功能完好。"
+}

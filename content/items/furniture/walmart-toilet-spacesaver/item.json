@@ -1,0 +1,55 @@
+{
+  "name": "Walmart Over-the-Toilet Bathroom Space Saver Storage Cabinet",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 20 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 40 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 90 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Maximize your bathroom storage and clear the countertop clutter with this classic white over-the-toilet space saver! Originally purchased from Walmart, this practical vertical shelving unit fits seamlessly over most standard toilet tanks to unlock valuable, underutilized vertical space. It features a spacious top display shelf, a handy middle double-door cabinet with sleek glass-style knobs to hide away private essentials or extra toilet paper rolls, and a convenient lower open shelf perfect for hair dryers, styling tools, or towels. A lightweight yet sturdy apartment essential that instantly elevates your bathroom organization!",
+  "condition": "good",
+  "brand": "Mainstays / Walmart",
+  "model": "Over-the-Toilet Cabinet Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 23.6,
+    "width": 8.0,
+    "height": 64.2,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 26.5,
+    "unit": "lbs"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://walmart.com",
+  "original_price": 39.98,
+  "status": "available",
+  "listed_date": "2026-06-16",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The unit is pre-assembled and ready to place in your bathroom, saving you from a tedious setup! It is lightweight and easy to carry, but please ensure your car can accommodate its 5.3-foot vertical height for pickup.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 15.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Over The Toilet", "Bathroom Storage", "Space Saver Cabinet", "White Shelving", "Walmart Furniture", "Apartment Essentials"],
+  "category_override": "Furniture - Cabinets & Storage",
+  "meta_description": "Pre-owned white over-the-toilet bathroom storage space saver cabinet originally from Walmart. Features 2 open shelves and a double door middle cabinet in good condition.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "沃尔玛 Walmart 购入马桶上方加高垂直收纳置物架/浴室太空舱柜",
+  "description_zh": "小户型、单身公寓及合租房浴室拓容的绝对救星！这款从沃尔玛购入的经典纯白马桶上方垂直置物架，能完美横跨绝大多数标准马桶水箱，把上方完全闲置的墙面变成巨大的收纳宝地。置物架最上方是一层开放式展示架；中间设计了带精致透明把手的双开门封闭储物柜，非常适合存放私密用品或备用卷纸；下方则是宽敞的开放隔板，用来放吹风机、直发棒或浴巾极其顺手。机身轻便且整体结构非常稳固，帮您彻底释放洗手台面空间。"
+}

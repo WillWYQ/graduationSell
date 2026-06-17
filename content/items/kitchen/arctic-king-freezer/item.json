@@ -1,0 +1,55 @@
+{
+  "name": "Arctic King 5.0 Cu. Ft. Deep Chest Freezer",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 65 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 85 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 135 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 65 }
+    ],
+    "negotiable": true
+  },
+  "description": "Stop struggling with a packed kitchen fridge and step up your storage game! This Arctic King 5.0 Cu. Ft. compact deep chest freezer is the ultimate garage, basement, or apartment essential for meal preppers, big families, or anyone who loves buying bulk meats and frozen goods. Engineered with a balanced lid hinge that holds itself open between 45° and 75° for safe, hands-free access, and a removable wire hanging basket to keep your most-used items floating neatly at the top. Features an easy-to-use external adjustable thermostat dial on the front with an LED power indicator light, an integrated defrost water drain plug for effortless maintenance, and a whisper-quiet 42dB compressor system that won't disrupt your space. Sleek, space-saving, and incredibly energy-efficient!",
+  "condition": "good",
+  "brand": "Arctic King",
+  "model": "ARC050S0ARWW",
+  "age_years": null,
+  "dimensions": {
+    "length": 24.9,
+    "width": 21.7,
+    "height": 33.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 50.7,
+    "unit": "lbs"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://www.walmart.com/ip/Arctic-King-5-cu-ft-Chest-Freezer/909235941",
+  "original_price": 149.00,
+  "status": "available",
+  "listed_date": "2026-06-16",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully tested, gets bone-chilling cold down to -11°F rapidly, and has been deep-cleaned, defrosted, and sanitized inside and out. Includes the original wire hanging basket. Please bring a suitable vehicle for appliance pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 50.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Arctic King", "Chest Freezer", "Deep Freezer", "5 cu ft Freezer", "White Freezer", "Kitchen Appliance", "Garage Ready Storage"],
+  "category_override": "Appliances - Freezers",
+  "meta_description": "Pre-owned white Arctic King 5.0 cu. ft. deep chest freezer (Model ARC050S0ARWW) in good condition. Features external adjustable thermostat, removable basket, balanced hinge, and defrost drain.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "北极王 Arctic King 5.0立方英尺 卧式家用深冷小型冰柜/冷冻箱",
+  "description_zh": "爱囤货、肉类海鲜重度爱好者及大包购买家庭的超强扩容福星！这款原装 Arctic King (北极王) 5.0 立方英尺卧式深冷冰柜，采用经典的干净纯白外观。内部深度充足，能够轻松放下大箱囤肉、冰淇淋、速冻食品或预制菜。带有标志性的自平衡可停留掀盖铰链设计，支持45°至75°开门悬停，拿取沉重食物完全不砸手。正面配备外置多档控温旋钮（带LED运行指示灯），底部自带有便利排污排水阀门，清理极其容易。42分贝超静音运转低噪，低耗电能效极佳，摆在车库、地下室或厨房极省空间。"
+}
