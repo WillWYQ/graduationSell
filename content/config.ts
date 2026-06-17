@@ -38,6 +38,7 @@ export const siteConfig: SiteConfig = {
   recentlyListedCount: 6,
   soldItemRetentionDays: 3,
   soldArchiveDisplayLimit: 200,
+  measurementUnit: "metric",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   contact: {
@@ -68,9 +69,9 @@ export const siteConfig: SiteConfig = {
   // See DESIGN.md §18 for the full list of options per slot.
   ui: {
     background: "shooting-stars",
-    itemGrid:   "bento-grid",
-    gallery:    "apple-cards-carousel",
-    itemCard:   "card-spotlight",
+    itemGrid: "bento-grid",
+    gallery: "apple-cards-carousel",
+    itemCard: "card-spotlight",
   },
 
   // ── Analytics ─────────────────────────────────────────────────────────────
