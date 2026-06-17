@@ -6,29 +6,12 @@
       {
         "label": "Local pickup (≤ 15 mi)",
         "miles_max": 15,
-        "amount": 25
+        "amount": 40
       },
-      {
-        "label": "15 – 100 mi",
-        "miles_min": 15,
-        "miles_max": 100,
-        "amount": 45
-      },
-      {
-        "label": "100 – 200 mi",
-        "miles_min": 100,
-        "miles_max": 200,
-        "amount": 75
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 200,
-        "amount": 55
-      }
     ],
-    "negotiable": true
+    "negotiable": false
   },
-  "description": "Multi-functional kitchen bakers rack and wine bar cabinet featuring a smart LED light strip and built-in power outlets (2 USB ports & 2 AC outlets). Designed with 6 spacious storage levels, a 4-tier wine rack holding up to 24 bottles, hanging glass holders, and removable S-shaped hooks. Sturdy dark wood boards with a reinforced black metal frame. Perfect for a coffee bar, liquor storage, or kitchen organizer. Selling cheap for a graduation yard sale! Note: Appliances and bottles shown in the photo are not included.",
+  "description": "Reserved for Shenel from Facebook Marketplace",
   "condition": "Good",
   "brand": "yacchi home",
   "model": "869",
@@ -48,7 +31,7 @@
   "original_source": "Amazon",
   "original_link": "https://amazon.com",
   "original_price": 69.99,
-  "status": "available",
+  "status": "reserved",
   "listed_date": "2026-06-13",
   "sold_date": null,
   "preferred_payment": [],
