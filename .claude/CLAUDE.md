@@ -62,7 +62,7 @@ After finishing each phase's implementation, **update `docs/IMPLEMENTATION_PLAN.
 |---|---|---|
 | docs/DESIGN.md / docs/DESIGN_zh.md | v0.9.2 | 2026-06-09 |
 | docs/TECH_REQUIREMENTS.md / docs/TECH_REQUIREMENTS_zh.md | v0.9.2 | 2026-06-09 |
-| docs/IMPLEMENTATION_PLAN.md / docs/IMPLEMENTATION_PLAN_zh.md | **v1.5** | 2026-06-11 |
+| docs/IMPLEMENTATION_PLAN.md / docs/IMPLEMENTATION_PLAN_zh.md | **v1.6** | 2026-06-14 |
 | docs/FEATURES_ROADMAP.md / docs/FEATURES_ROADMAP_zh.md | — | 2026-06-01 |
 | docs/CURRENT_FUNCTIONALITY.md / docs/CURRENT_FUNCTIONALITY_zh.md | — | 2026-06-09 |
 | docs/ARCHITECTURE.md / docs/ARCHITECTURE_zh.md | v1.1 | 2026-06-09 |
@@ -81,6 +81,7 @@ After finishing each phase's implementation, **update `docs/IMPLEMENTATION_PLAN.
 | Mark an item sold | `pnpm mark-sold <category>/<name>` |
 | Create a new item | `pnpm create-item <category>/<name>` |
 | Upload photos to CDN | `pnpm upload-images` |
+| Export listings to Facebook Marketplace | `pnpm fb-export` (interactive; outputs `exports/facebook-marketplace.csv`) |
 | Update site to a new template version | `pnpm update-site` (`docs/UPDATE_GUIDE.md`) |
 
 ---

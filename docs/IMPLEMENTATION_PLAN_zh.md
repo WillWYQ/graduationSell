@@ -1,7 +1,7 @@
 # UsedExchange — 实施计划
 
-**版本：** 1.5  
-**日期：** 2026-06-11  
+**版本：** 1.6  
+**日期：** 2026-06-14  
 **基于：** DESIGN.md v0.9.2 · TECH_REQUIREMENTS.md v0.9.2  
 **假设：** 单人开发者；主要目标 = GitHub Pages + Cloudflare R2
 
@@ -119,6 +119,7 @@
 - [x] 编写 `lib/utils/i18n.ts` — `getLocalizedField(item, field, locale)` 和 `t(key)`
 - [x] 用已知坐标测试 `haversineInMiles`
 - [x] 测试 `resolveItemPrice` 的所有分支：Infinity、精确匹配、间隙、空档位、开放式档位
+- [x] **（2026-06-14 新增）** 编写 `lib/utils/units.ts` — `convertLength`/`convertWeight`、`resolveMeasurementUnit(locale, config)`（解析 `siteConfig.i18n.localeMeasurementUnits?.[locale] ?? siteConfig.measurementUnit`）、`formatDimensions`/`formatWeight`（将物品存储的尺寸/重量换算为解析出的单位制以供展示，四舍五入到 2 位小数）。无 `"use client"`——供 `MetadataTable.tsx` 使用
 
 #### 3c — 加载器（`lib/content/loader.ts`）
 - [x] 实现 `loadCategories()` — 读取 `content/items/`，解析 `_category.json`，应用排序逻辑，排除 `_` 前缀文件夹
@@ -130,6 +131,7 @@
 - [x] 图片 URL 解析：`manifest[key] ?? "/items/{key}"` 回退
 - [x] 图片排序：`filenames.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))` ——显式排序，绝不依赖 `readdir` 顺序
 - [x] 验证返回的 `Item` 类型中从不包含 `reserved_for` 字段
+- [x] **（2026-06-14 新增）** `item.json`/`_category.json` 通过 `jsonc-parser` 以 JSONC 解析（`readJsonc()` 辅助函数，`allowTrailingComma: true`）——允许 `//` 注释和尾随逗号；纯 JSON 仍可零错误解析，因此现有文件不受影响
 
 #### 3d — 种子数据与内容 CLI 脚本
 - [x] 创建 2 个示例分类（`content/items/houseware/`、`content/items/electronics/`）
@@ -140,6 +142,9 @@
 - [x] 编写 `scripts/create-template.ts`
 - [x] 提取 `scripts/lib/itemTemplate.ts`（`buildItemTemplate()`）作为脚手架的唯一数据源，供 `create-item.ts` 和 `create-template.ts` 共用——覆盖 DESIGN.md §5 中全部 38 个字段（`reserved_for` 除外），其中 `dimensions`/`weight` 写入空结构占位符（`{ length: null, width: null, height: null, unit: "cm" }` / `{ value: null, unit: "kg" }`），未填写时通过现有的 Zod `.catch(null)` 逻辑自动归一为 `null`
 - [x] 验证加载器为示例物品返回正确数据
+- [x] **（2026-06-14 新增）** `buildItemTemplate(name, listedDate, measurementUnit)` ——`dimensions.unit`/`weight.unit` 占位符现在默认取自 `siteConfig.measurementUnit`（"metric" → cm/kg，"imperial" → in/lb），而非硬编码
+- [x] **（2026-06-14 新增）** `scripts/lib/itemTemplate.ts` —— `renderItemTemplateJsonc()` 将模板写为 JSONC，并为 `condition`、`status`、`dimensions.unit`、`weight.unit` 附上列出所有可选值的 `// options: ...` 注释；`create-item.ts`/`create-template.ts` 写入此输出
+- [x] **（2026-06-14 新增）** `scripts/lib/markSold.ts`（`applyMarkSold()`）——`mark-sold` 现在通过 `jsonc-parser` 的 `modify`/`applyEdits`（定向编辑指定 token）来更新 `status`/`sold_date`，而非完整 parse/stringify 往返，从而保留 `// options: ...` 注释和卖家的格式
 
 ### 验收标准
 - 所有 4 个加载器函数从示例 `content/items/` 返回类型化数据
@@ -509,6 +514,47 @@
 
 ### 参考
 DESIGN_zh.md §21 · TECH_REQUIREMENTS_zh.md §29 · ARCHITECTURE_zh.md（lib/ 模块参考、运费估算数据流）· `workers/shipping-rate-proxy/README.md`
+
+---
+
+## Phase 17 — Facebook Marketplace 智能导出 ✅
+
+**目标：** `pnpm fb-export` 通过交互式三步 CLI 将在售物品导出为 Facebook Marketplace 批量上传 CSV。智能导出历史可防止重复运行时生成重复发布。
+
+**版本：** v1.3.0
+
+### 任务
+
+#### 17a — 分类映射器
+- [x] `scripts/lib/fbCategoryMap.ts` — 50+ 条正则规则，将物品语料（名称 + 标签 + 品牌 + 型号 + 分类 slug）映射为 FB `"Top//Sub//Leaf"` 分类字符串；为未匹配分类提供 slug 回退映射
+
+#### 17b — 导出脚本
+- [x] `scripts/export-facebook.ts` — 交互式三步 CLI（步骤 0：第二次及以后运行时显示历史过滤；步骤 1：全部/按分类/多选，支持逗号列表和区间 `1-4`；步骤 2：价格档位：最低价/最高价/按标签）
+- [x] FB CSV 字段映射：`name`→TITLE（150 字符）、`price`→PRICE、`condition`→CONDITION、`description`→DESCRIPTION（5000 字符）、分类→CATEGORY、重量→SHIPPING WEIGHT、运费标志→OFFER FREE SHIPPING / OFFER SHIPPING
+- [x] 物品超过 50 条时自动拆分为编号文件（FB 单次上传上限）
+- [x] 每次成功写入后将 `ExportRun` 追加至导出历史
+
+#### 17c — 导出历史
+- [x] `scripts/lib/exportHistory.ts` — `loadHistory()`、`allExportedSlugs()`、`lastRun()`、`appendRun()`、`formatRunDate()`
+- [x] 历史记录保存于 `exports/.export-history.json`（已加入 gitignore）；`exports/.gitkeep` 追踪目录
+- [x] 身份键：`{categorySlug}/{itemSlug}` — 重命名后仍保持稳定
+
+#### 17d — 接入与文档
+- [x] `package.json` 新增 `"fb-export"` 脚本；版本升至 `1.3.0`
+- [x] `.gitignore` 更新：排除 `exports/*.csv` 和 `exports/.export-history.json`
+- [x] `.claude/CLAUDE.md` — 常用卖家任务表格新增 `pnpm fb-export` 行
+- [x] `docs/CURRENT_FUNCTIONALITY.md` / `_zh` — 卖家 CLI 工具表格记录 fb-export 及导出历史
+- [x] `docs/FEATURES_ROADMAP.md` / `_zh` — §3.4 补充导出历史说明
+- [x] `README.md` / `README_zh.md` — 卖家工作流新增 fb-export
+- [x] `SETUP_GUIDE.md` — 新增 §8「导出至 Facebook Marketplace」（面向卖家的白话说明）
+- [x] `pnpm type-check`、`pnpm lint` 通过（CI 绿灯）
+
+### 验收标准
+- `pnpm fb-export` 在 TTY 下交互运行，引导完成所有步骤无报错
+- 输出 CSV 列顺序符合 Facebook Marketplace 批量上传模板
+- 物品超过 50 条时自动拆分为 `facebook-marketplace-1.csv`、`facebook-marketplace-2.csv`……
+- 第二次运行显示步骤 0，含已导出物品数量；选择「跳过」后自动过滤
+- 历史文件写入后若损坏，回退至 `{ runs: [] }` 而不崩溃
 
 ---
 

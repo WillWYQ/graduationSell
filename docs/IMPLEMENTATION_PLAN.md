@@ -1,7 +1,7 @@
 # UsedExchange — Implementation Plan
 
-**Version:** 1.5  
-**Date:** 2026-06-11  
+**Version:** 1.6  
+**Date:** 2026-06-14  
 **Based on:** DESIGN.md v0.9.2 · TECH_REQUIREMENTS.md v0.9.2  
 **Assumption:** Single developer; primary target = GitHub Pages + Cloudflare R2
 
@@ -120,6 +120,7 @@
 - [x] Write `lib/utils/i18n.ts` — `getLocalizedField(item, field, locale)` and `t(key)` (TECH_REQUIREMENTS.md §22.8)
 - [x] Test `haversineInMiles` against known coordinates
 - [x] Test `resolveItemPrice` for all branches: Infinity, exact match, gap, empty tiers, open-ended tier
+- [x] **(Added 2026-06-14)** Write `lib/utils/units.ts` — `convertLength`/`convertWeight`, `resolveMeasurementUnit(locale, config)` (resolves `siteConfig.i18n.localeMeasurementUnits?.[locale] ?? siteConfig.measurementUnit`), `formatDimensions`/`formatWeight` (convert an item's stored dimensions/weight to the resolved unit system for display, rounded to 2 decimals). No `"use client"` — used by `MetadataTable.tsx`
 
 #### 3c — Loader (`lib/content/loader.ts`)
 - [x] Implement `loadCategories()` — reads `content/items/`, parses `_category.json`, applies sort logic (DESIGN.md §6), excludes `_`-prefixed folders
@@ -131,6 +132,7 @@
 - [x] Image URL resolution: `manifest[key] ?? "/items/{key}"` fallback (DESIGN.md §11)
 - [x] Image sorting: `filenames.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))` — explicit sort, never rely on `readdir` order (DESIGN.md §4)
 - [x] Verify `reserved_for` field is never included in returned `Item` type
+- [x] **(Added 2026-06-14)** `item.json`/`_category.json` parsed as JSONC via `jsonc-parser` (`readJsonc()` helper, `allowTrailingComma: true`) — `//` comments and trailing commas allowed; strict JSON still parses with zero errors, so existing files are unaffected
 
 #### 3d — Seed Data & Content CLI Scripts
 - [x] Create 2 sample categories (`content/items/houseware/`, `content/items/electronics/`)
@@ -141,6 +143,9 @@
 - [x] Write `scripts/create-template.ts` — creates `content/items/<category>/_template.json` or global `content/items/_template.json` without an argument (TECH_REQUIREMENTS.md §22.3)
 - [x] Extract `scripts/lib/itemTemplate.ts` (`buildItemTemplate()`) as the single source of truth for the scaffold, used by both `create-item.ts` and `create-template.ts` — covers all 38 fields from DESIGN.md §5 (except `reserved_for`), with `dimensions`/`weight` written as empty placeholder structures (`{ length: null, width: null, height: null, unit: "cm" }` / `{ value: null, unit: "kg" }`) that coerce to `null` via the existing Zod `.catch(null)` logic if left unfilled
 - [x] Verify loader returns correct data for sample items
+- [x] **(Added 2026-06-14)** `buildItemTemplate(name, listedDate, measurementUnit)` — `dimensions.unit`/`weight.unit` placeholders now default from `siteConfig.measurementUnit` ("metric" → cm/kg, "imperial" → in/lb) instead of being hardcoded
+- [x] **(Added 2026-06-14)** `scripts/lib/itemTemplate.ts` — `renderItemTemplateJsonc()` writes the template as JSONC with `// options: ...` comments listing every valid value for `condition`, `status`, `dimensions.unit`, and `weight.unit`; `create-item.ts`/`create-template.ts` write this output
+- [x] **(Added 2026-06-14)** `scripts/lib/markSold.ts` (`applyMarkSold()`) — `mark-sold` now edits `status`/`sold_date` via `jsonc-parser`'s `modify`/`applyEdits` (targeted token edits) instead of a full parse/stringify round trip, so `// options: ...` comments and seller formatting survive
 
 ### Acceptance Criteria
 - All 4 loader functions return typed data from sample `content/items/`
@@ -635,6 +640,47 @@ DESIGN.md §10.3, §12, §13 · TECH_REQUIREMENTS.md §22.8
 
 ### References
 DESIGN.md §21 · TECH_REQUIREMENTS.md §29 · ARCHITECTURE.md (lib/ Module Reference, Shipping Estimate data flow) · `workers/shipping-rate-proxy/README.md`
+
+---
+
+## Phase 17 — Facebook Marketplace Smart Export ✅
+
+**Goal:** `pnpm fb-export` lets sellers export available items as a Facebook Marketplace bulk-upload CSV through an interactive three-step CLI. A smart export history prevents duplicate listings on re-run.
+
+**Version:** v1.3.0
+
+### Tasks
+
+#### 17a — Category Mapper
+- [x] `scripts/lib/fbCategoryMap.ts` — 50+ regex rules mapping item corpus (name + tags + brand + model + categorySlug) to FB `"Top//Sub//Leaf"` category string; slug fallback map for unmatched categories
+
+#### 17b — Export Script
+- [x] `scripts/export-facebook.ts` — interactive 3-step CLI (Step 0: history filter shown on 2nd+ run; Step 1: all/category/multi-select with comma and range notation `1-4`; Step 2: price tier: lowest/highest/by label)
+- [x] FB CSV field mapping: `name`→TITLE (150 chars), `price`→PRICE, `condition`→CONDITION, `description`→DESCRIPTION (5000 chars), category→CATEGORY, weight→SHIPPING WEIGHT, shipping flags→OFFER FREE SHIPPING / OFFER SHIPPING
+- [x] Auto-batches into numbered files when > 50 items (FB per-upload limit)
+- [x] Appends `ExportRun` to export history after each successful write
+
+#### 17c — Export History
+- [x] `scripts/lib/exportHistory.ts` — `loadHistory()`, `allExportedSlugs()`, `lastRun()`, `appendRun()`, `formatRunDate()`
+- [x] History stored in `exports/.export-history.json` (gitignored); `exports/.gitkeep` tracks the directory
+- [x] Identity key: `{categorySlug}/{itemSlug}` — stable across renames
+
+#### 17d — Wiring & Documentation
+- [x] `package.json` `"fb-export"` script; version bumped to `1.3.0`
+- [x] `.gitignore` updated: `exports/*.csv` and `exports/.export-history.json` excluded
+- [x] `.claude/CLAUDE.md` — added `pnpm fb-export` row to Common Seller Tasks table
+- [x] `docs/CURRENT_FUNCTIONALITY.md` / `_zh` — fb-export + export history documented in Seller CLI Tools table
+- [x] `docs/FEATURES_ROADMAP.md` / `_zh` — §3.4 updated with export history description
+- [x] `README.md` / `README_zh.md` — fb-export added to seller workflow
+- [x] `SETUP_GUIDE.md` — §8 "Exporting to Facebook Marketplace" added (seller-facing plain-language walkthrough)
+- [x] `pnpm type-check`, `pnpm lint` pass (CI green)
+
+### Acceptance Criteria
+- `pnpm fb-export` runs interactively with TTY; guides through all steps without errors
+- Output CSV conforms to Facebook Marketplace bulk upload template column order
+- Items with > 50 selected auto-batch into `facebook-marketplace-1.csv`, `facebook-marketplace-2.csv`, …
+- Second run shows Step 0 with count of previously exported items; selecting "skip" filters them out
+- History file written atomically; corrupted file falls back to `{ runs: [] }` without crashing
 
 ---
 
