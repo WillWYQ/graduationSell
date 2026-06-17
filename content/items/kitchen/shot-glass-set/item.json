@@ -1,0 +1,55 @@
+{
+  "name": "Classic Clear Glass Tequila Shot Glasses (Set of 12)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 28 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 35 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Get ready to host the ultimate party or game night! Up for grabs is a matching set of 12 classic, heavy-base clear shot glasses. Crafted from thick, high-quality durable glass, these 1.5 oz bar essentials feature a flared top rim and a heavily weighted solid bottom to prevent messy tips and spills. Perfect for tequila, whiskey, vodka, espresso shots, or creative mini dessert appetizers. Exceptionally clean, completely scratch-free, and dishwasher safe. A total staple for any home bar, college apartment, or hosting setup!",
+  "condition": "good",
+  "brand": "",
+  "model": "1.5 oz Flared Shot Glass",
+  "age_years": null,
+  "dimensions": {
+    "length": 2.2,
+    "width": 2.2,
+    "height": 2.8,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 2.4,
+    "unit": "lbs"
+  },
+  "color": "Clear",
+  "quantity": 12,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 14.99,
+  "status": "available",
+  "listed_date": "2026-06-16",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Sold as a complete set of 12 glasses. Thoroughly washed, sanitized, and carefully packed into a secure box for easy transport. Ready for porch pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 5.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Shot Glasses", "Set of 12", "Tequila Shots", "Barware Set", "Home Bar Essentials", "Party Supplies"],
+  "category_override": "Kitchen & Dining - Barware & Glassware",
+  "meta_description": "Pre-owned set of 12 clear heavy-base glass shot glasses in good condition. 1.5 oz capacity, flared rim, dishwasher safe barware essentials.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "经典厚底无铅玻璃一口杯/烈酒杯 (12件套)",
+  "description_zh": "轰趴、朋友聚会或调酒桌必备！转让一套完整配套的12件装经典玻璃 Shot 杯（烈酒杯/一口杯）。容量约为 1.5 盎司，采用加厚耐用玻璃材质，标志性的微喇上口设计搭配扎实沉稳的加厚实心底座，有效防止倾倒和泼洒。无论是拿来喝龙舌兰、伏特加、威士忌，还是日常盛放意式浓缩咖啡（Espresso Shot）都极其好用。全套无任何划痕、无裂纹，已彻底清洗消毒。"
+}
