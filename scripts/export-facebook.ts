@@ -9,7 +9,7 @@
 // previous session. History is persisted in exports/.export-history.json.
 
 import fs from "fs/promises";
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, readdirSync } from "fs";
 import path from "path";
 import * as readline from "readline";
 import { loadAllItemsRaw } from "@/lib/content/loader";
@@ -30,11 +30,12 @@ const EXPORTS_DIR = path.join(process.cwd(), "exports");
 const FB_BATCH_LIMIT = 50;
 const FB_TITLE_MAX = 150;
 const FB_DESC_MAX = 5000;
+const FB_PHOTO_LIMIT = 10;
 
 /** Statuses eligible for FB export (excludes sold / draft). */
 const EXPORTABLE_STATUSES = new Set(["available", "pending", "reserved"]);
 
-const CSV_HEADERS = [
+const CSV_HEADERS_BASE = [
   "TITLE",
   "PRICE",
   "CONDITION",
@@ -44,6 +45,11 @@ const CSV_HEADERS = [
   "OFFER FREE SHIPPING",
   "OFFER SHIPPING",
 ];
+
+function buildCsvHeaders(photoCount: number): string[] {
+  const photos = Array.from({ length: photoCount }, (_, i) => `PHOTO ${i + 1}`);
+  return [...CSV_HEADERS_BASE, ...photos];
+}
 
 const CONDITION_MAP: Record<string, string> = {
   new: "New",
@@ -113,7 +119,12 @@ function buildDescription(item: Item): string {
   return (item.description + suffix).slice(0, FB_DESC_MAX);
 }
 
-function buildRow(item: Item, strategy: PriceStrategy): string[] {
+/** Returns only publicly reachable image URLs (https://…). Skips local /items/… paths. */
+function publicImages(item: Item): string[] {
+  return item.images.filter((u) => u.startsWith("http"));
+}
+
+function buildRow(item: Item, strategy: PriceStrategy, photoCount: number): string[] {
   const price = resolvePrice(item.price.tiers, strategy);
 
   let shippingWeight = "";
@@ -125,6 +136,9 @@ function buildRow(item: Item, strategy: PriceStrategy): string[] {
     shippingWeight = lbs;
   }
 
+  const photos = publicImages(item).slice(0, photoCount);
+  const photoCells = Array.from({ length: photoCount }, (_, i) => photos[i] ?? "");
+
   return [
     buildTitle(item),
     price !== null ? String(Math.round(price)) : "",
@@ -134,6 +148,7 @@ function buildRow(item: Item, strategy: PriceStrategy): string[] {
     shippingWeight,
     hasShippingTier(item) && shippingIsFree(item) ? "Yes" : "No",
     hasShippingTier(item) ? "Yes" : "No",
+    ...photoCells,
   ];
 }
 
@@ -143,6 +158,63 @@ function itemSlug(item: Item): string {
   return `${item.categorySlug}/${item.itemSlug}`;
 }
 
+// ── Local photo helpers ────────────────────────────────────────────────────────
+
+const IMAGE_EXTENSIONS = /\.(jpe?g|png|webp|gif|svg|bmp|tiff?)$/i;
+
+/** Return image filenames from an item's content folder, sorted alphabetically. */
+function localPhotoFiles(item: Item): string[] {
+  try {
+    const dir = path.join(process.cwd(), "content", "items", item.categorySlug, item.itemSlug);
+    if (!existsSync(dir)) return [];
+    return readdirSync(dir)
+      .filter((f) => IMAGE_EXTENSIONS.test(f))
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  } catch {
+    return [];
+  }
+}
+
+/** Copy local photos for all selected items into exports/.
+ *  Folders are named NNN_category-item (row number = CSV row order) so the
+ *  order is obvious when manually uploading photos after a CSV import.
+ *  Only copies files that are missing in the target directory. */
+async function copyLocalPhotos(selected: Item[]): Promise<{ photoCount: number; hasPhotos: boolean }> {
+  const PHOTO_FOLDER = "facebook-marketplace-photos";
+  const photoDir = path.join(EXPORTS_DIR, PHOTO_FOLDER);
+
+  const maxPhotos = Math.min(FB_PHOTO_LIMIT, Math.max(1, ...selected.map((i) => localPhotoFiles(i).length)));
+  if (maxPhotos === 0) return { photoCount: 0, hasPhotos: false };
+
+  mkdirSync(photoDir, { recursive: true });
+
+  // Pad width so folders sort lexicographically in the same order as CSV rows.
+  const pad = String(selected.length).length;
+
+  for (let idx = 0; idx < selected.length; idx++) {
+    const item = selected[idx];
+    if (!item) continue;
+    const files = localPhotoFiles(item);
+    if (!files.length) continue;
+
+    const rowNum = String(idx + 1).padStart(pad, "0");
+    const subDir = path.join(photoDir, `${rowNum}_${item.categorySlug}-${item.itemSlug}`);
+    mkdirSync(subDir, { recursive: true });
+
+    for (const file of files.slice(0, FB_PHOTO_LIMIT)) {
+      const dest = path.join(subDir, file);
+      if (!existsSync(dest)) {
+        await fs.copyFile(
+          path.join(process.cwd(), "content", "items", item.categorySlug, item.itemSlug, file),
+          dest,
+        );
+      }
+    }
+  }
+
+  return { photoCount: maxPhotos, hasPhotos: true };
+}
+
 // ── CSV serialisation ──────────────────────────────────────────────────────────
 
 function csvCell(value: string): string {
@@ -150,21 +222,21 @@ function csvCell(value: string): string {
   return /[,"\n\r]/.test(s) ? `"${s}"` : s;
 }
 
-function toCsvString(rows: string[][]): string {
+function toCsvString(headers: string[], rows: string[][]): string {
   return [
-    CSV_HEADERS.map(csvCell).join(","),
+    headers.map(csvCell).join(","),
     ...rows.map((r) => r.map(csvCell).join(",")),
   ].join("\r\n");
 }
 
-async function writeBatch(rows: string[][], suffix?: number): Promise<string> {
+async function writeBatch(headers: string[], rows: string[][], suffix?: number): Promise<string> {
   if (!existsSync(EXPORTS_DIR)) mkdirSync(EXPORTS_DIR, { recursive: true });
   const name =
     suffix !== undefined
       ? `facebook-marketplace-${suffix}.csv`
       : "facebook-marketplace.csv";
   const filepath = path.join(EXPORTS_DIR, name);
-  await fs.writeFile(filepath, toCsvString(rows), "utf-8");
+  await fs.writeFile(filepath, toCsvString(headers, rows), "utf-8");
   return filepath;
 }
 
@@ -419,26 +491,48 @@ async function main(): Promise<void> {
   const priceStrategy = await stepPriceStrategy(selected);
   rl.close();
 
+  // Copy local photos into exports/ as a manual-upload fallback (in case CDN URLs change).
+  await copyLocalPhotos(selected);
+
+  // PHOTO columns use CDN (https://) URLs — FB fetches them automatically on CSV upload.
+  // photoCount = max CDN images any item has, capped at FB's 10-photo limit.
+  const photoCount = Math.min(
+    FB_PHOTO_LIMIT,
+    Math.max(1, ...selected.map((i) => publicImages(i).length)),
+  );
+  const csvHeaders = buildCsvHeaders(photoCount);
+
   // Build CSV rows with inline preview
   section("Generating");
   const rows: string[][] = [];
   for (const item of selected) {
-    const row = buildRow(item, priceStrategy);
+    const row = buildRow(item, priceStrategy, photoCount);
     // row[N] is string | undefined under noUncheckedIndexedAccess; split()[0] likewise
     const catCol = row[4] ?? "";
     const cat = catCol ? (catCol.split("//")[0] ?? catCol) : "(FB auto-detect)";
     const priceLabel = row[1] ? `$${row[1]}` : "—";
+    const cdnCount = publicImages(item).length;
+    const photoLabel = cdnCount ? `📷 ${cdnCount}` : "⚠️  no CDN photos";
     console.log(
-      `  ✓ ${item.name.slice(0, 40).padEnd(41)} ${cat.slice(0, 22).padEnd(23)} ${priceLabel}`,
+      `  ✓ ${item.name.slice(0, 36).padEnd(37)} ${cat.slice(0, 20).padEnd(21)} ${priceLabel.padEnd(7)} ${photoLabel}`,
     );
     rows.push(row);
+  }
+
+  // Warn if any items have no CDN photos (FB won't receive photos for those rows).
+  const noCdnItems = selected.filter((i) => publicImages(i).length === 0);
+  if (noCdnItems.length) {
+    console.log(
+      `\n  ⚠️  ${noCdnItems.length} item${noCdnItems.length !== 1 ? "s have" : " has"} no CDN photos — PHOTO columns will be empty for those rows.`,
+    );
+    console.log("     Run \`pnpm upload-images\` first to upload photos to Cloudflare R2.\n");
   }
 
   // Write CSV — split into 50-item batches if needed
   console.log();
   const writtenFiles: string[] = [];
   if (rows.length <= FB_BATCH_LIMIT) {
-    const fp = await writeBatch(rows);
+    const fp = await writeBatch(csvHeaders, rows);
     writtenFiles.push(path.relative(process.cwd(), fp));
     console.log(`  ✅ Exported ${rows.length} item${rows.length !== 1 ? "s" : ""} → ${writtenFiles[0]}`);
     console.log(`     (within Facebook's ${FB_BATCH_LIMIT}-item limit ✓)\n`);
@@ -449,7 +543,7 @@ async function main(): Promise<void> {
     );
     for (let b = 0; b < total; b++) {
       const batch = rows.slice(b * FB_BATCH_LIMIT, (b + 1) * FB_BATCH_LIMIT);
-      const fp = await writeBatch(batch, b + 1);
+      const fp = await writeBatch(csvHeaders, batch, b + 1);
       const rel = path.relative(process.cwd(), fp);
       writtenFiles.push(rel);
       console.log(`  ✅ ${rel}  (${batch.length} items)`);
@@ -472,7 +566,11 @@ async function main(): Promise<void> {
   await appendRun(run);
 
   console.log("  Export history updated  (exports/.export-history.json)");
-  console.log("  Upload the CSV at: facebook.com/marketplace/create/bulk\n");
+  if (photoCount > 0) {
+    const PHOTO_FOLDER = "facebook-marketplace-photos";
+    console.log(`  Photo folder   exports/${PHOTO_FOLDER}/`);
+  }
+  console.log(`\n  To upload: drag the CSV file + photo folder to facebook.com/marketplace/create/bulk\n`);
 }
 
 main().catch((err: unknown) => {
