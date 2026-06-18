@@ -5,36 +5,18 @@
     "currency": "USD",
     "tiers": [
       {
-        "label": "Local pickup (≤ 15 mi)",
-        "miles_max": 15,
-        "amount": 80
-      },
-      {
-        "label": "15 – 100 mi",
-        "miles_min": 15,
-        "miles_max": 100,
+        "label": "Local pickup on Saturday",
+        "miles_min": 0,
         "amount": 100
       },
-      {
-        "label": "100 – 200 mi",
-        "miles_min": 100,
-        "miles_max": 200,
-        "amount": 150
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 200,
-        "amount": 95
-      }
     ],
     "negotiable": true
   },
-  "description": "Logitech G920 Driving Force racing wheel for Xbox One / Xbox Series X|S and PC. Includes the full 3-pedal floor unit (gas, brake, clutch), desk clamp, power adapter, and USB cable — everything needed to play. Force feedback motor works. Pedals and all electronics are fully functional. Great for Forza, iRacing, Assetto Corsa, etc.",
-  "description_zh": "罗技 G920 赛车方向盘，兼容 Xbox One / Xbox Series X|S 及 PC。包含三踏板脚踏板（油门、刹车、离合器）、桌夹、电源适配器和 USB 线，开箱即用。力反馈电机正常，踏板及所有电子功能完好。适用于 Forza、iRacing、Assetto Corsa 等游戏。",
-  "condition": "good",
+  "description": " Reserved for Clayton from Facebook Marketplace",
+    "condition": "good",
   "brand": "Logitech",
   "model": "G920",
-  "status": "available",
+  "status": "Reserved",
   "listed_date": "2026-06-09",
   "tags": [
     "gaming",

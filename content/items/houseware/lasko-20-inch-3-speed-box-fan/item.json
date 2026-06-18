@@ -4,27 +4,14 @@
     "currency": "USD",
     "tiers": [
       {
-        "label": "Pickup / ≤ 15 mi",
+        "label": "Pickup on Thurs 18th, 12PM",
         "miles_max": 15,
         "amount": 10
       },
-      {
-        "label": "Delivery / 15 – 100 mi",
-        "miles_min": 15,
-        "miles_max": 100,
-        "amount": 25
-      },
-      {
-        "label": "Shipping / 100 – 200 mi",
-        "miles_min": 100,
-        "miles_max": 200,
-        "amount": 35
-      }
     ],
-    "negotiable": true,
-    "show_tiers": true
+    "negotiable": false,
   },
-  "description": "Selling a standard Lasko 20-inch box fan in good condition. Features 3 quiet speeds with a top-mounted manual control knob and a built-in carry handle for easy portability. The fan operates with Save-Smart energy efficiency and provides a powerful airflow up to 1820 CFM to keep any bedroom, living room, or workspace cool. The unit runs cleanly and smoothly. Minor superficial cosmetic wear from normal household use, but functions perfectly.",
+  "description": "Reserved for Cody from facebook marketplace ",
   "condition": "good",
   "brand": "Lasko",
   "model": "3733 / B20200",
@@ -44,7 +31,7 @@
   "original_source": "Lasko",
   "original_link": "https://lasko.com",
   "original_price": 24.98,
-  "status": "available",
+  "status": "Reserved",
   "listed_date": "2026-06-12",
   "sold_date": null,
   "preferred_payment": [
@@ -76,6 +63,4 @@
   "course": "",
   "edition": "Standard",
   "semester_listed": "",
-  "name_zh": "罗技 Lasko 20寸三档家用方型落地扇",
-  "description_zh": "出一台成色良好的 Lasko 20英寸方形排风扇/落地扇。具备 3 档静音风速调节，顶部设有手动控制旋钮，自带便携提手。采用 Save-Smart 节能设计，风力强劲。机身干净，运转正常，仅有轻微日常使用留下的痕迹，功能完全完好。"
 }
