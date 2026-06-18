@@ -31,9 +31,9 @@
   "original_source": "Lasko",
   "original_link": "https://lasko.com",
   "original_price": 24.98,
-  "status": "reserved",
+  "status": "sold",
   "listed_date": "2026-06-12",
-  "sold_date": null,
+  "sold_date": "2026-06-18",
   "preferred_payment": [
     "Venmo",
     "Zelle",
