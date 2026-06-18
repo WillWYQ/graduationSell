@@ -5,7 +5,7 @@
     "currency": "USD",
     "tiers": [
       {
-        "label": "Local pickup on Saturday",
+        "label": "Local pickup on Saturday 2 PM",
         "miles_min": 0,
         "amount": 100
       },
@@ -16,7 +16,7 @@
     "condition": "good",
   "brand": "Logitech",
   "model": "G920",
-  "status": "Reserved",
+  "status": "reserved",
   "listed_date": "2026-06-09",
   "tags": [
     "gaming",
