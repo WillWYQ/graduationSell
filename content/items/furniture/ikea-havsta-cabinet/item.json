@@ -1,0 +1,55 @@
+{
+  "name": "IKEA HAVSTA Storage Combination with Glass Doors",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 240 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 260 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 310 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 240 }
+    ],
+    "negotiable": true
+  },
+  "description": "Add timeless Scandinavian elegance and massive storage to your home with this stunning IKEA HAVSTA storage combination! Crafted from solid pine wood with a brushed, matte dark brown/black finish, this high-end unit offers a beautifully handcrafted, rustic look. The upper section features elegant tempered glass display doors with adjustable glass-and-wood shelving to showcase your favorite collectibles, books, or dinnerware dust-free. The lower section provides a deep, spacious double-door wooden cabinet to tuck away household clutter cleanly out of sight. Equipped with premium integrated soft-closing hinges that shut silently every single time. A beautifully heavy, solid furniture investment piece that completely anchors a room layout!",
+  "condition": "good",
+  "brand": "IKEA",
+  "model": "HAVSTA (31 7/8x18 1/2x83 1/2 \")",
+  "age_years": null,
+  "dimensions": {
+    "length": 31.8,
+    "width": 18.5,
+    "height": 83.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 140.0,
+    "unit": "lbs"
+  },
+  "color": "Dark Brown / Black",
+  "quantity": 1,
+  "original_source": "IKEA Store",
+  "original_link": "https://www.ikea.com/us/en/p/havsta-storage-combination-w-glass-doors-black-s29534733/",
+  "original_price": 600.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "This is a two-piece vertical combination (top glass unit stacks onto the lower base unit), making transport much easier! Already pre-assembled beautifully, saving you from a legendary assembly headache. It is heavy solid wood, so please bring a truck or full-size van and a friend to help load it. Ready for local pickup!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 190.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["IKEA Havsta", "Glass Cabinet", "Display Case", "Solid Wood Bookcase", "Storage Combination", "Black Sideboard", "Living Room Furniture"],
+  "category_override": "Furniture - Cabinets & Storage",
+  "meta_description": "Pre-owned solid pine IKEA HAVSTA storage combination with glass display doors and lower base cabinet in good condition. Dark brown/black brushed finish, soft-close hinges.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "宜家 IKEA HAVSTA 实木双层玻璃门展示储物柜/书柜组合",
+  "description_zh": "宜家高级实木系列的颜值顶流与收纳担当！这款原装 HAVSTA 系列双层储物柜组合，由坚固的实木松木（Solid Pine）打造，带有质感非凡的拉丝哑光深黑褐色木纹表面。上层为双开透亮防爆玻璃展示门，内置可调节的实木包边玻璃隔板，能够防尘且通透地展示收藏品、书籍或高档餐具；下层为加深封闭式实木双开门基座储物柜，完美隐藏各类生活杂物。全门均配备高配自带缓冲的静音阻尼铰链（Soft-closing）。整体已经完美组装完毕（上下两层独立柜体可拆分搬运），帮您完美省去地狱级别的拼装过程。用料极其厚重扎实，高级感拉满。"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Melos Multifunctional Freestanding Metal Garment Rack",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 50 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Clear out your closet chaos and keep your favorite outfits right at your fingertips! This sleek, minimalist Melos Freestanding Metal Garment Rack is an absolute lifesaver for small bedrooms, studio apartments, or entryways. Engineered as a smart 3-in-1 organizer layout, it features a heavy-duty upper hanging rod equipped with clever anti-slip end beads to prevent your hangers from sliding off. It also offers multiple spacious integrated wire grid shelving compartments perfect for organizing shoes, folded sweaters, bags, storage bins, or spare quilts. Side hooks provide extra hanging space for hats, coats, and scarves. Lightweight yet sturdy with adjustable leveling feet to keep it perfectly balanced even on uneven floors!",
+  "condition": "good",
+  "brand": "melos",
+  "model": "LT-K396",
+  "age_years": null,
+  "dimensions": {
+    "length": 43.3,
+    "width": 15.4,
+    "height": 65.0,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 11.5,
+    "unit": "lbs"
+  },
+  "color": "White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0CN921QZS?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_3",
+  "original_price": 32.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The rack is pre-assembled and ready to drop right into your space, saving you the headache of building it yourself! Extremely light and easy to carry single-handedly. Porch pickup ready!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Garment Rack", "Clothes Stand", "Melos Rack", "Bedroom Storage", "Open Closet", "Entryway Organizer", "White Clothes Rack"],
+  "category_override": "Furniture - Bedroom Furniture Furniture",
+  "meta_description": "Pre-owned white Melos multifunctional metal garment rack (Model LT-K396) in good condition. Features built-in storage shelves, hanging rod with anti-slip beads, side hooks, and adjustable feet.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Melos 多功能开放式金属移动挂衣架/落地衣帽架",
+  "description_zh": "拯救小户型与无衣帽间公寓的收纳神器！这款美洛斯 Melos 极简白色全金属落地衣架，集挂衣、置物、包包收纳三合一。上方配有加重承重的挂衣横杆，两侧自带贴心的防滑落圆珠设计，防止衣架滑落；下方和侧面带有高承重的多层金属网格置物架，码放鞋靴、收纳盒、折叠衣物或被褥都极为稳固。侧边悬挂挂钩用来挂包包、外套和围巾非常顺手。底部自带可微调高度的平衡脚垫，无惧地面不平。最棒的是已经帮您完全组装完毕，直接带回家就能扩容！"
+}

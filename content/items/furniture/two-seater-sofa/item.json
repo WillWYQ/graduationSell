@@ -1,0 +1,55 @@
+{
+  "name": "Modern Fabric Two-Seater Sofa / Loveseat",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 95 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 105 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 150 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 95 }
+    ],
+    "negotiable": true
+  },
+  "description": "Upgrade your living room or studio with this cozy, modern gray fabric two-seater sofa! It features an incredibly sturdy wood frame, supportive high-density foam cushions, and soft, closely-woven charcoal gray fabric upholstery that fits perfectly into any contemporary space. Please note: This comes from a pet-loving home with a cat. While the sofa has been vacuumed, deeply cleaned, and there are no major structural damages or deep tears, it does show typical faint signs of minor pet wear (such as light surface fabric lint/fuzz). Extremely comfortable, compact enough for apartment layouts, and ready for a new home!",
+  "condition": "good",
+  "brand": "",
+  "model": "Compact Loveseat Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 68.5,
+    "width": 34.6,
+    "height": 31.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 78.0,
+    "unit": "lbs"
+  },
+  "color": "Charcoal Gray",
+  "quantity": 1,
+  "original_source": "Wayfair",
+  "original_link": "https://wayfair.com",
+  "original_price": 280.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. The sofa will be thoroughly vacuumed and lint-rolled again right before your pickup! Please bring a pickup truck, a large cargo van, or a very spacious SUV, along with an extra pair of hands to help load it.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 75.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Gray Sofa", "Two Seater Sofa", "Loveseat", "Apartment Couch", "Living Room Furniture", "Fabric Couch", "Pet Friendly Home"],
+  "category_override": "Furniture - Sofas & Couches",
+  "meta_description": "Pre-owned modern charcoal gray fabric two-seater sofa/loveseat in good condition. Compact design for apartments, pet-friendly home, fully cleaned before pickup.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "现代布艺双人沙发 / 紧凑型双人位 Loveseat",
+  "description_zh": "非常适合公寓、客厅或书房的现代简约灰色布艺双人沙发！整体骨架稳固，采用高密度回弹海绵垫和紧密编织的高级炭灰色耐磨面料。特别说明：卖家家里养猫，虽然沙发已经过全面彻底的吸尘、除毛和深层清洁，无任何重大破损或严重猫抓破洞，但表面不可避免地会有极其轻微的宠物使用痕迹（如局部轻微浮毛或织物微毛绒）。整体坐感极其舒适包裹，尺寸对小户型非常友好。"
+}

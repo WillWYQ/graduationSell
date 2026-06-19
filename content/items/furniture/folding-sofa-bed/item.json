@@ -1,0 +1,55 @@
+{
+  "name": "Multi-Functional Folding Sofa Bed / Sleeper Couch",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 80 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 150 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 80 }
+    ],
+    "negotiable": true
+  },
+  "description": "The ultimate space-saving solution for small apartments, dorms, or hosting overnight guests! This versatile black folding sofa bed easily transitions from a stylish low-profile accent chair/loveseat into a comfortable lounge sleeper bed in just seconds. Built with high-density supportive foam and wrapped in a durable black fabric upholstery. Please note: This comes from a pet-friendly home with a cat. The sofa bed has been thoroughly vacuumed, deep cleaned, and lint-rolled. It is structurally solid with no major damage, though it shows typical faint surface signs of pet ownership. Extremely practical, lightweight enough to rearrange easily, and a total studio apartment essential!",
+  "condition": "good",
+  "brand": "",
+  "model": "Convertible Sleeper Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 74.8,
+    "width": 35.4,
+    "height": 11.8,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 45.0,
+    "unit": "lbs"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 180.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. The folding bed will be thoroughly lint-rolled and deep-cleaned one final time right before your arrival. It folds up into a compact block making it surprisingly easy to transport in most standard cars or SUVs!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 60.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Sofa Bed", "Folding Mattress", "Convertible Sleeper", "Black Futon", "Apartment Furniture", "Guest Bed", "Pet Friendly"],
+  "category_override": "Furniture - Sofas & Couches",
+  "meta_description": "Pre-owned multi-functional folding sleeper sofa bed in black fabric. Convertible design for guests and small spaces, pet-friendly home, fully cleaned.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "多功能可折叠懒人沙发床 / 地板床垫 (黑色)",
+  "description_zh": "小户型、单身公寓以及临时留宿客人的绝对空间扩容神器！这款黑色多功能折叠沙发床，展开后是一张舒适的单人/双人加宽地板床垫，折叠起来则秒变舒适的低重心靠背沙发椅。采用高密度多层回弹海绵，支撑性极强，久睡不塌陷。特别说明：家里养猫，虽然在发布和自提前都会进行极其彻底的吸尘与除毛清理，无严重猫抓破洞，但面料上不可避免会有轻微宠物痕迹。折叠后呈方块状，普通轿车后排或后备箱即可轻松运走。"
+}
