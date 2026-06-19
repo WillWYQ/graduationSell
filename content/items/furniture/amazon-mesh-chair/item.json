@@ -1,0 +1,54 @@
+{
+  "name": "Fully Adjustable Ergonomic Mesh Office Chair with High-End Adjustments",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 65 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 85 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 135 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Say goodbye to back pain with this high-performance, fully adjustable ergonomic office chair! Originally purchased from Amazon, this premium task chair packs high-end adjustments usually only found on expensive designer models. It features a dedicated built-in lumbar support system to perfectly embrace your lower back, and ultra-versatile multi-directional armrests that adjust both up/down (height) and left/right (swivel/angle) to align seamlessly with your desk. The dynamic recline mesh backrest can tilt far back and lock in place for comfortable gaming or afternoon naps, while the premium fabric seat cushion slides forward and backward (seat depth adjustment) to match your thigh length flawlessly. Please note: This comes from a pet-friendly home with a cat. The light gray seat cushion shows some faint surface marks from daily water/coffee use, but it has been thoroughly vacuumed and sanitized. Heavy-duty frame, smooth 360° swivel, and rolls like a dream!",
+  "condition": "fair",
+  "brand": "",
+  "model": "Amazon Premium Multi-Adjustment Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 26.5,
+    "width": 26.5,
+    "height": 42.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 36.5,
+    "unit": "lbs"
+  },
+  "color": "Light Gray / Dark Gray Frame",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 189.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. As pictured, there are some light cosmetic marks on the fabric seat cushion from daily use, which is why it's priced low for such a high-spec chair! Fully pre-assembled with a perfectly smooth pneumatic gas lift. Please ensure your car trunk or back seat can accommodate an assembled ergonomic chair.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 50.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Ergonomic Chair", "Fully Adjustable", "Seat Depth Adjustment", "Mesh Office Chair", "3D Armrests", "Lumbar Support", "Pet Friendly"],
+  "meta_description": "Pre-owned fully adjustable premium ergonomic mesh office chair from Amazon in fair condition. Features seat depth adjustment, 3D armrests, dynamic recline, and lumbar support. Pet-friendly home with minor seat marks.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "亚马逊 Amazon 购入高配多维全调节人体工学透气网眼办公椅/电脑椅",
+  "description_zh": "懂行极客和长期久坐党闭眼冲的旗舰级全调节人体工学电脑椅！这款购自亚马逊的椅子绝非市面廉价普通基础款，它集成了通常只有在千元级高端工学椅上才有的顶级调节功能：【自带独立弹性腰撑】完美承托护腰；【多维功能扶手】可实现上下升降和左右角度旋转，完美对齐桌面高度；【后仰可锁定机构】椅背可大角度后仰躺倒，追剧或午休极其舒适；最厉害的是【坐垫支持前后滑移（座深调节）】，完美适应不同腿长，分散臀部压力。特别说明：家里养猫。浅灰色织物坐垫表面有一些日常喝水喝咖啡留下的较淡污渍（如图实拍），已做彻底吸尘和深度消毒。全功能完美，超值低价转让。"
+}

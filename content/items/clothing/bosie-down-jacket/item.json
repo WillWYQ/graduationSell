@@ -1,0 +1,55 @@
+{
+  "name": "BOSIE Unisex Oversized Long Puffer Down Jacket with Detachable Scarf Collar (Size XL)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 65 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 85 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 135 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 65 }
+    ],
+    "negotiable": true
+  },
+  "description": "Wrap yourself in absolute warmth and designer streetstyle charm! This genuine BOSIE unisex long puffer down jacket features an ultra-cozy, oversized cloud-like silhouette in a clean off-white cream colorway. Packed with high-loft premium down filling, it delivers intense insulation against harsh winter freezing winds while remaining surprisingly lightweight. It features a unique, modern collarless round-neck design wrapped with sleek silver-tone hardware snap buttons, and comes complete with its original detachable high-neck down scarf/muffler collar attachment for ultimate cold-weather layering versatility. Please note: This comes from a pet-friendly home with a cat. The jacket has been fully laundered, meticulously sanitized, and lint-rolled. It is in fantastic clean condition with zero rips, stains, or down leakage—ready to tackle the next winter snow storm in style!",
+  "condition": "good",
+  "brand": "bosie",
+  "model": "Winter Designer Long Down Series (Unisex)",
+  "age_years": null,
+  "dimensions": {
+    "length": 41.5,
+    "width": 25.6,
+    "height": 2.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 2.8,
+    "unit": "lbs"
+  },
+  "color": "Off-White / Cream",
+  "quantity": 1,
+  "original_source": "Taobao",
+  "original_link": "https://e.tb.cn/h.RKi4ljTOpL9K7do?tk=WpDkgTqQuca",
+  "original_price": 195.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. Meticulously cleaned, deeply sanitized with allergen-free detergent, and thoroughly lint-rolled one final time right before your pickup! Includes the original matching detachable scarf collar attachment. Please note that it does not come with a garment storage bag.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 50.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["BOSIE Jacket", "Down Jacket", "Long Puffer Coat", "Oversized Puffer", "Cream Winter Coat", "Unisex Streetwear", "Taobao Fashion", "Detachable Scarf"],
+  "category_override": "",
+  "meta_description": "Pre-owned genuine BOSIE unisex oversized long puffer down jacket in size XL with detachable high-neck scarf collar. Cream off-white color, snap buttons, freshly laundered, pet-friendly home, no storage bag.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "BOSIE 伯喜 冬季新款情侣装休闲加厚长款保暖羽绒服 (带可拆卸围脖/XL码/米白色)",
+  "description_zh": "潮牌国货顶流、冬日高阶防寒御寒的面包服画质天花板！这款原装 BOSIE 伯喜设计师长款羽绒服，购于淘宝官方旗舰店。采用高级治愈的米白/奶油色外观，内里填充高蓬松度优质羽绒，带来云朵般的轻盈与极致保暖。独特的极简圆领无领设计搭配质感无敌的银色按扣（Snap buttons），最惊艳的是自带一条原装【同色同材质可拆卸高领围脖/充气围巾】，可随心变换为保暖高领结构或搭配连帽衫进行高街叠穿，版型极具微宽廓形感。特别说明：家里养猫。发布前已经过全面深度洗涤、高温消毒与除毛处理，成色极佳，无跑绒、无污责。注：本品不含包装收纳袋。"
+}

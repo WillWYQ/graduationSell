@@ -1,0 +1,54 @@
+{
+  "name": "HOOBRO 55.1\" Entertainment Center with Swivel TV Mount and Power Outlet",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 80 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 95 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 110 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 95 }
+    ],
+    "negotiable": true
+  },
+  "description": "Say goodbye to wall drilling and messy wire clutter! This versatile HOOBRO 55.1-Inch Entertainment Center (Model BF146UDS01) is the ultimate heavy-duty multi-functional organizer console for your living room or master bedroom. It features an integrated premium iron mounting bracket system that easily fits most flat or curved screens up to 75 inches, offering a smooth swivel range to give you the perfect viewing angle from any corner of the room. Built with an incredibly convenient built-in power strip station on the side including multiple AC outlets and fast USB charging ports to power up your Wi-Fi routers, game consoles, and streaming blocks effortlessly. The console boasts a rustic brown finish paired with three tiers of spacious open industrial wire shelving underneath to keep your soundbars and controllers flawlessly accessible. High-strength metal frame, zero-wobble stability, and in fantastic shape!",
+  "condition": "good",
+  "brand": "HOOBRO",
+  "model": "BF146UDS01",
+  "age_years": null,
+  "dimensions": {
+    "length": 55.1,
+    "width": 15.7,
+    "height": 52.0,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 41.8,
+    "unit": "lbs"
+  },
+  "color": "Rustic Brown / Black Metal Frame",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 126.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The entertainment center is fully pre-assembled and ready to go, saving you hours of looking at painful building manuals! It is sturdy yet surprisingly easy to transport. Perfect combo choice if you are also looking to pick up a large screen TV panel locally!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 45.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["HOOBRO TV Stand", "Swivel TV Mount", "Integrated Power Strip", "Rustic Brown Console", "Industrial Media Stand", "Up to 75 Inch TV", "Apartment Furniture"],
+  "meta_description": "Pre-owned HOOBRO 55.1\" industrial TV stand entertainment center with built-in swivel mount and power outlet strip (Model BF146UDS01) in good condition. Fits up to 75-inch TVs.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "HOOBRO 55.1英寸工业风自带可旋转挂架及插座多功能电视柜/置物架一体机",
+  "description_zh": "免墙面钻孔、告别凌乱走线的极客与公寓神级多功能电视柜！这款 HOOBRO 55.1 英寸复古木纹色媒体控制台（型号 BF146UDS01），自带一体化高强度全铁制电视安装背挂架，能够稳固悬挂最高达 75 英寸的巨幕电视，并支持左右顺滑旋转微调视角。最贴心的是侧边自带集成式电源排插插座（包含标准 AC 插头和多个 USB 快充口），一站式解决 PS5、Switch、路由器和音响的供电。下方带有三层宽敞的工业风金属网格开放式储物隔板，承重极佳。整体已经完美组装完毕，直接帮您免去数小时拼装地狱，成色极佳。"
+}

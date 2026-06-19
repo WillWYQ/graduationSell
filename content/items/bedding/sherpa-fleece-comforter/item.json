@@ -1,0 +1,55 @@
+{
+  "name": "Super Soft Dual-Sided Sherpa Fleece Comforter Blanket (90x90 in)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 85 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Wrap yourself in pure cloud-like comfort! This ultra-cozy, heavy-weight 90x90 inch Queen-size comforter features a smart dual-sided design perfect for chilly nights or lounging on the couch. The top layer is made of an incredibly plush, ribbed jacquard flannel fleece in a modern slate gray, while the reverse side is lined with a thick, bone-white faux sherpa wool fleece that locks in warmth flawlessly. Highly breathable, anti-static, and holds its fluff beautifully after washing. Please note: This comes from a pet-friendly home with a cat. The comforter has been fully laundered, deeply sanitized, and thoroughly lint-rolled before listing. Zero rips or tears—ready to upgrade your bed setup!",
+  "condition": "good",
+  "brand": "",
+  "model": "Premium Dual-Sided Sherpa Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 90.0,
+    "width": 90.0,
+    "height": 1.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 5.8,
+    "unit": "lbs"
+  },
+  "color": "Slate Gray / Bone White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 39.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. The comforter has been freshly washed and sanitized with premium allergen-free detergent right before listing. Please note that it does not come with the original storage bag, so please bring a bag or hamper for transport during pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Sherpa Comforter", "Fleece Blanket", "Queen Blanket 90x90", "Dual Sided Blanket", "Warm Bedding", "Cozy Throw", "Pet Friendly"],
+  "category_override": "",
+  "meta_description": "Pre-owned dual-sided slate gray and white sherpa fleece 90x90 comforter blanket in good condition. Freshly laundered, pet-friendly home.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "双面加厚羊羔绒法兰绒保暖被/冬被大毯子 (90*90英寸 Queen)",
+  "description_zh": "冬天续命、宅家沙发煲剧必备的云朵级保暖神毯！这款大号 90x90 英寸（正方形 Queen 尺寸）的双面加厚复合被，采用拼色双面设计：正面是高级感十足的条纹肌理暗灰色法兰绒（Flannel），触感极为细腻丝滑；反面则是仿生加厚纯白羊羔绒（Sherpa），蓄热保暖性能无敌。面料防静电、不易起球，支持机洗。特别说明：家里养猫。发布前已经过全面深度洗涤、高温消毒与彻底除毛，无任何破损、无拉丝。注：本品不含原厂收纳袋，自提时请自带袋子或篮子装运，高性价比速出。"
+}

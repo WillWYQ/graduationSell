@@ -1,0 +1,55 @@
+{
+  "name": "Cuisinart Metal Classic 4-Slice Toaster (Functional / Missing Screw)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 50 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Get crunchy, golden toasts perfectly prepped in seconds with this heavy-duty breakfast classic! This authentic Cuisinart Metal Classic 4-Slice Toaster features premium brushed stainless steel housing with elegant polished chrome accents. Engineered with dual independent control panels, 6-setting browning dials, and specialized custom buttons for Bagel, Defrost, and Reheat options. It effortlessly toasts 4 thick slices of artisan bread or bagels at once. Please note: The unit is fully functional and cooks perfectly fine, but a structural screw on the back casing fell out. It is priced exceptionally low to reflect this cosmetic imperfection. Perfect for anyone looking for a premium, heavy-duty Cuisinart appliance on a deep budget!",
+  "condition": "fair",
+  "brand": "Cuisinart",
+  "model": "CPT-180",
+  "age_years": null,
+  "dimensions": {
+    "length": 11.1,
+    "width": 10.7,
+    "height": 7.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 6.1,
+    "unit": "lbs"
+  },
+  "color": "Brushed Stainless Steel",
+  "quantity": 1,
+  "original_source": "bestbuy",
+  "original_link": "https://www.bestbuy.com/product/cuisinart-4-slice-metal-classic-toaster-silver/J7R2YVT3W5/sku/12377040?ref=212&loc=Marketplace_22992658459&gclsrc=aw.ds&gad_source=1&gad_campaignid=22992660199&gbraid=0AAAAAD-ORIhxYAGN5DeEl5QbltIRLUxLk&gclid=CjwKCAjw0dPRBhAPEiwAE5vTTmAIHvWjrEtET6mj0o9J1AbS-dN1TWOgs-xrhozqJ8CQZBUrGnwqPhoClmwQAvD_BwE",
+  "original_price": 84.95,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. Fully tested, heats up beautifully, and works perfectly despite the missing screw on the back. Has been fully crumb-cleaned and sanitized. Porch pickup ready!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Cuisinart Toaster", "4 Slice Toaster", "Stainless Steel", "Kitchen Appliance", "Breakfast Station", "Budget Appliance"],
+  "category_override": "",
+  "meta_description": "Pre-owned Cuisinart Metal Classic 4-slice stainless steel toaster (Model CPT-180) in fair condition. Missing a back screw but fully functional and working perfectly.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "美膳雅 Cuisinart 经典金属4片全不锈钢烤面包机/多士炉 (功能完全正常/后方掉落螺丝低价出)",
+  "description_zh": "早餐和简餐爱好者的厨房硬核高配！这款原装美膳雅 Cuisinart 经典金属系列四片装烤面包机（型号 CPT-180），采用高质感拉丝不锈钢机身拼抛光铬合金饰边。带左右两组完全独立的智能控制面板和6档精准焦度旋转调节，支持一键烘烤百叶圈（Bagel）、一键解冻（Defrost）和一键再加热（Reheat），加宽卡槽能轻松塞下厚切吐司。特别说明：机器加热和弹跳功能完全正常。但【机身背面掉落了一颗固定螺丝】，导致外壳结构有微小瑕疵，因此特意超低价转让。家里养猫，发布前已做深度内部清渣与消毒处理。"
+}

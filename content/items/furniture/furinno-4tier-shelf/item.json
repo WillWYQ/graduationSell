@@ -1,0 +1,53 @@
+{
+  "name": "Furinno Turn-N-Tube 4-Tier Multipurpose Open Storage Shelf Display Rack",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 20 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 85 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Clear the chaos and maximize your vertical space instantly! This highly popular Furinno Turn-N-Tube 4-Tier Multipurpose Open Storage Shelf is an absolute staple for apartments, kitchens, pantries, or dorm rooms. Featuring an ingenious open shelving structure, it easily organizes everything from kitchen appliances, blenders, and air fryers to snack bins, canned goods, and cookbooks. Crafted from premium durable engineered wood panels supported by heavy-duty rust-free round tubes, it stays stable on any flat surface. Designed with rounded safety corners to eliminate accidental bumps and scratches. Super lightweight yet exceptionally functional—a timeless organizing hero!",
+  "condition": "good",
+  "brand": "Furinno",
+  "model": "Turn-N-Tube 4-Tier (18028 Series)",
+  "age_years": null,
+  "dimensions": {
+    "length": 23.6,
+    "width": 11.6,
+    "height": 43.3,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 11.8,
+    "unit": "lbs"
+  },
+  "color": "Black/Gray",
+  "quantity": 1,
+
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. The shelf is fully pre-assembled, saving you from any tedious tool building setup! Thoroughly wiped down, sanitized, and ready to go. Easily fits into the back seat or trunk of any standard car for pickup.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Furinno Shelf", "4 Tier Rack", "Open Storage", "Turn N Tube", "Kitchen Organizer", "Pantry Rack", "Apartment Furniture"],
+  "category_override": "",
+  "meta_description": "Pre-owned Furinno Turn-N-Tube 4-tier multipurpose open storage shelf rack in good condition. All-black finish, toolless design, ideal for kitchens and small spaces, pet-friendly home.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "Furinno 4层免工具多功能开放式置物架/厨房客厅收纳整理架 (黑色)",
+  "description_zh": "终结杂乱、完美压榨垂直空间的经典多功能收纳神器！这款超火的 Furinno Turn-N-Tube 四层开放式置物架 [Furinno Turn-N-Tube Series on Amazon](https://amazon.com)，是公寓、厨房、储藏室或寝室的绝佳扩容搭档。四层阶梯式宽敞开放空间，能完美收纳破壁机、空气炸锅、烧水壶等厨房家电，或各种零食罐头、椰树牌椰汁和日常杂物。由高承重环保板材辅以高强度防锈圆管支撑，四个边角特意做了防撞圆角保护。整体已经完美组装完毕，免去您拼装的痛苦。自提极轻极方便。"
+}

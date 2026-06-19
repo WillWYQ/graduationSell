@@ -1,0 +1,55 @@
+{
+  "name": "APOZi Collection 'Ink Poet' Unisex British Style Long Trench Coat",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 25 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 45 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 95 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Step into a world of poetic, literary sophistication with this exquisite piece from APOZi Collection's 'Ink Poet' (墨痕诗人) series. Originally purchased on Taobao, this unisex British-style mid-long trench coat beautifully merges classic western tailoring with modern Eastern aesthetic charm. Crafted from a high-quality, breathable cotton-linen blend fabric with a rich tactile crinkle texture, it features a fluid, relaxed silhouette that drapes effortlessly over any frame. Designed with a stylish high-stand buttoned collar, classic flap pockets, and an adjustable waist tie-belt to cinch your look. Please note: This comes from a pet-friendly home with a cat. The trench coat has been freshly laundered, deeply sanitized, and meticulously lint-rolled. It is in fantastic clean condition with zero rips or tears—an absolute dream piece for anyone who appreciates unique indie designer fashion!",
+  "condition": "good",
+  "brand": "APOZi",
+  "model": "Ink Poet Trench Series (墨痕诗人系列)",
+  "age_years": null,
+  "dimensions": {
+    "length": 43.3,
+    "width": 24.5,
+    "height": 0.4,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 1.6,
+    "unit": "lbs"
+  },
+  "color": "Oatmeal Linen / Natural Khaki",
+  "quantity": 1,
+  "original_source": "Taobao",
+  "original_link": "https://tb.cn",
+  "original_price": 56.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. Freshly washed with premium unscented allergen-free detergent and fully sanitized right before your arrival. Please note that it does not include a garment garment bag.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 20.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["APOZi Coat", "Trench Coat", "British Style Trench", "Linen Trench Coat", "Unisex Windbreaker", "Taobao Fashion", "Indie Designer"],
+  "category_override": "",
+  "meta_description": "Pre-owned genuine APOZi Collection 'Ink Poet' series unisex British style cotton-linen long trench coat in good condition. Oatmeal khaki color, tie-belt waist, pet-friendly home, no garment bag.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "APOZi collection 墨痕诗人系列 英伦风衣系带中长款外套 (男女同款/麻本色)",
+  "description_zh": "自带清冷文人墨客艺术感、文艺穿搭界绝不撞衫的绝美氛围感大衣！这款原装 [APOZi collection (阿坡子) 独立设计师风衣](https://tb.cn)，购于淘宝官方店，属于经典的“墨痕诗人”系列。采用极具大自然肌理感的优质棉麻混纺面料（麻本色），既保持了挺括的英伦立体裁剪版型，又具有非常飘逸随性的垂坠质感。衣服自带高领/立领两用领型、木质质感复古大纽扣以及可自由调节松紧的腰部收腰系带，男女同款宽松廓形。特别说明：家里养猫。发布前已经过全面深层洗涤、消毒除毛处理，成色极佳，无任何破损或污渍。注：本品不含原厂防尘服饰袋。"
+}

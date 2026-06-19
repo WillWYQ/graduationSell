@@ -1,0 +1,55 @@
+{
+  "name": "TCL 75\" Class QM8 Series 4K Mini-LED QLED Smart Google TV",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 880 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 900 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 950 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 880 }
+    ],
+    "negotiable": true
+  },
+  "description": "Transform your living room into an absolute cinematic theater paradise! This stunning TCL 75-Inch flagship QM8 Series (75QM850G) is a premium powerhouse built on high-end QD-Mini LED QLED panel technology. Packing up to 2,300 independent local dimming zones and an incredibly blinding 2,000+ nits peak brightness, it serves up inky, OLED-grade deep blacks and crisp contrast with absolutely zero blooming. An absolute dream setup for next-gen PS5/Xbox gamers and sports fans, boasting a native 144Hz refresh rate (up to 240Hz at 1080p), FreeSync Premium Pro, and ultra-low input lag. Features an intuitive Google TV OS with hands-free voice controls and a premium built-in subwoofer sound system on the back for thunderous bass. Crystal clear, pristine screen, and runs flawlessly!",
+  "condition": "good",
+  "brand": "TCL",
+  "model": "75QM850G",
+  "age_years": null,
+  "dimensions": {
+    "length": 65.8,
+    "width": 11.7,
+    "height": 39.3,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 74.7,
+    "unit": "lbs"
+  },
+  "color": "Brushed Metal Bezel-Less Black",
+  "quantity": 1,
+  "original_source": "Best Buy",
+  "original_link": "https://www.bestbuy.com/product/tcl-75-class-qm8-q-class-mini-led-qled-4k-hdr-smart-tv-with-google-tv-2023/J36QYTTXTS",
+  "original_price": 1799.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "The TV is in pristine physical and working condition, mounted safely on its original center pedestal stand. Includes the original backlit voice remote and universal power cable. Please bring a spacious truck, a large cargo van, or an SUV wide enough to carry a massive 75-inch screen panel flat, along with a friend to help lift and load it!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 750.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["TCL 75 Inch", "TCL QM8", "75QM850G", "Mini LED TV", "4K QLED Smart TV", "Gaming TV 144Hz", "Google TV", "Flagship TV"],
+
+  "meta_description": "Pre-owned flagship 75\" TCL QM8 Series 4K QD-Mini LED QLED Smart TV (Model 75QM850G) in good condition. Features 2300 dimming zones, native 144Hz refresh rate, Google TV OS, and built-in subwoofer.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "雷鸟/智显 TCL 75英寸 QM8系列 旗舰级 4K Mini-LED 144Hz 巨幕智能电视",
+  "description_zh": "客厅娱乐与家庭影院的画质天花板！这款 TCL 75英寸旗舰级 QM850G (QM8) 巨幕电视，采用顶尖的 QD-Mini LED 量子点背光技术，拥有高达 2,300 个独立分区控光与 2,000+ 尼特超高峰值亮度，能呈现媲美 OLED 级别的纯黑与惊人对比度。原生 144Hz 极速电竞级高刷、具备 FreeSync Premium Pro 认证，配合低延迟模式（ALLM），是 PS5/Xbox 游戏党、动作大片和体育迷的终极神器。内置高级 Google TV 智能系统及 Hands-free 远场语音助手。最震撼的是机身背面自带大功率超重低音炮（Subwoofer），音质浑厚立体。屏幕完好无划痕，显示极度完美。"
+}

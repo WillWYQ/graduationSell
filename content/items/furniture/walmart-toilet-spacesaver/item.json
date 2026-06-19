@@ -3,14 +3,11 @@
   "price": {
     "currency": "USD",
     "tiers": [
-      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 20 },
-      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 40 },
-      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 90 },
-      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+      { "label": "Local pickup Fri Jun 19th 5:00 PM", "miles_max": 15, "amount": 20 },
     ],
     "negotiable": true
   },
-  "description": "Maximize your bathroom storage and clear the countertop clutter with this classic white over-the-toilet space saver! Originally purchased from Walmart, this practical vertical shelving unit fits seamlessly over most standard toilet tanks to unlock valuable, underutilized vertical space. It features a spacious top display shelf, a handy middle double-door cabinet with sleek glass-style knobs to hide away private essentials or extra toilet paper rolls, and a convenient lower open shelf perfect for hair dryers, styling tools, or towels. A lightweight yet sturdy apartment essential that instantly elevates your bathroom organization!",
+  "description": "Reserved for Kneisha from facebook MarketPlace ",
   "condition": "good",
   "brand": "Mainstays / Walmart",
   "model": "Over-the-Toilet Cabinet Series",
@@ -30,7 +27,7 @@
   "original_source": "Walmart",
   "original_link": "https://walmart.com",
   "original_price": 39.98,
-  "status": "available",
+  "status": "reserved",
   "listed_date": "2026-06-16",
   "sold_date": null,
   "preferred_payment": ["Cash", "Venmo", "zelle"],

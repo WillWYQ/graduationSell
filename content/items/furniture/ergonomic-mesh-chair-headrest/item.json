@@ -1,0 +1,54 @@
+{
+  "name": "Ergonomic High-Back Mesh Office Chair with Adjustable Headrest",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 55 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 75 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 125 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+    ],
+    "negotiable": true
+  },
+  "description": "Upgrade your desk comfort with this sleek, full-mesh high-back ergonomic office chair! Originally purchased from Amazon, this premium desk chair is engineered for long-hour productivity. It features a built-in auto-tuning adaptive butterfly lumbar support that perfectly embraces your lower back, paired with an adjustable high-back mesh headrest to cradle your neck and prevent strain. The multi-directional 3D armrests adjust up and down for height, as well as angling left and right to match your typing posture seamlessly. The mesh backrest supports deep tilting and can recline far back for relaxing or taking a break. Please note: This comes from a pet-friendly home with a cat. The black fabric seat cushion is in great shape with no prominent stains, thoroughly vacuumed and sanitized. Sturdy base with ultra-smooth 360-degree swivel wheels!",
+  "condition": "good",
+  "brand": "",
+  "model": "Amazon High-Back Multi-Adjustable Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 26.0,
+    "width": 26.0,
+    "height": 48.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 34.2,
+    "unit": "lbs"
+  },
+  "color": "All Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 149.99,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. Fully pre-assembled, saves you hours of tedious tool building! Pneumatic gas lift adjustment functions smoothly. Ready for quick local pickup.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 40.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Ergonomic Chair", "High Back Chair", "Office Chair with Headrest", "3D Armrests", "Mesh Desk Chair", "Lumbar Support", "Pet Friendly"],
+  "meta_description": "Pre-owned premium high-back ergonomic mesh office chair from Amazon in good condition. Features adjustable mesh headrest, 3D multi-directional armrests, tilt recline, and butterfly lumbar support.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "亚马逊 Amazon 购入高配高靠背自带头枕多维调节人体工学电脑椅",
+  "description_zh": "长期久坐、程序员和熬夜刷题党必备的高配电竞办公椅！这款来自亚马逊的黑色高靠背人体工学椅，靠背采用标志性的蝴蝶型自适应弹性腰撑，精准托腰。最大的亮点是顶部带有可调节高度与角度的独立透气网眼头枕（Headrest），完美释放颈椎压力。扶手同样为多维3D调节，支持上下升降和左右偏转，椅背可大角度后仰小憩。坐垫为固定式不带滑移，但厚度饱满，黑色网眼布艺面料耐脏且无任何明显污渍。特别说明：家里养猫。发布前已全面吸尘消毒处理，功能完好，免去繁琐组装直接带走。"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Brand New Premium Waterproof Anti-Oil Full-Protection Bed Sheets (Set of 2)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 40 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 60 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 110 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 40 }
+    ],
+    "negotiable": true
+  },
+  "description": "Brand new, never used, and looking for their next home! This listing includes 2 matching premium multi-functional full-protection flat bed sheets in a generous 2.2 x 2.0-meter size. They feature an incredible high-density dual-layer fabric barrier that is 100% waterproof and anti-oil. Completely washable and infinitely reusable, they serve as the ultimate heavy-duty shield against liquid spills, massage oils, body lotions, or bedwetting accidents. Please note: They are entirely unused but have normal cosmetic creases/fold lines from being stored tightly in their original shipping packages. The fabric is heavily thickened for maximum durability while remaining soft against your skin. Avoid expensive international shipping fees and custom wait times—grab this premium protection set today!",
+  "condition": "new",
+  "brand": "Taobao Indie",
+  "model": "Heavy-Duty Waterproof Protection Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 86.6,
+    "width": 78.7,
+    "height": 0.1,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 3.4,
+    "unit": "lbs"
+  },
+  "color": "Solid Black",
+  "quantity": 2,
+  "original_source": "Taobao",
+  "original_link": "https://tb.cn",
+  "original_price": 36.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Brand new, never used. Includes 2 flat bed sheets total. There are fold creases from original compact packaging as shown, which will naturally disappear after the first wash or normal use. Cat-friendly home. Kept safely inside storage away from pets. Does not come with an additional retail zippered storage bag.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 30.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Waterproof Bed Sheets", "Anti Oil Bed Sheets", "Brand New Bedding", "Pair of Sheets", "Massage Table Sheet", "Heavy Duty Protection"],
+  "category_override": "",
+  "meta_description": "Brand new, never used 2 pieces of 100% waterproof and anti-oil solid black 2.2x2m flat bed sheets. Normal fold creases from storage, washable, reusable, pet-friendly home, no storage bag.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "【全新共2件】2.2*2米 双层加厚全功能防水防油隔尿大床单/重工防污纯黑按摩床单 (全新仅有折痕)",
+  "description_zh": "【全新纯现货，一共2件大床单，一次都没用过！】保护昂贵床垫免受任何液体和油渍侵害的硬核神器！包含两件完全相同、尺寸为 2.2米 × 2.0米（超宽加大型号）的纯黑色加厚【平铺型大床单】，不是带松紧带的床垫套，购于淘宝。采用天花板级别的重工双层防水防油面料，不管是液体打翻、婴儿/宠物隔尿、精油按摩还是情侣趣味互动，都能将各种液体牢牢隔绝。特别说明：床单完全全新从未上床使用，但由于长期在原厂包装内紧密折叠存放，表面带有正常的【包装折痕/压痕】，下水清洗或使用后会自然恢复平整。家里养猫，包装完好无宠物接触。注：本品不含原厂包装袋。"
+}

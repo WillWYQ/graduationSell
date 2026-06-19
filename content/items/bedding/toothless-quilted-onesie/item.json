@@ -1,0 +1,55 @@
+{
+  "name": "Brand New Toothless Night Fury 3-Layer Quilted Fleece Onesie Pajamas (Size XL)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 45 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 65 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 115 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 45 }
+    ],
+    "negotiable": true
+  },
+  "description": "Brand new, never worn, and looking for its new home! Transform into the ultimate cozy Night Fury dragon! Imported directly from overseas, this super funny and rare adult unisex 'Toothless' cartoon onesie comes in a comfortable, relaxed Size XL—perfect for an extra slouchy oversized fit. Unlike standard thin kigurumi pajamas, this premium home suit features an ultra-thick 3-layer quilted structure (coral fleece face, warm cotton middle filling, and soft inner lining) in a diamond-quilted pattern to lock in body heat instantly. Comes with an oversized character hood showcasing Toothless's iconic green eyes and ears, plus adorable embroidered lime green paw pockets on the front. Avoid weeks of international shipping and custom markups—grab this exclusive piece today!",
+  "condition": "new",
+  "brand": "Taobao Indie",
+  "model": "3-Layer Quilted Cartoon Loungewear",
+  "age_years": null,
+  "dimensions": {
+    "length": 64.9,
+    "width": 26.8,
+    "height": 2.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 2.6,
+    "unit": "lbs"
+  },
+  "color": "Black / Lime Green",
+  "quantity": 1,
+  "original_source": "Taobao",
+  "original_link": "https://tb.cn",
+  "original_price": 32.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Brand new condition, never worn or used. Size XL (ideal for an extra cozy, roomy oversized lounge fit). Cat-friendly home. Even though it is brand new, it has been stored safely away from pets and thoroughly lint-rolled before listing. Please note that it does not come with a storage bag.",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 35.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Brand New Onesie", "Toothless Pajamas", "Size XL Onesie", "Night Fury Kigurumi", "3 Layer Quilted", "Anime Cosplay", "Winter Loungewear"],
+  "category_override": "",
+  "meta_description": "Brand new, never worn 3-layer quilted coral fleece Toothless the dragon adult onesie pajamas in size XL. Ultra-thick rare imported winter kigurumi, pet-friendly home, no storage bag.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "【全新一次没穿】驯龙高手无牙仔 三层夹棉加厚保暖连体睡衣 (XL码/稀缺动漫搞怪家居服)",
+  "description_zh": "【全新现货，一次未穿！】冬日全屋抗寒、极客搞怪与萌系穿搭的绝版续命神器！原装【无牙仔】连体家居服，黄金【XL大码】（完美适配宽松舒适、极具包裹感的廓形慵懒风）。海外反季节抢购空运带回。区别于市面上松垮单薄的普通睡衣，它采用了天花板级别的【三层夹棉工艺】（加厚珊瑚绒表层+中层蓄热夹棉+亲肤内衬），表面带有细密的钻石绗缝，锁温保暖性能无敌。自带超大立体连帽，神还原夜煞无牙仔大眼睛和恶魔双耳，正面还配有两只超萌的荧光绿刺绣猫爪大口袋。免去数周的国际跨境物流等待和巨额运费，本地即可现货秒发！"
+}

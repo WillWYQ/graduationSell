@@ -1,0 +1,55 @@
+{
+  "name": "Mainstays Super Soft Gray Plaid Plush Blanket (Full/Queen 90x90 in)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 10 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 12 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 15 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Snuggle up in instant warmth and cozy country style! This genuine Mainstays 90x90 inch Full/Queen size plush blanket features a timeless, farmhouse-inspired gray and white plaid check pattern face that looks fantastic draped over any bed or living room sofa. Crafted from an exceptionally soft, premium low-pill polyester fleece on the front, it reverses to a layer of thick, fluffy faux sherpa wool lining underneath to trap body heat instantly on chilly nights. Highly breathable, lightweight yet heavily insulating, and safely machine washable without shedding or fading. Please note: This comes from a pet-friendly home with a cat. The blanket has been freshly laundered, fully sanitized, and meticulously lint-rolled before listing. In great clean condition with no holes, frays, or loose seams!",
+  "condition": "good",
+  "brand": "Mainstays",
+  "model": "Super Soft Plush Blanket Series",
+  "age_years": null,
+  "dimensions": {
+    "length": 90.0,
+    "width": 90.0,
+    "height": 0.2,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 3.2,
+    "unit": "lbs"
+  },
+  "color": "Gray Plaid / White Sherpa",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://www.walmart.com/ip/Mainstays-Super-Soft-Gray-Plaid-Polyester-Plush-Blanket-Full-Queen-90-X90-Suitable-for-Adult/1664259885",
+  "original_price": 19.88,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Cat-friendly home. Freshly washed with premium unscented allergen-free detergent and fully sanitized right before listing. Please note that it does not include a storage bag, so please bring a hamper, tote, or box for transport during local porch pickup!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 7.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["Mainstays Blanket", "Plaid Fleece Blanket", "90x90 Blanket", "Full Queen Blanket", "Gray Tartan Throw", "Sherpa Reversible", "Pet Friendly Bedding"],
+  "category_override": "",
+  "meta_description": "Pre-owned Mainstays 90x90\" full/queen gray plaid plush blanket with white sherpa reverse side in good condition. Freshly laundered, pet-friendly home, no storage bag.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "宜家/沃尔玛 Mainstays 双面加厚羊羔绒格子保暖毛毯被 (90x90英寸 Full/Queen)",
+  "description_zh": "美式乡村风拉满、宅家冬日必备的经典格纹保暖毛毯被！这款原装 [Mainstays 90x90 英寸大号双面复合毯](https://www.walmart.com/ip/Mainstays-Super-Soft-Gray-Plaid-Polyester-Plush-Blanket-Full-Queen-90-X90-Suitable-for-Adult/1664259885)（适用于 Full/Queen 床型），正面采用超高弹丝滑的黑白灰三色英伦风格子绒面，反面则是厚实绵密的纯白防生羊羔绒（Sherpa），双层蓄热保暖性能拉满。亲肤防静电，可直接洗衣机冷水机洗。特别说明：家里养猫。发布前已经过彻底的清洗吸尘、消毒除毛处理，无任何勾线、无破损。注：本品不含包装收纳袋，自提时请自备手提袋或箱子装运。"
+}
