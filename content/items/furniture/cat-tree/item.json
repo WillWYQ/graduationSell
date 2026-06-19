@@ -1,68 +1,44 @@
 {
-  "name": "Cat Tree",
+  "name": "Mau Lifestyle 'Uni' Modern Real Wood Cat Tree - White Faux Fur & Woven Basket",
   "price": {
     "currency": "USD",
     "tiers": [
-      {
-        "label": "Pickup / ≤ 5 mi",
-        "miles_max": 5,
-        "amount": 0
-      },
-      {
-        "label": "6 – 15 mi",
-        "miles_min": 5,
-        "miles_max": 15,
-        "amount": 0
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 15,
-        "amount": 0
-      }
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 75 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 185 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 115 }
     ],
-    "negotiable": false,
-    "show_tiers": false
+    "negotiable": true
   },
-  "description": "",
+  "description": "Selling a beautiful, modern Mau Lifestyle 'Uni' White Cat Tree [Mau Pets](https://maupets.com). This premium piece of cat furniture looks like a minimalist sculptural art piece rather than an eyesore. It features a genuine, hand-crafted natural tree branch trunk structure with an integrated sisal scratching post area, an ultra-plush white faux-fur lower platform, and a stunning hand-woven wicker basket nest at the top containing a removable cushion. Perfect for cats up to 15 lbs. The item is fully pre-assembled, saving you the assembly labor. Naturally, this comes from a pet-friendly home with a resident cat! It has been vacuumed and sanitized before sale, though minor residual fur particles should be expected. Does NOT come with secondary retail storage packaging bags, so local pickup buyers should plan vehicle trunk space accordingly.",
   "condition": "good",
-  "brand": "",
-  "model": "",
+  "brand": "Mau Lifestyle",
+  "model": "Uni",
   "age_years": null,
-  "dimensions": {
-    "length": null,
-    "width": null,
-    "height": null,
-    "unit": "cm"
-  },
-  "weight": {
-    "value": null,
-    "unit": "kg"
-  },
-  "color": "",
+  "dimensions": { "length": 24.0, "width": 18.0, "height": 43.0, "unit": "in" },
+  "weight": { "value": 27.0, "unit": "lb" },
+  "color": "White / Natural Wood",
   "quantity": 1,
-  "original_source": "",
-  "original_link": "",
-  "original_price": null,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/Mau-Lifestyle-White-Uni-Tree/dp/B09C2T58D9",
+  "original_price": 269.00,
   "status": "available",
-  "listed_date": "2026-06-13",
+  "listed_date": "2026-06-19",
   "sold_date": null,
-  "preferred_payment": [],
-  "contact_note": "",
-  "no_lowball": false,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled solid wood construction—no assembly required. Fits easily into the back seat or trunk of a standard sedan. Note: From a cat-friendly apartment.",
+  "no_lowball": true,
   "price_reduced": false,
   "previous_lowest_price": null,
-  "min_acceptable_offer": null,
+  "min_acceptable_offer": 95,
   "stripe_payment_link": "",
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [],
+  "tags": ["Mau Lifestyle Cat Tree", "Modern Cat Tower", "Real Wood Cat Tree", "Wicker Basket Cat Perch", "Luxury Cat Furniture", "Mau Uni White", "Cute Cat Tree Boho"],
   "category_override": "",
-  "meta_description": "",
-  "isbn": "",
-  "course": "",
-  "edition": "",
-  "semester_listed": "",
-  "name_zh": "",
-  "description_zh": ""
+  "meta_description": "Pre-assembled Mau Lifestyle Uni White Modern Cat Tree for sale. Real natural wood trunk branch with woven wicker basket and plush cushions. Good condition.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Mau Lifestyle 'Uni' 现代实木藤编猫爬架 / 豪华猫树 (白色)",
+  "description_zh": "低价转让高颜值网红款 Mau Lifestyle 'Uni' 现代北欧风实木猫爬架 [Chewy](https://www.chewy.com/mau-lifestyle-uni-41-in-faux-fur/dp/262053)。原价 \$269 [Amazon.com](https://www.amazon.com/Mau-Lifestyle-White-Uni-Tree/dp/B09C2T58D9)，实物做工极为精致。主体采用经过防腐处理的天然实木树枝做为主干，并带有天然剑麻抓柱；底部为非常柔软的白色仿兔毛长绒毛底座和跳台，顶部是一个手工编织的藤编编织筐（内含可拆洗的加厚软垫），颜值极高。电视摆在客厅完全像一件艺术品。**诚实披露**：家里有猫主子，出货前已用吸尘器彻底清理和去污消毒，但织物表面可能仍会带有轻微的猫毛印记。电视已完全组装完毕，免去您看复杂说明书自己拼装的痛苦。本商品不附带原厂外包装或防尘收纳袋，本地自提的买家朋友请开标准轿车或SUV来载，建议在车内后座铺个毯子垫一下。"
 }

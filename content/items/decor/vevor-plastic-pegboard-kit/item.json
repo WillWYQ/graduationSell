@@ -1,14 +1,44 @@
 {
-  "name": "VEVOR Modular Wall Pegboard Organizer Kit - 4 Panels (11\"x11\")",
+  "name": "VEVOR Modular Wall Pegboard Organizer Kit - 4 Panels (11\"x11\") White Plastic",
   "price": {
     "currency": "USD",
-    "amount": 12.00,
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 12 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 15 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 19 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 12 }
+    ],
     "negotiable": true
   },
-  "description": "Used VEVOR 4-panel (11x11 each) plastic pegboard kit in white. Includes hooks/bins. Cleaned, from cat-friendly home. No original box.",
+  "description": "Selling a modular VEVOR Pegboard Combination Kit featuring 4 plastic panels (each measuring 11.02 x 11.02 inches) in white. Crafted from durable HIPS material, it supports up to 20 lbs per panel—perfect for organizing craft supplies, office desk gear, or kitchen spices. It includes original utility hooks and long bins to maximize your vertical wall storage. Please note: This comes from a pet-friendly apartment with a resident cat. The components have been fully cleaned and wiped down, though minor pet dust particles might remain. It does NOT come with any secondary retail storage packaging or bags, so local pickup buyers, please bring your own bag or small box to transport the pieces safely.",
   "condition": "like-new",
   "brand": "VEVOR",
+  "model": "SKU8-PLASTIC PEGBOARD",
+  "age_years": null,
+  "dimensions": { "length": 22.0, "width": 0.5, "height": 22.0, "unit": "in" },
+  "weight": { "value": 3.48, "unit": "lb" },
+  "color": "White Plastic",
+  "quantity": 1,
+  "original_source": "Amazon",
   "original_link": "https://www.amazon.com/dp/B0DT718LHQ",
   "original_price": 23.99,
-  "status": "available"
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes all 4 panels and accessory components. Ready for quick wall mount or adhesive mounting setup. From a cat-friendly home; please bring your own transport container.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 9,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["VEVOR Pegboard Kit", "Wall Organizer Plastic", "White Pegboard Hooks", "Craft Room Storage", "Modular Tool Board", "Office Desk Organizer", "Small Space Shelving"],
+  "category_override": "",
+  "meta_description": "Like-new VEVOR White Plastic Pegboard Combination Kit for sale. Includes 4 modular 11x11 panels with original hooks and bins. Perfect for craft or office setup.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "维沃 VEVOR 11x11寸 塑料模块化洞洞板墙面收纳组合套件 (4板装-白色)",
+  "description_zh": "低价转让一套几乎全群的维沃（VEVOR）模块化塑料墙面洞洞板收纳套件。包含 4 块 11.02 x 11.02 英寸的白色高强度 HIPS 塑料面板，完全拼装后可达 22x22 英寸。单板可承重高达 20 磅，非常坚固，附带原装配套的挂钩和长款收纳盒，非常适合用来整理手工房、书桌电竞外设、厨房调料或浴室杂物。支持螺丝钉墙或免打孔无痕胶安装。**诚实披露**：家里养猫，属于宠物友好型环境。出货前所有板材和配件已进行全面擦拭和去污，但织物与塑料静电可能会吸附微量猫毛或细小浮尘。本商品不含原厂外包装纸箱或收纳袋，本地自提的买家朋友请自带一个小提袋或小纸箱以便收纳散件携带。"
 }

@@ -1,68 +1,44 @@
 {
-  "name": "Lawn Mower",
+  "name": "Greenworks 40V 20-Inch Cordless Dual-Blade Push Lawn Mower (Model 25302) - Tool Only",
   "price": {
     "currency": "USD",
     "tiers": [
-      {
-        "label": "Pickup / ≤ 5 mi",
-        "miles_max": 5,
-        "amount": 0
-      },
-      {
-        "label": "6 – 15 mi",
-        "miles_min": 5,
-        "miles_max": 15,
-        "amount": 0
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 15,
-        "amount": 0
-      }
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 85 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 100 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 135 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 65 }
     ],
-    "negotiable": false,
-    "show_tiers": false
+    "negotiable": true
   },
-  "description": "",
+  "description": "Selling a Greenworks 40V 20-Inch Cordless Twin Force Dual-Blade Push Lawn Mower (Model 25302) [Greenworks Tools](https://greenworkstools.com). Please note: This is the **TOOL ONLY** listing—it does NOT come with a 40V battery or charger. This is absolutely perfect if you already own Greenworks 40V G-MAX ecosystem tools (like a string trimmer or leaf blower) and just need a high-performance backup or replacement deck. Features a 20-inch cutting width with a dual-blade system, automatic dual-battery switching port, and a single-lever 5-position height adjustment. Includes the rear grass collection bag. The unit comes fully pre-assembled, saving you from any tedious out-of-the-box construction setup. Used outdoors and stored on a covered porch; expect minor aesthetic cosmetic scuffs from normal yard-work utility. Does NOT come with secondary retail storage packaging covers or bags, so please prep your vehicle's trunk space for local pickup.",
   "condition": "good",
-  "brand": "",
-  "model": "",
+  "brand": "Greenworks",
+  "model": "25302 / G-MAX 40V 20\"",
   "age_years": null,
-  "dimensions": {
-    "length": null,
-    "width": null,
-    "height": null,
-    "unit": "cm"
-  },
-  "weight": {
-    "value": null,
-    "unit": "kg"
-  },
-  "color": "",
+  "dimensions": { "length": 52.0, "width": 20.4, "height": 36.6, "unit": "in" },
+  "weight": { "value": 42.5, "unit": "lb" },
+  "color": "Green / Black",
   "quantity": 1,
-  "original_source": "",
-  "original_link": "",
-  "original_price": null,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 249.00,
   "status": "available",
-  "listed_date": "2026-06-14",
+  "listed_date": "2026-06-19",
   "sold_date": null,
-  "preferred_payment": [],
-  "contact_note": "",
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "TOOL ONLY—No battery or charger included. Fully pre-assembled with a collapsible handle design. Folds completely flat to fit inside a standard sedan backseat or SUV cargo space. Pick up directly from the patio porch area.",
   "no_lowball": false,
   "price_reduced": false,
   "previous_lowest_price": null,
-  "min_acceptable_offer": null,
+  "min_acceptable_offer": 50,
   "stripe_payment_link": "",
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [],
+  "tags": ["Greenworks 40V Mower", "Lawn Mower Tool Only", "Greenworks Replacement Deck", "Electric Push Mower", "Greenworks 25302 No Battery", "Cordless Mower Parts", "Used Yard Equipment"],
   "category_override": "",
-  "meta_description": "",
-  "isbn": "",
-  "course": "",
-  "edition": "",
-  "semester_listed": "",
-  "name_zh": "",
-  "description_zh": ""
+  "meta_description": "Tool-only Greenworks 40V 20-inch cordless dual-blade push lawn mower for sale. No battery/charger. Includes grass catcher bag. Great condition, folds flat.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Greenworks 绿霸 40V 20寸无线双刀片割草机 (仅机身 Tool-Only)",
+  "description_zh": "低价转让一台 Greenworks（绿霸）40V 20英寸锂电无线双刀片割草机（官方型号：25302）。**特别注意：本次转让仅包含裸机身（Tool Only），不附带 40V 锂电池及充电器！** 适合家里已经拥有 Greenworks 40V G-MAX 系列生态工具（如吹风机、打草机）的朋友作为升级或替换机。裸机同样采用 Twin Force 双刀片剪裁设计，带有双电池智能切换槽、单手柄 5 档高度调节以及后置集草袋。割草机已完全组装完毕，手柄可一键折叠。**诚实披露**：属于正常室外使用的二手园林工具，存放在有遮靠的阳台，外壳和轮子处有正常的泥土划痕与户外折旧痕迹。本品不含原厂纸箱包装或收纳袋，手柄折叠后体积紧凑，普通轿车后排或后备箱均可轻松装下。"
 }
