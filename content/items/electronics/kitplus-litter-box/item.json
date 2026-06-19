@@ -1,0 +1,55 @@
+{
+  "name": "KITPLUS Smart Self-Cleaning Automatic Cat Litter Box (FOR PARTS ONLY)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 35 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 55 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 105 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 35 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling strictly FOR PARTS OR REPAIR! This premium KITPLUS Open-Top Smart Automatic Self-Cleaning Cat Litter Box (Model: KP-SCLB-MINI) is currently non-functional/broken. While the electronic motor or sensors are not working properly, the physical body shell components are in solid condition. This is an absolute goldmine if you already own a KITPLUS unit and need cheap replacement parts such as the massive 10L waste bin drawer, the heavy-duty plastic structural outer casing panels, the internal sifting rake mechanism, the premium silicone cat litter pad liner, or the original manufacturer power supply adapter cord. Saves you from paying astronomical brand-new retail prices online for individual replacement components!",
+  "condition": "for-parts",
+  "brand": "KITPLUS",
+  "model": "KP-SCLB-MINI",
+  "age_years": null,
+  "dimensions": {
+    "length": 22.5,
+    "width": 21.4,
+    "height": 16.0,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 22.0,
+    "unit": "lb"
+  },
+  "color": "Black & Grey",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 249.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "STRICTLY SOLD AS-IS FOR PARTS OR REPAIR. The unit does not function. It has been completely emptied, deep-cleaned, heavily scrubbed, and fully sanitized inside and out before listing so it is perfectly clean to handle. Pickup anytime!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 25.00,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": ["KITPLUS Litter Box", "Automatic Litter Box", "For Parts Only", "Broken Repair", "Cat Litter Box Parts", "Smart Litter Box", "Replacement Shell"],
+  "category_override": "",
+  "meta_description": "Broken KITPLUS smart self-cleaning automatic cat litter box (Model KP-SCLB-MINI) sold strictly for parts or repair. Outer shell, silicone liner, and 10L waste drawer intact.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "【故障机仅拆零/卖配件】KITPLUS 智能全自动猫砂盆/开放式电动铲屎官 (故障不工作)",
+  "description_zh": "【只卖配件，故障机不工作，不退不换！】家里有相同全自动猫砂盆玩家的“回血平替圣品”！这台从亚马逊高价购入的 KITPLUS 智能免开盖自动清理猫砂盆（官方精确型号：KP-SCLB-MINI）目前主板或电机坏了，无法正常通电运转。但是，整体机身外壳结构非常完好扎实。包含价值极高的原装 10L 超大集便舱抽屉、内部加厚耐磨全防水防粘防抓的硅胶猫砂垫底衬（Silicone Pad Line）、原厂电源适配器以及内部过滤防漏网耙。发布前已经做过【极其彻底的倒空、深度刷洗以及强力去味加消毒】，绝对干净无异味。懂维修或者需要买备件替换的老手来拿。"
+}
