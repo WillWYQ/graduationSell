@@ -17,11 +17,11 @@
   "age_years": null,
   "dimensions": {
     "length": 65.8,
-    "width": 11.7,
+    "width": 11.7, 
     "height": 39.3,
     "unit": "in"
   },
-  "weight": {
+  "weight": { 
     "value": 74.7,
     "unit": "lbs"
   },
