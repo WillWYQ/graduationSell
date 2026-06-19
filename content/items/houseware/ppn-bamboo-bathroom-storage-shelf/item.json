@@ -1,0 +1,27 @@
+{
+  "name": "PPN 3-Tier Bamboo Bathroom Storage Shelf - Wall Mounted Over-the-Toilet Towel Rack (Black)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 20 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 20 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 12 }
+    ],
+    "negotiable": true
+  },
+  "description": "Used PPN 3-tier wall-mounted black bamboo bathroom shelf. Features 3 adjustable shelves and a towel bar. Pre-assembled. Comes from a pet-friendly home, sanitized but may have minor pet dust. No original packaging.",
+  "condition": "like-new",
+  "brand": "PPN",
+  "model": "Bathroom Shelf (Black-1Pack)",
+  "dimensions": { "length": 11.2, "width": 5.9, "height": 21.3, "unit": "in" },
+  "weight": { "value": 3.8, "unit": "lb" },
+  "color": "Black",
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0CSSHRY2Z",
+  "original_price": 24.99,
+  "listed_date": "2026-06-19",
+  "tags": ["PPN Bamboo Shelf", "Over the Toilet Storage", "Black Towel Rack Shelf"],
+  "name_zh": "PPN 100%纯竹制全黑色三层浴室置物架 / 马巾架",
+  "description_zh": "二手 PPN 黑色三层竹制壁挂浴室置物架，含可调节层板和毛巾杆。已组装，宠物家庭使用过，已消毒。无原包装。"
+}
