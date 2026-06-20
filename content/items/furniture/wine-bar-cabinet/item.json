@@ -31,9 +31,10 @@
   "original_source": "Amazon",
   "original_link": "https://amazon.com",
   "original_price": 69.99,
-  "status": "reserved",
+
   "listed_date": "2026-06-13",
-  "sold_date": null,
+  "status": "sold",
+  "sold_date":  "2026-06-19",
   "preferred_payment": [],
   "contact_note": "",
   "no_lowball": false,

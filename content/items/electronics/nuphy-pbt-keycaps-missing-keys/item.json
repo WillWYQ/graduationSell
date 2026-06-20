@@ -1,0 +1,52 @@
+{
+  "name": "NuPhy Premium OEM/Cherry Profile Grey White PBT Keycap Set (Missing Few Keys)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 15 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 20 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic NuPhy mechanical keyboard keycap set in a clean minimalist grey and white colorway. Made from high-quality, durable PBT material with dye-subbed crisp legends that won't fade or shine over time. Perfect upgrade for custom mechanical keyboards, macro pads, or for salvaging individual keycaps to complete your layout! PLEASE NOTE: This set is missing a few keycaps (specifically 'I', 'O', and a couple of function rows/accent blocks as shown in the photo). If you have a smaller 60%/65% layout or just need replacements/spares, this is an absolute steal. Coming from a pet-friendly home with a lovely cat, but everything has been thoroughly sanitized, inspected, and wiped down prior to listing.",
+  "condition": "fair",
+  "brand": "NuPhy",
+  "model": "Standard Profile Dye-Sub PBT Keycap Set",
+  "age_years": null,
+  "dimensions": { "length": 14.5, "width": 6.5, "height": 1.2, "unit": "in" },
+  "weight": { "value": 0.8, "lb" },
+  "color": "Grey and White",
+  "quantity": 1,
+  "original_source": "NuPhy Official",
+  "original_link": "https://nuphy.com/collections/keycaps",
+  "original_price": 49.00,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes the original clear plastic sorting trays for easy transport and keycap organization. Since this is a soft accessory set without an outer fabric layer, it does NOT come with an additional storage bag. Please bring a small pouch or backpack if you prefer to carry it out of the tray. Comes from a cat-friendly home, fully sanitized, but there might be faint unseen pet traces. Price reflects the missing keys perfectly!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 5,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "NuPhy keycaps",
+    "PBT keycap set",
+    "custom mechanical keyboard",
+    "grey white keycaps",
+    "dye sub pbt",
+    "keyboard parts replacement",
+    "cherry profile keycaps"
+  ],
+  "category_override": "",
+  "meta_description": "Affordable NuPhy grey and white PBT keycap set with a few missing keys. High-quality dye-sublimated legends, perfect for replacement parts or smaller 60% mechanical keyboards.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "NuPhy 灰白拼色 PBT 机械键盘键帽套装 (缺件残套)",
+  "description_zh": "转让一套正品 NuPhy 机械键盘灰白配色键帽。高品质 PBT 材质，热升华字符清晰耐磨，长期使用不打油、不掉色。极简工业风配色，非常适合客制化键盘玩家作为替换件、组装客制化小键盘（如60%/65%等小配列）或者用来补充其他残套。请务必注意：如图所示，本套键帽缺失了几个键位（包括‘I’键、‘O’键以及个别功能键区/增补键位），属于非全套残包，因此低价捡漏出。卖家家里养猫，发货/自提前已经用酒精彻底擦拭消毒并清理干净，但可能残留微量猫咪毛发痕迹，介意者请绕道。价格已经根据缺件情况降到最低，不接大刀！"
+}

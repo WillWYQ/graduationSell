@@ -1,0 +1,52 @@
+{
+  "name": "Handmade Upcycled Bicycle Chain and Vintage Keys Rustic Picture Frame (4x6)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 5 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 5 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 5 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 5 }
+    ],
+    "negotiable": true
+  },
+  "description": "An incredibly unique, artisan-crafted 4x6 picture frame made completely from upcycled real bicycle chains and welded vintage-style copper keys. This rustic, industrial piece features detailed craftsmanship where every link and key is meticulously joined by hand. Perfect statement decor for cycling enthusiasts, garage workshops, or industrial/loft-style living spaces. It comes in its original tissue wrapping and packing cardboard box, completely pristine and unused. Beautifully displays photos either horizontally or vertically with iron latches on the back. Coming from a pet-friendly home with a cat, though it has been stored safely in its packing box and remains in brand new condition.",
+  "condition": "new",
+  "brand": "Hifia Artisan Craft",
+  "model": "Upcycled Bike Chain & Key Frame",
+  "age_years": null,
+  "dimensions": { "length": 9.25, "width": 6.75, "height": 0.5, "unit": "in" },
+  "weight": { "value": 1.2, "unit": "lb" },
+  "color": "Rustic Copper Bronze [5]",
+  "quantity": 1,
+  "original_source": "Kickstand Culture [1]",
+  "original_link": "https://kickstandculture.com/collections/decorative/products/bicycle-chain-and-keys-picture-fram",
+  "original_price": 24.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled with durable built-in backing stand legs and glass pane insert. Since this is an unpadded structural decor item and doesn't feature an external fabric case, it does NOT come with an additional secondary retail storage bag. It is packed neatly in its protective eco-wrapping tissue and rustic corrugated cardboard backing box. Comes from a cat-friendly home, stored safely away from the pet.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "bicycle chain frame",
+    "upcycled picture frame",
+    "bike chain art",
+    "industrial decor",
+    "rustic photo frame",
+    "cyclist gift ideas",
+    "4x6 metal frame"
+  ],
+  "category_override": "",
+  "meta_description": "Unique handmade upcycled bicycle chain and vintage key picture frame. Fits 4x6 photos. Perfect rustic industrial gift for cyclists and eco-conscious decor [4].",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "手工环保利用 自行车链条与复古钥匙 工业风相框 (4x6寸)",
+  "description_zh": "转让一款极具设计感的纯手工客制化相框，由回收的真实自行车链条与经焊接拼贴的复古铜色钥匙制成 [1, 2]。浓郁的复古工业Loft风格，做工扎实，沉甸甸很有质感。非常适合送给单车骑行爱好者 [4]，或者摆放在书房、客厅或工作室作为个性的软装点缀。规格为标准的 4x6 寸（相片尺寸） [1, 2]，背面带有坚固的支撑架，可横放或竖放 [5]。物品目前保留了出厂时的包装防潮纸和硬纸板保护盒，属于全新未使用状态。卖家家里养猫，但相框一直存放在包装盒内，干净无污染。因毕业/搬家低价转让给懂得它的有缘人！"
+}
