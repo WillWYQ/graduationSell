@@ -205,9 +205,25 @@ export const siteConfig: SiteConfig = {
         hidePricingTiers: "Hide pricing tiers",
         viewAllPricingTiers: "View all pricing tiers",
 
+        // ── Shipping estimator ────────────────────────────────────────────────
+        shippingEstimateLabel: "Estimated shipping",
+        shippingZipPlaceholder: "ZIP code",
+        shippingCalculating: "Calculating shipping…",
+        shippingUnavailable: "Shipping estimate unavailable",
+        shippingIncludedBySeller: "Free shipping (included by seller)",
+        shippingEstimateSuffix: "shipping",
+
         // ── Mobile nav drawer ────────────────────────────────────────────────
         menuOpen: "Open menu",
         menuClose: "Close menu",
+
+        // ── Newly Listed page ────────────────────────────────────────────────
+        newlyListed: "Newly Listed",
+        newlyListedSinceLastVisit: "Since Last Visit",
+        newlyListedToday: "Today",
+        newlyListedThisWeek: "This Week",
+        newlyListedFirstVisit: "Welcome! Everything here is new to you.",
+        newlyListedNoneInPeriod: "No new items in this period.",
       },
 
       zh: {
@@ -310,9 +326,25 @@ export const siteConfig: SiteConfig = {
         hidePricingTiers: "隐藏价目表",
         viewAllPricingTiers: "查看所有价目",
 
+        // ── Shipping estimator ────────────────────────────────────────────────
+        shippingEstimateLabel: "预估运费",
+        shippingZipPlaceholder: "邮政编码",
+        shippingCalculating: "正在计算运费…",
+        shippingUnavailable: "无法估算运费",
+        shippingIncludedBySeller: "免运费（卖家承担）",
+        shippingEstimateSuffix: "运费",
+
         // ── Mobile nav drawer ────────────────────────────────────────────────
         menuOpen: "打开菜单",
         menuClose: "关闭菜单",
+
+        // ── Newly Listed page ────────────────────────────────────────────────
+        newlyListed: "最新上架",
+        newlyListedSinceLastVisit: "自上次访问以来",
+        newlyListedToday: "今天",
+        newlyListedThisWeek: "本周",
+        newlyListedFirstVisit: "欢迎！这里所有商品对您来说都是新的。",
+        newlyListedNoneInPeriod: "该时段没有新商品。",
       },
     },
   },
