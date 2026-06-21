@@ -1,0 +1,52 @@
+{
+  "name": "TP-Link TL-SG105 5-Port Gigabit Ethernet Unmanaged Desktop Network Switch",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 8 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 10 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 15 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 8 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic TP-Link TL-SG105 5-Port Gigabit Ethernet Unmanaged Desktop Switch [TP-Link ประเทศไทย](https://www.tp-link.com/th/business-networking/unmanaged-switch/tl-sg105/). Verified precisely by the official factory specifications label underneath, displaying Model: TL-SG105(UN) Ver: 3.0 and power specifications of 9V/0.6A [Onerbl 5V AC/DC Adapter Compatible with tp-Link Model TL ...](https://www.walmart.com/ip/Onerbl-5V-AC-DC-Adapter-Compatible-tp-Link-Model-TL-SG105-TL-SG105-UN-5-Port-Gigabit-Desktop-Switch-5VDC-0-6A-DC5V-600mA-5-0V-5-V-5-0-VDC-Power-Suppl/14162906328). Housed in a heavy-duty, fanless shielded steel casing, this plug-and-play splitter expands your wired home network with 5 non-blocking 10/100/1000 Mbps ports to transfer massive, bandwidth-intensive files seamlessly [TL-SG105 | 5-Port 10/100/1000Mbps Desktop Switch | TP-Link](https://www.tp-link.com/us/business-networking/soho-switch-unmanaged/tl-sg105/). Supports 802.1p QoS traffic optimization and IGMP snooping out of the box [TP-Link 5-Port Gigabit Desktop Switch: Product and Offers](https://www.3.1/). The switch is in great cosmetic and perfect operational condition with sturdy rubber feet intact and dual wall-mount slot notches on the rear backboard. Coming from a pet-friendly home environment with a cat; the unit has been thoroughly blown clear of dust, wiped down with disinfectant alcohol pads, and sanitized prior to listing.",
+  "condition": "good",
+  "brand": "TP-Link",
+  "model": "TL-SG105 (UN) Ver: 3.0",
+  "age_years": null,
+  "dimensions": { "length": 3.9, "width": 3.9, "height": 1.0, "unit": "in" },
+  "weight": { "value": 0.6, "unit": "lb" },
+  "color": "Steel Blue Grey",
+  "quantity": 1,
+  "original_source": "Newegg.com",
+  "original_link": "https://newegg.com",
+  "original_price": 17.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled hardware operating instantly with standard zero-configuration plug-and-play routing. Since this is an unpadded structural desktop network utility accessory, it does NOT come with an additional fabric or cloth storage carrying bag. Please bring your own small shopping pouch or backpack for transport during local pickup. Rest assured that although the device comes from a cat-friendly home, it has been meticulously deep-vacuumed and disinfected, though faint invisible pet traces might remain. Distance-tiered price boundaries are kept highly flat and smooth!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 5,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "TP-Link TL-SG105",
+    "5 port gigabit switch",
+    "unmanaged ethernet hub",
+    "desktop network splitter",
+    "metal network switch",
+    "TP-Link Ver 3.0",
+    "plug and play gigabit"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition TP-Link TL-SG105 5-Port Gigabit Unmanaged Switch (Ver 3.0). Sturdy metal casing, fully plug-and-play, cleaned and sanitized for local pickup.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "TP-Link 普联 5口千兆全金属桌面级有线网络交换机/分线器",
+  "description_zh": "转让一台正品小巧好用的 TP-Link（普联）5口千兆以太网桌面型未管理交换机。机身背部标牌信息清晰：型号为 TL-SG105(UN) Ver:3.0，额定输入 9V/0.6A。采用硬核坚固的全金属钢壳散热设计，内置 5 个标准千兆有线网口，即插即用无需任何繁琐配置，可瞬间为宿舍、书房或工作室扩展有线网络网口。支持 802.1p QoS 流量监控优化，运行稳定且无风扇无噪音。四个橡胶防滑垫脚完好，自带双向壁挂孔。整体成色极佳，核心千兆数据交换完全正常。卖家家里养猫，发布前已进行全面气吹除尘、酒精彻底擦拭消毒。低阶平缓跨度梯度价诚出！"
+}

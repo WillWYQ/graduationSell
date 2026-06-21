@@ -1,0 +1,52 @@
+{
+  "name": "Antec Performance Series P20C Mid-Tower E-ATX High Airflow PC Case - Black",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 35 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 38 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 45 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 35 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic Antec Performance Series P20C high-airflow Mid-Tower PC chassis in sleek matte black. This premium case accommodates everything from mini-ITX up to massive dual-CPU E-ATX motherboards, making it perfect for gamers, workspace developers, or high-capacity home NAS setups. Engineered for superior thermal management, it features a massive metal geometric mesh front panel, multiple magnetic dust filters, and supports dual 360mm liquid cooling radiators simultaneously (top and front). Includes three pre-installed 120mm PWM intake fans, a 1-to-4 fan splitter cable, a premium 4mm tinted tempered glass side panel with anti-fall notches, and a built-in adjustable anti-sag GPU sag bracket. Front I/O is fully loaded with a lightning-fast USB 3.2 Gen 2 Type-C port, two USB 3.0 ports, and HD audio jacks. The case is structurally perfect and fully operational, showing only very minor superficial scuffs on the bottom plastic feet and back-mounted cable paths from a single clean build cycle. Coming from a pet-friendly home with a cat; the entire chassis has been meticulously blown out with compressed air, deep-vacuumed, and fully wiped down with disinfectant prior to listing.",
+  "condition": "good",
+  "brand": "Antec",
+  "model": "P20C (Performance Series)",
+  "age_years": null,
+  "dimensions": { "length": 18.5, "width": 8.7, "height": 19.3, "unit": "in" },
+  "weight": { "value": 17.9, "unit": "lb" },
+  "color": "Matte Black",
+  "quantity": 1,
+  "original_source": "Newegg.com",
+  "original_link": "https://www.newegg.com/antec-atx-mid-tower-steel-plastic-computer-cases-black-p20c/p/N82E16811129290",
+  "original_price": 89.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "High-leverage convenience benefit: This premium PC case comes fully pre-assembled with all factory standoffs, internal rubber cable grommets, and the integrated adjustable GPU support bracket already perfectly lined up, saving you tedious hardware assembly preparation labor. Since this is an unpadded structural hardware computer component, it does NOT come with an additional fabric or cloth retail carrying storage bag. Please bring a sturdy cardboard box or blanket to protect the tempered glass side panel during local vehicle loading. Rest assured that although the chassis comes from a cat-friendly home, it has been deeply vacuumed, wiped down with alcohol pads, and blown free of any loose environment traces. Distance-tiered pricing margins are kept highly compact and flat!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 25,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Antec P20C case",
+    "Mid Tower EATX case",
+    "high airflow PC chassis",
+    "tempered glass computer case",
+    "Type-C gaming case",
+    "Antec Performance Series",
+    "dual 360mm radiator case"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition Antec Performance Series P20C Mid-Tower E-ATX high airflow PC case in black. Includes 3 PWM fans, GPU bracket, USB-C. Sanitized for sale.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Antec 安钛克 P20C 强散热双360冷排 Mid-Tower E-ATX 电脑机箱 - 黑色",
+  "description_zh": "转让一台成色很好的正品 Antec（安钛克）Performance 性能系列 P20C 高风量中塔独立式机箱，沉稳黑色外观。该机箱内部空间极度充裕，不仅无脑兼容从 ITX 到 E-ATX 大尺寸双路 CPU 主板，而且专为硬核散热打造：配有大面积几何网格金属前置面板、全方位高密度磁吸防尘网，且支持在顶部和前部同时安装两个 360mm 水冷排。出厂自带 3 把 120mm 前置高级 PWM 温控风扇、一分四风扇集线器，侧面为 4mm 厚的质感侧透钢化玻璃（带防掉落卡槽），背板自带原装可调节显卡防下垂支架。前置接口拉满，带有一个高速 USB 3.2 Gen 2 Type-C 接口、两个 USB 3.0 以及音频口。结构完好无变型，螺丝齐全，仅背板走线槽和底部脚垫有微弱拼装使用痕迹。卖家家里养猫，发布前已用强力吹风机吹灰、全机大功率吸尘并用酒精消毒湿巾精细擦拭干净。极低梯度差价诚出！"
+}

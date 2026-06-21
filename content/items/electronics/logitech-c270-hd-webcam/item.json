@@ -1,0 +1,52 @@
+{
+  "name": "Logitech C270 HD 720p Widescreen USB Desktop Webcam with Noise-Reducing Mic",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 10 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 12 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 18 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 10 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic Logitech C270 HD Widescreen Desktop/Laptop USB Webcam [Logitech C270 Desktop or Laptop Webcam, HD 720p Widescreen ...](https://www.bestbuy.com/product/logitech-c270-desktop-or-laptop-webcam-hd-720p-widescreen-for-video-calling-and-recording-black/JJGYT4CSKG/sku/11941862). Verified precisely by the attached official factory black cable flag label, displaying Regulatory Model Name: V-U0018 and P/N: 860-000582 [Logitech 720p HD Webcams 860-000581 V-U0018 | eBay](https://www.ebay.com/itm/315743901695). This reliable plug-and-play camera delivers crisp, fluid HD 720p video calls at a steady 30 frames per second, making it an excellent upgrade for Zoom meetings, remote study classes, Microsoft Teams, or streaming setup layouts [Logitech, HD Webcam, C270, 720p, Widescreen HD Video Calling ...](https://www.walmart.com/ip/Logitech-C270-HD-Webcam-720p-Widescreen-HD-Video-Calling-Light-Correction-Noise-Reducing-Mic-Skype-FaceTime-Hangouts-WebEx-PC-Mac-Laptop-Macbook-Tabl/165815142). Features an integrated noise-reducing microphone to capture clean vocals, along with automatic RightLight 2 low-light correction technology to keep your picture look bright even in dim indoor spaces [Logitech C270 3.0MP Webcam - Black: Built-In Microphone, USB ...](https://www.target.com/p/logitech-c270-3-0mp-webcam-black/-/A-13252212). Includes the sturdy universal mounting clip that sits firmly onto any standard computer monitor or laptop frame [Logitech, HD Webcam, C270, 720p, Widescreen HD Video Calling ...](https://www.walmart.com/ip/Logitech-C270-HD-Webcam-720p-Widescreen-HD-Video-Calling-Light-Correction-Noise-Reducing-Mic-Skype-FaceTime-Hangouts-WebEx-PC-Mac-Laptop-Macbook-Tabl/165815142). In excellent cosmetic and 100% flawless operational condition. Coming from a pet-friendly home with a cat; the camera shell and lens have been gently blown clean of dust, detailed with microfiber cloths, and disinfected prior to listing.",
+  "condition": "good",
+  "brand": "Logitech",
+  "model": "C270 HD Webcam (M/N: V-U0018)",
+  "age_years": null,
+  "dimensions": { "length": 2.8, "width": 1.3, "height": 1.2, "unit": "in" },
+  "weight": { "value": 0.17, "unit": "lb" },
+  "color": "Dark Blue-Grey and Black",
+  "quantity": 1,
+  "original_source": "Best Buy",
+  "original_link": "https://www.bestbuy.com/product/logitech-c270-desktop-or-laptop-webcam-hd-720p-widescreen-for-video-calling-and-recording-black/JJGYT4CSKG/sku/11941862",
+  "original_price": 27.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "High-utility plug-and-play hardware that automatically loads default drivers upon USB connection with zero configuration required. Since this is an unpadded hard plastic computer accessory, it does NOT come with an additional fabric or cloth storage travel cover bag. Please bring a small pouch, pocket, or backpack for local pickup transport. Rest assured that although the device comes from a cat-friendly home, it has been completely disinfected with alcohol pads and lens-cleaned, though faint invisible pet traces may remain. Price borders are kept highly smooth and close together!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 6,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Logitech C270 webcam",
+    "Logitech V U0018 camera",
+    "HD 720p USB webcam",
+    "desktop webcam with mic",
+    "Zoom meeting webcam",
+    "Logitech 860 000582",
+    "laptop monitor camera"
+  ],
+  "category_override": "",
+  "meta_description": "Excellent condition Logitech C270 HD 720p Widescreen USB Desktop Webcam (M/N: V-U0018). Built-in noise-reducing mic, fully cleaned and sanitized for pickup.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Logitech 罗技 C270 720P高清带降噪麦克风电脑免驱USB摄像头",
+  "description_zh": "转让一台成色极新、功能完全正常的正品 Logitech（罗技）C270 高清宽屏电脑摄像头。根据连接线上的官方原厂标签显示，其法规认证型号为 M/N: V-U0018，部件号 P/N: 860-000582。该摄像头主打高性价比和即插即用免驱动，支持 720P / 30帧的高清流畅视频通话，非常适合日常网课、Zoom 视频会议、远程办公或网课网考。内置智能降噪麦克风，人声收音清晰，且搭载 RightLight 2 智能光线修正技术，在室内较暗的光线下仍能保持明亮清晰的画面。自带通用固定夹，可稳固挂载在各种显示器或笔记本屏幕上。外壳及镜头完好无划痕。卖家家里养猫，发布前已进行除尘、无绒布镜头擦拭及全面消毒处理。平缓梯度价诚出！"
+}

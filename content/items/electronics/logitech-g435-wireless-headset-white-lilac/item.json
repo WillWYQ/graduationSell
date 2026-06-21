@@ -1,0 +1,52 @@
+{
+  "name": "Logitech G435 Ultra-Lightweight Wireless Bluetooth Gaming Headset - Off-White & Lilac (No USB Dongle)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 18 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 25 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic Logitech G435 Wireless Gaming Headset in the stylish Off-White and Lilac purple colorway. Weighing a featherlight 165 grams, it provides incredible fatigue-free comfort for all-day listening, music streaming, or online classes. PLEASE NOTE: This listing does NOT include the original LIGHTSPEED USB wireless receiver (dongle). However, the headset features built-in low-lag Bluetooth that connects flawlessly to smartphones, tablets, iPads, MacBooks, laptops, or Nintendo Switch for wireless audio out of the box! Can also be used for parts or paired with a replacement G435 receiver if you already have one. Equipped with 40mm high-fidelity audio drivers and advanced built-in dual beamforming microphones. Battery life is up to 18 hours per charge via USB-C. Clean cosmetic condition with minor signs of light use, thoroughly cleaned and sanitized. Coming from a pet-friendly home with a cat; the unit has been carefully air-blown, deep-vacuumed, and fully disinfected prior to listing.",
+  "condition": "fair",
+  "brand": "Logitech",
+  "model": "G435 LIGHTSPEED (Wireless)",
+  "age_years": null,
+  "dimensions": { "length": 6.4, "width": 2.8, "height": 6.7, "unit": "in" },
+  "weight": { "value": 0.36, "unit": "lb" },
+  "color": "Off-White and Lilac Purple",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 79.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Includes the headset only; does NOT include the original LIGHTSPEED USB wireless receiver or charging cable. It functions perfectly via Bluetooth mode for smartphones/laptops. Since this is a personal audio item, it does NOT come with an additional fabric carrying storage bag. Please bring a small bag or pouch for transport during local pickup. Rest assured that although the device comes from a cat-friendly home, it has been deeply disinfected and cleaned, though faint pet traces may remain. Pricing tiers are adjusted low and smooth for quick sale!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Logitech G435 bluetooth",
+    "G435 headphones no dongle",
+    "white lilac headset",
+    "lightweight wireless gaming",
+    "Logitech headset for parts",
+    "bluetooth laptop headphones",
+    "Nintendo Switch headset"
+  ],
+  "category_override": "",
+  "meta_description": "Logitech G435 wireless gaming headset (Off-White/Lilac) missing USB dongle. Functions perfectly via Bluetooth mode for smartphones and laptops. Cleaned and sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Logitech 罗技 G435 极轻量无线蓝牙游戏头戴耳机 - 白紫拼色 (无USB接收器)",
+  "description_zh": "转让一台正品 Logitech（罗技）G435 无线头戴游戏耳机，高颜值清新的白紫拼色。重量仅有165克，久戴完全不压头。**请务必注意：本物品没有原装的 LIGHTSPEED USB 无线接收器（Dongle）。** 但耳机内置的原生低延迟蓝牙功能完全正常，可以完美无线连接手机、iPad、平板、MacBook、笔记本电脑、以及 Nintendo Switch 进行听歌游戏，或者买回去当做配件/找通用接收器配对。内置 40mm 动圈单元和双波束成形麦克风，Type-C 续航约18小时。外观有正常微弱使用痕迹，已做清洁。卖家家里养猫，发布前已进行深度吸尘并用酒精全面消毒擦拭。因缺失接收器，超低价梯度诚出！"
+}

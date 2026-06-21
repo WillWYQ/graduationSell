@@ -6,7 +6,7 @@
       { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 399 },
       { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 420 },
       { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 470 },
-      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 25 }
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 399 }
     ],
     "negotiable": true
   },

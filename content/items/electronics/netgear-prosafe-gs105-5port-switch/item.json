@@ -1,0 +1,52 @@
+{
+  "name": "NETGEAR ProSAFE GS105 5-Port Gigabit Ethernet Unmanaged Desktop Switch",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 12 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 14 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 19 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 12 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic NETGEAR ProSAFE GS105 5-Port Gigabit Ethernet Unmanaged Desktop Switch. Verified precisely by the official factory top stamp displaying Model: GS105 from the enterprise ProSAFE series. Housed in an iconic, rugged industrial steel enclosure built like a tank, this fanless network hub delivers 100% silent operation. It features 5 non-blocking 10/100/1000 Mbps auto-sensing ports to instantly expand your wired home routing, home lab, or gaming setup with wire-speed data transfer. Supports 802.1p QoS traffic prioritization and Energy Efficient Ethernet (IEEE 802.3az) automatically. The switch is in excellent cosmetic and perfect operational condition. Coming from a pet-friendly home environment with a cat; the unit has been meticulously deep-vacuumed, air-blown, and thoroughly disinfected with isopropyl alcohol pads prior to listing.",
+  "condition": "good",
+  "brand": "NETGEAR",
+  "model": "ProSAFE GS105 (v5 Series)",
+  "age_years": null,
+  "dimensions": { "length": 3.7, "width": 3.9, "height": 1.1, "unit": "in" },
+  "weight": { "value": 0.57, "unit": "lb" },
+  "color": "ProSAFE Matte Blue",
+  "quantity": 1,
+  "original_source": "Best Buy",
+  "original_link": "https://www.bestbuy.com/product/netgear-5-port-10-100-1000-gigabit-ethernet-unmanaged-switch-blue/J2VY7Y9595",
+  "original_price": 39.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled business-grade hardware operating immediately with zero-configuration plug-and-play setup. Since this is an unpadded hard steel structural network component, it does NOT come with an additional fabric or cloth retail storage cover bag. Please bring your own small shopping bag or pouch for local transport during pickup. Rest assured that although the device comes from a cat-friendly home, it has been deeply disinfected, though faint unseen pet traces may remain. Price boundaries are kept highly flat and smooth as requested!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 8,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Netgear GS105",
+    "Netgear ProSafe switch",
+    "5 port gigabit switch",
+    "unmanaged ethernet hub",
+    "metal network splitter",
+    "plug and play gigabit",
+    "desktop ethernet switch"
+  ],
+  "category_override": "",
+  "meta_description": "Excellent condition NETGEAR ProSAFE GS105 5-Port Gigabit Unmanaged Switch. Sturdy blue metal casing, plug-and-play, fully sanitized for local pickup.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "NETGEAR 网件 ProSAFE GS105 5口千兆全钢壳桌面网线交换机",
+  "description_zh": "转让一台成色极佳的正品 NETGEAR（网件）ProSAFE 系列 GS105 5口千兆以太网家用/企业级未管理交换机。全金属坚固蓝钢外壳构造（坚如坦克），采用无风扇被动散热，运行 100% 绝对静音。内置 5 个全千兆（10/100/1000 Mbps）自适应线速网口，即插即用，无脑扩展有线网络口、搭建软路由、Home Lab 或优化游戏联机。支持 802.1p 硬件级 QoS 流量优先级控制和 IEEE 802.3az 节能环保协议。全机功能完全正常。卖家家里养猫，发布前已进行深度吸尘除尘并使用酒精湿巾全面全方位擦拭消毒。低阶平缓跨度梯度价诚出！"
+}
