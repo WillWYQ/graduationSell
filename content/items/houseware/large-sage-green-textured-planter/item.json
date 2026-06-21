@@ -1,0 +1,51 @@
+{
+  "name": "Large 12-Inch Sage Green Geometric Textured Planter Pot",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 8 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 10 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 15 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 8 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a beautiful, large 12-inch plant container featuring a modern light sage-green color and an elegant textured geometric diamond pattern. Perfect statement piece for larger houseplants, monsteras, or small indoor trees. Built with thick, durable walls to protect root structures. The pot is in great shape with no deep structural cracks, showing only normal minor outdoor weathered marks and organic soil residue inside. Coming from a pet-friendly home with a cat; the exterior has been thoroughly hosed down and sanitized prior to listing.",
+  "condition": "good",
+  "brand": "",
+  "model": "12-Inch Diamond Geo Pot",
+  "age_years": null,
+  "dimensions": { "length": 12.5, "width": 12.5, "height": 11.0, "unit": "in" },
+  "weight": { "value": 6.2, "unit": "lb" },
+  "color": "Sage Green",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 50.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled hard gardening product. Does NOT come with an additional fabric or cloth storage cover bag. Please bring a plastic bag or a box to shield your car from minor loose soil during local pickup. Comes from a cat-friendly home, hosed clean on the outside but minimal organic matter may remain.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 5,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "large planter pot",
+    "sage green flower pot",
+    "12 inch planter",
+    "geometric plant pot",
+    "indoor houseplant container",
+    "outdoor gardening pot"
+  ],
+  "category_override": "",
+  "meta_description": "Large 12-inch light sage green textured planter pot in good condition. Minimalist geometric design, thoroughly hosed down, perfect for indoor houseplants.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "大号 12寸浅鼠尾草绿几何浮雕纹理花盆",
+  "description_zh": "转让一个成色优良的大号12寸植物花盆，清新典雅的浅鼠尾草绿拼色，带有现代感十足的几何立体浮雕纹理。非常适合摆放中大型室内绿植、龟背竹、发财树或琴叶榕。盆壁厚实稳重，不易倾倒。花盆整体结构完好无裂痕，仅内部有正常的泥土接触痕迹。卖家家里养猫，发布前已用高压水枪将外壁全面冲洗干净并抹干消毒。"
+}

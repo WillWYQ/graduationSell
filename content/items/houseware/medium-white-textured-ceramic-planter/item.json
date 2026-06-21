@@ -1,0 +1,51 @@
+{
+  "name": "Medium 6-Inch White Textured Ceramic-Style Cylinder Planter Pot",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 5 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 7 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 12 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 5 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a stylish medium 6-inch cylinder planter pot in a clean, minimalist textured white finish. Features a unique honeycomb geometric tactile pattern that catches the light beautifully on windowsill displays. Ideal for medium-sized succulents, pothos, herbs, or snake plants. Shows minor surface organic stains on the bottom rim from regular watering but has no structural cracks. Coming from a pet-friendly home with a cat; the planter has been vacuumed, thoroughly hosed clean externally, and wiped with sanitizer.",
+  "condition": "good",
+  "brand": "",
+  "model": "6-Inch Wave Honeycomb Pot",
+  "age_years": null,
+  "dimensions": { "length": 6.2, "width": 6.2, "height": 5.8, "unit": "in" },
+  "weight": { "value": 2.8, "unit": "lb" },
+  "color": "Textured White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 12.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled gardening accessory. Does NOT come with an additional retail fabric storage bag. Local pickup buyers are highly encouraged to bring a small cardboard box or plastic bag for transport. Comes from a cat-friendly home, fully hosed down and disinfected externally before transfer.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 3,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "medium white planter",
+    "6 inch flower pot",
+    "ceramic succulent pot",
+    "textured plant container",
+    "minimalist white pot",
+    "windowsill planter"
+  ],
+  "category_override": "",
+  "meta_description": "Medium 6-inch white textured cylinder planter pot. Modern geometric look, perfect for succulents or snake plants. Cleaned and hosed down for sale.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "中号 6寸简约立体压花纹理白色直筒花盆",
+  "description_zh": "转让一个极简现代风的中号6寸直筒花盆，干净的纯白配色搭配精美细腻的几何蜂窝压花纹理，放在桌上或窗台采光处非常高级。尺寸适合栽种中型多肉、绿萝、薄荷或虎皮兰。底部因日常浇水有极轻微的泥水沉积痕迹，整体完好无损。卖家家里养猫，发货前已将外部进行冲洗并用酒精消毒擦拭。"
+}

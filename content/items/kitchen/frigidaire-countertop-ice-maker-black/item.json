@@ -1,0 +1,52 @@
+{
+  "name": "Frigidaire 26 lb. Portable Countertop Bullet Ice Maker Machine - Black",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 30 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 40 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 50 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 35 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a highly efficient Frigidaire 26 lb. portable countertop bullet ice maker in a sleek black finish. This appliance is incredibly fast, capable of spitting out its first batch of 9 crisp bullet-shaped ice cubes in just 6 to 7 minutes! It lets you choose between two different ice sizes (Small and Large) to perfectly suit your iced coffee, sodas, or cocktail needs. Features a smart, intuitive LED control panel with indicator alerts for 'Add Water' and 'Ice Full'. There are clear visual cosmetic signs of use, including noticeable surface scuffs, smudges, and fine pet hairs on the black outer casing from a cat-friendly home environment. However, it functions perfectly, operates quietly, and has been thoroughly flushed, deep-cleaned, and sanitized. Perfect for dorm rooms, studio apartments, or tailgating!",
+  "condition": "good",
+  "brand": "Frigidaire",
+  "model": "EFIC101 / EFIC123 Series",
+  "age_years": null,
+  "dimensions": { "length": 14.1, "width": 9.5, "height": 12.9, "unit": "in" },
+  "weight": { "value": 18.3, "unit": "lb" },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "The Home Depot",
+  "original_link": "https://www.homedepot.com/p/Frigidaire-26-lbs-Freestanding-Ice-Maker-8-7-in-Wide-in-Black-EFIC128-BLACK-6COM/331842091",
+  "original_price": 89.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled hardware that works straight out of the box with zero installation required—just plug it into a standard outlet and add water. Since this is an appliance with a hard plastic structural casing, it does NOT come with an additional fabric storage cover bag. Please bring a sturdy shopping bag or box for easy vehicle loading. Please be aware that the item comes from a cat-friendly home; while it has been thoroughly vacuumed, wiped down with disinfectant, and interior flushed, faint pet traces may remain. Price adjusted smoothly for the external scuffs!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 25,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Frigidaire ice maker",
+    "countertop ice machine",
+    "portable bullet ice",
+    "black ice maker",
+    "compact ice maker",
+    "26 lb ice machine",
+    "apartment appliances"
+  ],
+  "category_override": "",
+  "meta_description": "Affordable black Frigidaire 26 lb. portable countertop ice maker. Fast 6-minute bullet ice cycle. Thoroughly cleaned and sanitized, ideal for small kitchens.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Frigidaire 富及第 26磅便携式台面子弹头制冰机 - 黑色",
+  "description_zh": "转让一台高效好用的 Frigidaire（富及第）26磅家用台面便携子弹头制冰机。制冰速度极快，只需6-7分钟即可出第一批（9颗）冰块。支持大、小两种子弹冰规格调节，非常适合冰咖啡、可乐、鸡尾酒或聚会冷饮。带有一体式智能 LED 控制面板，‘缺水提示（Add Water）’和‘冰满提示（Ice Full）’一目了然。目前机身外壳有一些明显的使用痕迹、划痕和反光可见的猫咪浮毛（卖家养猫）。不过内部和核心功能完全正常，制冷强劲。已经过全机彻底清洗、内部管道循环冲刷及消毒擦拭。非常适合公寓、留学生宿舍、办公室或房车出行使用！"
+}

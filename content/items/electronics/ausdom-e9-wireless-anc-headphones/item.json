@@ -1,0 +1,52 @@
+{
+  "name": "AUSDOM E9 Over-Ear Wireless Active Noise Cancelling Bluetooth Headphones",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 10 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 15 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 20 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic pair of AUSDOM E9 Wireless Active Noise Cancelling Over-Ear Headphones. Verified by the official global MIC technical certification sticker (ID: 018-180085) located on the inner structural headband slider. These sleek black headphones feature an advanced self-schemed ANC processor that effectively cancels out low-frequency ambient drone, making them perfect for study sessions, office environments, or noisy flights. Equipped with large 40mm aperture drivers, they deliver crisp treble, clear vocals, and deep bass performance. The cloud-soft memory protein leather ear cushions and adjustable multi-angle swivel headband offer an incredibly comfortable, fatigue-free fit for extended wear. Battery life is fantastic, offering up to 60 hours of wireless music playback. Minor superficial scuffs are present on the matte plastic hinge casing from gentle use, but the headphones function flawlessly. Coming from a pet-friendly home with a cat, though the entire unit has been thoroughly vacuumed, wiped down, and sanitized.",
+  "condition": "good",
+  "brand": "AUSDOM",
+  "model": "E9 (018-180085)",
+  "age_years": null,
+  "dimensions": { "length": 7.6, "width": 3.1, "height": 6.9, "unit": "in" },
+  "weight": { "value": 0.6, "unit": "lb" },
+  "color": "Matte Black",
+  "quantity": 1,
+  "original_source": "AUSDOM Official",
+  "original_link": "https://ausdom.com/products/ausdom-e9-wireless-active-noise-cancelling-headphones--60hrs-battery-l",
+  "original_price": 69.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled and ready to instantly pair with your smartphone, laptop, or tablet. Since this is a personal electronic accessory item, it does NOT come with an additional fabric or cloth storage bag. Please bring a small pouch, pocket, or backpack for local pickup transport. Rest assured that although the item comes from a cat-friendly home, it has been meticulously sanitized and double-wiped with alcohol pads prior to listing. Pricing tiers are kept highly compact and smooth!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 18,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "AUSDOM E9",
+    "wireless ANC headphones",
+    "active noise cancelling",
+    "bluetooth over ear",
+    "AUSDOM 018-180085",
+    "60 hours battery",
+    "travel headphones black"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition AUSDOM E9 wireless active noise cancelling headphones (MIC ID: 018-180085). 60-hour battery, deep bass, fully sanitized for custom listing.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "AUSDOM 澳斯盾 E9 无线主动降噪蓝牙罩耳式头戴耳机",
+  "description_zh": "转让正品 AUSDOM（澳斯盾）E9 无线主动降噪（ANC）头戴罩耳式耳机。头带拉伸内侧带有官方技适合规认证标签（认证编号：018-180085）。该耳机主打高性价比强力降噪与超长续航，内置高阶主动降噪芯片，能有效过滤环境里的低频噪音（如公交、飞机或风扇声），非常适合留学生在图书馆写作业、办公室专注或日常通勤听歌。搭载40mm大动圈驱动单元，三频均衡且低音澎湃。耳罩采用云感记忆海绵和蛋白质皮革，配合可旋转调节头带，长时间佩戴不压耳。满电可提供高达60小时的超长无线无线播放时间。外观有轻微日常收纳痕迹，核心功能与降噪完全正常。卖家家里养猫，发布前耳机已经过吸尘和酒精棉片深度擦拭消毒。低价速出！"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Coleman 48-Quart Hard Chest Cooler with 3-Day Ice Retention - Blue",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 15 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 18 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 25 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 15 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a classic, highly durable Coleman 48-Quart Hard Chest Cooler in an eye-catching outdoor blue colorway. Built for heavy-duty cooling, this high-performance ice chest holds up to 76 beverage cans and is tall enough to store 2-liter soda bottles upright to completely prevent messy spills. Features premium TempLock insulation that keeps your ice frozen solid for up to 3 days in temperatures up to 90°F. Equipped with comfortable, heavy-duty 2-way handles for easy lifting and a robust, leak-resistant drain plug to easily empty out melted water without turning the cooler upside down. The exterior plastic shell is in excellent condition, showing only minor cosmetic scuffs on the bottom base from resting on outdoor concrete surfaces. Coming from a pet-friendly home with a cat, though the cooler has been stored clean, completely hosed down, sanitized, and towel-dried.",
+  "condition": "fair",
+  "brand": "Coleman",
+  "model": "48-Quart Chiller Chest Cooler (Model 3000005381)",
+  "age_years": null,
+  "dimensions": { "length": 25.5, "width": 14.4, "height": 14.6, "unit": "in" },
+  "weight": { "value": 7.5, "unit": "lb" },
+  "color": "Outdoor Blue / White Lid",
+  "quantity": 1,
+  "original_source": "Walmart",
+  "original_link": "https://www.walmart.com/ip/Coleman-Chiller-48-Quart-Hard-Cooler/766219565",
+  "original_price": 49.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled and ready to accompany you straight to your next tailgate, camping trip, or road trip. Since this is an unpadded hard plastic outdoor storage item, it does NOT come with an additional fabric or cloth storage bag. It fits perfectly in almost any standard car trunk or backseat. Please note that it comes from a cat-friendly home; although it has been thoroughly scrubbed and sanitized inside and out, faint pet traces may be present in the storage area. Prices are kept very flat and close together for smooth negotiation!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Coleman 48 quart cooler",
+    "blue hard chest cooler",
+    "3 day ice chest",
+    "76 cans portable cooler",
+    "camping gear ice box",
+    "tailgating hard cooler",
+    "Coleman Chiller series"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition Coleman 48-Quart hard chest cooler in blue. Holds 76 cans, features 3-day ice retention, 2-way handles, and drain plug. Sanitized and cleaned.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Coleman 科勒曼 48夸脱 户外手提保温箱/硬核制冷冰桶 - 蓝色",
+  "description_zh": "转让一台极其结实耐用的经典正品 Coleman（科勒曼）48夸脱大容量户外硬核保温箱。这只冰桶空间充足，内部最多可容纳 76 听易拉罐饮料，且高度足够将 2 升的大可乐瓶直立摆放，有效防止液体侧漏。采用高阶 TempLock 保温隔热层，在高达 90°F 的室外高温下仍能保持冰块长达 3 天不融化。两侧配有双向灵活自如的提手，搬运省力；底部配有防漏泄水阀，无需倒扣即可轻松排干融化的冰水。外观成色很好，仅底部接触地面部分有正常的轻微划痕。卖家家里养猫，箱子在发布前已里外用清水和消毒剂彻底刷洗干净并擦干。非常适合户外野营、露营、烧烤聚会或自驾游出行！"
+}

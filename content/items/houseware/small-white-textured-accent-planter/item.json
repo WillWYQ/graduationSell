@@ -1,0 +1,51 @@
+{
+  "name": "Small 4-Inch White Geometric Textured Accent Planter Pot",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 3 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 5 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 10 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 3 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a cute, small 4-inch geometric textured accent planter pot in matte white. This compact container is tailored perfectly for baby succulents, tiny cacti, air plants, or desk propagation. Features a gorgeous textured grid outer shell. In excellent used condition with no cracks or heavy blemishes. Coming from a pet-friendly home with a cat; the pot has been meticulously hosed down, sanitized, and towel-dried.",
+  "condition": "good",
+  "brand": "",
+  "model": "4-Inch Mini Geo Pot",
+  "age_years": null,
+  "dimensions": { "length": 4.3, "width": 4.3, "height": 3.9, "unit": "in" },
+  "weight": { "value": 1.1, "unit": "lb" },
+  "color": "Matte White",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 8.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled mini garden container. Does NOT come with an additional fabric or cloth storage bag. Please bring a grocery bag or small paper bag for local pickup. Coming from a pet-friendly home with a cat, fully hosed clean and sanitized externally prior to handover.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 2,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "small white planter",
+    "4 inch mini pot",
+    "succulent planter pot",
+    "desktop plant container",
+    "propagation pot",
+    "matte white geometric"
+  ],
+  "category_override": "",
+  "meta_description": "Small 4-inch matte white geometric textured planter pot. Ideal size for miniature cacti, baby succulents, or desk propagation. Thoroughly hosed and sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "小号 4寸迷你几何网格纹理白色装饰花盆",
+  "description_zh": "低价转让一个超可爱的小号4寸迷你植物花盆，哑光纯白底色配有凹凸有致的现代几何网格纹理。专为小型多肉、仙人球、空气凤梨或桌面水培扦插量身打造。整体小巧精致，成色极新，无裂纹。卖家家里有猫，发布前已进行全面冲洗与深层消毒处理。适合拼单自提或作为小摆件带走。"
+}
