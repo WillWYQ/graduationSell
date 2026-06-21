@@ -40,7 +40,7 @@ export const siteConfig: SiteConfig = {
   soldArchiveDisplayLimit: 200,
   measurementUnit: "metric",
 
-  priceFilterStrategy: "logarithmic",
+  
 
   // ── Contact ───────────────────────────────────────────────────────────────
   contact: {
@@ -74,6 +74,7 @@ export const siteConfig: SiteConfig = {
     itemGrid: "bento-grid",
     gallery: "apple-cards-carousel",
     itemCard: "card-spotlight",
+    priceFilterStrategy: "logarithmic",
   },
 
   // ── Analytics ─────────────────────────────────────────────────────────────
