@@ -1,0 +1,85 @@
+{
+  "name": "MOUKABAL Adjustable Stainless Steel Over The Sink Dish Drying Rack (Matte Black)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 20
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 40
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 90
+      },
+      {
+        "label": "Shipping (buyer pay for shipping) as-is",
+        "miles_min": 200,
+        "amount": 20
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Say goodbye to cluttered countertops! Selling an ultra-functional, space-saving MOUKABAL over-the-sink dish drying rack in premium matte black alloy steel. It features an ingenious expandable structure with a customizable length (25.9\" to 33.4\") and adjustable height (21.25\" to 23\") to perfectly clear your faucet and fit your sink setup. Comes complete with 4 designated draining baskets for plates, bowls, and utensils. Please note: This comes from a pet-friendly home with a lovely cat. The entire unit has been completely washed, sanitized, and wiped down, though a stray faint pet trace might remain. Skip the confusing assembly manual—this unit comes fully pre-assembled, structurally sound, and ready to immediately anchor over your sink!",
+  "condition": "good",
+  "brand": "MOUKABAL",
+  "model": "sink-rack-2-black",
+  "age_years": null,
+  "dimensions": {
+    "length": 33.4,
+    "width": 11.8,
+    "height": 22.8,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 7.0,
+    "unit": "lb"
+  },
+  "color": "Matte Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B0CNYMB6L2?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_32",
+  "original_price": 45.0,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": [
+    "Cash",
+    "Venmo",
+    "zelle"
+  ],
+  "contact_note": "Fully pre-assembled for your convenience—no puzzle pieces to put together! Easily fits across any standard car backseat or trunk for local pickup. Please note that my home is cat-friendly; the rack has been deeply sanitized and deep-cleaned prior to listing.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 15,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "over sink dish rack",
+    "adjustable dish drainer",
+    "kitchen space saver",
+    "stainless steel dish rack",
+    "moukabal kitchen organizer",
+    "black dish drying rack",
+    "preassembled kitchen rack"
+  ],
+  "category_override": "",
+  "meta_description": "Buy a pre-assembled MOUKABAL adjustable over-the-sink stainless steel dish drying rack in matte black. Expandable length 25.9\"-33.4\". Cleaned and sanitized.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "MOUKABAL 可调节不锈钢水槽上方沥水架 (哑光黑)",
+  "description_zh": "厨房台面空间拯救神器！低价转让 Amazon 购入的 MOUKABAL 水槽上方多功能沥水架。采用加厚合金钢材质搭配防锈哑光黑涂层，结构稳固。最大亮点是宽度和高度均可自由调节（长度 25.9 到 33.4 英寸可调，高度 21.25 到 23 英寸可调），完美适配不同大小的水槽和水龙头高度。附带 4 个专属沥水篮，碗盘、筷勺、清洁用品分类收纳，即洗即干，水直接滴入水槽，绝不弄湿台面。友情提示：家里养猫，沥水架在下架后已经过彻底的整体刷洗与高温消毒擦拭，可能极个别地方会残留微小宠物痕迹。已经帮你完全组装好，免去你自己看说明书拼装几十分钟的烦恼，自提拿回家放上就能直接用！"
+}
