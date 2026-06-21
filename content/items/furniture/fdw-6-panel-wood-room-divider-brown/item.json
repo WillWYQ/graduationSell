@@ -1,0 +1,52 @@
+{
+  "name": "FDW 6-Panel Louvered Wood Folding Room Divider Privacy Screen - Rustic Brown",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 48 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 52 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 60 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 48 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling an authentic FDW 6-panel folding wood room divider and extra-wide privacy screen in a beautiful rustic brown finish. Crafted from premium, lightweight yet durable Paulownia wood, this grand partition wall covers up to 8 feet of space when fully extended! Features a classic European louvered shutter slat structure that offers excellent private concealment while ensuring steady air ventilation and filtered lighting. Equipped with 180-degree multi-directional metal hinges, all six panels flex and pivot smoothly to adapt into a variety of layout configurations or tightly nested storage setups. Perfect for splitting studio apartments, hiding disorganized garage areas, creating clean work-from-home backdrops, or setting up a cozy bedroom dressing zone. Structurally sound, operates flawlessly, and stands very steady. Coming from a pet-friendly home with a cat; the entire unit has been thoroughly vacuumed, wiped down with disinfectant, and cleaned prior to listing.",
+  "condition": "good",
+  "brand": "FDW",
+  "model": "6-Panel Privacy Louvered Screen",
+  "age_years": null,
+  "dimensions": { "length": 94.5, "width": 0.8, "height": 66.9, "unit": "in" },
+  "weight": { "value": 19.8, "unit": "lb" },
+  "color": "Rustic Brown",
+  "quantity": 1,
+  "original_source": "Target",
+  "original_link": "https://www.target.com/p/fdw-6-panel-5-75ft-wooden-room-divider-tall-privacy-wall-divider-screen-divider-with-adjustable-louvers-versatile-and-stylish-privacy-screen-brown/-/A-1001531832?sid=&TCID=PDS-20993324870&gclsrc=aw.ds&gad_source=1&gad_campaignid=20993324870&gbraid=0AAAAAD-5dfaMirWhh3j_NUUjU6tLOSF-h&gclid=CjwKCAjw9NjRBhATEiwA_p2J8a_VHRvuLeAKGo3PXeMjqRK-6ajxZa1fszKIl9DjqEjeabI_yK763BoC6-EQAvD_BwE",
+  "original_price": 119.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Massive buyer convenience benefit: This premium 6-panel partition arrives completely FULLY PRE-ASSEMBLED, saving you hours of frustrating manual carpentry and tool kit setup. Since this is an architectural wooden furniture piece, it does NOT come with an additional fabric or cloth storage travel cover bag. It folds down completely flat into a highly compact profile (approx. 15.7\" x 4.8\") making it extremely easy to slide into the backseat or trunk of almost any standard compact sedan or SUV. Coming from a cat-friendly home, it has been deeply vacuumed and disinfected, though faint invisible pet traces might remain. Distance-tiered pricing boundaries are kept smooth and highly flat as requested!",
+  "no_lowball": true,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 35,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "FDW 6 panel divider",
+    "extra wide privacy screen",
+    "wood folding partition",
+    "louvered room separator",
+    "rustic brown folding wall",
+    "preassembled studio divider",
+    "8ft wide room screen"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition FDW 6-panel louvered wood room divider in rustic brown. 8ft extra-wide coverage, lightweight Paulownia wood, fully assembled and sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "FDW 6扇超宽折叠美式复古百叶实木屏风/大空间隔断墙屏",
+  "description_zh": "转让一款大容量超宽型的正品 FDW 6扇折叠式实木室内隐私隔断屏风，高级复古棕色饰面。由天然质轻、防潮抗变形的泡桐木打磨制成，全拉开后总宽度可延伸至近 2.4 米（8英尺），能够完美应对大空间划分。采用经典的欧式百叶窗缝隙设计，遮挡隐私的同时确保空气对流，光影错落有致。6扇屏风之间均由坚固的双向金属合页相连，可进行 180 度自由灵活旋转，轻松解锁各种折线形、之字形或直角摆放。非常适合大卧室、Studio 宿舍分隔、客厅遮挡杂物或做直播办公背景墙。整体结构扎实，成色极佳。卖家家里养猫，发布前已进行深度吸尘除尘并全方位消毒擦拭。差价梯度极其平缓，低价诚出！"
+}

@@ -1,0 +1,51 @@
+{
+  "name": "Premium Stemmed Tulip Craft Beer and Snifter Tasting Glass (Single Piece)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 3 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 5 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 9 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 3 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a single, high-quality premium stemmed tulip craft beer and snifter tasting glass. This specialized glassware is engineered with a bulbous bowl and a flared lip to trap and concentrate complex aromatics, making it absolutely perfect for craft IPAs, stouts, Belgian ales, cognac, or whiskey tastings. In pristine condition with zero chips, blemishes, or cloudiness. Coming from a pet-friendly home with a cat; the glass has been fully deep-washed, fiber polished, and completely disinfected.",
+  "condition": "good",
+  "brand": "Libbey",
+  "model": "Stemmed Tulip Snifter",
+  "age_years": null,
+  "dimensions": { "length": 3.4, "width": 3.4, "height": 5.9, "unit": "in" },
+  "weight": { "value": 0.6, "unit": "lb" },
+  "color": "Clear Glass",
+  "quantity": 1,
+  "original_source": "Target",
+  "original_link": "https://target.com",
+  "original_price": 8.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled single tasting glass. Does NOT come with an additional carrying fabric bag. Fragile glass item—please bring a small paper bag, towel, or bubble wrap to cradle it safely in your vehicle. Comes from a cat-friendly home, fully sanitized and clear of debris. Price borders are kept flat for quick sale!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 2,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "tulip beer glass",
+    "craft beer snifter",
+    "stemmed tasting glass",
+    "IPA stout tasting cup",
+    "aroma concentration glass",
+    "single bar glass"
+  ],
+  "category_override": "",
+  "meta_description": "Single piece premium stemmed tulip craft beer and snifter tasting glass. Excellent condition, no chips, perfect for IPAs, stouts, or spirits. Sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "精酿啤酒艺术郁金香杯/闻香矮脚矮脚品酒杯 (单只装)",
+  "description_zh": "转让一只高品质的郁金香型（Tulip/Snifter）精酿啤酒高脚闻香杯。独特的收口和外翻杯唇设计，能够完美锁住并放大香气，非常适合饮用精酿 IPA、世涛（Stout）、比利时艾尔，或者作为白兰地、威士忌的品鉴杯。杯身无任何缺口、划痕或暗淡水渍，通透度极高。卖家家里养猫，发布前已对手洗、微纤维布擦拭并酒精抛光消毒。"
+}

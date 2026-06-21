@@ -1,0 +1,50 @@
+{
+  "name": "Stainless Steel and Wood Accent 5-Piece Barware Tool Set with Shaker",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 14 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 16 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 22 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 14 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a beautiful, minimalist 5-piece stainless steel cocktail barware tool set with natural wood accents. This stylish mixology setup features brushed stainless steel utility pieces neatly organized in a solid round wooden display stand pedestal. The comprehensive kit includes a matching cocktail shaker topped with a beautiful wood cap, a wooden muddler, a dual-sided jigger for precise pouring measurements, a classic Hawthorne strainer, and a heavy-duty bottle opener. Perfect for elevating your apartment bar cart setup, entertaining guests, or practicing custom mixology recipes! The set is clean, structural, and operates flawlessly with normal faint cosmetic water-spot smudges on the steel surfaces from light gentle use. Coming from a pet-friendly home with a cat; everything has been thoroughly hand-washed, sanitized, and towel-dried.",
+  "condition": "good",
+  "brand": "Project 62",
+  "model": "Stainless Steel & Wood Barware Set",
+  "age_years": null,
+  "dimensions": { "length": 6.0, "width": 6.0, "height": 9.5, "unit": "in" },
+  "weight": { "value": 2.2, "unit": "lb" },
+  "color": "Brushed Silver and Light Natural Wood",
+  "quantity": 1,
+  "original_price": 29.99,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled and nested perfectly within the wooden display pedestal for incredibly stable transport. Since this is a hard kitchenware set without an outer fabric wrap, it does NOT come with an additional retail storage cloth bag. Please bring your own paper grocery bag or small backpack for local pickup handover. Rest assured that although the item comes from a cat-friendly home, it has been completely disinfected and polished prior to transfer. Price increments across distance boundaries are kept tight and smooth as requested!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Project 62 bar tools",
+    "stainless steel shaker set",
+    "wood cocktail kit",
+    "target barware set",
+    "bartender tools with stand",
+    "mixology shaker set",
+    "apartment bar cart decor"
+  ],
+  "category_override": "",
+  "meta_description": "Great condition Project 62 5-piece stainless steel barware tool set with natural wood accents and matching shaker. Sanitized, perfect for home mixology.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "现代不锈钢木质底座调酒器工具5件套",
+  "description_zh": "低价转让一套成色很好的正品不锈钢木质拼色调酒工具套装。采用高级拉丝不锈钢材质搭配天然质感原木饰面，整体收纳在一个精致的圆形实木展示底座底座内，摆在吧台或小推车上高级感拉满。5件套包含：1个原木顶盖鸡尾酒雪克壶、1个原木捣碎棒（Muddler）、1个双头量酒器（Jigger）、1个经典隔冰器（Strainer）以及1个开瓶器。全套工具非常齐全，开箱即用。整体成色良好，仅不锈钢表面有正常的微弱水渍印记。卖家家里养猫，发布前全套调酒器已经过人工精细清洗、高阶抹干并全面消毒。不拆卖，超平缓梯度价位出！"
+}

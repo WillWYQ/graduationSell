@@ -1,0 +1,51 @@
+{
+  "name": "Libbey 12 oz. Clear Stemmed Wine Glasses Set of 4",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 6 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 8 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 12 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 6 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling a matching set of four classic Libbey-style 12 oz. stemmed wine glasses. Crystal clear with an elegant classic bowl shape, these are ideal for everyday white or red wine dining, student apartment setups, or hosting small home parties. The glasses are in great condition with no chips, cracks, or heavy scratches. Coming from a pet-friendly home with a cat; every single glass has been thoroughly deep hand-washed, polished with fiber cloths, and sanitized prior to listing.",
+  "condition": "good",
+  "brand": "Libbey",
+  "model": "12 oz. Classic Stemmed Set",
+  "age_years": null,
+  "dimensions": { "length": 6.8, "width": 6.8, "height": 7.5, "unit": "in" },
+  "weight": { "value": 1.9, "unit": "lb" },
+  "color": "Clear Glass",
+  "quantity": 1,
+  "original_source": "Target",
+  "original_link": "https://target.com",
+  "original_price": 16.00,
+  "status": "available",
+  "listed_date": "2026-06-20",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Fully pre-assembled tableware. Does NOT come with an additional fabric or cloth storage cover bag. Fragile glass items—local pickup buyers are highly recommended to bring a small box or padded tote with towels/paper to wrap them securely for the car ride home. Comes from a cat-friendly home, fully hand-washed and sanitized with alcohol wipes. Distance-tiered pricing is kept tightly flat!",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 4,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Libbey wine glasses",
+    "stemmed glasses set of 4",
+    "clear wine cups",
+    "apartment dinnerware",
+    "classic wine glassware",
+    "hosting party glasses"
+  ],
+  "category_override": "",
+  "meta_description": "Set of 4 classic clear stemmed wine glasses by Libbey in good condition. No chips or cracks, fully hand-washed and sanitized for local apartment pickup.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "Libbey 经典高脚红白葡萄酒杯 4件套",
+  "description_zh": "转让一组4只装的经典款 Libbey 风格高脚葡萄酒杯（12盎司，红白葡萄酒通用）。杯身通透，杯型优雅耐看，非常适合日常居家餐餐小酌、留学生公寓起步餐具或朋友聚会。全套玻璃杯保存完好，没有任何缺口、裂痕或明显磨损。卖家家里养猫，发布前所有玻璃杯均经过精细人工洗涤、抛光并全面消毒擦拭。"
+}
