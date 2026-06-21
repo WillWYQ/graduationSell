@@ -1,0 +1,85 @@
+{
+  "name": "Kingston HyperX Fury Black 8GB DDR4 2666MHz Desktop RAM Module",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 25
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 25
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 25
+      },
+      {
+        "label": "Shipping (buyer pay for shipping) as-is",
+        "miles_min": 200,
+        "amount": 25
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Perfect budget-friendly hardware upgrade for your desktop rig! Selling a 100% functional Kingston HyperX Fury Black 8GB DDR4 RAM stick (Model: HX426C16FB3/8). Runs stable at 2666MHz (PC4-21300) with a snappy CL16 low latency timing at standard 1.2V. Supports Intel XMP 2.0 automatic overclocking profiles to maximize your system response times instantly. Features a sleek, low-profile black heat spreader for optimal thermal dissipation. Comes packed securely inside its original plastic retail clamshell protective casing along with the original HyperX sticker. Please note: This comes from a pet-friendly apartment shared with a cat; the hardware has been kept sealed and completely free of contact, but a faint pet trace might exist on the outer plastic wrap. Fully tested, pull-clean condition, and ready to plug-and-play!",
+  "condition": "like-new",
+  "brand": "Kingston",
+  "model": "HX426C16FB3/8",
+  "age_years": null,
+  "dimensions": {
+    "length": 5.25,
+    "width": 0.28,
+    "height": 1.34,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 0.08,
+    "unit": "lb"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/Tech-Replacement-Kingston-HX426C16FB3-PC4-21300/dp/B09CQC64JW",
+  "original_price": 56.67,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": [
+    "Cash",
+    "Venmo",
+    "zelle"
+  ],
+  "contact_note": "Includes the original protective plastic clamshell case and branding sticker as shown. Extremely light and pocketable for seamless local pickup. Kept inside a cat-friendly home but stored completely inside its protective container.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "hyperx fury ddr4",
+    "8gb ddr4 ram desktop",
+    "kingston hx426c16fb3",
+    "2666mhz pc4 21300",
+    "gaming pc memory",
+    "cl16 desktop memory",
+    "budget pc upgrade"
+  ],
+  "category_override": "",
+  "meta_description": "Buy a like-new Kingston HyperX Fury Black 8GB DDR4 desktop memory stick. 2666MHz CL16 low profile RAM with original clamshell box.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "金士顿 HyperX Fury 8GB DDR4 2666MHz 电脑台式机内存条",
+  "description_zh": "高性价比台式机升级/组装机利器！转让一条 100% 完美功能测试、成色极新的金士顿 HyperX Fury Black 8GB DDR4 台式机内存条（精确型号：HX426C16FB3/8）。运行频率为 2666MHz (PC4-21300)，时序 CL16，工作电压仅 1.2V，发热极低。支持 Intel XMP 2.0 自动超频技术，插上即可瞬间提升系统响应速度。自带帅气的哑光黑低剖面散热片，绝不卡 CPU 塔式散热器。附带原装透明塑料保护壳和 HyperX 贴纸。友情提示：虽属于养猫家庭，但内存条常年处于机箱或保护壳内，硬件绝无直接接触，仅外包装可能残留极微小宠物痕迹。买回去直接插槽即用，十分省心！"
+}

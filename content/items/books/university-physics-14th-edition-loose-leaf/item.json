@@ -1,0 +1,85 @@
+{
+  "name": "Sears and Zemansky's University Physics with Modern Physics (14th Edition) - Loose Leaf with Binder",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Local pickup (≤ 15 mi)",
+        "miles_max": 15,
+        "amount": 15
+      },
+      {
+        "label": "15 – 100 mi",
+        "miles_min": 15,
+        "miles_max": 100,
+        "amount": 20
+      },
+      {
+        "label": "100 – 200 mi",
+        "miles_min": 100,
+        "miles_max": 200,
+        "amount": 25
+      },
+      {
+        "label": "Shipping (buyer pay for shipping) as-is",
+        "miles_min": 200,
+        "amount": 15
+      }
+    ],
+    "negotiable": true
+  },
+  "description": "Essential textbook for STEM, physics, and engineering majors! Selling the loose-leaf (Books a la Carte) edition of Sears and Zemansky's University Physics with Modern Physics, 14th Edition by Hugh D. Young and Roger A. Freedman. This format is incredibly convenient as you can pull out just the chapters you need for class instead of hauling a massive 6-pound hardcover across campus. The complete set of pages is neatly pre-sorted and securely housed inside a sturdy white three-ring binder, saving you the hassle of organizing them yourself. All pages are clean, intact, and readable. Please note: This comes from a cat-friendly student apartment; while the textbook was kept safe inside a storage box and remains completely odor-free, a stray faint pet trace might exist on the binder surface. Perfect budget saver for the upcoming semester!",
+  "condition": "good",
+  "brand": "Pearson",
+  "model": "Books a la Carte Edition",
+  "age_years": null,
+  "dimensions": {
+    "length": 11.5,
+    "width": 10.5,
+    "height": 2.5,
+    "unit": "in"
+  },
+  "weight": {
+    "value": 6.2,
+    "unit": "lb"
+  },
+  "color": "White Binder",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://amazon.com",
+  "original_price": 165.0,
+  "status": "available",
+  "listed_date": "2026-06-19",
+  "sold_date": null,
+  "preferred_payment": [
+    "Cash",
+    "Venmo",
+    "zelle"
+  ],
+  "contact_note": "Pre-assembled inside a sturdy three-ring binder so you don't have to deal with loose pages scattering everywhere. Please note that my home is cat-friendly, though the textbook itself has been stored in a closed box.",
+  "no_lowball": false,
+  "price_reduced": true,
+  "previous_lowest_price": 25,
+  "min_acceptable_offer": 10,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "university physics 14th edition",
+    "young and freedman physics",
+    "physics with modern physics",
+    "loose leaf textbook binder",
+    "pearson books a la carte",
+    "college physics textbook",
+    "stem textbook calculus based"
+  ],
+  "category_override": "",
+  "meta_description": "Buy a complete loose-leaf copy of University Physics with Modern Physics 14th Edition in a white binder. Clean pages, ready for classes.",
+  "isbn": "9780133977981",
+  "course": "PHYS 121 / PHYS 201",
+  "edition": "14th",
+  "semester_listed": "Fall 2026",
+  "name_zh": "西尔斯与泽曼斯基 大学物理学 带现代物理 (第14版) 活页版含文件夹",
+  "description_zh": "理工科与物理/工程专业必备神书！转让由 Young 和 Freedman 编写的经典经典教材《University Physics with Modern Physics》（第14版）活页版（Books a la Carte Edition）。活页版的绝对优势在于你不需要每天背着这本重达 6 磅的板砖书跑大课，只需单独抽出当天要讲的几章带去教室即可。全书所有页面完整无缺，已经帮你全部整齐地装入了一个高强度白色三环文件夹内，免去了自己动手整理的繁琐。页面干净无涂写损坏。友情提示：本人养猫，虽然课本一直收纳在封闭的收纳箱中且绝无异味，但文件夹表面可能偶尔带有微小宠物痕迹。相比于动辄上百刀的学校书店新书，这绝对是开学省钱的高性价比选择！"
+}
