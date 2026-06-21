@@ -40,6 +40,8 @@ export const siteConfig: SiteConfig = {
   soldArchiveDisplayLimit: 200,
   measurementUnit: "metric",
 
+  priceFilterStrategy: "logarithmic",
+
   // ── Contact ───────────────────────────────────────────────────────────────
   contact: {
     reveal_behavior: "click",
