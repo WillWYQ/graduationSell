@@ -162,6 +162,8 @@ export const siteConfig: SiteConfig = {
         // ── Filter / sort bar ────────────────────────────────────────────────
         filterShowSold: "Show sold",
         filterPrice: "Price",
+        filterPriceBucketAll: "All prices",
+        filterPriceIncludesOutliers: "+ items outside range",
         sortBy: "Sort by",
         sortNewestFirst: "Newest first",
         sortPriceLow: "Price: low → high",
