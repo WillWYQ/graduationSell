@@ -1,0 +1,869 @@
+/* Studio design language v2: modern tool chrome over the storefront brand
+   palette. Light tokens come straight from app/globals.css; dark keeps the
+   site's bg/ink/accent and adds studio-specific surfaces. Every rule below
+   consumes semantic tokens — no raw hex outside the two blocks at the top. */
+
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+
+:root {
+  --bg: #f8f4ec;
+  --surface: #ffffff;
+  --surface-2: #f3ede1;
+  --border: #e6ddcf;
+  --ink: #231f20;
+  --ink-soft: #6f675e;
+  --accent: #002af9;
+  --on-accent: #ffffff;
+  --accent-soft: #d5a198;
+  --danger: #b3241e;
+  --backdrop: rgb(35 31 32 / 0.4);
+  --shadow-sm: 0 1px 2px rgb(35 31 32 / 0.06), 0 1px 3px rgb(35 31 32 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(35 31 32 / 0.18), 0 2px 8px rgb(35 31 32 / 0.1);
+  --shadow-bar: 0 -4px 12px rgb(35 31 32 / 0.06);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  --status-available-bg: #e3f0e4;
+  --status-available-fg: #166f2d;
+  --status-pending-bg: #f5edd6;
+  --status-pending-fg: #7f6110;
+  --status-reserved-bg: #e2ecf7;
+  --status-reserved-fg: #0860c7;
+  --status-sold-bg: #f7e3e2;
+  --status-sold-fg: #b3241e;
+  --status-draft-bg: #eceae6;
+  --status-draft-fg: #6f675e;
+
+  --font-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, monospace;
+  --step-0: 0.875rem;
+  --step-1: 1rem;
+  --step-2: 1.25rem;
+  --gap: 0.75rem;
+  --gap-lg: 1.25rem;
+  --speed: 140ms;
+}
+
+[data-theme="dark"] {
+  --bg: #231f20;
+  --surface: #2e2a2b;
+  --surface-2: #383234;
+  --border: #4a4340;
+  --ink: #f8f4ec;
+  --ink-soft: #a89e94;
+  --accent: #a8bbd6;
+  --on-accent: #1a1d21;
+  --accent-soft: #5d4a44;
+  --danger: #ea8480;
+  --backdrop: rgb(0 0 0 / 0.55);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
+  --shadow-bar: 0 -4px 12px rgb(0 0 0 / 0.3);
+
+  --status-available-bg: #24402c;
+  --status-available-fg: #7ed49a;
+  --status-pending-bg: #423a1e;
+  --status-pending-fg: #d9b95c;
+  --status-reserved-bg: #1f3a52;
+  --status-reserved-fg: #7ab8f0;
+  --status-sold-bg: #4c2624;
+  --status-sold-fg: #ea8480;
+  --status-draft-bg: #383234;
+  --status-draft-fg: #a89e94;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--accent);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────
+   Three variants cover every button in studio. All action buttons route
+   through the shared Button component, which emits these classes. */
+
+.btn {
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  font-weight: 500;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--speed) ease,
+    color var(--speed) ease,
+    border-color var(--speed) ease;
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 85%, black);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+/* ── Status badges ──────────────────────────────────────────────────────
+   Pill badges, one bg/fg pair per status from the token blocks. Text is
+   always present, so status never rides on colour alone. */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-available {
+  background: var(--status-available-bg);
+  color: var(--status-available-fg);
+}
+
+.badge-pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-fg);
+}
+
+.badge-reserved {
+  background: var(--status-reserved-bg);
+  color: var(--status-reserved-fg);
+}
+
+.badge-sold {
+  background: var(--status-sold-bg);
+  color: var(--status-sold-fg);
+}
+
+.badge-draft {
+  background: var(--status-draft-bg);
+  color: var(--status-draft-fg);
+}
+
+/* ── Alerts and states ──────────────────────────────────────────────────
+   Every role="alert" message gets .alert-error too: danger-coloured text
+   on a faint danger wash. */
+
+.alert-error {
+  margin: 0;
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+  color: var(--danger);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  white-space: pre-line;
+}
+
+/* The app-level error banner sits between header and table, inset like
+   the table itself. */
+.page-error {
+  margin: 0.75rem 1rem 0;
+}
+
+.empty-state {
+  padding: 4rem 1rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.empty-state p {
+  margin: 0 0 0.25rem;
+}
+
+.skeleton {
+  height: 2.75rem;
+  margin-bottom: var(--gap);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+
+.studio-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.studio-head h1 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--step-2);
+  font-weight: 600;
+}
+
+.studio-head .counts {
+  font-family: var(--font-data);
+  color: var(--ink-soft);
+}
+
+.head-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem;
+}
+
+/* ── Item table ─────────────────────────────────────────────────────── */
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.item-table th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.item-table td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.item-table td.data {
+  font-family: var(--font-data);
+}
+
+.item-table tbody tr {
+  transition: background-color var(--speed) ease;
+}
+
+.item-table tbody tr:hover {
+  background: var(--surface);
+}
+
+.item-table tbody tr.selected {
+  background: color-mix(in srgb, var(--accent-soft) 26%, var(--bg));
+}
+
+tr.failed td {
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+
+.name-button {
+  padding: 0;
+  font: inherit;
+  font-weight: 500;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.name-button:hover {
+  color: var(--accent);
+}
+
+/* Narrow screens: each row becomes a card (structure unchanged from v1,
+   re-skinned with tokens). */
+@media (max-width: 40rem) {
+  .item-table thead {
+    display: none;
+  }
+
+  .item-table tr {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    column-gap: var(--gap);
+    row-gap: 0.15rem;
+    align-items: baseline;
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .item-table td {
+    border: 0;
+    padding: 0;
+  }
+
+  .item-table td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: start;
+  }
+
+  .item-table td:nth-child(2) {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    font-weight: 500;
+  }
+
+  .item-table td:nth-child(5) {
+    grid-column: 4;
+    grid-row: 1;
+    text-align: right;
+  }
+
+  .item-table td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .item-table td:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .item-table td:nth-child(6) {
+    grid-column: 4;
+    grid-row: 2;
+    text-align: right;
+  }
+
+  .item-table td:nth-child(3),
+  .item-table td:nth-child(6) {
+    color: var(--ink-soft);
+  }
+
+  .item-table td:nth-child(6)::after {
+    content: " img";
+  }
+
+  .item-table tr.failed td {
+    box-shadow: none;
+  }
+
+  .item-table tr.failed {
+    box-shadow: inset 3px 0 0 var(--danger);
+  }
+}
+
+/* ── The SOLD stamp ─────────────────────────────────────────────────────
+   Kept as the one moment of theatre: pressed once when a row is marked
+   sold — it settles into the sold badge afterwards. Colour rides the
+   sold status tokens so both themes read as stamp red. */
+
+.stamp {
+  display: inline-block;
+  padding: 0.05em 0.35em;
+  border: 2px solid var(--status-sold-fg);
+  color: var(--status-sold-fg);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  /* Uneven ink: the edge breaks up where a real stamp lifts off the paper. */
+  mask-image: radial-gradient(circle at 30% 40%, var(--ink) 78%, transparent 100%);
+}
+
+.stamp-press {
+  animation: stamp-press 260ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+@keyframes stamp-press {
+  0% {
+    transform: rotate(-4deg) scale(1.6);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(-4deg) scale(0.96);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-4deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Bulk toolbar ───────────────────────────────────────────────────── */
+
+.bulk-toolbar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding: 0.625rem 1rem;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow-bar);
+}
+
+.bulk-toolbar .count {
+  font-family: var(--font-data);
+  color: var(--ink-soft);
+}
+
+/* ── Drawer ─────────────────────────────────────────────────────────── */
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(30rem, 100vw);
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--gap);
+  margin-bottom: 1rem;
+}
+
+.drawer-head h2 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--step-2);
+  font-weight: 600;
+}
+
+.drawer-tabs {
+  display: flex;
+  gap: var(--gap);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  padding: 0.3rem 0.25rem;
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+.tab-active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* ── Image pane ─────────────────────────────────────────────────────── */
+
+.dropzone {
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+.dropzone.over {
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.dropzone p {
+  margin: 0 0 0.5rem;
+  color: var(--ink-soft);
+}
+
+.file-button input[type="file"] {
+  display: block;
+  margin: 0 auto;
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+}
+
+.thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+}
+
+.thumb img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.thumb-name {
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.thumb-readonly {
+  cursor: default;
+  border-style: dashed;
+  border-color: var(--ink-soft);
+}
+
+.thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+  text-align: center;
+  border-radius: var(--radius-sm);
+}
+
+.thumb-note {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
+
+/* ── Sync bar ───────────────────────────────────────────────────────── */
+
+.sync-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap);
+}
+
+.sync-status {
+  font-family: var(--font-data);
+  color: var(--ink-soft);
+  white-space: pre-line;
+}
+
+/* Layout half of the sync error; colours come from .alert-error. */
+.sync-error {
+  display: block;
+  flex: 1 0 100%;
+}
+
+/* ── Edit form ──────────────────────────────────────────────────────── */
+
+.edit-form fieldset {
+  margin: 0 0 1.25rem;
+  padding: 0;
+  border: 0;
+}
+
+.edit-form legend {
+  padding: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.field-label {
+  font-size: var(--step-0);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.field input[type="text"],
+.field textarea,
+.field select,
+.publish-controls input[type="text"],
+.tier-cell input {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition:
+    border-color var(--speed) ease,
+    box-shadow var(--speed) ease;
+}
+
+.field input[type="text"]:focus,
+.field textarea:focus,
+.field select:focus,
+.publish-controls input[type="text"]:focus,
+.tier-cell input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input[type="checkbox"] {
+  align-self: flex-start;
+}
+
+.field-hint {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+/* An on-disk value the schema wouldn't produce: shown raw, flagged with
+   the danger border instead of v1's violet. */
+.field-offlist {
+  border-color: var(--danger) !important;
+}
+
+.form-saved {
+  color: var(--ink-soft);
+}
+
+/* ── Tier editor ────────────────────────────────────────────────────── */
+
+.tier-list {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: var(--gap);
+  align-items: end;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tier-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* ── Dialogs ────────────────────────────────────────────────────────── */
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  background: var(--backdrop);
+}
+
+.dialog {
+  width: min(26rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.dialog h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-ui);
+  font-size: var(--step-2);
+  font-weight: 600;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap);
+  margin-top: 1rem;
+}
+
+/* ── Publish pane ───────────────────────────────────────────────────── */
+
+.publish-pane {
+  margin: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.publish-pane h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.change-list {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-data);
+}
+
+.change-list li {
+  padding: 0.1rem 0;
+  overflow-wrap: anywhere;
+}
+
+.change-code {
+  color: var(--ink-soft);
+}
+
+.change-empty,
+.publish-done {
+  color: var(--ink-soft);
+}
+
+.publish-controls {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.publish-controls input[type="text"] {
+  flex: 1;
+}
+
+/* Layout half of the publish error; colours come from .alert-error. */
+.publish-error {
+  white-space: pre-line;
+}
+
+/* ── Defaults pane ──────────────────────────────────────────────────── */
+
+.defaults-dialog {
+  width: min(46rem, calc(100vw - 2rem));
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.defaults-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin: 0.75rem 0;
+}
+
+.defaults-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
+}
+
+.defaults-row .field {
+  flex: 1;
+}
+
+.defaults-row-off {
+  opacity: 0.55;
+}
+
+.defaults-inherited {
+  opacity: 0.7;
+}
+
+/* ── Motion preferences ─────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-press,
+  .skeleton {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
