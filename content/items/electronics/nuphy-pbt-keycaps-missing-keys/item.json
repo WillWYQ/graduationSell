@@ -16,7 +16,7 @@
   "model": "Standard Profile Dye-Sub PBT Keycap Set",
   "age_years": null,
   "dimensions": { "length": 14.5, "width": 6.5, "height": 1.2, "unit": "in" },
-  "weight": { "value": 0.8, "lb" },
+  "weight": { "value": 0.8, "unit": "lb" },
   "color": "Grey and White",
   "quantity": 1,
   "original_source": "NuPhy Official",

@@ -29,7 +29,7 @@
     "negotiable": true
   },
   "description": "Linksys SE3008 8-port Gigabit Ethernet unmanaged switch. Offers stable network expansion with auto-sensing wired connection speeds up to 1000 Mbps. Built with a durable metallic chassis and integrated power-saving features. Perfect for expanding internet ports for streaming, gaming, or home offices. Comes with its original retail box as shown. Great condition, selling cheap for graduation moving sale!",
-  "condition": "Like New",
+  "condition": "like-new",
   "brand": "Linksys",
   "model": "SE3008",
   "age_years": null,
@@ -48,7 +48,7 @@
   "original_source": "Best Buy",
   "original_link": "https://www.bestbuy.com/product/linksys-8-port-gigabit-ethernet-switch-black/JXWP4KQ48H",
   "original_price": 44.99,
-  "status": "Pending",
+  "status": "pending",
   "listed_date": "2026-06-13",
   "sold_date": null,
   "preferred_payment": [],

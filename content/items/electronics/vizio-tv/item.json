@@ -32,11 +32,11 @@
     "length": 8.36,
     "width": 35.5,
     "height": 22.7,
-    "unit": "inches"
+    "unit": "in"
   },
   "weight": {
     "value": 15.2,
-    "unit": "lbs"
+    "unit": "lb"
   },
   "color": "",
   "quantity": 1,
