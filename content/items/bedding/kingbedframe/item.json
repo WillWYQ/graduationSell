@@ -13,7 +13,15 @@
   "condition": "good",
   "color": "black",
   "quantity": 1,
-  "status": "available",
+  "status": "sold",
   "listed_date": "2026-06-11",
-  "tags": ["bed-frame", "king-bed", "twin-xl", "metal-frame", "platform-bed", "foldable"]
+  "tags": [
+    "bed-frame",
+    "king-bed",
+    "twin-xl",
+    "metal-frame",
+    "platform-bed",
+    "foldable"
+  ],
+  "sold_date": "2026-08-04"
 }

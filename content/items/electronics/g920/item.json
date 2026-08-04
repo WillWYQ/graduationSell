@@ -16,7 +16,7 @@
     "condition": "good",
   "brand": "Logitech",
   "model": "G920",
-  "status": "reserved",
+  "status": "sold",
   "listed_date": "2026-06-09",
   "tags": [
     "gaming",
@@ -26,5 +26,6 @@
     "pc",
     "logitech",
     "g920"
-  ]
+  ],
+  "sold_date": "2026-08-04"
 }

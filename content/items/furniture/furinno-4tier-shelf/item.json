@@ -28,9 +28,9 @@
   "color": "Black/Gray",
   "quantity": 1,
 
-  "status": "available",
+  "status": "sold",
   "listed_date": "2026-06-19",
-  "sold_date": null,
+  "sold_date": "2026-08-04",
   "preferred_payment": ["Cash", "Venmo", "zelle"],
   "contact_note": "Cat-friendly home. The shelf is fully pre-assembled, saving you from any tedious tool building setup! Thoroughly wiped down, sanitized, and ready to go. Easily fits into the back seat or trunk of any standard car for pickup.",
   "no_lowball": false,

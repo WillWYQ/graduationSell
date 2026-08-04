@@ -13,9 +13,10 @@
   "brand": "Wockoder",
   "color": "black",
   "quantity": 1,
-  "status": "available",
+  "status": "sold",
   "listed_date": "2026-06-11",
   "tags": ["record-player", "turntable", "vinyl", "bluetooth", "bookshelf-speakers", "retro"],
   "original_source": "Amazon",
-  "original_link": "https://www.amazon.com/dp/B0FMHYJMLK"
+  "original_link": "https://www.amazon.com/dp/B0FMHYJMLK",
+  "sold_date": "2026-08-04"
 }
