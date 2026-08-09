@@ -1,16 +1,17 @@
 {
-  "name": "Rug Doctor carpet shampooer, shark vacuum cleaner, and mouses(apple and logi)",
+  "name": "Shark vacuum cleaner",
   "price": {
     "currency": "USD",
     "tiers": [
       {
-        "label": "Pickup on Wed 24th",
+        "label": "Pickup",
         "miles_min": 0,
-        "amount": 220
-      },
+        "amount": 80
+      }
     ],
+    "negotiable": true,
   },
-  "description": "Reserved for Michelle from facebook marketplace",
+  "description": "Selling a Shark EZ Robot Vacuum (Model RV9124S3US) with the self-empty base.Please note this unit is in Fair Condition. It has been heavily used and shows obvious cosmetic scuffs, scratches, and signs of wear on the body (please see photos for exact condition). However, it is 100% fully functional and cleans great!Self-Empty Base: Holds up to 30 days of dust and debris—no more daily emptying.Row-by-Row Cleaning: Methodically cleans your home without missing spots.Powerful Suction: Incredible pickup on both carpets and hard floors, perfect for pet hair.Smart Control: Easily connects to Wi-Fi for App or voice control.The unit and base have been cleared out and wiped down. Perfect if you want the luxury of a self-emptying robot vacuum at a fraction of the retail price and don't mind some cosmetic scratches.Shipping or local pickup available. Sold as-is. Message me with any questions!",
   "condition": "fair",
   "brand": "Shark",
   "model": "RV9124S3US",
@@ -30,24 +31,28 @@
   "original_source": "Walmart / Best Buy",
   "original_link": "https://www.bestbuy.com/product/shark-ez-robot-vacuum-rv912s-with-self-empty-base-bagless-wi-fi-dark-gray/JXJVXGZ5RS",
   "original_price": 499.00,
-  "status": "reserved",
+  "status": "available",
   "listed_date": "2026-06-12",
   "sold_date": null,
   "preferred_payment": ["Cash", "Venmo"],
   "contact_note": "",
   "no_lowball": false,
-  "price_reduced": false,
-  "previous_lowest_price": null,
-  "min_acceptable_offer": 70,
+  "price_reduced": true,
+  "previous_lowest_price": 90,
+  "min_acceptable_offer": 50,
   "stripe_payment_link": "",
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": ["robot vacuum", "shark ez", "self empty", "smart home", "vacuum cleaner", "pet hair"],
+  "tags": [
+    "robot vacuum"
+  ],
   "category_override": "",
   "meta_description": "Buy a used Shark EZ Robot Vacuum with Self-Empty Base (RV9124S3US) in fair condition. Fully functional automated home cleaning at a heavy discount.",
   "isbn": "",
   "course": "",
   "edition": "",
   "semester_listed": "",
+  "name_zh": "Shark 自动集尘扫地机 RV9124S3US",
+  "description_zh": "标题： 【超低价转让】Shark 自动集尘扫地机 RV9124S3US（成色看图，功能完好）正文：个人闲置 Shark RV9124S3US 扫地机器人。成色定义为 Fair condition（普通/五六成新），机身有明显的划痕和正常使用留下的痕迹（完美主义者请绕道），但没有任何功能性故障！核心卖点：带自动集尘底座，扫完自动倒垃圾，30天不用倒灰尘，简直是懒人福音。清扫靠谱：支持条理分明的逐行清扫，吸力强劲，地毯和地板都能搞定，对宠物毛发非常友好。智能连接：支持手机 App 和语音控制。机器已经过基础清洁和消毒，配件如图。买新机太贵，买这个回去随便造，性价比无敌。支持自提或邮寄，不议价啦，手慢无！",
   }
