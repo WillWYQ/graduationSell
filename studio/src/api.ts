@@ -1,15 +1,9 @@
 // Type-only import: studioApi.ts pulls in the content loader and node:fs, which
 // must never reach the browser bundle. `import type` is erased at compile time,
 // so this shares the types without shipping the module.
-import type { ConfigField, ConfigFieldKind } from "../../scripts/lib/configEdit";
-import type {
-  ReadinessAction,
-  ReadinessItem,
-  ReadinessReport,
-} from "../../scripts/lib/siteReadiness";
 import type { BulkStatusResult, ImageEntry, StudioItem } from "../../scripts/lib/studioApi";
 
-export type { BulkStatusResult, ConfigField, ConfigFieldKind, ImageEntry, ReadinessAction, ReadinessItem, ReadinessReport, StudioItem };
+export type { BulkStatusResult, ImageEntry, StudioItem };
 
 // Every response body is read defensively rather than trusting res.json() to
 // succeed: the CSRF guard and Vite itself can answer a rejected request with
@@ -30,11 +24,7 @@ function errorMessage(body: Record<string, unknown> | null, fallback: string): s
   return typeof body?.error === "string" ? body.error : fallback;
 }
 
-export async function fetchItems(): Promise<{
-  items: StudioItem[];
-  defaultLocale: string;
-  availableLocales: string[];
-}> {
+export async function fetchItems(): Promise<StudioItem[]> {
   const res = await fetch("/api/items");
   const body = await readJsonBody(res);
   if (!res.ok) {
@@ -45,20 +35,12 @@ export async function fetchItems(): Promise<{
   // wasn't the shape we expect). Falling back to [] here would render as an
   // empty table with no error, which looks identical to a seller's first
   // run with zero listings and gives no signal that anything is wrong.
-  if (
-    !Array.isArray(body?.items) ||
-    typeof body?.defaultLocale !== "string" ||
-    !Array.isArray(body?.availableLocales)
-  ) {
+  if (!Array.isArray(body?.items)) {
     throw new Error(
       `GET /api/items returned an unreadable response (${res.status} ${res.statusText})`,
     );
   }
-  return {
-    items: body.items as StudioItem[],
-    defaultLocale: body.defaultLocale as string,
-    availableLocales: body.availableLocales as string[],
-  };
+  return body.items as StudioItem[];
 }
 
 export async function bulkStatus(ids: string[], status: string): Promise<BulkStatusResult> {
@@ -208,50 +190,6 @@ export async function saveDefaults(scope: string, defaults: Record<string, unkno
   if (!res.ok) {
     throw new Error(errorMessage(body, `saving ${scope} defaults failed with ${res.status} ${res.statusText}`));
   }
-}
-
-export async function fetchConfig(): Promise<ConfigField[]> {
-  const res = await fetch("/api/config");
-  const body = await readJsonBody(res);
-  if (!res.ok) {
-    throw new Error(errorMessage(body, `loading site config failed with ${res.status} ${res.statusText}`));
-  }
-  if (!Array.isArray(body?.fields)) {
-    throw new Error(`GET /api/config returned an unreadable response (${res.status} ${res.statusText})`);
-  }
-  return body.fields as ConfigField[];
-}
-
-export async function saveConfigValue(
-  path: string,
-  value: string | number | boolean,
-): Promise<ConfigField[]> {
-  const res = await fetch("/api/config", {
-    method: "PUT",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ path, value }),
-  });
-  const body = await readJsonBody(res);
-  if (!res.ok) {
-    throw new Error(errorMessage(body, `saving ${path} failed with ${res.status} ${res.statusText}`));
-  }
-  return (body?.fields as ConfigField[] | undefined) ?? [];
-}
-
-export async function fetchReadiness(): Promise<ReadinessReport> {
-  const res = await fetch("/api/readiness");
-  const body = await readJsonBody(res);
-  if (!res.ok) {
-    throw new Error(
-      errorMessage(body, `loading setup status failed with ${res.status} ${res.statusText}`),
-    );
-  }
-  if (body?.report === undefined) {
-    throw new Error(
-      `GET /api/readiness returned an unreadable response (${res.status} ${res.statusText})`,
-    );
-  }
-  return body.report as ReadinessReport;
 }
 
 export type ChangedFile = { code: string; path: string };

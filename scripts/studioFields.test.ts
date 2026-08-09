@@ -23,12 +23,7 @@ type FieldDescriptor = {
   options?: readonly string[];
   hint?: string;
 };
-type FieldGroup = {
-  id: string;
-  title: string;
-  defaultOpen?: boolean;
-  fields: FieldDescriptor[];
-};
+type FieldGroup = { title: string; fields: FieldDescriptor[] };
 
 type FieldsModule = {
   FIELD_GROUPS: readonly FieldGroup[];
@@ -92,47 +87,16 @@ describe("studio field descriptors (Task 6)", () => {
     }
   });
 
-  it("group ids, order and titles match the spec's grouping", () => {
+  it("group order and titles match the spec's grouping", () => {
     const { FIELD_GROUPS } = loadFields();
-    expect(FIELD_GROUPS.map((g) => g.id)).toEqual([
-      "listing",
-      "price",
-      "translations",
-      "specs",
-      "payment",
-      "books",
-      "extras",
-      "dates",
-    ]);
     expect(FIELD_GROUPS.map((g) => g.title)).toEqual([
-      "Listing",
+      "Basic",
       "Price",
-      "Translations",
       "Specs",
-      "Payment & pickup",
-      "Books & courses",
-      "Extras",
-      "Dates",
+      "Platform",
+      "Student",
+      "Translations",
     ]);
-    // Only the two groups a seller touches on an ordinary edit start open;
-    // the rest render as <details> the seller opens on demand.
-    expect(FIELD_GROUPS.filter((g) => g.defaultOpen === true).map((g) => g.id)).toEqual([
-      "listing",
-      "price",
-    ]);
-  });
-
-  // The 2026-08-05 regrouping moved descriptors between groups and reordered
-  // them. It must not have created or dropped one on the way: a lost
-  // descriptor is a field the seller can no longer edit from Studio at all.
-  it("re-grouping neither added nor dropped a descriptor", () => {
-    const { FIELD_GROUPS } = loadFields();
-    const paths = FIELD_GROUPS.flatMap((g) => g.fields.map((f) => f.path.join(".")));
-    // 43 leaf descriptors covering the schema's 36 editable fields — the
-    // nested price/dimensions/weight objects contribute one descriptor per
-    // leaf.
-    expect(paths.length).toBe(43);
-    expect(new Set(paths).size).toBe(43);
   });
 
   it("whole-object groups are exactly dimensions and weight", () => {
@@ -160,14 +124,11 @@ describe("studio field descriptors (Task 6)", () => {
     expect(readAtPath({}, ["dimensions", "length"])).toBeUndefined();
   });
 
-  it("EditForm sends tiers as one whole-array edit", () => {
+  it("EditForm sends tiers as one whole-array edit and never sends blank selects", () => {
     const source = readFileSync(path.join(ROOT, "studio/src/panes/EditForm.tsx"), "utf-8");
     expect(source).toContain('{ path: ["price", "tiers"], value: rows }');
-    // "a blank select is never sent" used to be asserted here as a source
-    // string. buildEdits now lives in studio/src/editForm.ts and
-    // studio/src/editForm.test.ts asserts the behaviour itself, which is the
-    // same guarantee verified properly.
-    //
+    // Blank select means "no change" — never sent (strict enums reject "").
+    expect(source).toContain('if (next === "" && field.kind === "select") continue;');
     // Off-list on-disk values are rendered raw, not snapped to a legal
     // option. The per-field rendering moved from EditForm into FieldInput
     // when the two were split for the defaults feature.
@@ -199,8 +160,8 @@ describe("studio field descriptors (Task 6)", () => {
     }
   });
 
-  it("editForm seeds a missing object from WHOLE_OBJECT_SEEDS and asks for a unit", () => {
-    const source = readFileSync(path.join(ROOT, "studio/src/editForm.ts"), "utf-8");
+  it("EditForm seeds a missing object from WHOLE_OBJECT_SEEDS and asks for a unit", () => {
+    const source = readFileSync(path.join(ROOT, "studio/src/panes/EditForm.tsx"), "utf-8");
     expect(source).toContain("WHOLE_OBJECT_SEEDS[head]");
     expect(source).toContain("pick a unit");
   });

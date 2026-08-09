@@ -10,7 +10,6 @@ import { parse as parseJsonc, type ParseError } from "jsonc-parser";
 import { siteConfig } from "../../content/config";
 import { itemJsonSchema, categoryJsonSchema } from "./schema";
 import { mapWithConcurrency } from "../utils/concurrency";
-import { pickCoverFilename } from "../utils/coverImage";
 import type { Item, Category } from "./types";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content", "items");
@@ -202,12 +201,14 @@ async function buildItem(
     resolveImageUrl(manifest, `${categorySlug}/${itemSlug}/${f}`),
   );
 
-  // Pin `cover.*` as the thumbnail; otherwise use first alphabetical image.
-  const coverFilename = pickCoverFilename(filenames);
+  // Pin `cover.*` as the thumbnail; otherwise use first alphabetical image
+  const coverIdx = filenames.findIndex((f) => /^cover\./i.test(f));
   const coverImage =
-    coverFilename === null
-      ? null
-      : resolveImageUrl(manifest, `${categorySlug}/${itemSlug}/${coverFilename}`);
+    coverIdx !== -1
+      ? (images[coverIdx] ?? null)
+      : images.length > 0
+        ? (images[0] ?? null)
+        : null;
 
   const currency = parsed.price.currency || siteConfig.currency;
 

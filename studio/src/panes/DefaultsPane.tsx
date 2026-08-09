@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { fetchDefaults, saveDefaults } from "../api";
 import { Button } from "../components/Button";
 import { useDialogBehavior } from "../components/useDialogBehavior";
-import { FIELD_GROUPS, pathKey, readAtPath, type FieldGroup, type GroupId } from "../fields";
-import { fromInput, toInput } from "../fieldValues";
-import { FieldInput } from "./FieldInput";
+import { FIELD_GROUPS, pathKey, readAtPath, type FieldGroup } from "../fields";
+import { FieldInput, fromInput, toInput } from "./FieldInput";
 
 // name/status/listed_date/sold_date belong to each item, never to a template;
 // the server rejects them too (scripts/lib/itemDefaults.ts). This set only
@@ -13,14 +12,7 @@ const NEVER_DEFAULTABLE = new Set(["name", "status", "listed_date", "sold_date"]
 
 // The groups sellers retype most (price structure and the transaction fields)
 // lead; everything else stays collapsed until opened.
-//
-// Deliberately NOT FieldGroup.defaultOpen: the two panels have opposite
-// priorities. Payment & pickup is collapsed in the edit form — nobody changes
-// how they get paid while editing one item — and pinned here, because
-// presetting it once is exactly what defaults are for. Typed as GroupId so
-// renaming a group is a compile error rather than a silent "match nothing,
-// collapse everything".
-const PINNED_GROUPS: ReadonlySet<GroupId> = new Set<GroupId>(["price", "payment"]);
+const PINNED_GROUPS = new Set(["Price", "Platform"]);
 
 const DEFAULTABLE_GROUPS: FieldGroup[] = FIELD_GROUPS.map((group) => ({
   ...group,
@@ -31,8 +23,8 @@ const DEFAULTABLE_GROUPS: FieldGroup[] = FIELD_GROUPS.map((group) => ({
 })).filter((group) => group.fields.length > 0);
 
 const SORTED_GROUPS: FieldGroup[] = [
-  ...DEFAULTABLE_GROUPS.filter((g) => PINNED_GROUPS.has(g.id)),
-  ...DEFAULTABLE_GROUPS.filter((g) => !PINNED_GROUPS.has(g.id)),
+  ...DEFAULTABLE_GROUPS.filter((g) => PINNED_GROUPS.has(g.title)),
+  ...DEFAULTABLE_GROUPS.filter((g) => !PINNED_GROUPS.has(g.title)),
 ];
 
 type FieldState = { enabled: boolean; raw: string };
@@ -236,13 +228,13 @@ export function DefaultsPane({
                   </div>
                 );
               });
-              return PINNED_GROUPS.has(group.id) ? (
-                <fieldset key={group.id}>
+              return PINNED_GROUPS.has(group.title) ? (
+                <fieldset key={group.title}>
                   <legend>{group.title}</legend>
                   {fields}
                 </fieldset>
               ) : (
-                <details key={group.id}>
+                <details key={group.title}>
                   <summary>{group.title}</summary>
                   <fieldset>{fields}</fieldset>
                 </details>

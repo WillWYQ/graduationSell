@@ -14,17 +14,6 @@ export function Drawer({
   onChanged: () => void;
 }) {
   const [tab, setTab] = useState<"photos" | "details">("photos");
-  // Visited tabs stay mounted. Rendering only the active one used to throw a
-  // half-typed edit away the moment the seller clicked Photos to check an
-  // image — silently, with nothing to undo it. Still lazy on first open, so
-  // a drawer whose Details tab is never opened costs no field fetch.
-  const [visited, setVisited] = useState<ReadonlySet<string>>(new Set(["photos"]));
-  const [dirtyCount, setDirtyCount] = useState(0);
-
-  function open(next: "photos" | "details") {
-    setTab(next);
-    setVisited((prev) => (prev.has(next) ? prev : new Set([...prev, next])));
-  }
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -54,30 +43,17 @@ export function Drawer({
             role="tab"
             aria-selected={tab === name}
             className={tab === name ? "tab tab-active" : "tab"}
-            onClick={() => open(name)}
+            onClick={() => setTab(name)}
           >
             {name === "photos" ? "Photos" : "Details"}
-            {name === "details" && dirtyCount > 0 && (
-              <>
-                <span className="field-dot" aria-hidden="true">
-                  ●
-                </span>
-                <span className="visually-hidden"> (unsaved changes)</span>
-              </>
-            )}
           </button>
         ))}
       </div>
 
-      {visited.has("photos") && (
-        <div className="drawer-pane" hidden={tab !== "photos"}>
-          <ImagePane item={item} onChanged={onChanged} />
-        </div>
-      )}
-      {visited.has("details") && (
-        <div className="drawer-pane" hidden={tab !== "details"}>
-          <EditForm id={item.id} onSaved={onChanged} onDirtyChange={setDirtyCount} />
-        </div>
+      {tab === "photos" ? (
+        <ImagePane item={item} onChanged={onChanged} />
+      ) : (
+        <EditForm id={item.id} onSaved={onChanged} />
       )}
     </aside>
   );

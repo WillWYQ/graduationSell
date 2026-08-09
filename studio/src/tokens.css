@@ -272,17 +272,6 @@ input[type="radio"] {
   padding: 0.35rem;
 }
 
-.locale-switcher {
-  height: 2.25rem;
-  padding: 0 0.5rem;
-  font-family: var(--font-ui);
-  font-size: var(--step-0);
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
 /* ── Item table ─────────────────────────────────────────────────────── */
 
 .item-table {
@@ -339,34 +328,8 @@ tr.failed td {
   color: var(--accent);
 }
 
-.photo-cell {
-  width: 3.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.item-thumb {
-  width: 2.5rem;
-  height: 2.5rem;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  background: var(--surface-2);
-}
-
-.item-thumb-placeholder {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--ink-soft);
-  background: var(--surface-2);
-  border-radius: var(--radius-sm);
-}
-
 /* Narrow screens: each row becomes a card (structure unchanged from v1,
-   re-skinned with tokens). Column order is now checkbox / photo / name /
-   category / status / price. */
+   re-skinned with tokens). */
 @media (max-width: 40rem) {
   .item-table thead {
     display: none;
@@ -374,10 +337,10 @@ tr.failed td {
 
   .item-table tr {
     display: grid;
-    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-columns: auto 1fr auto auto;
     column-gap: var(--gap);
     row-gap: 0.15rem;
-    align-items: center;
+    align-items: baseline;
     padding: 0.625rem 0.75rem;
     border-bottom: 1px solid var(--border);
   }
@@ -387,44 +350,47 @@ tr.failed td {
     padding: 0;
   }
 
-  /* checkbox */
   .item-table td:nth-child(1) {
     grid-column: 1;
     grid-row: 1 / 3;
     align-self: start;
   }
 
-  /* photo */
   .item-table td:nth-child(2) {
-    grid-column: 2;
-    grid-row: 1 / 3;
-  }
-
-  /* name */
-  .item-table td:nth-child(3) {
-    grid-column: 3 / 5;
+    grid-column: 2 / 4;
     grid-row: 1;
     font-weight: 500;
   }
 
-  /* category */
+  .item-table td:nth-child(5) {
+    grid-column: 4;
+    grid-row: 1;
+    text-align: right;
+  }
+
+  .item-table td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
   .item-table td:nth-child(4) {
     grid-column: 3;
     grid-row: 2;
+  }
+
+  .item-table td:nth-child(6) {
+    grid-column: 4;
+    grid-row: 2;
+    text-align: right;
+  }
+
+  .item-table td:nth-child(3),
+  .item-table td:nth-child(6) {
     color: var(--ink-soft);
   }
 
-  /* status */
-  .item-table td:nth-child(5) {
-    grid-column: 4;
-    grid-row: 2;
-  }
-
-  /* price */
-  .item-table td:nth-child(6) {
-    grid-column: 5;
-    grid-row: 1 / 3;
-    text-align: right;
+  .item-table td:nth-child(6)::after {
+    content: " img";
   }
 
   .item-table tr.failed td {
@@ -744,117 +710,6 @@ tr.failed td {
   color: var(--ink-soft);
 }
 
-/* "Nothing changed." — a statement of fact, not a failure, so it gets the
-   quiet treatment rather than .alert-error's red. */
-.form-notice {
-  color: var(--ink-soft);
-}
-
-/* Collapsed field groups. <details> carries its own keyboard handling and
-   aria-expanded; only the marker and the typography need styling, and the
-   typography is the legend's so both kinds of group header read alike. */
-.edit-form details {
-  margin: 0 0 1.25rem;
-}
-
-.edit-form summary {
-  display: flex;
-  align-items: baseline;
-  padding: 0.35rem 0;
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  cursor: pointer;
-  list-style: none;
-}
-
-.edit-form summary::-webkit-details-marker {
-  display: none;
-}
-
-.edit-form summary::before {
-  content: "▸";
-  display: inline-block;
-  margin-right: 0.4rem;
-  transition: transform var(--speed) ease;
-}
-
-.edit-form details[open] > summary::before {
-  transform: rotate(90deg);
-}
-
-.edit-form summary:hover {
-  color: var(--ink);
-}
-
-.edit-form summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Rides on a legend or a summary, both of which are uppercase and tracked
-   out — the badge is neither. */
-.group-badge {
-  margin-left: 0.5rem;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--ink-soft);
-}
-
-.group-badge-dirty {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* The unsaved marker on a field label and on the drawer's Details tab.
-   Paired with visually-hidden text everywhere it appears — colour and shape
-   alone never carry the meaning. */
-.field-dot {
-  margin-left: 0.35rem;
-  font-size: 0.6rem;
-  color: var(--accent);
-}
-
-/* The drawer is the scroll container, so this pins to the drawer's bottom
-   edge: saving no longer means scrolling past every collapsed group first.
-   The background is load-bearing — without it the form scrolls visibly
-   underneath the buttons. */
-.form-actions {
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-  padding: 0.75rem 0;
-  margin-top: 0.5rem;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-}
-
-/* Inactive drawer tabs stay mounted (so a draft survives a trip to Photos)
-   and are hidden with the attribute. Stated explicitly so a later display
-   rule on .drawer-pane cannot resurrect a hidden pane. */
-.drawer-pane[hidden] {
-  display: none;
-}
-
-/* Text for screen readers only. */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /* ── Tier editor ────────────────────────────────────────────────────── */
 
 .tier-list {
@@ -1011,417 +866,4 @@ tr.failed td {
   * {
     transition: none !important;
   }
-}
-
-/* ── Filter bar ─────────────────────────────────────────────────────────
-   Sits between the header and the table. The status tabs reuse the drawer's
-   underline .tab vocabulary rather than introducing a second tab style; the
-   controls row is a plain flex line so the search box takes the slack. */
-
-.filter-bar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-  padding: var(--gap) 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.filter-tabs {
-  display: flex;
-  gap: var(--gap-lg);
-  overflow-x: auto;
-}
-
-.tab-count {
-  margin-left: 0.25rem;
-  font-family: var(--font-data);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-.filter-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-}
-
-.filter-search {
-  flex: 1;
-  min-width: 0;
-  padding: 0.45rem 0.6rem;
-  font-family: var(--font-ui);
-  font-size: var(--step-0);
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  transition:
-    border-color var(--speed) ease,
-    box-shadow var(--speed) ease;
-}
-
-.filter-search:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
-}
-
-.filter-field {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.filter-label {
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-.filter-field select {
-  padding: 0.4rem 0.5rem;
-  font-family: var(--font-ui);
-  font-size: var(--step-0);
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
-.filter-count {
-  font-family: var(--font-data);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-
-/* Cards view has no shared header row to hang a select-all checkbox off
-   of (unlike the table, which has one in its own thead) — this fills that
-   gap and only renders while viewMode === "cards". */
-.filter-select-all {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  white-space: nowrap;
-}
-
-.view-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.15rem;
-  padding: 0.15rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
-.view-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  color: var(--ink-soft);
-  background: transparent;
-  border: 0;
-  border-radius: calc(var(--radius-sm) - 2px);
-  cursor: pointer;
-}
-
-.view-toggle-btn:hover:not(.view-toggle-active) {
-  color: var(--ink);
-  background: var(--surface-2);
-}
-
-.view-toggle-active {
-  color: var(--ink);
-  background: var(--surface-2);
-}
-
-/* Narrow screens: the controls stack under the tabs, same breakpoint the
-   item table uses to fold into cards. */
-@media (max-width: 40rem) {
-  .filter-controls {
-    flex-wrap: wrap;
-  }
-
-  .filter-search {
-    flex: 1 0 100%;
-  }
-}
-
-/* ── Config pane ─────────────────────────────────────────────────────────
-   Wider and scrollable like the defaults pane: it lists every field in
-   content/config.ts. Each row carries its own save button because each write
-   is type-checked separately — a rejected field reports under itself while
-   the rest of the pane stays usable. */
-
-.config-dialog {
-  width: min(46rem, calc(100vw - 2rem));
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.config-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-/* ── Getting started checklist ───────────────────────────────────────────
-   Inline guidance above the item table, not a dialog: it never traps focus
-   or blocks the table beneath it. Collapses to a single line once the core
-   path is done, and stays reachable from the header button. */
-
-.getting-started {
-  margin: var(--gap) 1rem 0;
-  padding: var(--gap-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-}
-
-.gs-collapsed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gap);
-  padding: 0.6rem var(--gap-lg);
-  color: var(--ink-soft);
-}
-
-.gs-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gap);
-  margin-bottom: var(--gap);
-}
-
-.gs-head h2 {
-  margin: 0;
-  font-size: var(--step-1);
-  font-weight: 600;
-}
-
-.gs-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.gs-row {
-  display: flex;
-  align-items: baseline;
-  gap: var(--gap);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.config-row:last-child {
-  border-bottom: 0;
-}
-
-.config-row-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-}
-
-.config-path {
-  font-family: var(--font-data);
-  font-size: 0.7rem;
-  color: var(--ink-soft);
-}
-
-.config-saved {
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-/* Danger note sits under the input it warns about, in the danger colour but
-   without the filled alert background — it is a caution, not a failure. */
-.config-danger {
-  margin: 0;
-  font-size: 0.75rem;
-  color: var(--danger);
-}
-
-.config-error {
-  /* tsc output is multi-line and its line breaks carry the meaning. */
-  white-space: pre-line;
-  font-size: 0.75rem;
-}
-
-.gs-row:last-child {
-  border-bottom: 0;
-}
-
-.gs-status {
-  flex: none;
-  width: 1rem;
-  text-align: center;
-}
-
-.gs-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.gs-title {
-  font-weight: 500;
-}
-
-.gs-detail {
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  overflow-wrap: anywhere;
-}
-
-.gs-action {
-  flex: none;
-}
-
-.gs-command {
-  font-family: var(--font-data);
-  font-size: 0.75rem;
-  padding: 0.15rem 0.4rem;
-  background: var(--surface-2);
-  border-radius: var(--radius-sm);
-}
-
-.gs-advanced {
-  margin-top: var(--gap);
-  border-top: 1px solid var(--border);
-  padding-top: var(--gap);
-}
-
-.gs-advanced summary {
-  cursor: pointer;
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-/* Narrow screens: the action drops beneath the text rather than squeezing
-   it, same breakpoint the filter bar and item table use. */
-@media (max-width: 40rem) {
-  .gs-row {
-    flex-wrap: wrap;
-  }
-
-  .gs-action {
-    flex-basis: 100%;
-    padding-left: calc(1rem + var(--gap));
-  }
-}
-
-/* ── Card grid ───────────────────────────────────────────────────────── */
-
-.item-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--gap-lg);
-  padding: var(--gap) 1rem;
-}
-
-@media (min-width: 40rem) {
-  .item-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 64rem) {
-  .item-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 80rem) {
-  .item-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.item-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.item-card-select {
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-  padding: 0.5rem 0.75rem 0;
-}
-
-.item-card-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 0.75rem 0.75rem;
-  text-align: left;
-  color: inherit;
-  background: none;
-  border: 0;
-  cursor: pointer;
-}
-
-.item-card-image {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  overflow: hidden;
-  margin-bottom: 0.75rem;
-}
-
-.item-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.item-card-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  color: var(--ink-soft);
-}
-
-.item-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.item-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.item-card-category {
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-.item-card-name {
-  margin: 0;
-  font-size: var(--step-1);
-  font-weight: 500;
-}
-
-.item-card-price {
-  margin: 0;
-  font-family: var(--font-data);
-  color: var(--ink-soft);
 }
