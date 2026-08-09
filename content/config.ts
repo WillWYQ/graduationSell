@@ -30,7 +30,7 @@ export const siteConfig: SiteConfig = {
   location: {
     lat: 42.02355410687396,
     lng: -87.84465154076634,
-    label: "Park Ridge",
+    label: "Park Ridge, IL",
   },
 
   // ── Content Defaults ──────────────────────────────────────────────────────
@@ -63,7 +63,7 @@ export const siteConfig: SiteConfig = {
 
   // ── SEO ───────────────────────────────────────────────────────────────────
   meta: {
-    description: "YQ's College Graduation Sell — quality second-hand items from a 3BR home in Terre Haute, IN.",
+    description: "毕业出二手, 校园闲置, 毕业清仓, Move out sale, Graduation sell, Chicago Area Sale",
     twitterHandle: "",
   },
 
@@ -251,7 +251,7 @@ export const siteConfig: SiteConfig = {
         makeOffer: "出价",
         yourOffer: "您的出价",
         send: "发送",
-        belowMinimumOffer: "出价低于最低可接受价格，请提高金额。",
+        belowMinimumOffer: "不是 价格有点低哦",
 
         // ── Share button ────────────────────────────────────────────────────
         share: "分享",
