@@ -746,6 +746,64 @@ DESIGN.md §21 · TECH_REQUIREMENTS.md §29 · ARCHITECTURE.md (lib/ Module Refe
 
 ---
 
+## Phase 20 — Seller Studio UI Visual Refresh ✅
+
+- [x] Dual-theme token system in `studio/src/tokens.css`: light values from the storefront palette (`app/globals.css`), matching dark set, semantic tokens only
+- [x] `data-theme` on `<html>` with localStorage persistence and a system-preference fallback, applied before React mounts (`studio/src/theme.ts`)
+- [x] Fonts: IBM Plex Sans + IBM Plex Mono bundled via `@fontsource` (Courier Prime and Archivo Narrow removed)
+- [x] Shared components in `studio/src/components/`: `Button`, `StatusBadge`, `ThemeToggle`, and the `useDialogBehavior` focus hook
+- [x] Status badges for all five states; the SOLD stamp presses once then settles into its badge
+- [x] Dialog focus management (initial focus, Tab trap, Esc, focus restore), styled empty state, skeleton loading rows
+- [x] WCAG AA contrast verified for every text pair in both themes
+- [x] Docs sync (TECH_REQUIREMENTS, CURRENT_FUNCTIONALITY, ARCHITECTURE) — both languages
+
+---
+
+## Phase 21 — Seller Studio List Search & Filtering ✅
+
+- [x] `listStudioItems` carries `tags` and `listedDate` (read-only additions; no new API parameters)
+- [x] `studio/src/filtering.ts`: status → category → fuzzy search (fuse.js, name/category/tags) → sort pipeline, with nulls sinking last in both price and date directions; `countByStatus` for tab counts
+- [x] `studio/src/panes/FilterBar.tsx`: status tabs with counts (Active hides sold), search box, category dropdown, sort dropdown, live result count
+- [x] `App` owns the filter state; select-all and bulk actions operate on the visible rows only; changing a filter clears the selection; just-changed rows stay visible until the next filter change
+- [x] Filtered-empty state distinct from the no-items state, with a clear-filters action
+- [x] Unit tests for the filter pipeline (`studio/src/filtering.test.ts`) — the first studio front-end logic tests
+- [x] Docs sync (CURRENT_FUNCTIONALITY, ARCHITECTURE, this plan) — both languages
+
+---
+
+## Phase 22 — Seller Studio Edit Form Experience ✅
+
+- [x] `studio/src/fields.ts` re-partitioned into eight groups with a stable `id: GroupId` and a `defaultOpen` flag; all 43 descriptors keep their exact paths (a test pins the count so a regrouping cannot drop a field)
+- [x] Listing and Price open on arrival; Translations, Specs, Payment & pickup, Books & courses, Extras and Dates render as collapsed `<details>` with a badge (unsaved count, else filled-field count)
+- [x] The price tier editor moved inside the Price group, right after Currency
+- [x] `studio/src/editForm.ts` — `buildEdits`, `draftFromFields` and the dirty computation extracted as pure functions, with `studio/src/editForm.test.ts` (19 tests); `fieldIsDirty` is the single definition of "changed" shared by the counter, the markers and the edits sent
+- [x] `studio/src/fieldValues.ts` — `toInput` / `fromInput` moved out of `FieldInput.tsx` so the pure module imports no component
+- [x] Per-field unsaved markers, a sticky Save / Discard / unsaved-count bar, and collapsed groups that open themselves when a failed save names a field inside them
+- [x] The draft is rebuilt from the server's re-read file after a save; "Saved." clears on the next keystroke; "Nothing changed" is a neutral notice, not a red error
+- [x] `Drawer` keeps visited tabs mounted — switching to Photos no longer discards a draft — and marks the Details tab while anything is unsaved
+- [x] Fixed a pre-existing `TierEditor` render loop (React "Maximum update depth exceeded" on every drawer open): the collector moved from state into a ref behind a stable registrar
+- [x] `DefaultsPane` pins groups by `GroupId` instead of by title, so a group rename is a compile error rather than a silent collapse
+- [x] Docs sync (CURRENT_FUNCTIONALITY, ARCHITECTURE, TECH_REQUIREMENTS, this plan) — both languages
+
+---
+
+## Phase 23 — Seller Studio Config Panel ✅
+
+- [x] `scripts/lib/configEdit.ts`: TypeScript-AST `readConfig` (dotted paths, literal kinds, enum options from the types file, docs and section titles from the file's own comments) and `writeConfigValue` (single value replaced by character range; all 182 comment lines preserved)
+- [x] Per-field validation: enum membership, number bounds, http(s) URLs, template-literal injection refused, array fields read-only
+- [x] `GET/PUT /api/config` with a `tsc --noEmit` gate — a write that fails type-check is discarded and the file left byte-identical
+- [x] `ConfigPane`: fields grouped as the file groups them, the file's comments as hints, danger warnings on `deploymentMode`/`baseUrl`/`imageStorage.provider`, UI translations collapsed, per-field save
+- [x] Docs sync (CURRENT_FUNCTIONALITY, ARCHITECTURE, this plan) — both languages
+## Phase 24 — First-Run Setup Guide ✅
+
+- [x] `scripts/lib/siteReadiness.ts`: tiered readiness checklist (core: identity, image storage, first item, first item live, git, contact; optional: translations, shipping, Aceternity) with config and env injected so it is unit-testable and can report a broken config instead of crashing
+- [x] `scripts/lib/i18nRequiredKeys.ts`: required UI string keys extracted so `check-config.ts` and the readiness engine share one list
+- [x] `pnpm setup-check`: prints the checklist with a next step per item; exits 1 while core steps remain. Named setup-check because `pnpm doctor` is a pnpm builtin that shadows package.json scripts
+- [x] `GET /api/readiness` + `GettingStarted` panel: opens itself on a not-ready site, collapses when everything core is done, always reachable from the header
+- [x] Docs sync (CURRENT_FUNCTIONALITY, ARCHITECTURE, SCRIPTS, this plan) — both languages
+
+---
+
 ## Risk Register
 
 | Risk | Likelihood | Impact | Mitigation |
