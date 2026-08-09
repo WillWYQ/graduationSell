@@ -28,9 +28,9 @@ export const siteConfig: SiteConfig = {
   // Find coords: maps.google.com → right-click → "What's here?"
   // These are embedded in the built site and visible in page source.
   location: {
-    lat: 39.4667,
-    lng: -87.4139,
-    label: "Terre Haute, IN",
+    lat: 42.02355410687396,
+    lng: -87.84465154076634,
+    label: "Park Ridge",
   },
 
   // ── Content Defaults ──────────────────────────────────────────────────────
