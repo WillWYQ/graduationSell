@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { fetchItemFields, patchItem, type FieldEdit, type ItemFields } from "../api";
+import { fetchItemFields, patchItem, type ItemFields } from "../api";
 import { Button } from "../components/Button";
+import { TierEditor, isTierArray, type Tier } from "../components/TierEditor";
 import {
   buildEdits,
   computeDirtyKeys,
@@ -10,152 +11,9 @@ import {
   problemGroupIds,
 } from "../editForm";
 import { FIELD_GROUPS, pathKey, readAtPath, type GroupId } from "../fields";
+import { useStudioT } from "../i18n/StudioI18n";
+import type { StudioKey } from "../i18n/types";
 import { FieldInput } from "./FieldInput";
-
-type Tier = {
-  label: string;
-  miles_min?: number;
-  miles_max?: number;
-  amount: number;
-};
-
-function isTier(value: unknown): value is Tier {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    !Array.isArray(value) &&
-    typeof (value as { label?: unknown }).label === "string"
-  );
-}
-
-function isTierArray(value: unknown): value is Tier[] {
-  return Array.isArray(value) && value.every(isTier);
-}
-
-function TierEditor({
-  loadedTiers,
-  resetToken,
-  onDirty,
-  registerEdits,
-}: {
-  loadedTiers: Tier[];
-  /** Bumped by Discard; the rows go back to what is on disk. */
-  resetToken: number;
-  onDirty: (dirty: boolean) => void;
-  /** Save calls this to collect the whole-array edit, or null when unchanged. */
-  registerEdits: (collect: () => FieldEdit | null) => void;
-}) {
-  const blank = (): Tier => ({ label: "", amount: 0 });
-  const [rows, setRows] = useState<Tier[]>(loadedTiers);
-  const [baseline, setBaseline] = useState<Tier[]>(loadedTiers);
-
-  // The form reloads from disk after a save, which replaces loadedTiers; a
-  // hand edit made while the drawer was open lands the same way. Resync —
-  // this editor's local rows are only ever a staging copy of that prop.
-  // Discard bumps resetToken to force the same resync without the prop
-  // changing identity.
-  useEffect(() => {
-    setRows(loadedTiers);
-    setBaseline(loadedTiers);
-  }, [loadedTiers, resetToken]);
-
-  useEffect(() => {
-    onDirty(JSON.stringify(rows) !== JSON.stringify(baseline));
-    registerEdits(() =>
-      JSON.stringify(rows) === JSON.stringify(baseline)
-        ? null
-        : { path: ["price", "tiers"], value: rows },
-    );
-  }, [rows, baseline, onDirty, registerEdits]);
-  // Both props must be referentially stable or this effect re-runs on every
-  // parent render. EditForm keeps the collector in a ref for exactly that
-  // reason — storing it in state made each registration re-render the parent,
-  // which handed down a new registerEdits, which re-ran this effect: React
-  // logged "Maximum update depth exceeded" every time the drawer opened.
-
-  const setRow = (index: number, next: Tier) =>
-    setRows((prev) => prev.map((row, i) => (i === index ? next : row)));
-
-  return (
-    <fieldset>
-      <legend>Price tiers</legend>
-      {rows.length === 0 && (
-        <p className="field-hint">No tiers. The listing needs at least one price tier.</p>
-      )}
-      <ol className="tier-list">
-        {rows.map((tier, index) => (
-          <li key={index} className="tier-row">
-            <label className="tier-cell">
-              <span className="field-label">Label</span>
-              <input
-                type="text"
-                value={tier.label}
-                onChange={(e) => setRow(index, { ...tier, label: e.target.value })}
-              />
-            </label>
-            <label className="tier-cell">
-              <span className="field-label">From (mi)</span>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={tier.miles_min ?? ""}
-                onChange={(e) => {
-                  const raw = e.target.value.trim();
-                  const next = { ...tier };
-                  if (raw === "") delete next.miles_min;
-                  else {
-                    const n = Number(raw);
-                    if (Number.isFinite(n)) next.miles_min = n;
-                  }
-                  setRow(index, next);
-                }}
-              />
-            </label>
-            <label className="tier-cell">
-              <span className="field-label">To (mi)</span>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={tier.miles_max ?? ""}
-                onChange={(e) => {
-                  const raw = e.target.value.trim();
-                  const next = { ...tier };
-                  if (raw === "") delete next.miles_max;
-                  else {
-                    const n = Number(raw);
-                    if (Number.isFinite(n)) next.miles_max = n;
-                  }
-                  setRow(index, next);
-                }}
-              />
-            </label>
-            <label className="tier-cell">
-              <span className="field-label">Amount</span>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={String(tier.amount)}
-                onChange={(e) => {
-                  const n = Number(e.target.value.trim());
-                  if (Number.isFinite(n)) setRow(index, { ...tier, amount: n });
-                }}
-              />
-            </label>
-            <Button
-              variant="ghost"
-              onClick={() => setRows((prev) => prev.filter((_, i) => i !== index))}
-            >
-              Remove
-            </Button>
-          </li>
-        ))}
-      </ol>
-      <Button variant="ghost" onClick={() => setRows((prev) => [...prev, blank()])}>
-        Add tier
-      </Button>
-    </fieldset>
-  );
-}
 
 export function EditForm({
   id,
@@ -167,6 +25,7 @@ export function EditForm({
   /** Lets the drawer mark its Details tab while the pane is hidden. */
   onDirtyChange?: (count: number) => void;
 }) {
+  const { t } = useStudioT();
   const [loaded, setLoaded] = useState<ItemFields | null>(null);
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -177,8 +36,8 @@ export function EditForm({
   const [tierResetToken, setTierResetToken] = useState(0);
   // A ref, not state: writing it must not re-render, or registering the
   // collector loops against TierEditor's effect (see the note there).
-  const tierCollector = useRef<() => FieldEdit | null>(() => null);
-  const registerTierEdits = useCallback((collect: () => FieldEdit | null) => {
+  const tierCollector = useRef<() => Tier[] | null>(() => null);
+  const registerTierCollector = useCallback((collect: () => Tier[] | null) => {
     tierCollector.current = collect;
   }, []);
   // Groups a failed save named. Collapsed groups open for these — an error
@@ -228,7 +87,7 @@ export function EditForm({
   function discard() {
     if (loaded === null) return;
     setDraft(draftFromFields(loaded));
-    setTierResetToken((t) => t + 1);
+    setTierResetToken((n) => n + 1);
     setError(null);
     setNotice(null);
     setSaved(false);
@@ -244,19 +103,23 @@ export function EditForm({
 
     const { edits, problems } = buildEdits(loaded, draft);
 
-    const tiersEdit = tierCollector.current();
-    if (tiersEdit !== null) edits.push(tiersEdit);
+    const tierRows = tierCollector.current();
+    if (tierRows !== null) edits.push({ path: ["price", "tiers"], value: tierRows });
 
     if (problems.length > 0) {
       setForcedOpen(problemGroupIds(problems));
-      setError(problems.map((p) => `${p.label}: ${p.message}`).join("; "));
+      setError(
+        problems
+          .map((p) => `${t(p.labelKey as StudioKey)}: ${t(p.messageKey as StudioKey)}`)
+          .join("; "),
+      );
       setBusy(false);
       return;
     }
     if (edits.length === 0) {
       // Not an error — the Save button is disabled with nothing dirty, so
       // this is the defensive branch, and it says so in a neutral voice.
-      setNotice("Nothing changed.");
+      setNotice(t("editForm.nothingChanged"));
       setBusy(false);
       return;
     }
@@ -286,7 +149,7 @@ export function EditForm({
   if (loaded === null) {
     if (error !== null) return <p role="alert" className="alert-error">{error}</p>;
     return (
-      <div aria-busy="true" aria-label="Loading item fields">
+      <div aria-busy="true" aria-label={t("editForm.loading")}>
         <div className="skeleton" />
         <div className="skeleton" />
         <div className="skeleton" />
@@ -299,10 +162,10 @@ export function EditForm({
 
   const tierEditor = (
     <TierEditor
-      loadedTiers={tiers}
+      initialTiers={tiers}
       resetToken={tierResetToken}
-      onDirty={setTiersDirty}
-      registerEdits={registerTierEdits}
+      onDirtyChange={setTiersDirty}
+      registerCollector={registerTierCollector}
     />
   );
 
@@ -341,22 +204,24 @@ export function EditForm({
     >
       {error !== null && <p role="alert" className="alert-error">{error}</p>}
       {notice !== null && <p role="status" className="form-notice">{notice}</p>}
-      {saved && <p className="form-saved">Saved.</p>}
+      {saved && <p className="form-saved">{t("editForm.saved")}</p>}
 
       {FIELD_GROUPS.map((group) => {
         const dirtyCount = dirtyByGroup[group.id] ?? 0;
         const filled = filledByGroup[group.id] ?? 0;
         const badge =
           dirtyCount > 0 ? (
-            <span className="group-badge group-badge-dirty">{dirtyCount} unsaved</span>
+            <span className="group-badge group-badge-dirty">
+              {t("editForm.groupDirty", { count: dirtyCount })}
+            </span>
           ) : filled > 0 ? (
-            <span className="group-badge">{filled} set</span>
+            <span className="group-badge">{t("editForm.groupSet", { count: filled })}</span>
           ) : null;
 
         return group.defaultOpen === true ? (
           <fieldset key={group.id}>
             <legend>
-              {group.title}
+              {t(group.titleKey as StudioKey)}
               {badge}
             </legend>
             {renderFields(group)}
@@ -367,7 +232,7 @@ export function EditForm({
           // under their cursor on the next unrelated re-render.
           <details key={group.id} open={forcedOpen.has(group.id) ? true : undefined}>
             <summary>
-              {group.title}
+              {t(group.titleKey as StudioKey)}
               {badge}
             </summary>
             <fieldset>{renderFields(group)}</fieldset>
@@ -377,15 +242,17 @@ export function EditForm({
 
       <div className="form-actions">
         <Button type="submit" variant="primary" disabled={busy || totalDirty === 0}>
-          {busy ? "Saving…" : "Save changes"}
+          {busy ? t("editForm.saving") : t("editForm.saveChanges")}
         </Button>
         <Button type="button" variant="ghost" onClick={discard} disabled={busy || totalDirty === 0}>
-          Discard
+          {t("editForm.discard")}
         </Button>
         <span className="field-hint" role="status">
           {totalDirty === 0
-            ? "No unsaved changes"
-            : `${totalDirty} unsaved change${totalDirty === 1 ? "" : "s"}`}
+            ? t("editForm.noUnsaved")
+            : t(totalDirty === 1 ? "editForm.unsaved" : "editForm.unsavedPlural", {
+                count: totalDirty,
+              })}
         </span>
       </div>
     </form>

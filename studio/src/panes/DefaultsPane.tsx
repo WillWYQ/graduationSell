@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { fetchDefaults, saveDefaults } from "../api";
 import { Button } from "../components/Button";
+import { TierEditor, isTierArray, type Tier } from "../components/TierEditor";
 import { useDialogBehavior } from "../components/useDialogBehavior";
 import { FIELD_GROUPS, pathKey, readAtPath, type FieldGroup, type GroupId } from "../fields";
 import { fromInput, toInput } from "../fieldValues";
+import { useStudioT } from "../i18n/StudioI18n";
+import type { StudioKey } from "../i18n/types";
 import { FieldInput } from "./FieldInput";
 
 // name/status/listed_date/sold_date belong to each item, never to a template;
@@ -80,6 +83,7 @@ export function DefaultsPane({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const { t } = useStudioT();
   const [scope, setScope] = useState("site");
   const [siteDefaults, setSiteDefaults] = useState<Record<string, unknown>>({});
   const [draft, setDraft] = useState<Record<string, FieldState>>({});
@@ -87,6 +91,18 @@ export function DefaultsPane({
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
+
+  // Tiers are one array, not one leaf per row, so they sit outside the
+  // per-field draft: a single checkbox gates the whole block, and the shared
+  // TierEditor stages the rows. The collector lives in a ref for the same
+  // reason as EditForm's: writing it must not re-render (registration would
+  // loop against TierEditor's effect).
+  const [tiersEnabled, setTiersEnabled] = useState(false);
+  const [tiersInitial, setTiersInitial] = useState<Tier[]>([]);
+  const tiersCollector = useRef<() => Tier[] | null>(() => null);
+  const registerTiersCollector = useCallback((collect: () => Tier[] | null) => {
+    tiersCollector.current = collect;
+  }, []);
 
   const dialogRef = useDialogBehavior(onClose);
 
@@ -104,6 +120,9 @@ export function DefaultsPane({
       }
     }
     setDraft(nextDraft);
+    const tiersRaw = readAtPath(current, ["price", "tiers"]);
+    setTiersEnabled(Array.isArray(tiersRaw));
+    setTiersInitial(isTierArray(tiersRaw) ? tiersRaw : []);
     setLoaded(true);
   }, []);
 
@@ -124,15 +143,30 @@ export function DefaultsPane({
         // An enabled select with no choice would send "" and 400 server-side;
         // say so by the field's own name instead.
         if (field.kind === "select" && state.raw === "") {
-          problems.push(`${field.label}: pick a value or switch the field off`);
+          problems.push(t("defaults.selectError", { label: t(field.labelKey as StudioKey) }));
           continue;
         }
         const parsed = fromInput(state.raw, field.kind);
         if ("error" in parsed) {
-          problems.push(`${field.label}: ${parsed.error}`);
+          problems.push(
+            t("defaults.fieldError", {
+              label: t(field.labelKey as StudioKey),
+              error: t(parsed.error as StudioKey),
+            }),
+          );
           continue;
         }
         writeAtPath(out, field.path, parsed.value);
+      }
+    }
+    if (tiersEnabled) {
+      // Unchanged rows come back as null from the collector; fall back to
+      // what was loaded so an enabled-but-untouched block still saves.
+      const rows = tiersCollector.current() ?? tiersInitial;
+      if (rows.length === 0) {
+        problems.push(t("defaults.tiersError"));
+      } else {
+        writeAtPath(out, ["price", "tiers"], rows);
       }
     }
     if (problems.length > 0) {
@@ -162,16 +196,13 @@ export function DefaultsPane({
         className="dialog defaults-dialog"
         role="dialog"
         aria-modal="true"
-        aria-label="Item defaults"
+        aria-label={t("defaults.title")}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2>Item defaults</h2>
-        <p className="field-hint">
-          New items start with these values. Category defaults override site-wide ones; name,
-          status and dates always start fresh.
-        </p>
+        <h2>{t("defaults.title")}</h2>
+        <p className="field-hint">{t("defaults.hint")}</p>
         {error !== null && <p role="alert" className="alert-error">{error}</p>}
-        {saved && <p className="form-saved">Saved.</p>}
+        {saved && <p className="form-saved">{t("defaults.saved")}</p>}
 
         <div className="defaults-scopes" role="tablist" aria-label="Defaults scope">
           {["site", ...categories].map((s) => (
@@ -183,12 +214,12 @@ export function DefaultsPane({
               className={scope === s ? "tab tab-active" : "tab"}
               onClick={() => setScope(s)}
             >
-              {s === "site" ? "Site-wide" : s}
+              {s === "site" ? t("defaults.siteWide") : s}
             </button>
           ))}
         </div>
 
-        {!loaded && error === null && <p>Loading…</p>}
+        {!loaded && error === null && <p>{t("defaults.loading")}</p>}
         {loaded && (
           <form
             className="edit-form"
@@ -198,18 +229,61 @@ export function DefaultsPane({
             }}
           >
             {SORTED_GROUPS.map((group) => {
-              const fields = group.fields.map((field) => {
+              const siteTiers = readAtPath(siteDefaults, ["price", "tiers"]);
+              const tiersInherited =
+                scope !== "site" && !tiersEnabled && isTierArray(siteTiers)
+                  ? siteTiers.length
+                  : undefined;
+              const tiersBlock = (
+                <div
+                  key="price.tiers"
+                  className={tiersEnabled ? "defaults-row" : "defaults-row defaults-row-off"}
+                >
+                  <input
+                    type="checkbox"
+                    className="defaults-enable"
+                    checked={tiersEnabled}
+                    aria-label={t("defaults.tiersLabel")}
+                    onChange={(e) => {
+                      setTiersEnabled(e.target.checked);
+                      setSaved(false);
+                    }}
+                  />
+                  <div className="defaults-tier-block">
+                    {tiersEnabled ? (
+                      <TierEditor
+                        initialTiers={tiersInitial}
+                        resetToken={0}
+                        registerCollector={registerTiersCollector}
+                      />
+                    ) : (
+                      <span className="field-label">{t("defaults.tiersEnabled")}</span>
+                    )}
+                    {tiersInherited !== undefined && (
+                      <span className="field-hint defaults-inherited">
+                        {t("defaults.tiersInherited", { count: tiersInherited })}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+              const fields = group.fields.flatMap((field) => {
                 const key = pathKey(field.path);
                 const state = draft[key] ?? { enabled: false, raw: "" };
                 const inherited =
-                  scope !== "site" && !state.enabled ? readAtPath(siteDefaults, field.path) : undefined;
-                return (
-                  <div key={key} className={state.enabled ? "defaults-row" : "defaults-row defaults-row-off"}>
+                  scope !== "site" && !state.enabled
+                    ? readAtPath(siteDefaults, field.path)
+                    : undefined;
+                const row = (
+                  <div
+                    key={key}
+                    className={state.enabled ? "defaults-row" : "defaults-row defaults-row-off"}
+                  >
                     <input
                       type="checkbox"
                       className="defaults-enable"
                       checked={state.enabled}
-                      aria-label={`Set a default for ${field.label}`}
+                      aria-label={t("defaults.fieldLabel", { label: t(field.labelKey as StudioKey) })}
                       onChange={(e) => {
                         setDraft((prev) => ({
                           ...prev,
@@ -231,29 +305,34 @@ export function DefaultsPane({
                       }}
                     />
                     {inherited !== undefined && (
-                      <span className="field-hint defaults-inherited">site: {formatInherited(inherited)}</span>
+                      <span className="field-hint defaults-inherited">
+                        {t("defaults.inherited", { value: formatInherited(inherited) })}
+                      </span>
                     )}
                   </div>
                 );
+                // The tiers block sits next to the currency its amounts are
+                // in — same placement rule as the item edit form.
+                return key === "price.currency" ? [row, tiersBlock] : [row];
               });
               return PINNED_GROUPS.has(group.id) ? (
                 <fieldset key={group.id}>
-                  <legend>{group.title}</legend>
+                  <legend>{t(group.titleKey as StudioKey)}</legend>
                   {fields}
                 </fieldset>
               ) : (
                 <details key={group.id}>
-                  <summary>{group.title}</summary>
+                  <summary>{t(group.titleKey as StudioKey)}</summary>
                   <fieldset>{fields}</fieldset>
                 </details>
               );
             })}
             <div className="dialog-actions">
               <Button type="submit" variant="primary" disabled={busy}>
-                {busy ? "Saving…" : "Save defaults"}
+                {busy ? t("defaults.saving") : t("defaults.save")}
               </Button>
               <Button variant="ghost" onClick={onClose}>
-                Close
+                {t("defaults.close")}
               </Button>
             </div>
           </form>

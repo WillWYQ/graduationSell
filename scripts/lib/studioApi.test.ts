@@ -478,6 +478,161 @@ describe("bulk-status counts a no-op as skipped, not ok", () => {
   });
 });
 
+// ── POST /api/items/bulk-apply-tiers ────────────────────────────────────────
+
+let tiersSandbox: string;
+
+async function seedTiersItem(id: string, json: string): Promise<void> {
+  const dir = path.join(tiersSandbox, "content", "items", ...id.split("/"));
+  await fs.mkdir(dir, { recursive: true });
+  await fs.writeFile(path.join(dir, "item.json"), json);
+}
+
+async function seedTiersDefaults(scope: string, json: string): Promise<void> {
+  const filePath =
+    scope === "site"
+      ? path.join(tiersSandbox, "content", "items", "_defaults.json")
+      : path.join(tiersSandbox, "content", "items", scope, "_defaults.json");
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await fs.writeFile(filePath, json);
+}
+
+async function readTiersItem(id: string): Promise<string> {
+  return fs.readFile(
+    path.join(tiersSandbox, "content", "items", ...id.split("/"), "item.json"),
+    "utf-8",
+  );
+}
+
+function bulkApplyTiers(ids: string[]) {
+  return handleStudioRequest({
+    method: "POST",
+    url: "/api/items/bulk-apply-tiers",
+    body: Buffer.from(JSON.stringify({ ids })),
+    projectRoot: tiersSandbox,
+  });
+}
+
+describe("POST /api/items/bulk-apply-tiers", () => {
+  beforeEach(async () => {
+    tiersSandbox = await fs.mkdtemp(path.join(os.tmpdir(), "studio-tiers-"));
+  });
+
+  afterEach(async () => {
+    await fs.rm(tiersSandbox, { recursive: true, force: true });
+  });
+
+  const ITEM = `{
+  "name": "Desk lamp",
+  // options: available | pending | reserved | sold | draft
+  "status": "available",
+  "reserved_for": "alice@example.com"
+}
+`;
+
+  const SITE_DEFAULTS = `{
+  "price": {
+    "tiers": [
+      { "label": "Pickup", "miles_max": 5, "amount": 40 },
+      { "label": "Shipping", "miles_min": 5, "amount": 55 }
+    ]
+  }
+}
+`;
+
+  it("writes the site default tiers into selected items", async () => {
+    await seedTiersItem("electronics/desk-lamp", ITEM);
+    await seedTiersDefaults("site", SITE_DEFAULTS);
+
+    const res = await bulkApplyTiers(["electronics/desk-lamp"]);
+
+    expect(res.status).toBe(200);
+    expect(asJson(res).body).toMatchObject({ ok: 1, skipped: 0, failed: [] });
+    const text = await readTiersItem("electronics/desk-lamp");
+    expect(text).toContain('"tiers"');
+    expect(text).toContain('"label": "Pickup"');
+    expect(text).toContain('"amount": 55');
+  });
+
+  it("preserves comments and reserved_for", async () => {
+    await seedTiersItem("electronics/desk-lamp", ITEM);
+    await seedTiersDefaults("site", SITE_DEFAULTS);
+    await bulkApplyTiers(["electronics/desk-lamp"]);
+    const text = await readTiersItem("electronics/desk-lamp");
+    expect(text).toContain("// options: available | pending | reserved | sold | draft");
+    expect(text).toContain('"reserved_for": "alice@example.com"');
+  });
+
+  it("lets category defaults override site defaults", async () => {
+    await seedTiersItem("books/cs61a", ITEM);
+    await seedTiersDefaults("site", SITE_DEFAULTS);
+    await seedTiersDefaults(
+      "books",
+      `{
+  "price": {
+    "tiers": [{ "label": "Campus pickup", "miles_max": 2, "amount": 10 }]
+  }
+}
+`,
+    );
+
+    await bulkApplyTiers(["books/cs61a"]);
+
+    const text = await readTiersItem("books/cs61a");
+    expect(text).toContain('"label": "Campus pickup"');
+    expect(text).not.toContain('"label": "Pickup"');
+  });
+
+  it("skips items whose merged defaults have no tiers", async () => {
+    await seedTiersItem("electronics/desk-lamp", ITEM);
+
+    const res = await bulkApplyTiers(["electronics/desk-lamp"]);
+
+    expect(asJson(res).body).toMatchObject({ ok: 0, skipped: 1, failed: [] });
+    expect(await readTiersItem("electronics/desk-lamp")).toBe(ITEM);
+  });
+
+  it("skips items whose tiers already match (idempotent, file untouched)", async () => {
+    await seedTiersDefaults("site", SITE_DEFAULTS);
+    await seedTiersItem(
+      "electronics/desk-lamp",
+      `{
+  "name": "Desk lamp",
+  "status": "available",
+  "price": {
+    "tiers": [
+      { "label": "Pickup", "miles_max": 5, "amount": 40 },
+      { "label": "Shipping", "miles_min": 5, "amount": 55 }
+    ]
+  }
+}
+`,
+    );
+    const before = await readTiersItem("electronics/desk-lamp");
+
+    const res = await bulkApplyTiers(["electronics/desk-lamp"]);
+
+    expect(asJson(res).body).toMatchObject({ ok: 0, skipped: 1, failed: [] });
+    expect(await readTiersItem("electronics/desk-lamp")).toBe(before);
+  });
+
+  it("reports per-item failures without discarding successes", async () => {
+    await seedTiersItem("electronics/desk-lamp", ITEM);
+    await seedTiersDefaults("site", SITE_DEFAULTS);
+
+    const res = await bulkApplyTiers(["electronics/desk-lamp", "books/missing"]);
+
+    const body = asJson(res).body as { ok: number; failed: Array<{ id: string }> };
+    expect(body.ok).toBe(1);
+    expect(body.failed.map((f) => f.id)).toEqual(["books/missing"]);
+  });
+
+  it("rejects an empty id list", async () => {
+    const res = await bulkApplyTiers([]);
+    expect(res.status).toBe(400);
+  });
+});
+
 const PNG_BYTES = Buffer.from("89504e470d0a1a0a0000000d49484452", "hex");
 
 async function seedImage(id: string, filename: string): Promise<void> {
@@ -1800,6 +1955,25 @@ const CONFIG_TYPES_FIXTURE = `export interface SiteConfig {
 }
 `;
 
+// contact.platforms as real object-literal entries — CONFIG_FIXTURE above
+// deliberately keeps them as bare strings for the unrelated field-list tests,
+// but the contact-platforms routes need the actual array-of-objects shape
+// content/config.ts really uses.
+const CONFIG_FIXTURE_WITH_PLATFORMS = `import type { SiteConfig } from "@/lib/config/types";
+
+export const siteConfig: SiteConfig = {
+  name: "Test Store",
+  contact: {
+    reveal_behavior: "click",
+    platforms: [
+      { type: "email", value: "you@example.com" },
+      { type: "venmo", value: "your_username" },
+      { type: "zelle", qr_image: "/contact/zelle-qr.png", label: "Zelle" },
+    ],
+  },
+};
+`;
+
 describe("config routes", () => {
   let tempProjects: string[] = [];
 
@@ -1944,6 +2118,79 @@ describe("config routes", () => {
     const res = await req(root, "POST", {});
     expect(res.status).toBe(405);
   });
+
+  it("GET includes contactPlatforms alongside fields", async () => {
+    const root = await configProject(CONFIG_FIXTURE_WITH_PLATFORMS);
+    const res = await req(root, "GET");
+    expect(res.status).toBe(200);
+    const contactPlatforms = (asJson(res).body as { contactPlatforms: Array<{ type: string }> }).contactPlatforms;
+    expect(contactPlatforms.map((p) => p.type)).toEqual(["email", "venmo", "zelle"]);
+  });
+});
+
+describe("PUT /api/contact-platforms/:index", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function configProject(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-contact-platforms-"));
+    tempProjects.push(root);
+    await fs.mkdir(path.join(root, "content"), { recursive: true });
+    await fs.writeFile(path.join(root, "content", "config.ts"), CONFIG_FIXTURE_WITH_PLATFORMS, "utf-8");
+    return root;
+  }
+  function put(root: string, index: number | string, body: unknown) {
+    return handleStudioRequest({
+      method: "PUT",
+      url: `/api/contact-platforms/${index}`,
+      body: Buffer.from(JSON.stringify(body)),
+      projectRoot: root,
+    });
+  }
+
+  it("replaces an existing qr_image value (no tsconfig.json → gate skipped)", async () => {
+    const root = await configProject();
+    const res = asJson(await put(root, 2, { qr_image: "/contact/zelle-qr-2.png" }));
+    expect(res.status).toBe(200);
+    const contactPlatforms = (res.body as { contactPlatforms: Array<{ index: number; qrImage?: string }> }).contactPlatforms;
+    expect(contactPlatforms[2]?.qrImage).toBe("/contact/zelle-qr-2.png");
+    const written = await fs.readFile(path.join(root, "content", "config.ts"), "utf-8");
+    expect(written).toContain('qr_image: "/contact/zelle-qr-2.png"');
+  });
+
+  it("inserts qr_image and a default label for a platform that has neither", async () => {
+    const root = await configProject();
+    const res = asJson(await put(root, 1, { qr_image: "/contact/venmo-qr.png" }));
+    expect(res.status).toBe(200);
+    const written = await fs.readFile(path.join(root, "content", "config.ts"), "utf-8");
+    expect(written).toContain('qr_image: "/contact/venmo-qr.png"');
+    expect(written).toContain('label: "Venmo"');
+  });
+
+  it("400s an out-of-range index", async () => {
+    const root = await configProject();
+    const res = asJson(await put(root, 99, { qr_image: "/contact/x.png" }));
+    expect(res.status).toBe(400);
+  });
+
+  it("404s a negative or non-numeric index (the route itself only matches digits)", async () => {
+    const root = await configProject();
+    expect((await put(root, -1, { qr_image: "/contact/x.png" })).status).toBe(404);
+    expect((await put(root, "nope", { qr_image: "/contact/x.png" })).status).toBe(404);
+  });
+
+  it("405s GET /api/contact-platforms/:index", async () => {
+    const root = await configProject();
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/contact-platforms/0",
+      body: Buffer.alloc(0),
+      projectRoot: root,
+    });
+    expect(res.status).toBe(405);
+  });
 });
 
 // ── Readiness route ──────────────────────────────────────────────────────────
@@ -2006,5 +2253,344 @@ describe("readiness route", () => {
       projectRoot: root,
     });
     expect(res.status).toBe(405);
+  });
+});
+
+describe("POST /api/export-pdf", () => {
+  it("returns 400 with a clear message when there are no eligible items", async () => {
+    // Each spy is captured and explicitly restored in `finally` — this file has
+    // no global afterEach mock reset, so a leaked mock would leak into whichever
+    // test runs next (see the existing loadAllItemsRaw spies above for the pattern).
+    const mockLoadAllItemsRaw = vi.spyOn(loaderModule, "loadAllItemsRaw").mockResolvedValue([]);
+    const mockLoadCategories = vi.spyOn(loaderModule, "loadCategories").mockResolvedValue([]);
+
+    try {
+      const res = await handleStudioRequest({
+        method: "POST",
+        url: "/api/export-pdf",
+        body: Buffer.from("{}"),
+        projectRoot: PROJECT_ROOT,
+      });
+
+      expect(res.status).toBe(400);
+      expect(asJson(res).body).toEqual({ error: "No public-visible items to export." });
+    } finally {
+      mockLoadAllItemsRaw.mockRestore();
+      mockLoadCategories.mockRestore();
+    }
+  });
+
+  it("returns a PDF file response for the real local catalog", async () => {
+    const { chromium } = await import("playwright");
+    let chromiumAvailable = true;
+    try {
+      const browser = await chromium.launch();
+      await browser.close();
+    } catch {
+      chromiumAvailable = false;
+    }
+    if (!chromiumAvailable) {
+      console.warn("Skipping: Chromium not installed. Run `npx playwright install chromium`.");
+      return;
+    }
+
+    const res = await handleStudioRequest({
+      method: "POST",
+      url: "/api/export-pdf",
+      body: Buffer.from("{}"),
+      projectRoot: PROJECT_ROOT,
+    });
+
+    expect(res.status).toBe(200);
+    expect(isFileResponse(res)).toBe(true);
+    if (isFileResponse(res)) {
+      expect(res.contentType).toBe("application/pdf");
+      expect(res.file.endsWith(".pdf")).toBe(true);
+      await fs.unlink(res.file);
+    }
+  });
+
+  it("rejects non-POST methods", async () => {
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/export-pdf",
+      body: Buffer.alloc(0),
+      projectRoot: PROJECT_ROOT,
+    });
+    expect(res.status).toBe(405);
+  });
+});
+
+describe("GET /api/categories", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function emptyProject(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-categories-get-"));
+    await fs.mkdir(path.join(root, "content", "items"), { recursive: true });
+    tempProjects.push(root);
+    return root;
+  }
+
+  it("returns [] when there are no category folders", async () => {
+    const root = await emptyProject();
+    const res = asJson(
+      await handleStudioRequest({ method: "GET", url: "/api/categories", body: Buffer.alloc(0), projectRoot: root }),
+    );
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ categories: [] });
+  });
+
+  it("lists a folder-only category with default metadata and zero items", async () => {
+    const root = await emptyProject();
+    await fs.mkdir(path.join(root, "content", "items", "electronics"));
+    const res = asJson(
+      await handleStudioRequest({ method: "GET", url: "/api/categories", body: Buffer.alloc(0), projectRoot: root }),
+    );
+    expect(res.body).toEqual({
+      categories: [
+        { slug: "electronics", displayName: "", description: "", icon: "", sortOrder: null, itemCount: 0 },
+      ],
+    });
+  });
+
+  it("counts only subfolders that contain an item.json", async () => {
+    const root = await emptyProject();
+    const catDir = path.join(root, "content", "items", "electronics");
+    await fs.mkdir(path.join(catDir, "phone"), { recursive: true });
+    await fs.writeFile(path.join(catDir, "phone", "item.json"), "{}");
+    await fs.mkdir(path.join(catDir, "laptop"), { recursive: true });
+    await fs.writeFile(path.join(catDir, "laptop", "item.json"), "{}");
+    // A stray directory with no item.json must not inflate the count.
+    await fs.mkdir(path.join(catDir, "drafts-scratch"), { recursive: true });
+    const res = asJson(
+      await handleStudioRequest({ method: "GET", url: "/api/categories", body: Buffer.alloc(0), projectRoot: root }),
+    );
+    expect((res.body as { categories: Array<{ itemCount: number }> }).categories[0]?.itemCount).toBe(2);
+  });
+});
+
+describe("POST /api/categories", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function emptyProject(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-categories-post-"));
+    await fs.mkdir(path.join(root, "content", "items"), { recursive: true });
+    tempProjects.push(root);
+    return root;
+  }
+  function create(root: string, body: unknown) {
+    return handleStudioRequest({
+      method: "POST",
+      url: "/api/categories",
+      body: Buffer.from(JSON.stringify(body)),
+      projectRoot: root,
+    });
+  }
+
+  it("creates an empty folder when no meta is given", async () => {
+    const root = await emptyProject();
+    const res = asJson(await create(root, { slug: "electronics" }));
+    expect(res.status).toBe(201);
+    const stat = await fs.stat(path.join(root, "content", "items", "electronics"));
+    expect(stat.isDirectory()).toBe(true);
+    await expect(
+      fs.access(path.join(root, "content", "items", "electronics", "_category.json")),
+    ).rejects.toThrow();
+  });
+
+  it("creates the folder and a sparse _category.json when meta is given", async () => {
+    const root = await emptyProject();
+    await create(root, { slug: "electronics", meta: { display_name: "Electronics", sort_order: 1 } });
+    const written = JSON.parse(
+      await fs.readFile(path.join(root, "content", "items", "electronics", "_category.json"), "utf-8"),
+    );
+    expect(written).toEqual({ display_name: "Electronics", sort_order: 1 });
+  });
+
+  it("409s rather than overwriting an existing category", async () => {
+    const root = await emptyProject();
+    await fs.mkdir(path.join(root, "content", "items", "electronics"));
+    const res = asJson(await create(root, { slug: "electronics" }));
+    expect(res.status).toBe(409);
+  });
+
+  it("400s on a non-kebab-case slug", async () => {
+    const root = await emptyProject();
+    const res = asJson(await create(root, { slug: "Not Kebab" }));
+    expect(res.status).toBe(400);
+  });
+});
+
+describe("PUT /api/categories/:slug", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function projectWithCategory(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-categories-put-"));
+    await fs.mkdir(path.join(root, "content", "items", "electronics"), { recursive: true });
+    tempProjects.push(root);
+    return root;
+  }
+  function put(root: string, slug: string, body: unknown) {
+    return handleStudioRequest({
+      method: "PUT",
+      url: `/api/categories/${slug}`,
+      body: Buffer.from(JSON.stringify(body)),
+      projectRoot: root,
+    });
+  }
+
+  it("writes sparse metadata for an existing category", async () => {
+    const root = await projectWithCategory();
+    const res = asJson(await put(root, "electronics", { display_name: "Electronics", icon: "📱" }));
+    expect(res.status).toBe(200);
+    const written = JSON.parse(
+      await fs.readFile(path.join(root, "content", "items", "electronics", "_category.json"), "utf-8"),
+    );
+    expect(written).toEqual({ display_name: "Electronics", icon: "📱" });
+  });
+
+  it("deletes _category.json when saved back to all-default", async () => {
+    const root = await projectWithCategory();
+    await put(root, "electronics", { display_name: "Electronics" });
+    await put(root, "electronics", {});
+    await expect(
+      fs.access(path.join(root, "content", "items", "electronics", "_category.json")),
+    ).rejects.toThrow();
+  });
+
+  it("404s for a category that doesn't exist", async () => {
+    const root = await projectWithCategory();
+    const res = asJson(await put(root, "nonexistent", { display_name: "Ghost" }));
+    expect(res.status).toBe(404);
+  });
+
+  it("400s for a non-integer sort_order", async () => {
+    const root = await projectWithCategory();
+    const res = asJson(await put(root, "electronics", { sort_order: 1.5 }));
+    expect(res.status).toBe(400);
+  });
+
+  it("400s for a negative sort_order rather than silently dropping it", async () => {
+    // categoryJsonSchema's nullableNumber (lib/content/schema.ts) reads any
+    // negative sort_order back as null, so a negative value that "saved
+    // successfully" would vanish on the very next read. Reject it up front.
+    const root = await projectWithCategory();
+    const res = asJson(await put(root, "electronics", { sort_order: -1 }));
+    expect(res.status).toBe(400);
+  });
+});
+
+describe("POST /api/contact/images", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function emptyProject(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-contact-post-"));
+    await fs.mkdir(path.join(root, "content", "contact"), { recursive: true });
+    tempProjects.push(root);
+    return root;
+  }
+  // Real PNG header bytes, base64-encoded — a sniffer that passes on
+  // fabricated input proves nothing.
+  const PNG_BASE64 = Buffer.from("89504e470d0a1a0a0000000d49484452", "hex").toString("base64");
+  const JPG_BASE64 = Buffer.from("ffd8ffe000104a4649460001", "hex").toString("base64");
+  function upload(root: string, body: unknown) {
+    return handleStudioRequest({
+      method: "POST",
+      url: "/api/contact/images",
+      body: Buffer.from(JSON.stringify(body)),
+      projectRoot: root,
+    });
+  }
+
+  it("writes a real PNG into content/contact/", async () => {
+    const root = await emptyProject();
+    const res = asJson(await upload(root, { filename: "wechat-qr.png", contentBase64: PNG_BASE64 }));
+    expect(res.status).toBe(201);
+    expect(res.body).toEqual({ file: "wechat-qr.png", path: "/contact/wechat-qr.png" });
+    await expect(fs.access(path.join(root, "content", "contact", "wechat-qr.png"))).resolves.toBeUndefined();
+  });
+
+  it("rejects a .png-named file whose bytes aren't a real PNG", async () => {
+    const root = await emptyProject();
+    const res = asJson(await upload(root, { filename: "fake.png", contentBase64: JPG_BASE64 }));
+    expect(res.status).toBe(400);
+  });
+
+  it("rejects a non-png extension outright", async () => {
+    const root = await emptyProject();
+    const res = asJson(await upload(root, { filename: "wechat-qr.jpg", contentBase64: PNG_BASE64 }));
+    expect(res.status).toBe(400);
+  });
+
+  it("appends a -1 suffix on a filename collision", async () => {
+    const root = await emptyProject();
+    await upload(root, { filename: "qr.png", contentBase64: PNG_BASE64 });
+    const res = asJson(await upload(root, { filename: "qr.png", contentBase64: PNG_BASE64 }));
+    expect(res.body).toEqual({ file: "qr-1.png", path: "/contact/qr-1.png" });
+  });
+});
+
+describe("GET/DELETE /api/contact/images/:filename", () => {
+  let tempProjects: string[] = [];
+  afterEach(async () => {
+    await Promise.all(tempProjects.map((root) => fs.rm(root, { recursive: true, force: true })));
+    tempProjects = [];
+  });
+  async function projectWithImage(): Promise<string> {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "studio-contact-del-"));
+    await fs.mkdir(path.join(root, "content", "contact"), { recursive: true });
+    await fs.writeFile(path.join(root, "content", "contact", "qr.png"), "x");
+    tempProjects.push(root);
+    return root;
+  }
+
+  it("GETs an existing file with the right content type", async () => {
+    const root = await projectWithImage();
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/contact/images/qr.png",
+      body: Buffer.alloc(0),
+      projectRoot: root,
+    });
+    expect(isFileResponse(res)).toBe(true);
+  });
+
+  it("removes an existing file", async () => {
+    const root = await projectWithImage();
+    const res = asJson(
+      await handleStudioRequest({
+        method: "DELETE",
+        url: "/api/contact/images/qr.png",
+        body: Buffer.alloc(0),
+        projectRoot: root,
+      }),
+    );
+    expect(res.status).toBe(200);
+    await expect(fs.access(path.join(root, "content", "contact", "qr.png"))).rejects.toThrow();
+  });
+
+  it("404s deleting a file that doesn't exist", async () => {
+    const root = await projectWithImage();
+    const res = asJson(
+      await handleStudioRequest({
+        method: "DELETE",
+        url: "/api/contact/images/missing.png",
+        body: Buffer.alloc(0),
+        projectRoot: root,
+      }),
+    );
+    expect(res.status).toBe(404);
   });
 });

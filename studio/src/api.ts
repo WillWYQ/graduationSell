@@ -7,9 +7,11 @@ import type {
   ReadinessItem,
   ReadinessReport,
 } from "../../scripts/lib/siteReadiness";
-import type { BulkStatusResult, ImageEntry, StudioItem } from "../../scripts/lib/studioApi";
+import type { CategoryMetaInput } from "../../scripts/lib/studioCategories";
+import type { ContactPlatformSummary } from "../../scripts/lib/contactPlatforms";
+import type { BulkStatusResult, BulkTiersResult, CategorySummary, ImageEntry, StudioItem } from "../../scripts/lib/studioApi";
 
-export type { BulkStatusResult, ConfigField, ConfigFieldKind, ImageEntry, ReadinessAction, ReadinessItem, ReadinessReport, StudioItem };
+export type { BulkStatusResult, BulkTiersResult, CategoryMetaInput, CategorySummary, ConfigField, ConfigFieldKind, ContactPlatformSummary, ImageEntry, ReadinessAction, ReadinessItem, ReadinessReport, StudioItem };
 
 // Every response body is read defensively rather than trusting res.json() to
 // succeed: the CSRF guard and Vite itself can answer a rejected request with
@@ -34,6 +36,7 @@ export async function fetchItems(): Promise<{
   items: StudioItem[];
   defaultLocale: string;
   availableLocales: string[];
+  studioTranslations: Record<string, Record<string, string>>;
 }> {
   const res = await fetch("/api/items");
   const body = await readJsonBody(res);
@@ -58,6 +61,10 @@ export async function fetchItems(): Promise<{
     items: body.items as StudioItem[],
     defaultLocale: body.defaultLocale as string,
     availableLocales: body.availableLocales as string[],
+    // Lenient read: an older server without the field answers no overrides,
+    // and the client falls back to its built-in dictionaries.
+    studioTranslations:
+      (body.studioTranslations as Record<string, Record<string, string>> | undefined) ?? {},
   };
 }
 
@@ -75,6 +82,22 @@ export async function bulkStatus(ids: string[], status: string): Promise<BulkSta
     throw new Error(`bulk status returned an unreadable response (${res.status} ${res.statusText})`);
   }
   return body as unknown as BulkStatusResult;
+}
+
+export async function applyDefaultTiers(ids: string[]): Promise<BulkTiersResult> {
+  const res = await fetch("/api/items/bulk-apply-tiers", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ ids }),
+  });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `bulk apply tiers failed with ${res.status} ${res.statusText}`));
+  }
+  if (body === null) {
+    throw new Error(`bulk apply tiers returned an unreadable response (${res.status} ${res.statusText})`);
+  }
+  return body as unknown as BulkTiersResult;
 }
 
 export async function fetchImages(id: string): Promise<ImageEntry[]> {
@@ -189,6 +212,73 @@ export async function createItem(
   return (body?.id as string | undefined) ?? `${category}/${name}`;
 }
 
+export async function fetchCategories(): Promise<CategorySummary[]> {
+  const res = await fetch("/api/categories");
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `GET /api/categories failed with ${res.status} ${res.statusText}`));
+  }
+  if (!Array.isArray(body?.categories)) {
+    throw new Error(`GET /api/categories returned an unreadable response (${res.status} ${res.statusText})`);
+  }
+  return body.categories as CategorySummary[];
+}
+
+export async function createCategory(slug: string, meta?: CategoryMetaInput): Promise<string> {
+  const res = await fetch("/api/categories", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ slug, meta }),
+  });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `create category failed with ${res.status} ${res.statusText}`));
+  }
+  return (body?.slug as string | undefined) ?? slug;
+}
+
+export async function saveCategoryMeta(slug: string, meta: CategoryMetaInput): Promise<void> {
+  const res = await fetch(`/api/categories/${encodeURIComponent(slug)}`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(meta),
+  });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `saving category "${slug}" failed with ${res.status} ${res.statusText}`));
+  }
+}
+
+export async function uploadContactImage(file: File): Promise<{ file: string; path: string }> {
+  const contentBase64 = await fileToBase64(file);
+  const res = await fetch("/api/contact/images", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ filename: file.name, contentBase64 }),
+  });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `uploading QR image failed with ${res.status} ${res.statusText}`));
+  }
+  // A 200 with an unreadable `file`/`path` must not fall through as if it
+  // succeeded: the caller writes `path` straight into the qr_image draft, so
+  // a silent `undefined` there would look like nothing happened while the
+  // PNG had, in fact, already landed in content/contact/ on disk — the same
+  // "looks identical to success" trap fetchItems's own comment describes.
+  if (typeof body?.file !== "string" || typeof body?.path !== "string") {
+    throw new Error(`POST /api/contact/images returned an unreadable response (${res.status} ${res.statusText})`);
+  }
+  return { file: body.file, path: body.path };
+}
+
+export async function deleteContactImage(filename: string): Promise<void> {
+  const res = await fetch(`/api/contact/images/${encodeURIComponent(filename)}`, { method: "DELETE" });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `deleting QR image failed with ${res.status} ${res.statusText}`));
+  }
+}
+
 export async function fetchDefaults(scope: string): Promise<Record<string, unknown>> {
   const res = await fetch(`/api/defaults?scope=${encodeURIComponent(scope)}`);
   const body = await readJsonBody(res);
@@ -210,16 +300,34 @@ export async function saveDefaults(scope: string, defaults: Record<string, unkno
   }
 }
 
-export async function fetchConfig(): Promise<ConfigField[]> {
+// One GET /api/config, both halves of the response: fetching `fields` and
+// `contactPlatforms` through two separate client calls (each hitting this
+// same endpoint on its own) would mean two HTTP round trips — and two
+// server-side config.ts reads/parses — for data the server already returns
+// together in one response.
+export async function fetchConfig(): Promise<{ fields: ConfigField[]; contactPlatforms: ContactPlatformSummary[] }> {
   const res = await fetch("/api/config");
   const body = await readJsonBody(res);
   if (!res.ok) {
     throw new Error(errorMessage(body, `loading site config failed with ${res.status} ${res.statusText}`));
   }
-  if (!Array.isArray(body?.fields)) {
+  if (!Array.isArray(body?.fields) || !Array.isArray(body?.contactPlatforms)) {
     throw new Error(`GET /api/config returned an unreadable response (${res.status} ${res.statusText})`);
   }
-  return body.fields as ConfigField[];
+  return { fields: body.fields as ConfigField[], contactPlatforms: body.contactPlatforms as ContactPlatformSummary[] };
+}
+
+export async function saveContactPlatformQrImage(index: number, qrImage: string): Promise<ContactPlatformSummary[]> {
+  const res = await fetch(`/api/contact-platforms/${index}`, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ qr_image: qrImage }),
+  });
+  const body = await readJsonBody(res);
+  if (!res.ok) {
+    throw new Error(errorMessage(body, `saving contact.platforms[${index}].qr_image failed with ${res.status} ${res.statusText}`));
+  }
+  return (body?.contactPlatforms as ContactPlatformSummary[] | undefined) ?? [];
 }
 
 export async function saveConfigValue(
@@ -292,6 +400,19 @@ export async function publish(message: string): Promise<{ commit: string; files:
     commit: String(body?.commit ?? ""),
     files: (body?.files as ChangedFile[]) ?? [],
   };
+}
+
+export async function exportCatalogPdf(): Promise<Blob> {
+  const res = await fetch("/api/export-pdf", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: "{}",
+  });
+  if (!res.ok) {
+    const body = await readJsonBody(res);
+    throw new Error(errorMessage(body, `PDF export failed with ${res.status} ${res.statusText}`));
+  }
+  return res.blob();
 }
 
 export type SyncEvent =

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 // their store, the same content is shown at "/" instead (see app/page.tsx);
 // once configured, "/" becomes the catalog and this page keeps the
 // introduction reachable for visitors curious about the template.
-export default function AboutPage() {
+export default async function AboutPage() {
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About" }]} />

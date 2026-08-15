@@ -468,6 +468,8 @@ in place, so these comments survive.
 
 ## 6. Optional Category Metadata — `_category.json`
 
+> Seller Studio's "Categories" pane can read and write this file — see §22.
+
 ```jsonc
 {
   "display_name": "Houseware & Kitchen",
@@ -587,6 +589,8 @@ When a visitor clicks a link-based contact button, the message is automatically 
 | All others | No pre-fill (platform doesn't support deep-link pre-fill) |
 
 Pre-filling is applied at the `PlatformButton` callsite when an `item` and `resolvedPrice` are provided. `ContactSection` on the item detail page always passes both — it independently calls `useGeolocation()` + `useDistancePricing()` to resolve the price (the browser returns the cached position instantly via `maximumAge: 300_000`, so there is no second permission prompt). The footer `ContactSection` receives no item context and never pre-fills.
+
+> Seller Studio can upload/replace/delete these PNGs — see §22.
 
 ---
 
@@ -2254,8 +2258,9 @@ Six new `UIStrings` keys (added to `currency`/pricing-table group):
 A **local-only** browser GUI for managing `content/` without editing JSON. Run `pnpm studio`
 (optionally `--port <n>`, default `5174`).
 - Binds to **127.0.0.1 only** — never exposed to the network.
-- Edits **only** `content/items/**` and `lib/generated/image-manifest.json`. It never reads,
-  writes, or renders the private `reserved_for` field (Iron Rules 1 & 4).
+- Edits **only** `content/items/**`, `content/contact/*.png`, and
+  `lib/generated/image-manifest.json`. It never reads, writes, or renders the private
+  `reserved_for` field (Iron Rules 1 & 4).
 - Item editing uses comment-preserving JSONC writes (`scripts/lib/itemEdit.ts`), so seller
   formatting and `// options:` comments survive; the strict field grammar is enforced by
   `scripts/lib/itemFields.ts`.
@@ -2269,6 +2274,127 @@ A **local-only** browser GUI for managing `content/` without editing JSON. Run `
   pane and merged over the scaffold on item creation: template ← site ← category, with
   `name`/`listed_date`/`status` re-applied last. `pnpm create-item` applies the same merge
   (`scripts/lib/itemDefaults.ts`); `reserved_for` and the per-item fields are rejected.
+- Price tiers are defaultable too: the Defaults pane carries a **Price tiers** block
+  (enable checkbox plus the same tier editor the item form uses). Saved tiers land in
+  `price.tiers` of the scope's `_defaults.json` and replace the template's tiers wholesale
+  on item creation — the full layering is `siteConfig.content.defaultPriceTiers` (or the
+  built-in 3-tier template) ← site defaults ← category defaults.
+- A bulk action, **Apply default tiers** (selection toolbar, `POST /api/items/bulk-apply-tiers`),
+  writes each selected item's `price.tiers` from its own category's merged defaults. Items
+  with no default tiers, or tiers already matching, are skipped and reported; failures are
+  per-item and never abort the batch; only `price.tiers` is written.
+
+### Category metadata, category creation & contact QR images
+- **`GET /api/categories`** returns `CategorySummary[]` (`slug`, `displayName`, `description`,
+  `icon`, `sortOrder`, `itemCount`) — every folder under `content/items/` that passes the
+  kebab-case slug allowlist, whether or not it has any items yet. `itemCount` is computed by
+  a direct, `projectRoot`-scoped directory read (`countCategoryItems`), deliberately not by
+  reusing `loadAllItemsRaw()` (which resolves `content/` from `process.cwd()`, not from the
+  request's `projectRoot`).
+- **`PUT /api/categories/:slug`** writes `content/items/<slug>/_category.json` from
+  `{ display_name?, description?, icon?, sort_order? }`. The write is sparse, mirroring
+  `_defaults.json`: a field is omitted when it equals `categoryJsonSchema`'s default (`""` /
+  `null`), and an all-default save deletes the file rather than writing `{}`. `404` if the
+  category folder doesn't exist.
+- **`POST /api/categories`** with `{ slug, meta? }` creates a new category folder (atomically,
+  via a non-recursive `mkdir` that fails `EEXIST` — the directory equivalent of
+  `handleItemCreate`'s `wx`-flag item.json write) and, only if `meta` was supplied, the same
+  sparse `_category.json` `PUT` would produce. `409` if the folder already exists. Surfaced in
+  the UI as a mode toggle in the "New item" dialog ("Item" / "Category"); category mode's slug
+  field reuses the same client-side kebab-case check as item names, and an "Add details"
+  disclosure opens the same metadata form the Categories pane uses.
+- The Categories pane (header button) lists every category from `GET /api/categories` and
+  edits each one independently — one row, one Save, one PUT — rather than a single batch save,
+  matching the per-item isolation `handleBulkStatus` already uses for items.
+- **Contact QR images** (`content/contact/*.png`, referenced by `contact.platforms[].qr_image`
+  — see §7): `POST /api/contact/images` with `{ filename, contentBase64 }` reuses
+  `sanitizeUploadFilename` / `sniffImageType` / `writeImage` from the item-photo pipeline
+  unmodified (all three already take a plain `dir` argument), adding only a PNG-only filename
+  gate — extension **and** magic bytes must both say PNG. Returns `{ file, path }`, where
+  `path` (`/contact/<file>`) is the value to store in `qr_image`. `GET /api/contact/images/:file`
+  streams the file back for the Config pane's live preview thumbnail — needed because Studio's
+  own dev server does not serve `content/contact/` as `/contact/*`; only the site's separate
+  build-time copy step (`scripts/sync-images.ts`'s `copyContactFiles`, unrelated to the CDN sync
+  path) does that. `DELETE /api/contact/images/:file` removes a file (`404` if missing). These
+  uploads never reach the CDN/R2 sync path or `lib/generated/image-manifest.json` — that
+  manifest is for `content/items/` photos only.
+- **Why `contact.platforms[].qr_image` isn't a normal Config field.** `content/config.ts`'s
+  generic field model (`scripts/lib/configEdit.ts`'s `readConfig`) deliberately does not walk
+  array literals — its own comment: an element add/remove is "a different, far riskier
+  operation than the single-value splices this module guarantees" — so `contact.platforms` (an
+  array) always surfaces there as one opaque `"unsupported"` field, and no per-element path like
+  `contact.platforms.0.qr_image` is ever produced. A new module,
+  `scripts/lib/contactPlatforms.ts`, fills exactly that one gap without touching
+  `configEdit.ts`'s array-avoidance stance: `readContactPlatforms(source)` parses
+  `contact.platforms` directly into `{ index, type, value?, label?, qrImage? }[]`, and
+  `writeContactPlatformQrImage(source, index, path)` either replaces an existing `qr_image`
+  string literal in place (the same splice guarantee `writeConfigValue` gives every other
+  field) or inserts `qr_image` (and `label`, if that's also absent) as new properties on an
+  element that already exists — it never adds, removes, or reorders an array *element*, which
+  is the one operation `configEdit.ts` calls out as risky. `PUT /api/contact-platforms/:index`
+  with `{ qr_image }` drives this, gated by the same `tsc --noEmit` type-check-before-write the
+  scalar `/api/config` PUT already used (factored into a shared
+  `writeConfigSourceWithTypeCheckGate` helper both routes now call) — a write that would break
+  the build is discarded here too. `GET /api/config`'s response gained a `contactPlatforms`
+  field alongside `fields` so the pane can render one row per platform.
+- The Config pane's Contact section renders a **Contact QR images** block below the read-only
+  `contact.platforms` field: one row per platform, each with a live preview (for platforms that
+  already have a `qr_image`) and a file input. Uploading saves immediately — unlike every other
+  Config field, which stages into a draft until "Save section" — because batching an
+  array-element edit with pending scalar-field writes would mean reconciling two different kinds
+  of pending change against the same type-check gate. The new file is confirmed saved in
+  `config.ts` *before* the old one (if any) is deleted from disk, and a failed upload deletes
+  the new file rather than leaving it orphaned. Removing a platform's QR code entirely (deleting
+  both the file and the `qr_image`/`label` properties) is intentionally out of scope — sellers
+  can still do that by hand, the same as any other array edit.
+- No new `content/config.ts` field was introduced for any of this — `Platform.qr_image` was
+  already optional, and category metadata is file-based, not config-based — so Iron Rule 8's
+  `scripts/lib/configDefaults.ts` checklist has nothing to register.
+
+### Seller Studio i18n — the UI follows the language selector
+Studio's UI chrome (buttons, labels, tabs, statuses, filter bar, edit form, config pane,
+readiness checklist, etc.) follows the same `displayLocale` as the header's language
+switcher — one switch drives both the item-content language and the UI language.
+- **Hybrid dictionary:** built-in dictionaries ship with the template in `studio/src/i18n/`
+  (`strings.en.ts` is the complete source of truth — every string Studio can render;
+  `strings.zh.ts` is a built-in Chinese override in which any missing key falls back to
+  English). Sellers may optionally override individual keys per locale via
+  `siteConfig.studio.translations` in `content/config.ts` (a `locale → key → string` map).
+  The field is TypeScript-optional and read with `?? {}` (Iron Rule 8); as a pure override
+  it is intentionally absent from the upstream `content/config.ts` and not registered in
+  `scripts/lib/configDefaults.ts`.
+- **Locale source:** the switcher offers the site's own `siteConfig.i18n.availableLocales`
+  and renders only when more than one locale is configured. Seller overrides reach the
+  client in the `GET /api/items` response body (`studioTranslations`).
+- **Context provider + hook:** `StudioI18nProvider` (React Context) wraps the app with the
+  active locale and overrides; every pane calls `useStudioT()` → `{ t, locale }`.
+  `t(key, params?)` is typed against the EN dictionary (`StudioKey = keyof typeof EN`),
+  so a typo'd key is a compile error.
+- **Merge order** (highest priority wins): seller override for the active locale → built-in
+  dictionary for the active locale → built-in English, resolved once per locale switch by
+  `resolveStudioStrings()`.
+- **Key namespacing:** flat dot-separated keys grouped by component — `app.*`, `header.*`,
+  `sync.*`, `gettingStarted.*`, `filter.status.*` / `filter.*`, `bulk.*`, `publish.*`,
+  `itemList.*`, `newItem.*`, `drawer.*`, `editForm.*`, `field.*` / `fieldGroup.*` /
+  `fieldValue.*` / `editFormProblem.*`, `configPane.*`, `defaults.*`, `imagePane.*`,
+  `tierEditor.*`, `statusBadge.*`, `emptyState.*`, `readiness.*`, `localeSwitcher.*`,
+  `themeToggle.*`, `common.*`.
+- **Parameterized strings:** dynamic values use `{param}` interpolation (e.g.
+  `"{count} selected"`). English pluralization uses a `{plural}` token that expands to
+  `"s"` when the count ≠ 1 and `""` when it is 1; other locales override the whole
+  template string (ignoring `{plural}`), so their grammar stays unconstrained.
+- **Readiness checklist localization:** each `ReadinessItem` served by `/api/readiness`
+  (`scripts/lib/siteReadiness.ts`, shared with `pnpm doctor`) keeps its English
+  `title`/`detail` prose as the fallback and additionally carries an optional structured
+  `params` field (`{ variant, …values }`). The client picks the dictionary key
+  `readiness.<id>.<variant>`, interpolates `params` into it, and falls back to the
+  English `detail` when the active locale has no such key. The change is additive —
+  `pnpm doctor` reads `title`/`detail` directly and is untouched.
+- Low-level `StudioError` messages and auto-parsed config field docs stay English by design.
+
+#### Catalog PDF export
+
+The header's **Export PDF** button opens a dialog that generates a single combined PDF catalog of every public-visible item (`available`/`pending`/`reserved`; `sold`/`draft` excluded): a cover page, a clickable table of contents grouped by category, a divider per category, and one page per item with its resolved price, photos, specs, and a link back to its live page. Rendered via headless Chromium (Playwright) from a standalone print template — no `next dev` server required. Table-of-contents entries are clickable in-PDF jump links; they do not show literal page numbers next to each title (Chromium's print-to-PDF does not support CSS `target-counter()`), though every page's footer does show a real "Page N of M". Requires a one-time `npx playwright install chromium`.
 
 ### Facebook Marketplace export (`pnpm fb-export`, Phase 17)
 Interactive CLI that exports available/pending/reserved items to Facebook Marketplace bulk-upload

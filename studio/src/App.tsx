@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { bulkStatus, fetchItems, type StudioItem } from "./api";
+import { applyDefaultTiers, bulkStatus, fetchCategories, fetchItems, type StudioItem } from "./api";
 import {
   applyFiltersWithExemptions,
   countByStatus,
@@ -9,10 +9,13 @@ import {
 import { Button } from "./components/Button";
 import { LocaleSwitcher } from "./components/LocaleSwitcher";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { StudioI18nProvider, useStudioT } from "./i18n/StudioI18n";
 import { BulkToolbar } from "./panes/BulkToolbar";
+import { CategoriesPane } from "./panes/CategoriesPane";
 import { ConfigPane } from "./panes/ConfigPane";
 import { DefaultsPane } from "./panes/DefaultsPane";
 import { Drawer } from "./panes/Drawer";
+import { ExportPdfDialog } from "./panes/ExportPdfDialog";
 import { GettingStarted } from "./panes/GettingStarted";
 import { FilterBar } from "./panes/FilterBar";
 import { ItemGrid } from "./panes/ItemGrid";
@@ -36,6 +39,101 @@ function readDisplayLocale(defaultLocale: string): string {
 export function App() {
   const [items, setItems] = useState<StudioItem[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [availableLocales, setAvailableLocales] = useState<string[]>(["en"]);
+  const [displayLocale, setDisplayLocale] = useState<string>(() => readDisplayLocale("en"));
+  // Seller overrides for the built-in Studio dictionaries, loaded with the
+  // items. Empty = the built-in EN/… dictionaries stand unchanged.
+  const [studioTranslations, setStudioTranslations] = useState<
+    Record<string, Record<string, string>>
+  >({});
+  // Sourced from the category folders themselves, not from items: a category
+  // created with zero items must still be selectable and filterable
+  // everywhere the seller can pick a category.
+  const [categorySlugs, setCategorySlugs] = useState<string[]>([]);
+
+  // Studio keeps no local copy of item state: after any write it re-reads the
+  // full list, so the table can never drift from what is on disk.
+  //
+  // Deliberately has no dependency on displayLocale: if it did, changing the
+  // display language would recreate this callback and re-trigger the mount
+  // effect below, re-reading every item.json from disk on every language
+  // switch. The functional setDisplayLocale update below corrects an
+  // invalidated locale without refresh needing to know the current one.
+  const refresh = useCallback(async () => {
+    // fetchCategories() is caught on its own: before this feature, the item
+    // table depended on nothing but fetchItems(), and a plain Promise.all
+    // would make a categories-endpoint failure block even a fully successful
+    // item load. `null` (not []) marks "the fetch failed" so the fallback
+    // below can tell that apart from "there really are zero categories" —
+    // falling back to [] unconditionally would empty the category dropdown
+    // even while items with real categories are on screen.
+    const [{ items, defaultLocale, availableLocales: al, studioTranslations: st }, categories] =
+      await Promise.all([fetchItems(), fetchCategories().catch(() => null)]);
+    setItems(items);
+    setAvailableLocales(al);
+    setStudioTranslations(st);
+    setDisplayLocale((prev) => (al.includes(prev) ? prev : defaultLocale));
+    // On a categories-endpoint failure, fall back to what the pre-feature
+    // code always did: derive the list from the items that just loaded
+    // successfully. This loses only the enhancement (a category folder with
+    // zero items showing up before any item exists in it), never the list
+    // itself.
+    setCategorySlugs(
+      categories === null
+        ? [...new Set(items.map((i) => i.categorySlug))].sort()
+        : categories.map((c) => c.slug).sort(),
+    );
+  }, []);
+
+  useEffect(() => {
+    refresh().catch((err: unknown) =>
+      setError(err instanceof Error ? err.message : String(err)),
+    );
+  }, [refresh]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCALE_KEY, displayLocale);
+  }, [displayLocale]);
+
+  // A component cannot consume context from a provider it renders itself, so
+  // App owns the data the provider needs (locale + overrides) and the chrome
+  // that calls useStudioT() lives one level down in StudioChrome.
+  return (
+    <StudioI18nProvider locale={displayLocale} overrides={studioTranslations}>
+      <StudioChrome
+        items={items}
+        error={error}
+        setError={setError}
+        availableLocales={availableLocales}
+        displayLocale={displayLocale}
+        setDisplayLocale={setDisplayLocale}
+        refresh={refresh}
+        categorySlugs={categorySlugs}
+      />
+    </StudioI18nProvider>
+  );
+}
+
+function StudioChrome({
+  items,
+  error,
+  setError,
+  availableLocales,
+  displayLocale,
+  setDisplayLocale,
+  refresh,
+  categorySlugs,
+}: {
+  items: StudioItem[];
+  error: string | null;
+  setError: (error: string | null) => void;
+  availableLocales: string[];
+  displayLocale: string;
+  setDisplayLocale: (locale: string) => void;
+  refresh: () => Promise<void>;
+  categorySlugs: string[];
+}) {
+  const { t } = useStudioT();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [failedIds, setFailedIds] = useState<Set<string>>(new Set());
   const [justStampedIds, setJustStampedIds] = useState<Set<string>>(new Set());
@@ -44,6 +142,8 @@ export function App() {
   const [showNewItem, setShowNewItem] = useState(false);
   const [showDefaults, setShowDefaults] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
+  const [showExportPdf, setShowExportPdf] = useState(false);
   // The checklist opens itself once, the first time a site reports as not
   // ready; after that it is the seller's to open and close from the header.
   const [showGuide, setShowGuide] = useState(false);
@@ -58,46 +158,16 @@ export function App() {
   // count, which the pane reports back up (null = not a git repo → hide it).
   const [changesToken, setChangesToken] = useState(0);
   const [changeCount, setChangeCount] = useState<number | null>(null);
-  const bumpChanges = useCallback(() => setChangesToken((t) => t + 1), []);
+  const bumpChanges = useCallback(() => setChangesToken((token) => token + 1), []);
   const [viewMode, setViewMode] = useState<"table" | "cards">(() => readViewMode());
-  const [availableLocales, setAvailableLocales] = useState<string[]>(["en"]);
-  const [displayLocale, setDisplayLocale] = useState<string>(() => readDisplayLocale("en"));
-
-  // Studio keeps no local copy of item state: after any write it re-reads the
-  // full list, so the table can never drift from what is on disk.
-  //
-  // Deliberately has no dependency on displayLocale: if it did, changing the
-  // display language would recreate this callback and re-trigger the mount
-  // effect below, re-reading every item.json from disk on every language
-  // switch. The functional setDisplayLocale update below corrects an
-  // invalidated locale without refresh needing to know the current one.
-  const refresh = useCallback(async () => {
-    const { items, defaultLocale, availableLocales: al } = await fetchItems();
-    setItems(items);
-    setAvailableLocales(al);
-    setDisplayLocale((prev) => (al.includes(prev) ? prev : defaultLocale));
-  }, []);
-
-  useEffect(() => {
-    refresh().catch((err: unknown) =>
-      setError(err instanceof Error ? err.message : String(err)),
-    );
-  }, [refresh]);
 
   useEffect(() => {
     localStorage.setItem(VIEW_MODE_KEY, viewMode);
   }, [viewMode]);
 
-  useEffect(() => {
-    localStorage.setItem(LOCALE_KEY, displayLocale);
-  }, [displayLocale]);
-
   const counts = useMemo(() => countByStatus(items), [items]);
 
-  const categories = useMemo(
-    () => [...new Set(items.map((i) => i.categorySlug))].sort(),
-    [items],
-  );
+  const categories = categorySlugs;
 
   const visibleItems = useMemo(
     () => applyFiltersWithExemptions(items, filters, exemptIds),
@@ -172,13 +242,46 @@ export function App() {
     }
   }
 
+  async function applyTiers() {
+    const ids = [...selectedIds];
+    setBusy(true);
+    setError(null);
+    try {
+      const result = await applyDefaultTiers(ids);
+      const failed = new Set(result.failed.map((f) => f.id));
+      setFailedIds(failed);
+      // Failed rows stay selected so the seller can retry them directly.
+      setSelectedIds(failed);
+      await refresh();
+      bumpChanges();
+      if (result.failed.length > 0) {
+        setError(
+          `${result.failed.length} of ${ids.length} items could not be updated: ` +
+            result.failed.map((f) => `${f.id} (${f.error})`).join(", "),
+        );
+      }
+      if (result.failed.length === 0 && result.skipped > 0) {
+        setError(
+          `${result.ok} updated, ${result.skipped} skipped (no default tiers for their ` +
+            `category, or already matching).`,
+        );
+      }
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <>
       <header className="studio-head">
-        <h1>Seller Studio</h1>
+        <h1>{t("app.title")}</h1>
         <span className="counts">
-          content/ · {items.length} items
-          {changeCount !== null && changeCount > 0 && <> · {changeCount} uncommitted</>}
+          {t("app.itemCount", { count: items.length })}
+          {changeCount !== null && changeCount > 0 && (
+            <> · {t("app.uncommitted", { count: changeCount })}</>
+          )}
         </span>
         <div className="head-actions">
           <LocaleSwitcher
@@ -194,19 +297,26 @@ export function App() {
             }}
           />
           <Button onClick={() => setShowConfig(true)}>
-            Config
+            {t("header.config")}
           </Button>
           <Button onClick={() => setShowGuide((v) => !v)}>
-            Setup
+            {t("header.setup")}
           </Button>
           <Button onClick={() => setShowDefaults(true)}>
-            Defaults
+            {t("header.defaults")}
+          </Button>
+          <Button onClick={() => setShowCategories(true)}>
+            {t("header.categories")}
+          </Button>
+          <Button onClick={() => setShowExportPdf(true)}>
+            {t("header.exportPdf")}
           </Button>
           <Button variant="primary" onClick={() => setShowNewItem(true)}>
-            New item
+            {t("header.newItem")}
           </Button>
         </div>
       </header>
+      <PublishPane refreshToken={changesToken} onChanges={setChangeCount} />
       {error !== null && (
         <p role="alert" className="alert-error page-error">
           {error}
@@ -214,9 +324,11 @@ export function App() {
       )}
       {error === null && items.length === 0 && (
         <div className="empty-state">
-          <p>No items yet.</p>
+          <p>{t("emptyState.noItems")}</p>
           <p>
-            Use <strong>New item</strong> in the header to create your first listing.
+            {t("emptyState.useNewItem")}
+            <strong>New item</strong>
+            {t("emptyState.useNewItemSuffix")}
           </p>
         </div>
       )}
@@ -250,8 +362,10 @@ export function App() {
       )}
       {items.length > 0 && visibleItems.length === 0 && (
         <div className="empty-state">
-          <p>No items match your filters.</p>
-          <Button onClick={() => changeFilters(DEFAULT_FILTERS)}>Clear filters</Button>
+          <p>{t("emptyState.noMatch")}</p>
+          <Button onClick={() => changeFilters(DEFAULT_FILTERS)}>
+            {t("emptyState.clearFilters")}
+          </Button>
         </div>
       )}
       {visibleItems.length > 0 && viewMode === "table" && (
@@ -275,11 +389,11 @@ export function App() {
           onOpen={setOpenItemId}
         />
       )}
-      <PublishPane refreshToken={changesToken} onChanges={setChangeCount} />
       <BulkToolbar
         count={selectedIds.size}
         busy={busy}
         onApply={(status) => void apply(status)}
+        onApplyTiers={() => void applyTiers()}
         onClear={() => setSelectedIds(new Set())}
       />
       {openItemId !== null && (() => {
@@ -309,6 +423,11 @@ export function App() {
             void refresh().then(() => setOpenItemId(id));
             bumpChanges();
           }}
+          onCategoryCreated={() => {
+            setShowNewItem(false);
+            void refresh();
+            bumpChanges();
+          }}
         />
       )}
       {showDefaults && (
@@ -319,6 +438,14 @@ export function App() {
         />
       )}
       {showConfig && <ConfigPane onClose={() => setShowConfig(false)} />}
+      {showCategories && (
+        // bumpChanges, not refresh: editing a category's metadata never
+        // changes categorySlugs (the slug itself is untouched) or any item,
+        // so a full items+categories refetch here would be pure waste on
+        // every single save.
+        <CategoriesPane onClose={() => setShowCategories(false)} onSaved={bumpChanges} />
+      )}
+      {showExportPdf && <ExportPdfDialog items={items} onClose={() => setShowExportPdf(false)} />}
     </>
   );
 }

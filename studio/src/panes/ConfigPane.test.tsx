@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen, within } from "@testing-library/react";
+import { cleanup, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderWithStudioI18n as render } from "../i18n/StudioI18n";
 import { ConfigPane } from "./ConfigPane";
 import type { ConfigField } from "../api";
 
@@ -34,7 +35,7 @@ describe("ConfigPane", () => {
     const fields: ConfigField[] = [makeField({ path: "name", value: "Test Store", section: "General" })];
     const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input);
-      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields });
+      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields, contactPlatforms: [] });
       if (url === "/api/config" && init?.method === "PUT") return jsonResponse({ fields });
       throw new Error(`unexpected fetch: ${String(input)} ${init?.method ?? "GET"}`);
     });
@@ -85,7 +86,7 @@ describe("ConfigPane", () => {
     ];
     vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input);
-      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields });
+      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields, contactPlatforms: [] });
       if (url === "/api/config" && init?.method === "PUT") return jsonResponse({ fields });
       throw new Error(`unexpected fetch: ${String(input)} ${init?.method ?? "GET"}`);
     }));
@@ -102,5 +103,122 @@ describe("ConfigPane", () => {
     expect(matrix).not.toBeNull();
     expect((within(matrix as HTMLElement).getByLabelText("i18n.translations.en.home") as HTMLInputElement).value).toBe("Home");
     expect((within(matrix as HTMLElement).getByLabelText("i18n.translations.zh.home") as HTMLInputElement).value).toBe("首页");
+  });
+
+  it("renders a QR upload row per contact platform and saves immediately on upload", async () => {
+    // contact.platforms is an array in content/config.ts — configEdit.ts's
+    // readConfig() never walks into arrays, so it always shows up as ONE
+    // opaque "unsupported" field, never as per-element paths. Any test that
+    // fabricates a "contact.platforms.0.qr_image" ConfigField is testing a
+    // shape the real GET /api/config response can never produce.
+    const fields: ConfigField[] = [
+      makeField({ path: "contact.platforms", value: null, kind: "unsupported", section: "Contact" }),
+    ];
+    const contactPlatforms = [
+      { index: 0, type: "email", value: "you@example.com", label: undefined, qrImage: undefined },
+      { index: 1, type: "zelle", value: undefined, label: "Zelle", qrImage: "/contact/zelle-qr.png" },
+    ];
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields, contactPlatforms });
+      if (url === "/api/contact/images" && init?.method === "POST") {
+        return jsonResponse({ file: "zelle-qr-2.png", path: "/contact/zelle-qr-2.png" });
+      }
+      if (url === "/api/contact-platforms/1" && init?.method === "PUT") {
+        return jsonResponse({
+          contactPlatforms: [
+            contactPlatforms[0],
+            { ...contactPlatforms[1], qrImage: "/contact/zelle-qr-2.png" },
+          ],
+        });
+      }
+      if (url === "/api/contact/images/zelle-qr.png" && init?.method === "DELETE") {
+        return jsonResponse({ ok: true });
+      }
+      throw new Error(`unexpected fetch: ${url} ${init?.method ?? "GET"}`);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<ConfigPane onClose={vi.fn()} />);
+    await screen.findByRole("tab", { name: "Contact" });
+    await screen.findByText("Zelle");
+
+    // One GET /api/config on load, not two: fields and contactPlatforms come
+    // from the same response, so fetchConfig() must only be called once.
+    expect(fetchMock.mock.calls.filter(([url]) => url === "/api/config").length).toBe(1);
+
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    // One row per platform — email (no existing QR) and zelle (has one).
+    expect(fileInputs.length).toBe(2);
+    const file = new File(["x"], "zelle-qr-2.png", { type: "image/png" });
+    await userEvent.upload(fileInputs[1] as HTMLInputElement, file);
+
+    await vi.waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/api/contact-platforms/1",
+        expect.objectContaining({ method: "PUT" }),
+      );
+    });
+    // The old file is deleted only after the new path is confirmed saved.
+    await vi.waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/api/contact/images/zelle-qr.png",
+        expect.objectContaining({ method: "DELETE" }),
+      );
+    });
+  });
+
+  it("disables Save section while a QR upload is writing config.ts, and re-enables after", async () => {
+    // content/config.ts's write is gated by a rename-to-backup dance with no
+    // locking of its own (writeConfigSourceWithTypeCheckGate) — the QR
+    // upload's PUT and the section's own "Save section" PUT must never run
+    // concurrently, or one call's backup can clobber the other's.
+    const fields: ConfigField[] = [
+      makeField({ path: "name", value: "Test Store", section: "General" }),
+      makeField({ path: "contact.platforms", value: null, kind: "unsupported", section: "General" }),
+    ];
+    const contactPlatforms = [{ index: 0, type: "zelle", value: undefined, label: "Zelle", qrImage: "/contact/zelle-qr.png" }];
+    let resolvePut: (() => void) | undefined;
+    const putStarted = new Promise<void>((resolve) => {
+      resolvePut = resolve;
+    });
+    const fetchMock = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url === "/api/config" && init?.method === undefined) return jsonResponse({ fields, contactPlatforms });
+      if (url === "/api/contact/images" && init?.method === "POST") {
+        return jsonResponse({ file: "zelle-qr-2.png", path: "/contact/zelle-qr-2.png" });
+      }
+      if (url === "/api/contact-platforms/0" && init?.method === "PUT") {
+        resolvePut?.();
+        // Held open until the assertion below has checked the disabled
+        // state, so the race window is actually exercised.
+        await new Promise((r) => setTimeout(r, 20));
+        return jsonResponse({ contactPlatforms: [{ ...contactPlatforms[0], qrImage: "/contact/zelle-qr-2.png" }] });
+      }
+      if (url === "/api/contact/images/zelle-qr.png" && init?.method === "DELETE") {
+        return jsonResponse({ ok: true });
+      }
+      throw new Error(`unexpected fetch: ${url} ${init?.method ?? "GET"}`);
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<ConfigPane onClose={vi.fn()} />);
+    await screen.findByText("Zelle");
+
+    const nameInput = screen.getByDisplayValue("Test Store");
+    await userEvent.type(nameInput, "!"); // dirty the scalar field
+    const saveButton = () => screen.getByRole("button", { name: "Save section" }) as HTMLButtonElement;
+    expect(saveButton().disabled).toBe(false);
+
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    const file = new File(["x"], "zelle-qr-2.png", { type: "image/png" });
+    await userEvent.upload(fileInput, file);
+
+    await putStarted;
+    expect(saveButton().disabled).toBe(true);
+
+    await vi.waitFor(() => {
+      expect(saveButton().disabled).toBe(false);
+    });
   });
 });

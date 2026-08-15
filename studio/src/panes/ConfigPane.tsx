@@ -1,15 +1,25 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { fetchConfig, saveConfigValue, type ConfigField } from "../api";
+import {
+  deleteContactImage,
+  fetchConfig,
+  saveConfigValue,
+  saveContactPlatformQrImage,
+  uploadContactImage,
+  type ConfigField,
+  type ContactPlatformSummary,
+} from "../api";
 import { Button } from "../components/Button";
 import { useDialogBehavior } from "../components/useDialogBehavior";
+import { useStudioT } from "../i18n/StudioI18n";
+import type { StudioKey } from "../i18n/types";
 
 // Getting these wrong doesn't just look wrong — it breaks the build or takes
 // every image offline. The pane says so next to the input rather than letting
 // the seller find out at deploy time.
-const DANGER_FIELDS: Readonly<Record<string, string>> = {
-  deploymentMode: "Wrong value here and the site builds for the wrong host — check your deploy target before changing.",
-  baseUrl: "Used for canonical URLs, sitemap and social previews. A wrong value ships broken links.",
-  "imageStorage.provider": "Switching providers makes every existing image URL point somewhere new — photos go missing until you re-sync.",
+const DANGER_FIELDS: Readonly<Record<string, StudioKey>> = {
+  deploymentMode: "configPane.danger.deploymentMode",
+  baseUrl: "configPane.danger.baseUrl",
+  "imageStorage.provider": "configPane.danger.imageStorage",
 };
 
 const I18N_SECTION = "UI translations";
@@ -21,8 +31,10 @@ function labelFor(path: string): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
 
+const OTHER_SECTION = " other";
+
 function sectionLabel(section: string): string {
-  return section === "" ? "Other" : section;
+  return section === "" ? OTHER_SECTION : section;
 }
 
 /** Groups fields by section, preserving the order the file declares them in. */
@@ -87,16 +99,163 @@ function toInput(field: ConfigField): string {
  * Returns { error } rather than throwing so one bad field reports itself
  * without disturbing the rest of the pane.
  */
-function fromInput(field: ConfigField, raw: string): { value: string | number | boolean } | { error: string } {
+function fromInput(field: ConfigField, raw: string): { value: string | number | boolean } | { error: StudioKey } {
   if (field.kind === "number") {
     const trimmed = raw.trim();
-    if (trimmed === "") return { error: "must be a number" };
+    if (trimmed === "") return { error: "configPane.mustBeNumber" };
     const n = Number(trimmed);
-    if (!Number.isFinite(n)) return { error: "must be a number" };
+    if (!Number.isFinite(n)) return { error: "configPane.mustBeNumber" };
     return { value: n };
   }
   if (field.kind === "boolean") return { value: raw === "true" };
   return { value: raw };
+}
+
+// contact.platforms is an array in content/config.ts, and configEdit.ts's
+// generic field model deliberately never walks into arrays (see its own
+// comment: "an element add/remove... is a different, far riskier operation
+// than the single-value splices this module guarantees") — so it surfaces
+// here as one opaque, read-only "unsupported" field, and nothing inside it
+// is reachable through FieldRow's normal draft/save flow. This section is a
+// separate, purpose-built reader/writer (scripts/lib/contactPlatforms.ts)
+// for exactly the one thing inside that array a seller needs to edit: each
+// platform's qr_image. It saves immediately on upload, unlike every other
+// Config field here, which stages into `drafts` until "Save section" — a
+// deliberate difference, not an oversight: batching an array-element edit
+// with pending scalar-field writes would mean reconciling two very
+// different kinds of pending change against the same type-check gate.
+//
+// Rendered by ConfigPane itself (not by FieldRow, and not self-fetching):
+// content/config.ts's type-check-gated write has no locking of its own, so
+// a QR upload's PUT /api/contact-platforms/:index and the section's own
+// "Save section" PUT /api/config must never run concurrently — both would
+// rename content/config.ts to the same backup path. Owning `platforms` and
+// `qrBusy` in ConfigPane, one level up, is what lets "Save section" disable
+// itself while any row here is mid-upload (and vice versa), and lets both
+// panes share the one GET /api/config response instead of each fetching it
+// separately.
+function ContactPlatformQrRow({
+  platform,
+  disabled,
+  uploading,
+  onUpload,
+}: {
+  platform: ContactPlatformSummary;
+  disabled: boolean;
+  uploading: boolean;
+  onUpload: (file: File) => void;
+}) {
+  const { t } = useStudioT();
+
+  function basename(pathValue: string): string {
+    return pathValue.split("/").pop() ?? pathValue;
+  }
+
+  return (
+    <div className="config-row qr-platform-row">
+      <span className="field-label">{platform.label ?? platform.type}</span>
+      {platform.qrImage !== undefined && (
+        <>
+          {/* /api/contact/images/:filename, not the /contact/<file> public
+              path in `code` below: Studio's own dev server doesn't serve
+              content/contact/ as /contact/* (only the site's separate
+              build-time copy step does), so the live preview has to read
+              the file back through this route instead. */}
+          <img
+            src={`/api/contact/images/${encodeURIComponent(basename(platform.qrImage))}`}
+            alt=""
+            className="qr-preview-thumb"
+          />
+          <code className="config-path">{platform.qrImage}</code>
+        </>
+      )}
+      <input
+        type="file"
+        accept="image/png"
+        disabled={disabled}
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file !== undefined) onUpload(file);
+        }}
+      />
+      <span className="field-hint">
+        {platform.qrImage !== undefined ? t("configPane.qr.replaceHint") : t("configPane.qr.addHint")}
+      </span>
+      {uploading && <span className="field-hint">{t("configPane.qr.uploading")}</span>}
+    </div>
+  );
+}
+
+function ContactPlatformsQrSection({
+  platforms,
+  onPlatformsChange,
+  sectionBusy,
+  qrBusy,
+  onQrBusyChange,
+}: {
+  platforms: ContactPlatformSummary[];
+  onPlatformsChange: (platforms: ContactPlatformSummary[]) => void;
+  sectionBusy: boolean;
+  qrBusy: boolean;
+  onQrBusyChange: (busy: boolean) => void;
+}) {
+  const { t } = useStudioT();
+  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  function basename(pathValue: string): string {
+    return pathValue.split("/").pop() ?? pathValue;
+  }
+
+  async function handleUpload(platform: ContactPlatformSummary, file: File) {
+    setUploadingIndex(platform.index);
+    onQrBusyChange(true);
+    setError(null);
+    let uploadedFile: string | null = null;
+    try {
+      const uploaded = await uploadContactImage(file);
+      uploadedFile = uploaded.file;
+      // config.ts is updated before the old file is touched: if this save
+      // fails (type-check gate rejection, network error), the previously
+      // working QR image must still be the one config.ts references.
+      const updated = await saveContactPlatformQrImage(platform.index, uploaded.path);
+      if (platform.qrImage !== undefined && platform.qrImage !== uploaded.path) {
+        await deleteContactImage(basename(platform.qrImage)).catch(() => {});
+      }
+      onPlatformsChange(updated);
+    } catch (err: unknown) {
+      // The new file, if it made it to disk, was never referenced by
+      // config.ts — clean it up rather than leaving an orphan behind.
+      if (uploadedFile !== null) await deleteContactImage(uploadedFile).catch(() => {});
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setUploadingIndex(null);
+      onQrBusyChange(false);
+    }
+  }
+
+  if (platforms.length === 0) return null;
+
+  return (
+    <div className="qr-platforms-section">
+      <h3>{t("configPane.qr.sectionTitle")}</h3>
+      <p className="field-hint">{t("configPane.qr.sectionHint")}</p>
+      {error !== null && (
+        <p role="alert" className="alert-error">
+          {error}
+        </p>
+      )}
+      {platforms.map((platform) => (
+        <ContactPlatformQrRow
+          key={platform.index}
+          platform={platform}
+          disabled={sectionBusy || qrBusy}
+          uploading={uploadingIndex === platform.index}
+          onUpload={(file) => void handleUpload(platform, file)}
+        />
+      ))}
+    </div>
+  );
 }
 
 function FieldRow({
@@ -110,9 +269,10 @@ function FieldRow({
   busy: boolean;
   onChange: (raw: string) => void;
 }) {
+  const { t } = useStudioT();
   const readOnly = field.kind === "unsupported";
   const dirty = !readOnly && raw !== toInput(field);
-  const danger = DANGER_FIELDS[field.path];
+  const dangerKey = DANGER_FIELDS[field.path];
 
   return (
     <div className="config-row">
@@ -124,13 +284,13 @@ function FieldRow({
               <span className="field-dot" aria-hidden="true">
                 ●
               </span>
-              <span className="visually-hidden"> (unsaved)</span>
+              <span className="visually-hidden">{t("configPane.unsaved")}</span>
             </>
           )}
         </span>
 
         {readOnly ? (
-          <input type="text" value="(edit this field in content/config.ts)" disabled readOnly />
+          <input type="text" value={t("configPane.readOnly")} disabled readOnly />
         ) : field.kind === "enum" ? (
           <select value={raw} disabled={busy} onChange={(e) => onChange(e.target.value)}>
             {field.options?.map((opt) => (
@@ -162,15 +322,16 @@ function FieldRow({
         </span>
       </label>
 
-      {danger !== undefined && !readOnly && (
+      {dangerKey !== undefined && !readOnly && (
         <p className="config-danger">
-          <strong>Careful:</strong> {danger}
+          <strong>{t("configPane.careful")}</strong> {t(dangerKey)}
         </p>
       )}
       {readOnly && (
         <p className="field-hint">
-          Arrays and structured values are read-only here — edit them directly in{" "}
-          <code>content/config.ts</code>.
+          {t("configPane.readOnlyHint")}
+          <code>content/config.ts</code>
+          {t("configPane.readOnlyHintSuffix")}
         </p>
       )}
     </div>
@@ -188,8 +349,9 @@ function TranslationCell({
   busy: boolean;
   onChange: (raw: string) => void;
 }) {
+  const { t } = useStudioT();
   if (field === undefined) {
-    return <div className="translation-cell translation-cell-empty">Missing</div>;
+    return <div className="translation-cell translation-cell-empty">{t("configPane.missing")}</div>;
   }
   const parsed = parseTranslationPath(field.path);
   const locale = parsed?.locale ?? "";
@@ -203,7 +365,7 @@ function TranslationCell({
             <span className="field-dot" aria-hidden="true">
               ●
             </span>
-            <span className="visually-hidden"> (unsaved)</span>
+            <span className="visually-hidden">{t("configPane.unsaved")}</span>
           </>
         )}
       </span>
@@ -220,20 +382,27 @@ function TranslationCell({
 }
 
 export function ConfigPane({ onClose }: { onClose: () => void }) {
+  const { t } = useStudioT();
   const dialogRef = useDialogBehavior(onClose);
   const [fields, setFields] = useState<ConfigField[] | null>(null);
+  const [contactPlatforms, setContactPlatforms] = useState<ContactPlatformSummary[]>([]);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [selectedSubsection, setSelectedSubsection] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
+  // True while a contact-platform QR upload is writing content/config.ts.
+  // Gates "Save section" too: writeConfigSourceWithTypeCheckGate has no
+  // locking of its own, so the two write paths must never overlap.
+  const [qrBusy, setQrBusy] = useState(false);
 
   const load = useCallback(async () => {
     setError(null);
     setSaved(false);
-    const nextFields = await fetchConfig();
+    const { fields: nextFields, contactPlatforms: nextPlatforms } = await fetchConfig();
     setFields(nextFields);
+    setContactPlatforms(nextPlatforms);
     setDrafts(Object.fromEntries(nextFields.map((field) => [field.path, toInput(field)])));
   }, []);
 
@@ -299,7 +468,7 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
         const raw = fieldValue(field, drafts);
         const parsed = fromInput(field, raw);
         if ("error" in parsed) {
-          throw new Error(`${labelFor(field.path)}: ${parsed.error}`);
+          throw new Error(`${labelFor(field.path)}: ${t(parsed.error)}`);
         }
         await saveConfigValue(field.path, parsed.value);
         setFields((prev) =>
@@ -317,14 +486,15 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
   }
 
   const dirtyCount = visibleFields.filter((field) => field.kind !== "unsupported" && fieldValue(field, drafts) !== toInput(field)).length;
+  const sectionDisplay = (section: string) => (section === OTHER_SECTION ? t("configPane.other") : section);
   const currentPageLabel =
     currentSection === null
       ? ""
       : currentSection.section === I18N_SECTION
         ? currentSubsection === null
-          ? "All translations"
+          ? t("configPane.allTranslations")
           : currentSubsection.subsection
-        : currentSection.section;
+        : sectionDisplay(currentSection.section);
 
   return (
     <div className="dialog-backdrop" role="presentation" onClick={onClose}>
@@ -333,19 +503,17 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
         className="dialog config-dialog"
         role="dialog"
         aria-modal="true"
-        aria-label="Site config"
+        aria-label={t("configPane.title")}
         onClick={(e) => e.stopPropagation()}
       >
         <header className="config-head">
           <div>
-            <h2>Site config</h2>
-            <p className="field-hint config-head-copy">
-              Top-level sections work like subpages. The UI translations page adds a second level so related locales stay together.
-            </p>
+            <h2>{t("configPane.title")}</h2>
+            <p className="field-hint config-head-copy">{t("configPane.headCopy")}</p>
           </div>
           {currentSection !== null && currentPageLabel !== "" && (
             <p className="config-breadcrumb" aria-label="Current config page">
-              {currentSection.section}
+              {sectionDisplay(currentSection.section)}
               {currentSection.section === I18N_SECTION ? " / " : " · "}
               <span>{currentPageLabel}</span>
             </p>
@@ -358,10 +526,10 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
           </p>
         )}
 
-        {saved && <p className="form-saved">Saved.</p>}
+        {saved && <p className="form-saved">{t("configPane.saved")}</p>}
 
         {fields === null && error === null && (
-          <div aria-busy="true" aria-label="Loading site config">
+          <div aria-busy="true" aria-label={t("configPane.loading")}>
             <div className="skeleton" />
             <div className="skeleton" />
             <div className="skeleton" />
@@ -371,7 +539,7 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
         {fields !== null && currentSection !== null && (
           <>
             <div className="config-nav" aria-label="Config navigation">
-              <div className="config-nav-label">Sections</div>
+              <div className="config-nav-label">{t("configPane.sections")}</div>
               <div className="defaults-scopes config-section-tabs" role="tablist" aria-label="Config sections">
               {groups.map((group) => (
                 <button
@@ -385,14 +553,14 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
                     setSaved(false);
                   }}
                 >
-                  {group.section}
+                  {sectionDisplay(group.section)}
                 </button>
               ))}
               </div>
 
               {currentSection.section === I18N_SECTION && subsectionGroups.length > 0 && (
                 <>
-                  <div className="config-nav-label config-subnav-label">Translation page</div>
+                  <div className="config-nav-label config-subnav-label">{t("configPane.subnavLabel")}</div>
                   <div className="defaults-scopes config-subsection-tabs" role="tablist" aria-label="Translation categories">
                 {subsectionGroups.map((group) => (
                   <button
@@ -417,7 +585,7 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
             {currentSection.section !== I18N_SECTION && (
               <fieldset className="config-page">
                 <legend>
-                  {currentSection.section}
+                  {sectionDisplay(currentSection.section)}
                   {dirtyCount > 0 ? ` (${dirtyCount} unsaved)` : ""}
                 </legend>
                 {visibleFields.map((field) => (
@@ -432,6 +600,15 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
                     }}
                   />
                 ))}
+                {visibleFields.some((field) => field.path === "contact.platforms") && (
+                  <ContactPlatformsQrSection
+                    platforms={contactPlatforms}
+                    onPlatformsChange={setContactPlatforms}
+                    sectionBusy={busy}
+                    qrBusy={qrBusy}
+                    onQrBusyChange={setQrBusy}
+                  />
+                )}
               </fieldset>
             )}
 
@@ -442,12 +619,10 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
                   {currentSubsection !== null ? ` / ${currentSubsection.subsection}` : ""}
                   {dirtyCount > 0 ? ` (${dirtyCount} unsaved)` : ""}
                 </legend>
-                <p className="field-hint config-translation-copy">
-                  Each row is one key; each column is one locale. Save only touches the entries in this translation page.
-                </p>
+                <p className="field-hint config-translation-copy">{t("configPane.translationMatrixCopy")}</p>
                 <div className="translation-matrix">
                   <div className="translation-matrix-header">
-                    <div className="translation-matrix-key">Key</div>
+                    <div className="translation-matrix-key">{t("configPane.translationMatrixKey")}</div>
                     {translationMatrix.locales.map((locale) => (
                       <div key={locale} className="translation-matrix-locale">
                         {locale}
@@ -480,11 +655,11 @@ export function ConfigPane({ onClose }: { onClose: () => void }) {
             )}
 
             <div className="dialog-actions">
-              <Button variant="primary" disabled={busy || dirtyCount === 0} onClick={() => void saveVisibleSection()}>
-                {busy ? "Saving…" : "Save section"}
+              <Button variant="primary" disabled={busy || qrBusy || dirtyCount === 0} onClick={() => void saveVisibleSection()}>
+                {busy ? t("configPane.saving") : t("configPane.saveSection")}
               </Button>
               <Button variant="ghost" onClick={onClose}>
-                Close
+                {t("configPane.close")}
               </Button>
             </div>
           </>

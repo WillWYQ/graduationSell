@@ -453,6 +453,8 @@ Schema（`lib/content/schema.ts`）定义了 **36 个顶层字段**；若计入�
 
 ## 6. 可选分类元数据 — `_category.json`
 
+> Seller Studio 的"分类管理"面板可以读写此文件 —— 见 §22。
+
 ```jsonc
 {
   "display_name": "家居与厨房",
@@ -537,6 +539,8 @@ contact: {
 | 其他所有平台 | 不预填（平台不支持深链接预填） |
 
 预填在 `PlatformButton` 调用点应用（当提供了 `item` 和 `resolvedPrice` 时）。物品详情页的 `ContactSection` 总是同时传入两者——它独立调用 `useGeolocation()` + `useDistancePricing()` 解析价格（浏览器通过 `maximumAge: 300_000` 立即返回缓存位置，因此不会有第二次权限弹窗）。Footer 的 `ContactSection` 不接收物品上下文，从不预填。
+
+> Seller Studio 可以上传/替换/删除这些 PNG —— 见 §22。
 
 ---
 
@@ -2044,8 +2048,8 @@ shipping?: {
 一个**仅本地**的浏览器 GUI，无需编辑 JSON 即可管理 `content/`。运行 `pnpm studio`
 （可选 `--port <n>`，默认 `5174`）。
 - 仅绑定 **127.0.0.1** —— 绝不暴露到网络。
-- 只编辑 `content/items/**` 与 `lib/generated/image-manifest.json`。它从不读取、写入或
-  渲染私有的 `reserved_for` 字段（Iron Rule 1 与 4）。
+- 只编辑 `content/items/**`、`content/contact/*.png` 与 `lib/generated/image-manifest.json`。
+  它从不读取、写入或渲染私有的 `reserved_for` 字段（Iron Rule 1 与 4）。
 - 物品编辑使用保留注释的 JSONC 写入（`scripts/lib/itemEdit.ts`），因此卖家的格式与
   `// options:` 注释得以保留；严格字段语法由 `scripts/lib/itemFields.ts` 强制执行。
 - 其 git **发布**只暂存 `content/` + `lib/generated/image-manifest.json`（与 `pnpm push`
@@ -2057,6 +2061,106 @@ shipping?: {
   "模板 ← 全站 ← 分类" 叠加，最后强制重新写入 `name`/`listed_date`/`status`。
   `pnpm create-item` 走同一套合并逻辑（`scripts/lib/itemDefaults.ts`）；
   `reserved_for` 和逐 item 字段会被拒绝写入。
+- 价格档位同样可以设为默认值：Defaults 面板带有 **Price tiers** 区块（一个启用复选框加上与
+  物品编辑表单相同的档位编辑器）。保存的档位写入该作用域 `_defaults.json` 的 `price.tiers`，
+  建 item 时整体替换模板中的档位——完整层级为 `siteConfig.content.defaultPriceTiers`
+  （或内置的三档模板）← 站点级默认值 ← 分类级默认值。
+- 批量操作 **Apply default tiers**（选择工具栏，`POST /api/items/bulk-apply-tiers`）会把每个
+  选中物品的 `price.tiers` 覆写为该物品所属分类合并后的默认值。无默认档位、或档位已一致的
+  物品会被跳过并提示；失败按物品报告、不会中断整批；只写入 `price.tiers`。
+
+### 分类元数据、分类创建与联系方式二维码图片
+- **`GET /api/categories`** 返回 `CategorySummary[]`（`slug`、`displayName`、`description`、
+  `icon`、`sortOrder`、`itemCount`）—— `content/items/` 下每个通过 kebab-case slug 白名单的
+  文件夹都会列出，不论是否已有商品。`itemCount` 由一次直接的、按 `projectRoot` 限定的目录读取
+  计算（`countCategoryItems`），刻意不复用 `loadAllItemsRaw()`（该函数从 `process.cwd()`
+  而非请求的 `projectRoot` 解析 `content/`）。
+- **`PUT /api/categories/:slug`** 用 `{ display_name?, description?, icon?, sort_order? }`
+  写入 `content/items/<slug>/_category.json`。写入是稀疏的，与 `_defaults.json` 相同惯例：
+  字段值等于 `categoryJsonSchema` 的默认值（`""` / `null`）时省略；全部为默认值时保存会删除
+  该文件而不是写入 `{}`。分类文件夹不存在时返回 `404`。
+- **`POST /api/categories`** 携带 `{ slug, meta? }` 创建新分类文件夹（原子操作，通过非递归
+  `mkdir` 在目录已存在时抛出 `EEXIST` —— 这是目录版本的 `handleItemCreate` 用 `wx` 标志写
+  item.json 的等价手法），并且只有在提供了 `meta` 时才写入与单独 `PUT` 相同的稀疏
+  `_category.json`。文件夹已存在时返回 `409`。界面上体现为"新建物品"对话框里的一个模式切换
+  （"物品" / "分类"）；分类模式的 slug 输入复用与物品名称相同的客户端 kebab-case 校验，
+  一个"添加详情"展开项打开与分类管理面板相同的元数据表单。
+- 分类管理面板（顶栏按钮）列出 `GET /api/categories` 返回的全部分类，逐个独立编辑——
+  一行、一次保存、一次 PUT——而不是单次批量保存，与 `handleBulkStatus` 对物品已有的
+  逐项隔离原则一致。
+- **联系方式二维码图片**（`content/contact/*.png`，由 `contact.platforms[].qr_image`
+  引用 —— 见 §7）：`POST /api/contact/images` 携带 `{ filename, contentBase64 }`，直接复用
+  商品照片管线中未经修改的 `sanitizeUploadFilename` / `sniffImageType` / `writeImage`
+  （三者本就接受一个普通的 `dir` 参数），仅额外加上一道仅限 PNG 的文件名校验——扩展名**与**
+  魔数都必须是 PNG。返回 `{ file, path }`，其中 `path`（`/contact/<file>`）就是应存入
+  `qr_image` 的值。`GET /api/contact/images/:file` 会把文件流式返回，供配置面板的实时预览
+  缩略图使用——之所以需要这个接口，是因为工作台自身的开发服务器并不会把 `content/contact/`
+  当作 `/contact/*` 提供服务；只有站点独立的构建期复制步骤（`scripts/sync-images.ts` 的
+  `copyContactFiles`，与 CDN 同步路径无关）才会这样做。`DELETE /api/contact/images/:file`
+  删除文件（不存在时返回 `404`）。这些上传从不进入 CDN/R2 同步路径或
+  `lib/generated/image-manifest.json`——该清单只服务于 `content/items/` 下的照片。
+- **为什么 `contact.platforms[].qr_image` 不是一个普通的 Config 字段。** `content/config.ts`
+  的通用字段模型（`scripts/lib/configEdit.ts` 的 `readConfig`）刻意不遍历数组字面量——其
+  自身注释写道：数组元素的增删“是一个比这个模块所保证的单值替换风险大得多的操作”——因此
+  `contact.platforms`（一个数组）在那里始终呈现为一个不透明的 `"unsupported"` 字段，永远不会
+  产生 `contact.platforms.0.qr_image` 这样的逐元素路径。新增模块 `scripts/lib/contactPlatforms.ts`
+  在不触碰 `configEdit.ts` 数组回避原则的前提下，专门填补这一个缺口：`readContactPlatforms(source)`
+  直接解析 `contact.platforms`，得到 `{ index, type, value?, label?, qrImage? }[]`；
+  `writeContactPlatformQrImage(source, index, path)` 要么原地替换已存在的 `qr_image` 字符串字面量
+  （与 `writeConfigValue` 对其他字段的替换保证完全相同），要么在已存在的元素上插入 `qr_image`
+  （以及缺失时的 `label`）这两个新属性——它从不新增、删除或重排数组*元素*本身，而这正是
+  `configEdit.ts` 特别指出的高风险操作。`PUT /api/contact-platforms/:index` 携带
+  `{ qr_image }` 驱动这一写入，其类型检查关卡（写入前跑一次 `tsc --noEmit`）与标量字段的
+  `/api/config` PUT 完全相同（两条路由现在共用同一个 `writeConfigSourceWithTypeCheckGate`
+  辅助函数抽取出来）——这里的写入同样遵循“会破坏构建的写入会被丢弃”的原则。`GET /api/config`
+  的响应体在 `fields` 之外新增了 `contactPlatforms` 字段，供面板逐平台渲染。
+- 配置面板的 Contact 分区在只读的 `contact.platforms` 字段下方渲染一个**联系方式二维码**区块：
+  每个平台一行，已设置 `qr_image` 的平台带实时预览，并配有一个文件选择器。上传会立即保存——
+  与面板里其他所有 Config 字段不同，那些字段会先暂存草稿，直到点击“保存分区”——因为把数组元素
+  编辑与待保存的标量字段写入放在同一批次里，会需要在同一个类型检查关卡下调和两种截然不同的
+  待处理改动。新文件在 `config.ts` 中被确认保存*之后*，旧文件（如果有）才会被删除；上传失败时
+  会删除刚写入的新文件，而不是留下孤儿文件。彻底移除某个平台的二维码（同时删除文件和
+  `qr_image`/`label` 属性）刻意排除在范围之外——卖家仍可以像编辑其他数组内容一样手动完成。
+- 以上功能都没有引入任何新的 `content/config.ts` 字段（Iron Rule 8 的检查清单未被触发）——
+  `Platform.qr_image` 早已是可选字段，分类元数据是基于文件而非基于配置的，因此
+  `scripts/lib/configDefaults.ts` 无需登记任何新条目。
+
+### Seller Studio i18n —— 界面跟随语言切换器
+工作台的界面元素（按钮、标签、页签、状态、筛选栏、编辑表单、配置面板、就绪清单等）
+与顶栏语言切换器使用同一个 `displayLocale` —— 一次切换同时驱动商品内容语言与界面语言。
+- **混合词典：** 模板在 `studio/src/i18n/` 内置词典（`strings.en.ts` 是完整的权威来源，
+  涵盖工作台可能渲染的全部文案；`strings.zh.ts` 是内置中文覆盖，缺失的键回退英文）。
+  卖家可选通过 `content/config.ts` 的 `siteConfig.studio.translations`（一个
+  `语言 → 键 → 文案` 的映射）按语言覆盖个别键。该字段为 TypeScript 可选、读取时用
+  `?? {}`（Iron Rule 8）；作为纯覆盖项，它有意不出现在上游 `content/config.ts` 中，
+  也不登记进 `scripts/lib/configDefaults.ts`。
+- **语言来源：** 切换器提供站点自身的 `siteConfig.i18n.availableLocales`，仅在配置了
+  多种语言时渲染。卖家覆盖随 `GET /api/items` 响应体（`studioTranslations`）下发到客户端。
+- **Context provider + hook：** `StudioI18nProvider`（React Context）以当前语言与覆盖项
+  包裹整个应用；每个面板调用 `useStudioT()` → `{ t, locale }`。`t(key, params?)` 以 EN
+  词典定类型（`StudioKey = keyof typeof EN`），键名写错会在编译期报错。
+- **合并顺序**（优先级从高到低）：当前语言的卖家覆盖 → 当前语言的内置词典 → 内置英文，
+  由 `resolveStudioStrings()` 在每次切换语言时解析一次。
+- **键名命名空间：** 扁平的点分隔键，按组件分组 —— `app.*`、`header.*`、`sync.*`、
+  `gettingStarted.*`、`filter.status.*` / `filter.*`、`bulk.*`、`publish.*`、`itemList.*`、
+  `newItem.*`、`drawer.*`、`editForm.*`、`field.*` / `fieldGroup.*` / `fieldValue.*` /
+  `editFormProblem.*`、`configPane.*`、`defaults.*`、`imagePane.*`、`tierEditor.*`、
+  `statusBadge.*`、`emptyState.*`、`readiness.*`、`localeSwitcher.*`、`themeToggle.*`、
+  `common.*`。
+- **带参数字符串：** 动态值使用 `{param}` 插值（如 `"{count} selected"`）。英文复数通过
+  `{plural}` 词元实现：计数 ≠ 1 时展开为 `"s"`，等于 1 时为空串；其他语言整体覆盖模板
+  字符串（忽略 `{plural}`），语法不受限制。
+- **就绪清单本地化：** `/api/readiness` 返回的每个 `ReadinessItem`
+  （`scripts/lib/siteReadiness.ts`，与 `pnpm doctor` 共用）保留英文 `title`/`detail`
+  表述作为回退，并额外携带可选的结构化 `params` 字段（`{ variant, …values }`）。
+  客户端按 `readiness.<id>.<variant>` 取词典中的模板并插入 `params`；当前语言没有对应
+  键时回退英文 `detail`。该改动是纯增量的 —— `pnpm doctor` 直接读 `title`/`detail`，
+  不受影响。
+- 底层 `StudioError` 消息与自动解析的配置字段说明按设计保持英文。
+
+#### 目录 PDF 导出
+
+顶部的 **导出 PDF** 按钮会打开一个对话框，生成一份合并的 PDF 目录，涵盖所有公开可见的商品（`available`/`pending`/`reserved`；不含 `sold`/`draft`）：封面页、按分类分组的可点击目录、每个分类的分隔页，以及每件商品单独一页（含已解析价格、照片、规格，以及指向该商品在线页面的链接）。通过 Headless Chromium（Playwright）基于独立的打印模板渲染，无需运行 `next dev` 服务器。目录中的条目是可点击的 PDF 内部跳转链接，条目旁不会显示具体页码（Chromium 的打印为 PDF 功能不支持 CSS 的 `target-counter()`），但每页页脚都会显示真实的"第 N 页，共 M 页"。首次使用需要执行一次 `npx playwright install chromium`。
 
 ### Facebook Marketplace 导出（`pnpm fb-export`，第 17 阶段）
 交互式 CLI，将 available/pending/reserved 物品导出为 Facebook Marketplace 批量上传 CSV

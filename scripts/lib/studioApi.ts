@@ -33,6 +33,7 @@ import {
   writeConfigValue,
   type ConfigField,
 } from "./configEdit";
+import { readContactPlatforms, writeContactPlatformQrImage } from "./contactPlatforms";
 import {
   DEFAULTS_FILENAME,
   loadMergedDefaults,
@@ -40,6 +41,7 @@ import {
   readDefaultsFile,
   validateDefaults,
 } from "./itemDefaults";
+import { generateCatalogPdf } from "./pdfCatalog/generate";
 import { buildReadinessReport } from "./siteReadiness";
 // assertEditableValue, directly: handleItemPatch needs to validate a
 // COMPOSED tier object (built up from several leaf edits in the same batch)
@@ -62,6 +64,18 @@ import {
   writeImage,
   type ImageEntry,
 } from "./studioImages";
+import {
+  countCategoryItems,
+  listCategorySlugs,
+  readCategoryMeta,
+  writeCategoryMeta,
+  type CategoryMetaInput,
+} from "./studioCategories";
+import {
+  deleteContactImage,
+  isValidContactImageFilename,
+  resolveContactDir,
+} from "./studioContact";
 
 export type { ImageEntry };
 
@@ -139,6 +153,22 @@ export function resolveItemDir(projectRoot: string, category: string, name: stri
 
   const itemsRoot = path.join(projectRoot, "content", "items");
   const dir = path.resolve(itemsRoot, category, name);
+  const rel = path.relative(itemsRoot, dir);
+  if (rel.startsWith("..") || path.isAbsolute(rel)) {
+    throw new StudioError(400, "resolved path escapes content/items");
+  }
+  return dir;
+}
+
+function resolveCategoryDir(projectRoot: string, slug: string): string {
+  if (!isValidSlug(slug)) {
+    throw new StudioError(
+      400,
+      `category must be kebab-case (lowercase letters, digits, hyphens): got "${slug}"`,
+    );
+  }
+  const itemsRoot = path.join(projectRoot, "content", "items");
+  const dir = path.resolve(itemsRoot, slug);
   const rel = path.relative(itemsRoot, dir);
   if (rel.startsWith("..") || path.isAbsolute(rel)) {
     throw new StudioError(400, "resolved path escapes content/items");
@@ -225,6 +255,157 @@ export async function listStudioItems(projectRoot: string): Promise<StudioItem[]
   );
 }
 
+export type CategorySummary = {
+  slug: string;
+  displayName: string;
+  description: string;
+  icon: string;
+  sortOrder: number | null;
+  itemCount: number;
+};
+
+async function listCategorySummaries(projectRoot: string): Promise<CategorySummary[]> {
+  const itemsRoot = path.join(projectRoot, "content", "items");
+  const slugs = await listCategorySlugs(itemsRoot);
+
+  // Deliberately NOT loadAllItemsRaw(): that function resolves content/ from
+  // process.cwd(), not from projectRoot (see listStudioItems's own comment
+  // above), which would silently ignore a sandboxed projectRoot in tests.
+  // countCategoryItems reads the given directory directly instead.
+  return Promise.all(
+    slugs.map(async (slug) => {
+      const dir = path.join(itemsRoot, slug);
+      const [meta, itemCount] = await Promise.all([readCategoryMeta(dir), countCategoryItems(dir)]);
+      return {
+        slug,
+        displayName: meta.display_name,
+        description: meta.description,
+        icon: meta.icon,
+        sortOrder: meta.sort_order,
+        itemCount,
+      } satisfies CategorySummary;
+    }),
+  );
+}
+
+const categoryMetaInputSchema = z.object({
+  display_name: z.string().optional(),
+  description: z.string().optional(),
+  icon: z.string().optional(),
+  // .min(0): categoryJsonSchema's nullableNumber (lib/content/schema.ts) silently
+  // reads any negative sort_order back as null, so a negative value here would
+  // write successfully and then vanish on the very next read. Rejecting it at
+  // the door is clearer than a value that appears to save and then disappears.
+  sort_order: z.number().int().min(0).nullable().optional(),
+});
+
+const createCategoryBodySchema = z.object({
+  slug: z.string().min(1),
+  meta: categoryMetaInputSchema.optional(),
+});
+
+async function handleCategoryCreate(req: StudioRequest): Promise<StudioResponse> {
+  const { slug, meta } = parseJsonBody(req.body, createCategoryBodySchema);
+  const dir = resolveCategoryDir(req.projectRoot, slug);
+
+  await fsPromises.mkdir(path.dirname(dir), { recursive: true });
+  try {
+    // Non-recursive mkdir fails with EEXIST if the category already exists,
+    // making the existence check and the creation one atomic step — the
+    // same reason handleItemCreate writes item.json with the "wx" flag.
+    await fsPromises.mkdir(dir);
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException).code === "EEXIST") {
+      throw new StudioError(409, `category "${slug}" already exists`);
+    }
+    throw err;
+  }
+
+  if (meta !== undefined) {
+    await writeCategoryMeta(dir, meta as CategoryMetaInput);
+  }
+
+  return { status: 201, body: { slug } };
+}
+
+async function handleCategoryMetaPut(req: StudioRequest, slug: string): Promise<StudioResponse> {
+  const meta = parseJsonBody(req.body, categoryMetaInputSchema);
+  const dir = resolveCategoryDir(req.projectRoot, slug);
+
+  try {
+    await fsPromises.access(dir);
+  } catch {
+    throw new StudioError(404, `category "${slug}" does not exist`);
+  }
+
+  await writeCategoryMeta(dir, meta as CategoryMetaInput);
+  const updated = await readCategoryMeta(dir);
+  return {
+    status: 200,
+    body: {
+      slug,
+      displayName: updated.display_name,
+      description: updated.description,
+      icon: updated.icon,
+      sortOrder: updated.sort_order,
+    },
+  };
+}
+
+const contactUploadBodySchema = z.object({
+  filename: z.string().min(1),
+  contentBase64: z.string().min(1),
+});
+
+async function handleContactImageUpload(req: StudioRequest): Promise<StudioResponse> {
+  const { filename, contentBase64 } = parseJsonBody(req.body, contactUploadBodySchema);
+  const sanitized = sanitizeUploadFilename(filename);
+  if (!isValidContactImageFilename(sanitized)) {
+    throw new StudioError(400, `"${filename}" must be a .png file`);
+  }
+
+  const bytes = Buffer.from(contentBase64, "base64");
+  if (bytes.length === 0) throw new StudioError(400, "uploaded file is empty");
+
+  // The extension is whatever the browser sent; the header bytes are what
+  // decide, exactly like item photo uploads.
+  if (sniffImageType(bytes) !== "png") {
+    throw new StudioError(400, `"${filename}" is not a valid PNG`);
+  }
+
+  const dir = resolveContactDir(req.projectRoot);
+  const written = await writeImage(dir, sanitized, bytes);
+  return { status: 201, body: { file: written, path: `/contact/${written}` } };
+}
+
+async function handleContactImageGet(req: StudioRequest, filename: string): Promise<StudioResponse> {
+  if (!isValidContactImageFilename(filename)) {
+    throw new StudioError(400, `not a contact image filename: "${filename}"`);
+  }
+  const dir = resolveContactDir(req.projectRoot);
+  const filePath = path.join(dir, filename);
+  const rel = path.relative(dir, filePath);
+  if (rel !== filename || rel.startsWith("..") || path.isAbsolute(rel)) {
+    throw new StudioError(400, "resolved path escapes content/contact");
+  }
+  try {
+    await fsPromises.access(filePath);
+  } catch {
+    throw new StudioError(404, `no such contact image: ${filename}`);
+  }
+  return { status: 200, file: filePath, contentType: contentTypeFor(filename) };
+}
+
+async function handleContactImageDelete(req: StudioRequest, filename: string): Promise<StudioResponse> {
+  if (!isValidContactImageFilename(filename)) {
+    throw new StudioError(400, `not a contact image filename: "${filename}"`);
+  }
+  const dir = resolveContactDir(req.projectRoot);
+  const deleted = await deleteContactImage(dir, filename);
+  if (!deleted) throw new StudioError(404, `${filename} not found in content/contact`);
+  return { status: 200, body: { ok: true } };
+}
+
 // Input validation deliberately does NOT reuse itemJsonSchema's field schemas:
 // several of them carry .catch(...) (see lib/content/schema.ts:126-131), so
 // safeParse("liquidated") would *succeed* and silently yield "available". An
@@ -308,6 +489,99 @@ async function handleBulkStatus(req: StudioRequest): Promise<StudioResponse> {
       // item as updated tells the seller their sale date was re-stamped when
       // the whole point of the guard is that it was not.
       const outcome = await applyStatus(req.projectRoot, id, status, today);
+      if (outcome === "skipped") result.skipped++;
+      else result.ok++;
+    } catch (err: unknown) {
+      result.failed.push({
+        id,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+
+  return { status: 200, body: result };
+}
+
+// ── Bulk apply default tiers ─────────────────────────────────────────────────
+// Writes each selected item's price.tiers from its OWN category's merged
+// defaults (site ← category) — the same tiers a new item of that category
+// would receive. Items with no default tiers, or tiers already matching, are
+// skipped; failures are per-item and never abort the batch (same philosophy
+// as handleBulkStatus).
+
+const bulkApplyTiersBodySchema = z.object({
+  ids: z.array(z.string()).min(1),
+});
+
+export type BulkTiersResult = {
+  ok: number;
+  /** No default tiers for this item's merged scope, or tiers already match. */
+  skipped: number;
+  failed: Array<{ id: string; error: string }>;
+};
+
+// Tiers compare equal when their four fields match, whatever key order the
+// on-disk JSON uses. Missing optional bounds read as null on both sides.
+function canonicalTier(tier: Record<string, unknown>): string {
+  return JSON.stringify([
+    tier.label ?? "",
+    tier.miles_min ?? null,
+    tier.miles_max ?? null,
+    tier.amount ?? 0,
+  ]);
+}
+
+function sameTiers(current: unknown, next: unknown[]): boolean {
+  if (!Array.isArray(current) || current.length !== next.length) return false;
+  return current.every((tier, i) => {
+    const other = next[i];
+    return (
+      isPlainRecord(tier) &&
+      isPlainRecord(other) &&
+      canonicalTier(tier) === canonicalTier(other)
+    );
+  });
+}
+
+async function applyDefaultTiersToItem(
+  projectRoot: string,
+  id: string,
+  itemsRoot: string,
+): Promise<"written" | "skipped"> {
+  const slashIdx = id.indexOf("/");
+  if (slashIdx === -1) {
+    throw new StudioError(400, `id must be "<category>/<item>": got "${id}"`);
+  }
+  const category = id.slice(0, slashIdx);
+  const dir = resolveItemDir(projectRoot, category, id.slice(slashIdx + 1));
+  const jsonPath = path.join(dir, "item.json");
+  const text = await fsPromises.readFile(jsonPath, "utf-8");
+
+  // loadMergedDefaults validates both _defaults.json layers as it reads; a
+  // hand-broken file surfaces here as a per-item failure naming the file.
+  const merged = await loadMergedDefaults(itemsRoot, category);
+  const price = merged["price"];
+  const tiers = isPlainRecord(price) ? price["tiers"] : undefined;
+  if (!Array.isArray(tiers) || tiers.length === 0) return "skipped";
+
+  const currentPrice = readItemField(text, "price") as { tiers?: unknown } | undefined;
+  if (sameTiers(currentPrice?.tiers, tiers)) return "skipped";
+
+  // The edit form's own write path: field allowlist + strict tier schema are
+  // re-checked here, and a rejected edit leaves the file untouched.
+  const next = applyFieldEdits(text, [{ path: ["price", "tiers"], value: tiers }]);
+  await fsPromises.writeFile(jsonPath, next, "utf-8");
+  return "written";
+}
+
+async function handleBulkApplyTiers(req: StudioRequest): Promise<StudioResponse> {
+  const { ids } = parseJsonBody(req.body, bulkApplyTiersBodySchema);
+  const itemsRoot = path.join(req.projectRoot, "content", "items");
+  const result: BulkTiersResult = { ok: 0, skipped: 0, failed: [] };
+
+  for (const id of ids) {
+    try {
+      const outcome = await applyDefaultTiersToItem(req.projectRoot, id, itemsRoot);
       if (outcome === "skipped") result.skipped++;
       else result.ok++;
     } catch (err: unknown) {
@@ -492,6 +766,9 @@ function handleSyncImages(): StudioResponse {
 // /api/items/<category>/<item> — the bare item, no trailing segment. Anchored
 // on $ so it can never swallow the /images routes above it.
 const ITEM_ROUTE_RE = /^\/api\/items\/([^/]+)\/([^/]+)$/;
+const CATEGORY_ROUTE_RE = /^\/api\/categories\/([^/]+)$/;
+const CONTACT_PLATFORM_ROUTE_RE = /^\/api\/contact-platforms\/(\d+)$/;
+const CONTACT_IMAGE_ROUTE_RE = /^\/api\/contact\/images\/([^/]+)$/;
 
 async function readItemJson(req: StudioRequest, category: string, item: string): Promise<{
   jsonPath: string;
@@ -830,13 +1107,66 @@ async function readConfigFields(projectRoot: string): Promise<{ fields: ConfigFi
 }
 
 async function handleConfigGet(req: StudioRequest): Promise<StudioResponse> {
-  const { fields } = await readConfigFields(req.projectRoot);
-  return { status: 200, body: { fields } };
+  const { fields, source } = await readConfigFields(req.projectRoot);
+  return { status: 200, body: { fields, contactPlatforms: readContactPlatforms(source) } };
+}
+
+/** Writes `next` over content/config.ts, gated by a full `tsc --noEmit` check
+ * of the project with the candidate file in place. On failure the original
+ * file is restored byte-for-byte and a StudioError carrying tsc's own output
+ * is thrown; on success the temp/backup files are cleaned up. Shared by every
+ * write path that touches content/config.ts, so "a write that would break
+ * the build is discarded" holds uniformly, not just for scalar field edits. */
+async function writeConfigSourceWithTypeCheckGate(
+  req: StudioRequest,
+  next: string,
+  whatFailed: string,
+): Promise<void> {
+  const { config, tsconfig } = configPaths(req.projectRoot);
+  const tempPath = path.join(path.dirname(config), ".config.ts.tmp");
+  await fsPromises.writeFile(tempPath, next, "utf-8");
+
+  let hasTsconfig = true;
+  try {
+    await fsPromises.access(tsconfig);
+  } catch {
+    hasTsconfig = false;
+  }
+
+  if (!hasTsconfig) {
+    // No tsconfig.json (a test sandbox, or a project that does not type-check
+    // at all): skip the gate rather than fail the write. Deliberate and
+    // covered by a test — a silently absent gate would be dishonest.
+    await fsPromises.rename(tempPath, config);
+    return;
+  }
+
+  // The gate: type-check the project with the candidate config in place.
+  // Swap it in, run tsc, and put the original back if anything fails — tsc
+  // has to see the file at its real path for the check to mean anything.
+  const backup = `${config}.studio-backup`;
+  await fsPromises.rename(config, backup);
+  try {
+    await fsPromises.rename(tempPath, config);
+    await runTsc("pnpm", ["exec", "tsc", "--noEmit"], { cwd: req.projectRoot });
+    await fsPromises.rm(backup, { force: true });
+  } catch (err: unknown) {
+    // Restore the original and report the type errors verbatim.
+    await fsPromises.rm(config, { force: true });
+    await fsPromises.rename(backup, config);
+    await fsPromises.rm(tempPath, { force: true });
+    const detail =
+      err !== null && typeof err === "object" && "stdout" in err
+        ? String((err as { stdout: unknown }).stdout)
+        : err instanceof Error
+          ? err.message
+          : String(err);
+    throw new StudioError(400, `type-check failed, so ${whatFailed} was not saved:\n${detail}`);
+  }
 }
 
 async function handleConfigPut(req: StudioRequest): Promise<StudioResponse> {
   const { path: fieldPath, value } = parseJsonBody(req.body, configPutBodySchema);
-  const { config, tsconfig } = configPaths(req.projectRoot);
   const { fields, source } = await readConfigFields(req.projectRoot);
 
   const field = fields.find((f) => f.path === fieldPath);
@@ -852,52 +1182,40 @@ async function handleConfigPut(req: StudioRequest): Promise<StudioResponse> {
     throw new StudioError(400, err instanceof Error ? err.message : String(err));
   }
 
-  // Write to a sibling temp file and only rename it over the real config once
-  // tsc is happy. A failed gate must leave content/config.ts byte-identical,
-  // so the original is never opened for writing at all — rename is atomic on
-  // the same filesystem, so there is no window where the file is half-written.
-  const tempPath = path.join(path.dirname(config), ".config.ts.tmp");
-  await fsPromises.writeFile(tempPath, next, "utf-8");
-
-  let hasTsconfig = true;
-  try {
-    await fsPromises.access(tsconfig);
-  } catch {
-    hasTsconfig = false;
-  }
-
-  if (hasTsconfig) {
-    // The gate: type-check the project with the candidate config in place.
-    // Swap it in, run tsc, and put the original back if anything fails —
-    // tsc has to see the file at its real path for the check to mean anything.
-    const backup = `${config}.studio-backup`;
-    await fsPromises.rename(config, backup);
-    try {
-      await fsPromises.rename(tempPath, config);
-      await runTsc("pnpm", ["exec", "tsc", "--noEmit"], { cwd: req.projectRoot });
-      await fsPromises.rm(backup, { force: true });
-    } catch (err: unknown) {
-      // Restore the original and report the type errors verbatim.
-      await fsPromises.rm(config, { force: true });
-      await fsPromises.rename(backup, config);
-      await fsPromises.rm(tempPath, { force: true });
-      const detail =
-        err !== null && typeof err === "object" && "stdout" in err
-          ? String((err as { stdout: unknown }).stdout)
-          : err instanceof Error
-            ? err.message
-            : String(err);
-      throw new StudioError(400, `type-check failed, so ${fieldPath} was not saved:\n${detail}`);
-    }
-  } else {
-    // No tsconfig.json (a test sandbox, or a project that does not type-check
-    // at all): skip the gate rather than fail the write. Deliberate and
-    // covered by a test — a silently absent gate would be dishonest.
-    await fsPromises.rename(tempPath, config);
-  }
+  await writeConfigSourceWithTypeCheckGate(req, next, fieldPath);
 
   const { fields: after } = await readConfigFields(req.projectRoot);
   return { status: 200, body: { fields: after } };
+}
+
+const contactPlatformQrBodySchema = z.object({ qr_image: z.string().min(1) });
+
+async function handleContactPlatformQrPut(req: StudioRequest, indexRaw: string): Promise<StudioResponse> {
+  const index = Number(indexRaw);
+  if (!Number.isInteger(index) || index < 0) {
+    throw new StudioError(400, `invalid contact platform index: "${indexRaw}"`);
+  }
+  const { qr_image } = parseJsonBody(req.body, contactPlatformQrBodySchema);
+  const { config } = configPaths(req.projectRoot);
+
+  let source: string;
+  try {
+    source = await fsPromises.readFile(config, "utf-8");
+  } catch (err: unknown) {
+    throw new StudioError(400, `cannot read ${config}: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
+  let next: string;
+  try {
+    next = writeContactPlatformQrImage(source, index, qr_image);
+  } catch (err: unknown) {
+    throw new StudioError(400, err instanceof Error ? err.message : String(err));
+  }
+
+  await writeConfigSourceWithTypeCheckGate(req, next, `contact.platforms[${index}].qr_image`);
+
+  const after = await fsPromises.readFile(config, "utf-8");
+  return { status: 200, body: { contactPlatforms: readContactPlatforms(after) } };
 }
 
 // ── Setup readiness ──────────────────────────────────────────────────────────
@@ -1015,6 +1333,14 @@ async function handlePublish(req: StudioRequest): Promise<StudioResponse> {
   }
 }
 
+async function handleExportPdf(): Promise<StudioResponse> {
+  const result = await generateCatalogPdf();
+  if ("error" in result) {
+    return { status: 400, body: { error: result.error } };
+  }
+  return { status: 200, file: result.file, contentType: "application/pdf" };
+}
+
 export async function handleStudioRequest(req: StudioRequest): Promise<StudioResponse> {
   const pathname = req.url.split("?")[0] ?? "";
 
@@ -1027,6 +1353,9 @@ export async function handleStudioRequest(req: StudioRequest): Promise<StudioRes
             items: await listStudioItems(req.projectRoot),
             defaultLocale: siteConfig.i18n.defaultLocale,
             availableLocales: siteConfig.i18n.availableLocales,
+            // Optional per Iron Rule 8: absent config field → empty overrides,
+            // and the studio client falls back to its built-in dictionaries.
+            studioTranslations: siteConfig.studio?.translations ?? {},
           },
         };
       }
@@ -1046,6 +1375,14 @@ export async function handleStudioRequest(req: StudioRequest): Promise<StudioRes
       return await handleBulkStatus(req);
     }
 
+    if (pathname === "/api/items/bulk-apply-tiers") {
+      if (req.method !== "POST") {
+        return { status: 405, body: { error: "POST only" } };
+      }
+      // `await`, not a bare return — same reason as bulk-status above.
+      return await handleBulkApplyTiers(req);
+    }
+
     if (pathname === "/api/defaults") {
       if (req.method === "GET") return await handleDefaultsGet(req);
       if (req.method === "PUT") return await handleDefaultsPut(req);
@@ -1056,6 +1393,42 @@ export async function handleStudioRequest(req: StudioRequest): Promise<StudioRes
       if (req.method === "GET") return await handleConfigGet(req);
       if (req.method === "PUT") return await handleConfigPut(req);
       return { status: 405, body: { error: "GET or PUT only" } };
+    }
+
+    const contactPlatformMatch = CONTACT_PLATFORM_ROUTE_RE.exec(pathname);
+    if (contactPlatformMatch !== null) {
+      const [, indexRaw] = contactPlatformMatch;
+      if (indexRaw === undefined) {
+        return { status: 400, body: { error: "malformed contact platform route" } };
+      }
+      if (req.method === "PUT") return await handleContactPlatformQrPut(req, indexRaw);
+      return { status: 405, body: { error: `method not allowed: ${req.method}` } };
+    }
+
+    if (pathname === "/api/categories") {
+      if (req.method === "GET") {
+        return { status: 200, body: { categories: await listCategorySummaries(req.projectRoot) } };
+      }
+      if (req.method === "POST") {
+        return await handleCategoryCreate(req);
+      }
+      return { status: 405, body: { error: "GET or POST only" } };
+    }
+
+    const categoryMatch = CATEGORY_ROUTE_RE.exec(pathname);
+    if (categoryMatch !== null) {
+      const [, slugRaw] = categoryMatch;
+      if (slugRaw === undefined) {
+        return { status: 400, body: { error: "malformed category route" } };
+      }
+      let slug: string;
+      try {
+        slug = decodeURIComponent(slugRaw);
+      } catch {
+        return { status: 400, body: { error: "malformed URL encoding" } };
+      }
+      if (req.method === "PUT") return await handleCategoryMetaPut(req, slug);
+      return { status: 405, body: { error: `method not allowed: ${req.method}` } };
     }
 
     if (pathname === "/api/readiness") {
@@ -1134,6 +1507,30 @@ export async function handleStudioRequest(req: StudioRequest): Promise<StudioRes
       return { status: 405, body: { error: `method not allowed: ${req.method}` } };
     }
 
+    if (pathname === "/api/contact/images") {
+      if (req.method !== "POST") {
+        return { status: 405, body: { error: "POST only" } };
+      }
+      return await handleContactImageUpload(req);
+    }
+
+    const contactImageMatch = CONTACT_IMAGE_ROUTE_RE.exec(pathname);
+    if (contactImageMatch !== null) {
+      const [, filenameRaw] = contactImageMatch;
+      if (filenameRaw === undefined) {
+        return { status: 400, body: { error: "malformed contact image route" } };
+      }
+      let filename: string;
+      try {
+        filename = decodeURIComponent(filenameRaw);
+      } catch {
+        return { status: 400, body: { error: "malformed URL encoding" } };
+      }
+      if (req.method === "GET") return await handleContactImageGet(req, filename);
+      if (req.method === "DELETE") return await handleContactImageDelete(req, filename);
+      return { status: 405, body: { error: `method not allowed: ${req.method}` } };
+    }
+
     if (pathname === "/api/sync-images") {
       if (req.method !== "POST") {
         return { status: 405, body: { error: "POST only" } };
@@ -1153,6 +1550,13 @@ export async function handleStudioRequest(req: StudioRequest): Promise<StudioRes
         return { status: 405, body: { error: "POST only" } };
       }
       return await handlePublish(req);
+    }
+
+    if (pathname === "/api/export-pdf") {
+      if (req.method !== "POST") {
+        return { status: 405, body: { error: "POST only" } };
+      }
+      return await handleExportPdf();
     }
 
     return { status: 404, body: { error: `no route for ${pathname}` } };
