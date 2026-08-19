@@ -172,6 +172,14 @@ export type UIStrings = {
   copied: string;
   linkCopied: string;
 
+  // Flyer button (components/item/FlyerButton.tsx)
+  downloadFlyer: string;
+  generatingFlyer: string;
+  flyerDownloaded: string;
+  flyerLoadError: string;
+  flyerGenerateError: string;
+  flyerUnsupported: string;
+
   // Item metadata table labels
   brand: string;
   model: string;
@@ -266,4 +274,24 @@ export type UIStrings = {
   newlyListedThisWeek: string;
   newlyListedFirstVisit: string;
   newlyListedNoneInPeriod: string;
+
+  // Catalog PDF export chrome (Seller Studio, scripts/lib/pdfCatalog/template.ts)
+  pdfTocHeading: string;
+  pdfCoverHeading: string;
+  pdfCoverMeta: string;
+  pdfGeneratedOn: string;
+  pdfViewLiveListing: string;
+  pdfFooterPage: string;
+  pdfFooterOf: string;
+  pdfAveragePriceLabel: string;
+  pdfCategoryItemCount: string;
+  condition: string;
+
+  // Catalog PDF seller-contact accessibility (scripts/lib/pdfCatalog/contactLinks.ts)
+  pdfContactHeading: string;
+  pdfContactIntro: string;
+  pdfContactScanHint: string;
+  pdfItemContactHeading: string;
+  pdfEmailAboutItem: string;
+  pdfMessageOnDiscord: string;
 };
