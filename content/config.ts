@@ -164,6 +164,26 @@ export const siteConfig: SiteConfig = {
         filterPrice: "Price",
         filterPriceBucketAll: "All prices",
         filterPriceIncludesOutliers: "+ items outside range",
+
+        // ── Catalog PDF export chrome ────────────────────────────────────────
+        pdfTocHeading: "Table of Contents",
+        pdfCoverHeading: "Full Listing Catalog",
+        pdfCoverMeta: "{itemCount} items across {categoryCount} categories",
+        pdfGeneratedOn: "Generated {date}",
+        pdfViewLiveListing: "View Live Listing",
+        pdfFooterPage: "Page",
+        pdfFooterOf: "of",
+        pdfAveragePriceLabel: "Highlighted price (average): {amount}",
+        pdfCategoryItemCount: "{count} items in this category",
+        condition: "Condition",
+
+        // ── Catalog PDF seller-contact accessibility ─────────────────────────
+        pdfContactHeading: "Contact the Seller",
+        pdfContactIntro: "Scan a code or use a link below to reach the seller.",
+        pdfContactScanHint: "Scan to connect",
+        pdfItemContactHeading: "Contact seller about this item",
+        pdfEmailAboutItem: "Email about this item",
+        pdfMessageOnDiscord: "Message on Discord",
         sortBy: "Sort by",
         sortNewestFirst: "Newest first",
         sortPriceLow: "Price: low → high",

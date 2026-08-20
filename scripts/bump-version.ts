@@ -4,21 +4,23 @@
 // Interactive CLI that bumps package.json version, commits, tags, pushes,
 // and creates a GitHub release — matching the existing v{ver} — {title} format.
 // Waits for CI to pass on the bump commit before tagging and releasing.
+//
+// Piped input (e.g. `printf '2\ntitle\n...' | pnpm bump`) is read to EOF
+// before the first prompt is answered — see scripts/lib/cliPrompt.ts for why,
+// and for the constraint that follows from it: a feeder that writes answers
+// incrementally while holding the pipe open will hang instead of being
+// answered, until it closes stdin.
 
 import fs from "fs/promises";
 import path from "path";
-import * as readline from "readline";
 import { execSync } from "child_process";
+import { createPrompt } from "./lib/cliPrompt";
 
 const PKG_PATH = path.join(process.cwd(), "package.json");
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-
-function ask(prompt: string): Promise<string> {
-  return new Promise((resolve) => rl.question(prompt, (a) => resolve(a.trim())));
-}
+const { ask, closeInput } = createPrompt();
 
 function section(title: string): void {
   const pad = Math.max(0, 46 - title.length);
@@ -159,7 +161,7 @@ async function main(): Promise<void> {
   const titleSuffix = await ask(`  Title: `);
   if (!titleSuffix) {
     console.log("\n  Title is required. Aborting.");
-    rl.close();
+    closeInput();
     return;
   }
   const fullTitle = `v${newVersion} — ${titleSuffix}`;
@@ -178,7 +180,7 @@ async function main(): Promise<void> {
   const notes = await askNotes();
   if (!notes.trim()) {
     console.log("\n  Notes are empty. Aborting.");
-    rl.close();
+    closeInput();
     return;
   }
 
@@ -193,10 +195,10 @@ async function main(): Promise<void> {
   const confirm = (await ask("\n  Proceed? [y/n]: ")).toLowerCase();
   if (confirm !== "y") {
     console.log("\n  Cancelled.\n");
-    rl.close();
+    closeInput();
     return;
   }
-  rl.close();
+  closeInput();
 
   // Check tag doesn't already exist
   if (tagExists(`v${newVersion}`)) {
@@ -254,6 +256,6 @@ async function main(): Promise<void> {
 
 main().catch((err: unknown) => {
   console.error(err);
-  rl.close();
+  closeInput();
   process.exit(1);
 });

@@ -10,9 +10,9 @@ import type {
 import type { CategoryMetaInput } from "../../scripts/lib/studioCategories";
 import type { ContactPlatformSummary } from "../../scripts/lib/contactPlatforms";
 import type { BulkStatusResult, BulkTiersResult, CategorySummary, ImageEntry, StudioItem } from "../../scripts/lib/studioApi";
-import type { PdfExportOptions } from "../../scripts/lib/pdfCatalog/generate";
+import type { PdfExportOptions, PdfExportProgress } from "../../scripts/lib/pdfCatalog/generate";
 
-export type { BulkStatusResult, BulkTiersResult, CategoryMetaInput, CategorySummary, ConfigField, ConfigFieldKind, ContactPlatformSummary, ImageEntry, PdfExportOptions, ReadinessAction, ReadinessItem, ReadinessReport, StudioItem };
+export type { BulkStatusResult, BulkTiersResult, CategoryMetaInput, CategorySummary, ConfigField, ConfigFieldKind, ContactPlatformSummary, ImageEntry, PdfExportOptions, PdfExportProgress, ReadinessAction, ReadinessItem, ReadinessReport, StudioItem };
 
 // Every response body is read defensively rather than trusting res.json() to
 // succeed: the CSRF guard and Vite itself can answer a rejected request with
@@ -403,24 +403,50 @@ export async function publish(message: string): Promise<{ commit: string; files:
   };
 }
 
-export async function exportCatalogPdf(options: PdfExportOptions): Promise<Blob> {
+export type PdfExportEvent =
+  | { event: "progress"; data: PdfExportProgress }
+  | { event: "done"; data: { token: string } }
+  | { event: "error"; data: { error: string } };
+
+/**
+ * POSTs to /api/export-pdf and yields each server-sent progress event as it
+ * arrives. The generated PDF itself never rides this stream (binary bytes
+ * can't share a frame with JSON progress events) — the final "done" event
+ * instead carries a token to redeem via downloadExportedPdf below.
+ */
+export async function* streamExportCatalogPdf(
+  options: PdfExportOptions,
+  signal?: AbortSignal,
+): AsyncGenerator<PdfExportEvent> {
   const res = await fetch("/api/export-pdf", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(options),
+    signal,
   });
   if (!res.ok) {
     const body = await readJsonBody(res);
     throw new Error(errorMessage(body, `PDF export failed with ${res.status} ${res.statusText}`));
   }
+  yield* parseSseStream<PdfExportEvent>(res);
+}
+
+/** Redeems a token from streamExportCatalogPdf's "done" event for the actual PDF bytes. */
+export async function downloadExportedPdf(token: string, signal?: AbortSignal): Promise<Blob> {
+  const res = await fetch(`/api/export-pdf/download/${encodeURIComponent(token)}`, { signal });
+  if (!res.ok) {
+    const body = await readJsonBody(res);
+    throw new Error(errorMessage(body, `PDF download failed with ${res.status} ${res.statusText}`));
+  }
   return res.blob();
 }
 
-export async function exportItemFlyerPdf(id: string): Promise<Blob> {
+export async function exportItemFlyerPdf(id: string, signal?: AbortSignal): Promise<Blob> {
   const res = await fetch("/api/export-pdf/flyer", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ id }),
+    signal,
   });
   if (!res.ok) {
     const body = await readJsonBody(res);
@@ -442,19 +468,9 @@ export type SyncEvent =
     }
   | { event: "error"; data: { error: string } };
 
-/** POSTs to /api/sync-images and yields each server-sent event as it arrives. */
-export async function* streamSync(): AsyncGenerator<SyncEvent> {
-  const res = await fetch("/api/sync-images", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: "{}",
-  });
-
-  if (!res.ok) {
-    const body = await readJsonBody(res);
-    throw new Error(errorMessage(body, `sync failed with ${res.status} ${res.statusText}`));
-  }
-  if (res.body === null) throw new Error("sync returned no stream");
+/** Parses a fetch Response's body as an SSE stream, yielding one event per frame. */
+async function* parseSseStream<T>(res: Response): AsyncGenerator<T> {
+  if (res.body === null) throw new Error("stream returned no body");
 
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
@@ -476,9 +492,24 @@ export async function* streamSync(): AsyncGenerator<SyncEvent> {
         yield {
           event: eventLine.slice(7),
           data: JSON.parse(dataLine.slice(6)),
-        } as SyncEvent;
+        } as T;
       }
       split = buffer.indexOf("\n\n");
     }
   }
+}
+
+/** POSTs to /api/sync-images and yields each server-sent event as it arrives. */
+export async function* streamSync(): AsyncGenerator<SyncEvent> {
+  const res = await fetch("/api/sync-images", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: "{}",
+  });
+
+  if (!res.ok) {
+    const body = await readJsonBody(res);
+    throw new Error(errorMessage(body, `sync failed with ${res.status} ${res.statusText}`));
+  }
+  yield* parseSseStream<SyncEvent>(res);
 }

@@ -1,7 +1,7 @@
 // studio/src/panes/ExportPdfDialog.test.tsx
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, screen } from "@testing-library/react";
+import { cleanup, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderWithStudioI18n } from "../i18n/StudioI18n";
 import { ExportPdfDialog } from "./ExportPdfDialog";
@@ -38,6 +38,13 @@ const DEFAULT_PROPS = {
   availableLocales: ["en", "zh"],
   defaultLocale: "en",
 };
+
+/** Wraps a fixed sequence of SSE-style events as the async generator streamExportCatalogPdf returns. */
+async function* fakeExportStream(events: api.PdfExportEvent[]): AsyncGenerator<api.PdfExportEvent> {
+  for (const evt of events) {
+    yield evt;
+  }
+}
 
 function renderDialog(
   items: StudioItem[],
@@ -87,7 +94,10 @@ describe("ExportPdfDialog", () => {
 
   it("sends the selected options as the request body", async () => {
     const blob = new Blob(["%PDF"], { type: "application/pdf" });
-    const spy = vi.spyOn(api, "exportCatalogPdf").mockResolvedValue(blob);
+    const streamSpy = vi
+      .spyOn(api, "streamExportCatalogPdf")
+      .mockImplementation(() => fakeExportStream([{ event: "done", data: { token: "tok-1" } }]));
+    vi.spyOn(api, "downloadExportedPdf").mockResolvedValue(blob);
     vi.stubGlobal("URL", { ...URL, createObjectURL: vi.fn(() => "blob:fake"), revokeObjectURL: vi.fn() });
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
 
@@ -97,19 +107,26 @@ describe("ExportPdfDialog", () => {
     await user.selectOptions(screen.getByLabelText("Highlighted price"), "lowest");
     await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
 
-    expect(spy).toHaveBeenCalledWith({
-      locale: "zh",
-      priceStrategy: "lowest",
-      categories: ["electronics", "books"],
-      statuses: ["available", "pending", "reserved"],
-    });
+    await screen.findByText(/Downloaded/);
+    expect(streamSpy).toHaveBeenCalledWith(
+      {
+        locale: "zh",
+        priceStrategy: "lowest",
+        categories: ["electronics", "books"],
+        statuses: ["available", "pending", "reserved"],
+      },
+      expect.any(AbortSignal),
+    );
   });
 
   it("disables the generate button while busy and re-enables after success", async () => {
     const blob = new Blob(["%PDF"], { type: "application/pdf" });
-    vi.spyOn(api, "exportCatalogPdf").mockImplementation(
-      () => new Promise((resolve) => setTimeout(() => resolve(blob), 10)),
-    );
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(async function* () {
+      yield { event: "progress", data: { stage: "loading" } };
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      yield { event: "done", data: { token: "tok-1" } };
+    });
+    vi.spyOn(api, "downloadExportedPdf").mockResolvedValue(blob);
     // jsdom has no real download machinery; createObjectURL/revokeObjectURL are stubbed
     // so the click-triggered download path does not throw. jsdom also logs a
     // "Not implemented: navigation" error when an <a> with an unrecognized
@@ -126,8 +143,150 @@ describe("ExportPdfDialog", () => {
     await screen.findByText(/Downloaded/);
   });
 
+  it("shows a progress bar with the current stage while a catalog export streams", async () => {
+    // A property on a plain object, not a bare `let`: TS's control-flow
+    // narrowing on a `let` reassigned only from inside a nested closure can
+    // collapse it to `never` at the read site below, even though the
+    // reassignment does run before that read.
+    const step: { resolve: (() => void) | null } = { resolve: null };
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(async function* () {
+      yield { event: "progress", data: { stage: "images-pass-1", completed: 3, total: 10 } };
+      await new Promise<void>((resolve) => {
+        step.resolve = resolve;
+      });
+      yield { event: "done", data: { token: "tok-1" } };
+    });
+    vi.spyOn(api, "downloadExportedPdf").mockResolvedValue(new Blob(["%PDF"], { type: "application/pdf" }));
+    vi.stubGlobal("URL", { ...URL, createObjectURL: vi.fn(() => "blob:fake"), revokeObjectURL: vi.fn() });
+    vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+
+    renderDialog([makeItem()]);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
+
+    expect(await screen.findByText(/Preparing photos \(3\/10\)/)).toBeTruthy();
+    const bar = screen.getByRole("progressbar");
+    expect(bar.getAttribute("aria-valuenow")).toBe("13"); // 5 + 25*(3/10) = 12.5, rounds to 13
+
+    step.resolve?.();
+    await screen.findByText(/Downloaded/);
+  });
+
+  it("advances the progress bar through the download step to completion", async () => {
+    const downloadStep: { resolve: ((blob: Blob) => void) | null } = { resolve: null };
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(() =>
+      fakeExportStream([
+        { event: "progress", data: { stage: "render-pass-2" } },
+        { event: "done", data: { token: "tok-1" } },
+      ]),
+    );
+    vi.spyOn(api, "downloadExportedPdf").mockImplementation(
+      () =>
+        new Promise<Blob>((resolve) => {
+          downloadStep.resolve = resolve;
+        }),
+    );
+    vi.stubGlobal("URL", { ...URL, createObjectURL: vi.fn(() => "blob:fake"), revokeObjectURL: vi.fn() });
+    vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+
+    renderDialog([makeItem()]);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
+
+    // The SSE stream's own highest stage value (render-pass-2) tops out at
+    // 80 — the download round trip that follows must not stall there.
+    const bar = await screen.findByRole("progressbar");
+    expect(bar.getAttribute("aria-valuenow")).toBe("90");
+
+    downloadStep.resolve?.(new Blob(["%PDF"], { type: "application/pdf" }));
+    await waitFor(() => {
+      expect(screen.getByRole("progressbar").getAttribute("aria-valuenow")).toBe("100");
+    });
+    await screen.findByText(/Downloaded/);
+  });
+
+  it("aborts the SSE fetch when the dialog is closed while busy (Close button)", async () => {
+    // A property on a plain object, not a bare `let` — same reason as the
+    // `step` helper above: TS's control-flow narrowing on a `let` reassigned
+    // only from inside a nested closure can collapse it to `never` at the
+    // read site below, even though the reassignment does run before that read.
+    const captured: { signal: AbortSignal | null } = { signal: null };
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(async function* (_options, signal) {
+      captured.signal = signal ?? null;
+      yield { event: "progress", data: { stage: "loading" } };
+      await new Promise(() => {}); // never resolves on its own
+    });
+    const onClose = vi.fn();
+
+    renderDialog([makeItem()], {}, onClose);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
+    await screen.findByRole("progressbar");
+
+    await user.click(screen.getByRole("button", { name: "Close" }));
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(captured.signal).not.toBeNull();
+    expect(captured.signal?.aborted).toBe(true);
+  });
+
+  it("aborts on backdrop click while busy, same as the Close button", async () => {
+    const captured: { signal: AbortSignal | null } = { signal: null };
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(async function* (_options, signal) {
+      captured.signal = signal ?? null;
+      yield { event: "progress", data: { stage: "loading" } };
+      await new Promise(() => {});
+    });
+    const onClose = vi.fn();
+
+    const { container } = renderDialog([makeItem()], {}, onClose);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
+    await screen.findByRole("progressbar");
+
+    const backdrop = container.querySelector(".dialog-backdrop");
+    expect(backdrop).not.toBeNull();
+    await user.click(backdrop as Element);
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(captured.signal?.aborted).toBe(true);
+  });
+
+  it("does not download or save a file when a done token arrives after the dialog was closed while busy", async () => {
+    const releaseStream: { resolve: (() => void) | null } = { resolve: null };
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(async function* () {
+      yield { event: "progress", data: { stage: "loading" } };
+      await new Promise<void>((resolve) => {
+        releaseStream.resolve = resolve;
+      });
+      yield { event: "done", data: { token: "tok-1" } };
+    });
+    const downloadSpy = vi.spyOn(api, "downloadExportedPdf").mockResolvedValue(
+      new Blob(["%PDF"], { type: "application/pdf" }),
+    );
+    const onClose = vi.fn();
+
+    renderDialog([makeItem()], {}, onClose);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
+    await screen.findByRole("progressbar");
+
+    await user.click(screen.getByRole("button", { name: "Close" }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+
+    // The export only "finishes" (its done token arrives) after the seller
+    // already closed the dialog — that must not lead to a download or a
+    // silently saved file.
+    releaseStream.resolve?.();
+    await new Promise((resolve) => setTimeout(resolve, 20));
+
+    expect(downloadSpy).not.toHaveBeenCalled();
+  });
+
   it("shows the server's error message on failure", async () => {
-    vi.spyOn(api, "exportCatalogPdf").mockRejectedValue(new Error("No items match the selected filters."));
+    vi.spyOn(api, "streamExportCatalogPdf").mockImplementation(() =>
+      fakeExportStream([{ event: "error", data: { error: "No items match the selected filters." } }]),
+    );
     renderDialog([makeItem()]);
     const user = userEvent.setup();
     await user.click(screen.getByRole("button", { name: /Generate & Download/ }));
