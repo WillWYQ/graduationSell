@@ -1,0 +1,49 @@
+{
+  "name": "B&O PLAY Bang & Olufsen Beoplay A1 Portable Bluetooth Speaker",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 100 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 110 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 120 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 105 }
+    ],
+    "negotiable": true
+  },
+  "description": "Genuine Bang & Olufsen Beoplay A1 (1st generation) portable Bluetooth speaker. The A1 packs 360° immersive sound into a compact aluminum-and-polymer shell — a deep, room-filling soundstage that belies its size, with thanks to its aluminum dome driver and 2x30W peak power. Around 24 hours of battery life, dual voice microphones for clear calls, and instant Bluetooth pairing with your phone or tablet, all charging over USB-C. Fully functional and in very good condition with only minor cosmetic surface marks from everyday use. Transparently from a pet-friendly home (a cat lives here), but it has been wiped clean. It does NOT come with an additional storage pouch — please bring your own small bag for pickup.",
+  "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Bang & Olufsen",
+  "model": "Beoplay A1",
+  "age_years": null,
+  "color": "Silver",
+  "quantity": 1,
+  "original_source": "Bang & Olufsen",
+  "original_link": "https://www.bang-olufsen.com/en/us/speakers/beosound-a1",
+  "original_price": 249.0,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Instant Bluetooth pairing; charges over USB-C. Does NOT come with an additional storage pouch — please bring your own small bag for pickup. Pet-friendly home; the speaker has been wiped clean.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 75,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Beoplay A1",
+    "B&O portable speaker",
+    "bluetooth speaker",
+    "360 degree sound",
+    "Bang Olufsen A1",
+    "travel speaker"
+  ],
+  "category_override": "",
+  "meta_description": "B&O Beoplay A1 portable Bluetooth speaker in good used condition. 360° sound, ~24h battery, USB-C charging, fully functional and sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "B&O（Bang & Olufsen）Beoplay A1 便携蓝牙音箱",
+  "description_zh": "转让正品 Bang & Olufsen（B&O）Beoplay A1（第一代）便携蓝牙音箱。A1 身材小巧却拥有 360° 环绕声场，铝合金与聚合物外壳做工精致，配合铝制穹顶单元与峰值 60W 功率，声音饱满有力、远超体积表现。续航约 24 小时，支持双麦通话，蓝牙连接手机/平板非常方便，USB-C 充电，功能完好。外观有轻微日常使用痕迹，成色很好。卖家家庭养猫，音箱已擦拭清洁，请知悉。不附带额外收纳袋，自提请自备小包装走。"
+}

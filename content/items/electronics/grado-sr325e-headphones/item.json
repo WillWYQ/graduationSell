@@ -1,0 +1,49 @@
+{
+  "name": "Grado SR325e Prestige Series Open-Back Wired Headphones",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 200 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 210 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 220 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 205 }
+    ],
+    "negotiable": true
+  },
+  "description": "Grado Prestige Series SR325e open-back wired headphones — the classic hand-built, open-air sound out of Brooklyn, USA. The SR325e pairs Grado's iconic open-back design with a precision aluminum housing, delivering fast, forward, detailed sound with a punchy low end that's unmistakably Grado. Truly part of the Prestige line: dynamic and lively, great for rock, acoustic, and vocal-forward listening. Fully functional with both the 1/4-inch and 3.5mm cables, in good used condition — functional and working great with normal signs of use. Open-box design means they leak a little sound in quiet rooms, as open-back headphones do. Previously from a pet-friendly home (a cat lives here), but thoroughly vacuumed and wiped clean before listing. Does NOT come with an additional storage bag — please bring your own pouch for pickup.",
+  "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Grado",
+  "model": "SR325e",
+  "age_years": null,
+  "color": "Black / Silver",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "",
+  "original_price": 295.0,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Great-sounding hand-built open-back cans — includes both the 1/4\" and 3.5mm cables. Open-back by design, so some sound leaks in quiet rooms. Does NOT come with an extra storage bag; please bring your own pouch for pickup. Pet-friendly home; vacuumed and wiped clean.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 150,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Grado SR325e",
+    "Grado Prestige",
+    "open-back headphones",
+    "wired audiophile headphones",
+    "made in Brooklyn",
+    "Grado hifi"
+  ],
+  "category_override": "",
+  "meta_description": "Grado SR325e Prestige Series open-back wired headphones in good condition. Hand-built aluminum housing, includes both cables, lively audiophile sound.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "歌德（Grado）SR325e Prestige 系列开放式有线耳机",
+  "description_zh": "转让歌德（Grado）Prestige 系列 SR325e 开放式有线耳机——美国布鲁克林手工打造的开阔开放式声音。SR325e 采用经典的开放式设计与精密铝合金壳体，声音快速、靠前、细节丰富，低频有冲击力，典型的歌德风：动态充沛、充满活力，非常适合摇滚、民谣与偏人声聆听。配件齐全（1/4 英寸与 3.5mm 耳机线各一），功能完好，成色 good，有正常使用痕迹。开放式设计在安静房间里会略微漏音，属正常特性。此前来自养猫的家庭，发布前已彻底吸尘清洁。不附带额外收纳袋，自提请自备小袋。"
+}

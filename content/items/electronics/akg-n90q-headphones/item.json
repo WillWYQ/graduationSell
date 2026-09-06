@@ -1,0 +1,49 @@
+{
+  "name": "AKG N90Q Smart Wireless Noise Cancelling Headphones",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 200 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 210 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 220 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 205 }
+    ],
+    "negotiable": true
+  },
+  "description": "AKG N90Q — AKG's flagship 'smart' noise-cancelling headphone, in excellent condition. This is the one that auto-tunes itself: it measures your ear's acoustic response and calibrates the sound to your exact hearing, with real reference-tuning knobs on the aluminum ear cups so you can dial in your preferred tonal balance on the fly. Auto-noise-cancelling (full, ambient, or off), works wirelessly via Bluetooth or wired via the included cables, and charges over the supplied USB cable. Rock-solid aluminum build, plush memory-foam ear pads, and great battery life. Excellent cosmetic and working condition, thoroughly cleaned. From a pet-friendly home (a cat lives here) but sanitized. Does NOT come with an extra storage bag — please bring your own pouch for pickup.",
+  "condition": "like-new", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "AKG",
+  "model": "N90Q",
+  "age_years": null,
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Harman / AKG",
+  "original_link": "",
+  "original_price": 599.0,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Flagship AKG 'smart' ANC headphones — auto-tunes to your ears, has real tuning knobs, BT + wired + USB charging. Excellent condition and fully sanitized. Does NOT come with an extra storage bag; please bring your own pouch for pickup. Pet-friendly home.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 110,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "AKG N90Q",
+    "smart noise cancelling",
+    "auto tuning headphones",
+    "wireless ANC over-ear",
+    "AKG flagship",
+    "premium audiophile ANC"
+  ],
+  "category_override": "",
+  "meta_description": "AKG N90Q flagship 'smart' wireless ANC headphones in excellent condition — auto-tunes to your ears, manual tuning knobs, BT + wired, USB charging.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "AKG N90Q 旗舰智能无线降噪头戴耳机（成色极佳）",
+  "description_zh": "转让 AKG 旗舰级 N90Q 智能降噪头戴耳机，成色极佳。它最特别的卖点是『智能调音』：会测量你的耳道声学响应并自动校准音质到最适合你的状态，同时铝合金耳罩上还配有真实的参考调音旋钮，可随时微调你偏好的听感。支持自动降噪（强降噪/通透/关闭）、蓝牙无线或附带的有线连接，USB 充电。铝合金机身坚固、记忆海绵耳垫舒适、续航出色。外观与功能均为极佳状态，发布前已彻底清洁消毒。此前来自养猫的家庭，请知悉。不附带额外收纳袋，自提请自备小袋。"
+}

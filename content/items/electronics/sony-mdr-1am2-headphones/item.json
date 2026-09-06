@@ -1,0 +1,49 @@
+{
+  "name": "Sony MDR-1AM2 Hi-Res Audio Wired Over-Ear Headphones (Original Box)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 170 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 180 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 190 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 175 }
+    ],
+    "negotiable": true
+  },
+  "description": "Selling my Sony MDR-1AM2 High-Resolution Audio over-ear headphones, kept in their original retail box with all original accessories (1.2m and 3m detachable cables, carry pouch, manuals). These lightweight (~187g) Hi-Res-certified headphones pair a 40mm liquid-crystal polymer driver with an aluminum-alloy housing and an angled 3D-fit structure, delivering clean, detailed highs and natural mids that are perfect for studio listening or casual hi-fi. Exceptionally comfortable for long sessions. Gently used, in like-new cosmetic and working condition, thoroughly vacuumed and wiped clean before listing. Coming from a pet-friendly home (a cat lives here), so please note it has been sanitized. This item does NOT come with an additional storage bag — please bring your own pouch or backpack for local pickup.",
+  "condition": "like-new", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Sony",
+  "model": "MDR-1AM2",
+  "age_years": null,
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "https://www.amazon.com/dp/B07DF5QTVV",
+  "original_price": 249.99,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Comes in the original retail box with both detachable cables, the carry pouch, and manuals — just plug in and enjoy. As a personal audio item it does NOT come with an extra storage bag; please bring your own pouch/backpack for pickup. Pet-friendly home; the headphones have been vacuumed and wiped clean.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 110,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Sony MDR-1AM2",
+    "Hi-Res headphones",
+    "wired over-ear",
+    "original box headphones",
+    "Sony high resolution audio",
+    "studio headphones"
+  ],
+  "category_override": "",
+  "meta_description": "Mint Sony MDR-1AM2 Hi-Res wired over-ear headphones in the original box with all accessories. 40mm liquid-crystal driver, lightweight, thoroughly sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "索尼 MDR-1AM2 高解析有线头戴耳机（带原盒·配件齐全）",
+  "description_zh": "出售索尼 MDR-1AM2 高解析度（Hi-Res）有线头戴耳机，带原装盒，原装配件齐全（1.2m 与 3m 可拆卸耳机线、便携收纳袋、说明书）。搭载 40mm 液晶高分子振膜 + 铝合金外壳，采用 3D 贴合耳罩结构，高频通透、人声细腻、声音干净耐听，无论是监听还是日常 hi-fi 都非常合适；整机仅约 187g，长时间佩戴无压力。成色如新、功能完好，发布前已深度吸尘清洁消毒。卖家家庭养猫，耳机已彻底清洁，请知悉。本耳机不附带额外收纳袋，本地自提请自备小袋或背包。"
+}

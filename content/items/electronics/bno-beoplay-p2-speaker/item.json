@@ -1,0 +1,49 @@
+{
+  "name": "Bang & Olufsen Beoplay P2 Pocket Bluetooth Speaker (Fair)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 45 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 55 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 65 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 50 }
+    ],
+    "negotiable": true
+  },
+  "description": "Bang & Olufsen Beoplay P2 pocket Bluetooth speaker, sold honestly at a fair price for its fair condition. This palm-sized aluminum speaker delivers surprisingly big, crisp B&O sound with about 10 hours of battery life, Bluetooth connectivity, and USB-C charging. Functionally 100% working — the 'fair' grade is purely cosmetic: the aluminum shell has visible scuffs, light scratches, and minor corner dings from daily pocket carry. Priced accordingly, way below used-market asking for mint examples. Transparently from a pet-friendly home (a cat lives here), but it has been wiped clean. Does NOT come with an extra storage pouch — please bring your own bag for pickup.",
+  "condition": "fair", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Bang & Olufsen",
+  "model": "Beoplay P2",
+  "age_years": null,
+  "color": "Silver",
+  "quantity": 1,
+  "original_source": "Bang & Olufsen",
+  "original_link": "https://www.bang-olufsen.com/en/us/speakers/beoplay-p2",
+  "original_price": 169.0,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Works perfectly — the 'fair' grade is cosmetic only (scuffs and small dings on the aluminum shell from pocket carry). Bluetooth + USB-C, ~10h battery. Does NOT come with an extra storage pouch; please bring your own bag for pickup. Pet-friendly home; wiped clean.",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 30,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Beoplay P2",
+    "B&O pocket speaker",
+    "bluetooth speaker fair",
+    "Bang Olufsen P2",
+    "mini portable speaker",
+    "B&O speaker discount"
+  ],
+  "category_override": "",
+  "meta_description": "Bang & Olufsen Beoplay P2 pocket Bluetooth speaker in fair condition — works perfectly, cosmetic scuffs only. Big B&O sound, 10h battery, priced to sell.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "B&O（Bang & Olufsen）Beoplay P2 口袋蓝牙音箱（成色一般·低价）",
+  "description_zh": "转让 Bang & Olufsen（B&O）Beoplay P2 口袋蓝牙音箱，成色一般所以明码低价，诚实出售。这款掌心大小的铝合金音箱能发出远超体积的清澈 B&O 声音，续航约 10 小时，支持蓝牙与 USB-C 充电。功能 100% 正常——标 fair 纯粹是外观问题：铝合金外壳有日常放口袋留下的明显划痕、细小磕碰和边角小凹痕，主观请知悉。价格已按瑕疵大幅下调，远低于网站上的好成色卖家价。卖家家庭养猫，音箱已擦拭清洁。不附带额外收纳袋，自提请自备小袋。"
+}

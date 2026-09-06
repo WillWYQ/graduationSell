@@ -1,0 +1,49 @@
+{
+  "name": "Shokz Bone Conduction Open-Ear Bluetooth Headphones",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 60 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 70 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 80 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 65 }
+    ],
+    "negotiable": true
+  },
+  "description": "Shokz bone-conduction open-ear Bluetooth headphones in excellent condition. These rest on your cheekbones and vibrate sound through your bones, leaving your ear canals completely open — so you hear your music AND your surroundings. Ideal for running, cycling, commuting, and gym workouts where situational awareness matters. Extremely lightweight, comfortable for all-day wear, sweat resistant, and pair instantly over Bluetooth. Excellent working and cosmetic condition, thoroughly cleaned before listing. From a pet-friendly home (a cat lives here) but sanitized. Does NOT come with an additional storage bag — please bring your own pouch for pickup.",
+  "condition": "like-new", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Shokz",
+  "model": "",
+  "age_years": null,
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "Amazon",
+  "original_link": "",
+  "original_price": 129.95,
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-05",
+  "sold_date": null,
+  "preferred_payment": ["Cash", "Venmo", "zelle"],
+  "contact_note": "Open-ear bone-conduction design — hear music AND your surroundings; great for running or cycling. Works via Bluetooth; USB charging. Excellent condition, sanitized. Does NOT come with an extra storage bag; please bring your own pouch for pickup. Pet-friendly home. (Please confirm the exact Shokz model — OpenRun/OpenMove/etc.)",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": 40,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "Shokz bone conduction",
+    "open ear headphones",
+    "running headphones",
+    "cycling headphones",
+    "Shokz bluetooth",
+    "situational awareness headphones"
+  ],
+  "category_override": "",
+  "meta_description": "Shokz bone-conduction open-ear Bluetooth headphones in excellent condition. Ears stay open for situational awareness, ideal for running and cycling, fully sanitized.",
+  "isbn": "", "course": "", "edition": "", "semester_listed": "",
+  "name_zh": "韶音（Shokz）骨传导开放式蓝牙耳机（成色极佳）",
+  "description_zh": "转让韶音（Shokz）骨传导开放式蓝牙耳机，成色极佳。耳机贴合颧骨震动传声，耳道完全开放——听音乐的同时也能听到周围环境声，非常适合跑步、骑行、通勤或健身房等需要保持环境感知的场景。机身极轻、适合全天佩戴，防汗，蓝牙秒连。成色与功能均为极佳状态，发布前已彻底清洁。此前来自养猫的家庭，请知悉。不附带额外收纳袋，自提请自备小袋。（请确认具体型号：OpenRun / OpenMove 等。）"
+}
