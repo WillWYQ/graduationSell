@@ -45,6 +45,9 @@ export const siteConfig: SiteConfig = {
   // ── Contact ───────────────────────────────────────────────────────────────
   contact: {
     reveal_behavior: "click",
+    // Calendly/Cal.com/Google Calendar appointment link — shows a "Schedule
+    // Viewing" button on item pages when set. Leave "" to disable.
+    schedulingUrl: "", // e.g. "https://calendly.com/your-handle/viewing"
     platforms: [
       { type: "email", value: "medal_pulses.71@icloud.com" },
       { type: "wechat", qr_image: "/contact/wechat-qr.JPG", label: "WeChat" },
@@ -81,6 +84,7 @@ export const siteConfig: SiteConfig = {
   analytics: {
     vercel: false,
     speedInsights: false,
+    googleAnalyticsId: "", // paste your GA4 Measurement ID, e.g. "G-XXXXXXXXXX" — leave empty to disable
   },
 
   // ── Full-Text Search ──────────────────────────────────────────────────────
@@ -122,6 +126,7 @@ export const siteConfig: SiteConfig = {
         contactSeller: "Contact Seller",
         itemSold: "Item sold",
         preferredPayment: "Preferred payment",
+        scheduleViewing: "Schedule Viewing",
 
         // ── Make-offer form ─────────────────────────────────────────────────
         makeOffer: "Make an Offer",
@@ -129,6 +134,20 @@ export const siteConfig: SiteConfig = {
         send: "Send",
         belowMinimumOffer:
           "That offer is below the minimum we can accept. Please try a higher amount.",
+
+        // ── Enquiry form (item detail page, optional — see the contact-form
+        // enquiry relay setting above) ────────────────────────────────────────
+        enquiryFormHeading: "Send an Enquiry",
+        enquiryNameLabel: "Your name",
+        enquiryContactLabel: "How can we reach you?",
+        enquiryContactPlaceholder: "Email, phone, or messaging handle",
+        enquiryMessageLabel: "Message",
+        enquiryMessagePlaceholder: "Ask a question or make an offer…",
+        enquiryOfferLabel: "Offer amount (optional)",
+        enquirySubmit: "Send Enquiry",
+        enquirySubmitting: "Sending…",
+        enquirySuccess: "Thanks! Your message has been sent to the seller.",
+        enquiryError: "Something went wrong. Please try again, or use the contact options above.",
 
         // ── Share button ────────────────────────────────────────────────────
         share: "Share",
@@ -164,6 +183,8 @@ export const siteConfig: SiteConfig = {
         filterPrice: "Price",
         filterPriceBucketAll: "All prices",
         filterPriceIncludesOutliers: "+ items outside range",
+        filterCourse: "Course",
+        filterTags: "Tags",
 
         // ── Catalog PDF export chrome ────────────────────────────────────────
         pdfTocHeading: "Table of Contents",
@@ -196,6 +217,7 @@ export const siteConfig: SiteConfig = {
         // ── Page titles and banners ──────────────────────────────────────────
         soldBanner: "This item has been sold",
         soldArchiveTitle: "Sold Archive",
+        tagPageHeading: "Tagged: {tag}",
 
         // ── Condition guide panel ────────────────────────────────────────────
         conditionGuideTitle: "Condition Guide",
