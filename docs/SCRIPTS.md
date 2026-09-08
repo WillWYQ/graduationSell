@@ -1,8 +1,8 @@
 # UsedExchange — Scripts & Tooling Reference
 
-**Version:** 1.0
-**Date:** 2026-08-02
-**Package version:** 1.4.2 (see `package.json`)
+**Version:** 1.2
+**Date:** 2026-09-07
+**Package version:** 1.7.1 (see `package.json`)
 
 > Complete reference for every npm script, standalone CLI, and support module in the repository. For architecture and data flow see [ARCHITECTURE.md](ARCHITECTURE.md); for the full design specification see [DESIGN.md](DESIGN.md); for non-technical seller operations see [../SETUP_GUIDE.md](../SETUP_GUIDE.md).
 >
@@ -13,9 +13,9 @@
 ## Overview
 
 - All CLIs live in `scripts/`, are executed with **tsx** (Node.js — no browser APIs), and are production tooling, not dev-only helpers.
-- The root `package.json` defines **24 npm scripts**; `new` is an exact alias of `create-item`, and three scripts (`upload-images`, `dev`, `prebuild`) are thin wrappers over the three modes of `scripts/sync-images.ts`.
+- The root `package.json` defines **31 npm scripts**; `new` is an exact alias of `create-item`, and three scripts (`upload-images`, `dev`, `prebuild`) are thin wrappers over the three modes of `scripts/sync-images.ts`.
 - **Sellers only ever edit files under `content/` by hand.** The CLIs below read and write `content/` *on your behalf* — you never need to open `app/`, `lib/`, or `scripts/` yourself.
-- `workers/shipping-rate-proxy/` is an **independently deployed** Cloudflare Worker package with its own `package.json`; it is excluded from the root tsconfig / ESLint / Vitest scope.
+- `workers/shipping-rate-proxy/` and `workers/contact-form-proxy/` are **independently deployed** Cloudflare Worker packages, each with its own `package.json`; both are excluded from the root tsconfig / ESLint / Vitest scope.
 - `lib/generated/image-manifest.json` is **committed to git** (Iron Rule 5). Scripts write it; CI reads it and needs no CDN credentials.
 
 ---
@@ -32,6 +32,13 @@
 | `pnpm new <category>/<name>` | `tsx scripts/create-item.ts` | Exact alias of `create-item` |
 | `pnpm create-template [category]` | `tsx scripts/create-template.ts` | Write a fully-commented `_template.json` sellers can copy |
 | `pnpm mark-sold <category>/<item>` | `tsx scripts/mark-sold.ts` | Set `status="sold"` + `sold_date=today`, preserving JSONC comments |
+| `pnpm mark-available <category>/<item>` | `tsx scripts/mark-available.ts` | Reset `status="available"` and clear `sold_date`, preserving JSONC comments |
+| `pnpm duplicate <category>/<item> <category>/<new-item>` | `tsx scripts/duplicate.ts` | Copy an item folder (item.json + photos) to a new item, resetting it to a fresh `draft` |
+| `pnpm inventory` | `tsx scripts/inventory.ts` | Print a Markdown table of every item (all statuses): name, category, status, lowest price, days listed |
+| `pnpm stale-check [--days <n>]` | `tsx scripts/stale-check.ts` | List `available` items listed for more than N days (default 60) |
+| `pnpm audit-listings` | `tsx scripts/audit-listings.ts` | Report non-sold items missing recommended fields (photos, description, tags, shipping weight/dimensions, price tiers) |
+| `pnpm export-csv` | `tsx scripts/export-csv.ts` | Export every item (all statuses) as a flat CSV for the seller's own record-keeping (prompts before overwriting) |
+| `pnpm semester-end` | `tsx scripts/semester-end.ts` | Interactive end-of-semester cleanup: review stale listings (mark sold / reduce price / leave as-is), sync photos, suggest a commit message |
 | `pnpm setup-check` | `tsx scripts/setup-check.ts` | Print the setup checklist: what is still missing and the command or pane for each step. Exits 1 while core steps remain |
 | `pnpm fb-export` | `tsx scripts/export-facebook.ts` | Interactive Facebook Marketplace CSV export |
 | `pnpm push` | `git add content lib/generated/image-manifest.json && git commit -m 'chore: update listings' && git push` | Commit + push seller content and the image manifest |
@@ -117,6 +124,58 @@
 - **Env vars:** none.
 - **Touches:** reads/writes `content/items/<category>/<item>/item.json`.
 
+### `mark-available.ts` — available marker
+
+- **Command:** `pnpm mark-available <category>/<item>`.
+- **Args:** exactly one positional `<category>/<item>`, kebab-case validated before fs access.
+- **Purpose:** sets `status="available"` and clears `sold_date` to `null` via the same surgical JSONC edits `mark-sold` uses. Resets status from **any** other state (sold, pending, reserved, draft) — not only `sold` — since re-listing a draft or un-reserving a pending item are both legitimate uses. No-op with exit 0 if status is already `available`.
+- **Env vars:** none.
+- **Touches:** reads/writes `content/items/<category>/<item>/item.json`.
+
+### `duplicate.ts` — item duplicator
+
+- **Command:** `pnpm duplicate <category>/<item> <category>/<new-item>`.
+- **Args:** two positional `<category>/<item>` slugs (source, destination), all four parts kebab-case validated before fs access. Destination category must already exist; destination item must not.
+- **Purpose:** copies the source item's whole folder (item.json + every photo file) to the destination, then resets the copy's listing-lifecycle fields: `status` → `"draft"`, `listed_date` → today, `sold_date` → `null`, `price_reduced` → `false`, `previous_lowest_price` / `min_acceptable_offer` → `null` (matching `scripts/lib/itemTemplate.ts`'s fresh-item defaults). The private `reserved_for` field (Iron Rule 4) is stripped from the copy outright if present, rather than carried forward.
+- **Env vars:** none.
+- **Touches:** reads `content/items/<category>/<item>/`; writes `content/items/<category>/<new-item>/` (folder copy + item.json edit).
+
+### `inventory.ts` — inventory report
+
+- **Command:** `pnpm inventory`.
+- **Purpose:** prints a Markdown table of every item (all statuses — not just `available`) to stdout: name, category, status, lowest resolved price (same "lowest tier" strategy `fb-export` defaults to), and days listed (raw whole-day count). Read-only.
+- **Env vars:** none.
+- **Touches:** reads `content/items` via `loadAllItemsRaw`; no writes.
+
+### `stale-check.ts` — stale listing report
+
+- **Command:** `pnpm stale-check [--days <n>]`.
+- **Args:** optional `--days <n>`, a non-negative number; default **60**.
+- **Purpose:** lists `available` items listed for more than N days, longest-listed first, with their current lowest price. Shares `findStaleItems()` (`scripts/lib/staleItems.ts`) with `pnpm semester-end` so the two commands can never disagree about which items qualify. Read-only.
+- **Env vars:** none.
+- **Touches:** reads `content/items` via `loadAllItemsRaw`; no writes.
+
+### `audit-listings.ts` — recommended-field audit
+
+- **Command:** `pnpm audit-listings`.
+- **Purpose:** reports non-sold items missing "recommended" (schema-optional but valuable) fields: no photos at all, empty description, no tags, an open-ended shipping price tier with no weight/dimensions set, or no price tiers at all. See `scripts/lib/auditListings.ts`'s header comment for the exact, adjustable criteria list. Read-only.
+- **Env vars:** none.
+- **Touches:** reads `content/items` via `loadAllItemsRaw`; no writes.
+
+### `export-csv.ts` — record-keeping CSV export
+
+- **Command:** `pnpm export-csv`.
+- **Purpose:** exports every item (all statuses) as a flat CSV for the seller's own bookkeeping — name, category, status, condition, lowest price, currency, negotiable, brand, model, quantity, listed/sold dates, and semicolon-joined tags. **Not** the Facebook Marketplace format (that's `pnpm fb-export`, a different tool/output). Prompts (via `scripts/lib/cliPrompt.ts`) before overwriting an existing output file.
+- **Env vars:** none.
+- **Touches:** reads `content/items` via `loadAllItemsRaw`; writes `exports/listings.csv`.
+
+### `semester-end.ts` — end-of-semester batch cleanup
+
+- **Command:** `pnpm semester-end` (fully interactive).
+- **Flow:** prints every `available` item listed for more than 60 days (shared `findStaleItems()` — same threshold and ordering as `stale-check`); for each, prompts **[s]old / [r]educe price / [l]eave as-is** (default). "Sold" applies `applyMarkSold`; "reduce price" prompts for a new amount and rewrites the lowest-amount price tier via the same comment-preserving `applyFieldEdits` path every other script here uses (`scripts/lib/reducePrice.ts`). If anything changed, runs `pnpm upload-images` (safe — a content sync, not a git operation) and prints a suggested commit message (`"chore: end-of-semester listing cleanup"`) plus the exact `git`/`pnpm push` commands to publish it. **Never** runs `git commit`/`git push` itself — publishing stays a seller-triggered action.
+- **Env vars:** none.
+- **Touches:** reads/writes `content/items/**/item.json` for items the seller acts on; invokes `pnpm upload-images` as a subprocess when anything changed.
+
 ### `export-facebook.ts` — Facebook Marketplace export
 
 - **Command:** `pnpm fb-export` (fully interactive).
@@ -139,7 +198,7 @@
 ### `migrate-config.ts` — config migration
 
 - **Command:** `pnpm migrate-config` (also invoked programmatically by `update-site` after checkout — guarded by an `argv[1]` `endsWith` check so importing the module does not auto-run it).
-- **Purpose:** scans `content/config.ts` for config fields missing after a template upgrade and splices them in with defaults from the `CONFIG_DEFAULTS` registry in `scripts/lib/configDefaults.ts` (currently the `priceFilterStrategy` block plus the `filterPriceBucketAll` / `filterPriceIncludesOutliers` UIStrings keys). **Additive only** — never removes or modifies existing values. Consistent with Iron Rule 8, every injected field is TypeScript-optional with a runtime default at its consumption site, so downstream configs that skip migration still pass type-check. Skips (with a warning) any entry whose anchor line (`afterKey`) is not found; prints added field names or "config is up to date".
+- **Purpose:** scans `content/config.ts` for config fields missing after a template upgrade and splices them in with defaults from the `CONFIG_DEFAULTS` registry in `scripts/lib/configDefaults.ts` (currently covers the price-filter UI settings, the sold-archive display limit, Google Analytics, the contact-form notifications/scheduling config plus its enquiry-form and schedule-viewing UI strings, tag/course filter strings, and PDF export/contact UI strings). **Additive only** — never removes or modifies existing values. Consistent with Iron Rule 8, every injected field is TypeScript-optional with a runtime default at its consumption site, so downstream configs that skip migration still pass type-check. Skips (with a warning) any entry whose anchor line (`afterKey`) is not found; prints added field names or "config is up to date".
 - **Env vars:** none.
 - **Touches:** reads/writes `content/config.ts`; reads `scripts/lib/configDefaults.ts`.
 
@@ -180,7 +239,7 @@
 
 ### Test files among the scripts
 
-`scripts/update-site.test.ts`, `scripts/studioFields.test.ts`, plus `scripts/lib/*.test.ts` (`imageSync`, `itemEdit`, `itemFields`, `itemTemplate`, `markSold`, `r2Cors`, `studioApi`, `studioGit`, `studioImages`, `studioSync`) — all executed by the root `test` / `test:watch` / `test:coverage` scripts.
+`scripts/update-site.test.ts`, `scripts/studioFields.test.ts`, plus `scripts/lib/*.test.ts` (`imageSync`, `itemEdit`, `itemFields`, `itemTemplate`, `markSold`, `markAvailable`, `duplicateItem`, `itemAge`, `staleItems`, `inventory`, `auditListings`, `csv`, `exportCsv`, `reducePrice`, `r2Cors`, `studioApi`, `studioGit`, `studioImages`, `studioSync`) — all executed by the root `test` / `test:watch` / `test:coverage` scripts.
 
 ---
 
@@ -197,9 +256,18 @@ Not standalone runnables — imported by the CLIs above. Each has a colocated `*
 | `itemEdit.ts` | Surgical JSONC field edits via `jsonc-parser` (`applyFieldEdits`, `readItemField`, `readItemForEdit`) — comments and `reserved_for` survive every write. Used by `mark-sold` and Studio. |
 | `itemFields.ts` | The strict Zod allowlist of browser-writable field paths (`resolveFieldSchema(path)` is the single authority — prototype-pollution-safe own-key lookup; plus `assertEditableValue`, `pickEditableFields`). No `.catch`/`.default`/`.preprocess`, so a `safeParse` failure is a hard rejection; drift tests assert key-set parity with `itemJsonSchema`. |
 | `markSold.ts` | `applyMarkSold(text, today)`: status → `sold` + `sold_date`; returns `null` if already sold. |
+| `markAvailable.ts` | `applyMarkAvailable(text)`: status → `available` + `sold_date` → `null`; returns `null` if already available. Used by `mark-available`. |
+| `duplicateItem.ts` | `applyDuplicateEdits(text, today)`: resets `status`/`listed_date`/`sold_date`/`price_reduced`/`previous_lowest_price`/`min_acceptable_offer` on a copied item.json and strips a private `reserved_for` if present. Used by `duplicate`. |
+| `itemAge.ts` | `daysListed(listedDate, now?)`: whole-day age math shared by `inventory`, `stale-check`, and `semester-end` so "days listed" never disagrees across scripts. |
+| `staleItems.ts` | `findStaleItems(items, thresholdDays?, now?)` / `DEFAULT_STALE_DAYS` (60): `available` items past the threshold, longest-listed first. Shared by `stale-check` and `semester-end`. |
+| `inventory.ts` | `buildInventoryTable(items, now?)`: pure Markdown-table builder for `pnpm inventory` (name/category/status/lowest price/days listed). |
+| `auditListings.ts` | `auditItem` / `auditListings` / `formatAuditReport`: the recommended-field criteria and report text for `pnpm audit-listings`; criteria list documented in the file's header comment. |
+| `csv.ts` | `csvCell` / `toCsvString`: shared RFC-4180-ish CSV escaping, used by both `fb-export` and `export-csv` (extracted from `export-facebook.ts` so neither reimplements quoting rules). |
+| `exportCsv.ts` | `buildExportCsvRows(items)` / `EXPORT_CSV_HEADERS`: the record-keeping CSV row builder for `pnpm export-csv` (distinct from `fb-export`'s Facebook-specific columns). |
+| `reducePrice.ts` | `findLowestTierIndex(tiers)` / `applyReducePrice(text, newAmount)`: rewrites an item's lowest-amount price tier via `applyFieldEdits`; returns `null` when there are no tiers to reduce. Used by `semester-end`'s "reduce price" action. |
 | `fbCategoryMap.ts` | Ordered regex → `"Top//Sub//Leaf"` Facebook category rules used by `fb-export` (49 ordered regex rules, plus 11 slug-level fallbacks). |
 | `exportHistory.ts` | Reads/appends `exports/.export-history.json` (gitignored) backing `fb-export`'s Step 0 skip logic. |
-| `configDefaults.ts` | Declarative registry (`key` / `afterKey` / `lines`) of injectable config fields used by `migrate-config` + `update-site` — currently the `priceFilterStrategy` block plus the `filterPriceBucketAll` / `filterPriceIncludesOutliers` UIStrings keys. |
+| `configDefaults.ts` | Declarative registry (`key` / `afterKey` / `lines`) of injectable config fields used by `migrate-config` + `update-site` — currently covers price-filter UI settings, the sold-archive display limit, Google Analytics, contact-form notifications/scheduling config plus its enquiry-form and schedule-viewing UI strings, tag/course filter strings, and PDF export/contact UI strings. |
 | `studioApi.ts` | Framework-agnostic HTTP handler for Studio: Zod-validated requests, slug allowlist + resolved-path containment against `content/items/`, JSON / file / SSE response variants, `StudioError` → status-coded JSON. Route regexes match the raw percent-encoded path; segments are decoded individually only after the match (traversal-safe). |
 | `studioGit.ts` | `readChanges` / `publishChanges` + `GitError`: git status/commit/push restricted to `PUBLISHABLE_PATHS = [content, lib/generated/image-manifest.json]` — mirrors `pnpm push`, **never `git add -A`** (protects `.env.local`); `execFile` with argument arrays only (no shell); commit message via stdin (`-F -`), `MAX_MESSAGE_LENGTH=500`; `-c core.quotepath=false -z` so CJK/space filenames parse; handles detached HEAD (refuse), unborn branches, bare repos, and stranded-commit retries. |
 | `studioImages.ts` | Photo upload/delete/reorder filesystem ops: `IMAGE_EXTENSIONS` = jpg\|jpeg\|png\|webp\|gif, filename normalisation (`sanitizeUploadFilename`, `IMAGE_FILENAME_RE` allowlist), magic-byte content sniffing (`sniffImageType`), collision-safe writes. |
@@ -248,6 +316,49 @@ Worker npm scripts (run from `workers/shipping-rate-proxy/`): `dev` (`wrangler d
 
 ---
 
+## `workers/contact-form-proxy/`
+
+### What it is
+
+A Cloudflare Worker that relays buyer enquiries from the item detail page's `EnquiryForm.tsx` to the seller via **Discord**, **Telegram**, or **email** (Resend) — without exposing the seller's contact details directly. POST-only endpoint validating `itemCategory`, `itemSlug`, `itemName`, `buyerName`, `buyerContact`, `message` (≤2000 chars), an optional `offerAmount`, and a `honeypot` field: a non-empty honeypot is silently treated as spam and dropped, but the Worker still returns the same `200 { "ok": true }` as a real success so a bot can't tell its submission was rejected. `ALLOWED_ORIGIN` is checked server-side against the request's `Origin` header — a basic access gate, not a cryptographic guarantee. No persistent storage and no rate limiting/CAPTCHA by design (see the Worker's README for the recommended infra-level next steps — Cloudflare Turnstile, WAF rate-limiting rules — if spam becomes an issue). Consumed client-side only when `siteConfig.notifications.enabled` is `true`.
+
+### Why it exists
+
+The site is a fully static export — notification-delivery secrets (a Discord webhook URL, Telegram bot token, or Resend API key) must **never** ship in the browser bundle. The Worker keeps the secret server-side and CORS-locks to exactly one `ALLOWED_ORIGIN`, the same reasoning as `workers/shipping-rate-proxy/`. See [FEATURES_ROADMAP.md §3.1](FEATURES_ROADMAP.md).
+
+### Deploy & dev
+
+Independent project with its own `package.json` (name `contact-form-proxy`, `compatibility_date = 2026-01-01`); see [../workers/contact-form-proxy/README.md](../workers/contact-form-proxy/README.md) for the full walkthrough:
+
+```bash
+cd workers/contact-form-proxy
+pnpm install
+
+# 1. Plain vars — edit wrangler.toml [vars]:
+#      NOTIFICATION_PROVIDER = "discord" | "telegram" | "email"
+#      ALLOWED_ORIGIN         = exact siteConfig.baseUrl (no trailing slash)
+#      SITE_BASE_URL          = same as ALLOWED_ORIGIN (links back to the item page)
+#      TELEGRAM_CHAT_ID                                  (telegram only)
+#      NOTIFICATION_EMAIL_TO / NOTIFICATION_EMAIL_FROM   (email only)
+
+# 2. Local dev:
+cp .dev.vars.example .dev.vars   # put the test provider's secret here (gitignored)
+pnpm dev                          # wrangler dev
+
+# 3. Deploy:
+pnpm wrangler login               # once
+pnpm wrangler secret put DISCORD_WEBHOOK_URL   # or TELEGRAM_BOT_TOKEN / RESEND_API_KEY
+pnpm deploy                       # wrangler deploy → prints the workers.dev URL
+
+# 4. Put the printed URL in content/config.ts → notifications.proxyUrl, set enabled: true
+#    (or run the /setup-contact-form skill)
+pnpm type-check                   # optional: tsc --noEmit for the worker package
+```
+
+Worker npm scripts (run from `workers/contact-form-proxy/`): `dev` (`wrangler dev`), `deploy` (`wrangler deploy`), `type-check` (`tsc --noEmit`).
+
+---
+
 ## Environment Variable Reference
 
 ### Local machine (gitignored `.env.local`)
@@ -282,11 +393,25 @@ Parsed into `process.env` by `scripts/lib/loadEnv.ts` (existing env values alway
 | `SHIPPO_API_KEY` | **secret** | `wrangler secret put` (local: `.dev.vars`) | Shippo token, sent in the `Authorization: ShippoToken` header when provider = `shippo` |
 | `EASYPOST_API_KEY` | **secret** | `wrangler secret put` (local: `.dev.vars`) | EasyPost key, base64'd into a Basic auth header when provider = `easypost` |
 
+### Worker (`workers/contact-form-proxy`)
+
+| Variable | Kind | Where | Notes |
+|---|---|---|---|
+| `NOTIFICATION_PROVIDER` | plain var | `wrangler.toml [vars]` | `"discord"` (default) \| `"telegram"` \| `"email"` — selects the notification channel |
+| `ALLOWED_ORIGIN` | plain var | `wrangler.toml [vars]` | The only Origin allowed by CORS; must exactly match `siteConfig.baseUrl` (no trailing slash) |
+| `SITE_BASE_URL` | plain var | `wrangler.toml [vars]` | Used to build the "view live listing" link in the notification message (the Worker can't import `content/config.ts`) |
+| `TELEGRAM_CHAT_ID` | plain var | `wrangler.toml [vars]` | Chat/channel id to post into; only meaningful when provider = `telegram` |
+| `NOTIFICATION_EMAIL_TO` | plain var | `wrangler.toml [vars]` | Seller's inbox address; only used when provider = `email` |
+| `NOTIFICATION_EMAIL_FROM` | plain var | `wrangler.toml [vars]` | Must be on a domain verified with Resend; only used when provider = `email` |
+| `DISCORD_WEBHOOK_URL` | **secret** | `wrangler secret put` (local: `.dev.vars`) | Discord webhook URL, required when provider = `discord` |
+| `TELEGRAM_BOT_TOKEN` | **secret** | `wrangler secret put` (local: `.dev.vars`) | Telegram bot token, required when provider = `telegram` |
+| `RESEND_API_KEY` | **secret** | `wrangler secret put` (local: `.dev.vars`) | Resend API key, required when provider = `email` |
+
 ---
 
 ## Security Notes
 
-- **Path traversal:** `create-item` and `mark-sold` validate kebab-case slugs (`isValidSlug`, shared with `generateStaticParams`) *before* any filesystem access. Studio route regexes match raw percent-encoded paths and decode segments individually only after the match; all file serving is containment-verified against `content/items/`.
+- **Path traversal:** `create-item`, `mark-sold`, `mark-available`, and `duplicate` (both slugs) validate kebab-case slugs (`isValidSlug`, shared with `generateStaticParams`) *before* any filesystem access. Studio route regexes match raw percent-encoded paths and decode segments individually only after the match; all file serving is containment-verified against `content/items/`.
 - **Shell safety:** `create-item` uses `spawnSync` argument arrays (never shell interpolation) for `$EDITOR`; `studioGit` uses `execFile`-only with argument arrays.
 - **Publish safety:** Studio binds **127.0.0.1 only** and its git publish never uses `git add -A` — it stages only `content/` + `lib/generated/image-manifest.json`, so `.env.local` (with CDN credentials) can never ride along.
 - **Template updates:** `update-site` requires a clean working tree and restores the seller-owned image manifest after checkout.
@@ -303,6 +428,7 @@ Parsed into `process.env` by `scripts/lib/loadEnv.ts` (existing env values alway
 | Full `item.json` schema (36 top-level fields; 37 counting the private `reserved_for`) | [DESIGN.md §5](DESIGN.md) |
 | `content/config.ts` full template | [DESIGN.md §13](DESIGN.md) |
 | Shipping calculator integration | [DESIGN.md §21](DESIGN.md), [../workers/shipping-rate-proxy/README.md](../workers/shipping-rate-proxy/README.md) |
+| Contact form / enquiry relay integration | [FEATURES_ROADMAP.md §3.1](FEATURES_ROADMAP.md), [../workers/contact-form-proxy/README.md](../workers/contact-form-proxy/README.md) |
 | CDN setup walkthrough | [setup_instruction.md](setup_instruction.md) |
 | Updating a downstream site | [UPDATE_GUIDE.md](UPDATE_GUIDE.md) |
 | Deployment checklist (GitHub Pages + R2) | [TECH_REQUIREMENTS.md §19](TECH_REQUIREMENTS.md) |

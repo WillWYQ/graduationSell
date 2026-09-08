@@ -48,11 +48,125 @@ export const CONFIG_DEFAULTS: ConfigDefault[] = [
     ],
   },
   {
+    key: "googleAnalyticsId",
+    afterKey: "speedInsights:",
+    lines: [
+      '    googleAnalyticsId: "", // paste your GA4 Measurement ID, e.g. "G-XXXXXXXXXX" — leave empty to disable',
+    ],
+  },
+  {
+    // Anchor: the closing line of the commented-out `shipping` example block
+    // ("  // },", single space — the ONLY line in content/config.ts matching
+    // this exact text; the inner `origin` close is "  //   }," with extra
+    // indentation, and a later match inside the commented zh translations
+    // block is textually identical but comes after this one, so
+    // `lines.findIndex`'s first-match semantics still land here). Splicing
+    // right after it places the new block between the shipping example and
+    // the "── Contact ──" section, exactly where it ships upstream.
+    key: "notifications",
+    afterKey: "// },",
+    lines: [
+      "",
+      "  // ── Contact-form enquiry relay (optional) ─────────────────────────────────",
+      "  // Disabled by default — zero impact on the site until configured. To",
+      "  // enable: deploy workers/contact-form-proxy (see its README), paste its",
+      "  // URL below, and set enabled: true. Adds an enquiry form to the item",
+      "  // detail page so buyers can message you (via Discord, Telegram, or email)",
+      "  // without seeing your contact details directly. See",
+      "  // docs/FEATURES_ROADMAP.md §3.1.",
+      "  notifications: {",
+      "    enabled: false,",
+      '    proxyUrl: "https://contact-form-proxy.<your-subdomain>.workers.dev",',
+      "  },",
+    ],
+  },
+  {
+    key: "schedulingUrl",
+    afterKey: "reveal_behavior:",
+    lines: [
+      '    // Calendly/Cal.com/Google Calendar appointment link — shows a "Schedule',
+      '    // Viewing" button on item pages when set. Leave "" to disable.',
+      '    schedulingUrl: "", // e.g. "https://calendly.com/your-handle/viewing"',
+    ],
+  },
+  {
+    key: "scheduleViewing",
+    afterKey: "preferredPayment:",
+    lines: [
+      '        scheduleViewing: "Schedule Viewing",',
+    ],
+  },
+  {
+    // key is the full key+English-value pair, not the bare key name: the
+    // commented-out zh translation example further down this file already
+    // contains the bare string "enquiryFormHeading" (as `//   enquiryFormHeading:
+    // "傳送詢問",`, documenting that it's translatable) — a bare-name existence
+    // check would always find that comment and wrongly report the real,
+    // active field as already present, even on a config missing it entirely.
+    // The English value only appears in the real declaration, not the zh one.
+    //
+    // afterKey is the tail of belowMinimumOffer's value, not `belowMinimumOffer:`
+    // itself — that key's string value lives on the following physical line
+    // (`belowMinimumOffer:\n  "...",`), so anchoring on the key would splice
+    // this block between the key and its own value and break the object
+    // literal. This one string is unique in the file.
+    key: 'enquiryFormHeading: "Send an Enquiry"',
+    afterKey: "Please try a higher amount.",
+    lines: [
+      "",
+      "        // ── Enquiry form (item detail page, optional — see the contact-form",
+      "        // enquiry relay setting above) ────────────────────────────────────────",
+      '        enquiryFormHeading: "Send an Enquiry",',
+      '        enquiryNameLabel: "Your name",',
+      '        enquiryContactLabel: "How can we reach you?",',
+      '        enquiryContactPlaceholder: "Email, phone, or messaging handle",',
+      '        enquiryMessageLabel: "Message",',
+      '        enquiryMessagePlaceholder: "Ask a question or make an offer…",',
+      '        enquiryOfferLabel: "Offer amount (optional)",',
+      '        enquirySubmit: "Send Enquiry",',
+      '        enquirySubmitting: "Sending…",',
+      '        enquirySuccess: "Thanks! Your message has been sent to the seller.",',
+      '        enquiryError: "Something went wrong. Please try again, or use the contact options above.",',
+    ],
+  },
+  {
     key: "filterPriceBucketAll",
     afterKey: "filterPrice:",
     lines: [
       '        filterPriceBucketAll: "All prices",',
       '        filterPriceIncludesOutliers: "+ items outside range",',
+    ],
+  },
+  {
+    // Shares its anchor with pdfTocHeading below. In the common case (only
+    // this key is missing) it lands right after filterPriceIncludesOutliers,
+    // matching the upstream layout. In the rare case a very old config is
+    // missing both this and the whole PDF-chrome block in the same
+    // migrate-config run, pdfTocHeading's later splice at the same anchor
+    // pushes this line below its 11-line block instead — harmless, since
+    // object key order carries no runtime meaning.
+    key: "filterCourse",
+    afterKey: "filterPriceIncludesOutliers:",
+    lines: [
+      '        filterCourse: "Course",',
+    ],
+  },
+  {
+    key: "filterTags",
+    afterKey: "filterCourse:",
+    lines: [
+      '        filterTags: "Tags",',
+    ],
+  },
+  {
+    // "soldArchiveTitle:" also appears in a commented-out zh example further
+    // down the file; findIndex's first-match semantics land on the real
+    // (default-locale) line, same caveat already noted on pdfContactHeading
+    // below for "condition:".
+    key: "tagPageHeading",
+    afterKey: "soldArchiveTitle:",
+    lines: [
+      '        tagPageHeading: "Tagged: {tag}",',
     ],
   },
   {

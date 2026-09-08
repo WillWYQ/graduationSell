@@ -1,6 +1,6 @@
 {
   "name": "usedexchange",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "private": true,
   "scripts": {
     "setup-ui": "bash scripts/setup-ui.sh",
@@ -11,6 +11,13 @@
     "create-template": "tsx scripts/create-template.ts",
     "new": "tsx scripts/create-item.ts",
     "mark-sold": "tsx scripts/mark-sold.ts",
+    "mark-available": "tsx scripts/mark-available.ts",
+    "duplicate": "tsx scripts/duplicate.ts",
+    "inventory": "tsx scripts/inventory.ts",
+    "stale-check": "tsx scripts/stale-check.ts",
+    "audit-listings": "tsx scripts/audit-listings.ts",
+    "export-csv": "tsx scripts/export-csv.ts",
+    "semester-end": "tsx scripts/semester-end.ts",
     "fb-export": "tsx scripts/export-facebook.ts",
     "update-site": "tsx scripts/update-site.ts",
     "migrate-config": "tsx scripts/migrate-config.ts",
@@ -29,6 +36,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@next/third-parties": "^15.5.25",
     "@react-three/fiber": "^9.6.1",
     "@tabler/icons-react": "^3.44.0",
     "@vercel/analytics": "^1.3.0",
