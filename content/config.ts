@@ -84,7 +84,7 @@ export const siteConfig: SiteConfig = {
   analytics: {
     vercel: false,
     speedInsights: false,
-    googleAnalyticsId: "", // paste your GA4 Measurement ID, e.g. "G-XXXXXXXXXX" — leave empty to disable
+    googleAnalyticsId: "G-80RNM8H0WW", // paste your GA4 Measurement ID, e.g. "G-XXXXXXXXXX" — leave empty to disable
   },
 
   // ── Full-Text Search ──────────────────────────────────────────────────────
