@@ -1,0 +1,77 @@
+{
+  "name": "Warm White Star Curtain String Lights (LED Window / Wall Backdrop)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 5 mi",
+        "miles_max": 5,
+        "amount": 0
+      },
+      {
+        "label": "6 – 15 mi",
+        "miles_min": 5,
+        "miles_max": 15,
+        "amount": 0
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 15,
+        "amount": 0
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": false
+  },
+  "description": "Warm white star curtain lights on a clear cable — a top wire with strands of assorted-size stars hanging from it, so they drape over a window, a wall, a doorway, or above a bed. The photo shows them hung against a dark window with holiday decorations around them, which is where they look best: the warm white LEDs read as a soft starry backdrop rather than a bright working light. All of the stars light up and the set works normally. The LED count, total run length, and power source (USB or battery) are not marked on the lights themselves, so message me if you need an exact figure before buying.",
+  "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "",
+  "model": "",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm" // options: "cm" | "in"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg" // options: "kg" | "lb"
+  },
+  "color": "Warm White",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "draft", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-12",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "star-curtain-lights",
+    "string-lights",
+    "fairy-lights",
+    "warm-white",
+    "window-lights",
+    "curtain-lights",
+    "holiday-decor",
+    "christmas-decor"
+  ],
+  "category_override": "",
+  "meta_description": "Warm white star curtain string lights — hanging star strands for windows, walls, dorm rooms and holiday decor. All stars working; see photos.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "",
+  "description_zh": ""
+}

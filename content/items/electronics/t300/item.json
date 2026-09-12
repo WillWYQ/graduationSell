@@ -1,0 +1,79 @@
+{
+  "name": "Thrustmaster T300 Ferrari Integral Racing Wheel Alcantara Edition (with T3PA 3-Pedal Set)",
+  "price": {
+    "currency": "USD",
+    "tiers": [
+      {
+        "label": "Pickup / ≤ 5 mi",
+        "miles_max": 5,
+        "amount": 0
+      },
+      {
+        "label": "6 – 15 mi",
+        "miles_min": 5,
+        "miles_max": 15,
+        "amount": 0
+      },
+      {
+        "label": "Shipping",
+        "miles_min": 15,
+        "amount": 0
+      }
+    ],
+    "negotiable": true,
+    "show_tiers": false
+  },
+  "description": "Thrustmaster T300 Ferrari Integral Racing Wheel Alcantara Edition — the complete bundle: T300 servo base, the officially licensed Ferrari 599XX EVO wheel, and the T3PA three-pedal set. The base runs a brushless servomotor on a dual-belt drive with H.E.A.R.T (HallEffect AccuRate Technology) contactless magnetic sensing, 16-bit resolution on the steering axis, and adjustable rotation from 270° up to 1080°. The 30 cm (11.8 in) rim is hand-stitched Alcantara on a brushed-metal plate with 6 action buttons, a 3-position rotary switch, a D-pad, and two metal paddle shifters, and it comes off with Thrustmaster's quick-release system. The T3PA pedals are metal throughout with adjustable spacing, inclination, and height, plus the conical rubber brake mod for progressive brake resistance. Works on PS4, PS3, and PC (Thrustmaster also lists PS5 compatibility) and with the wider Thrustmaster ecosystem — T-LCM pedals, TH8A shifter, and TSS Handbrake are sold separately and a standalone shifter is not part of this set. Good used condition — see the photos for the exact cosmetic state, and ask if you would like extra close-ups of anything.",
+  "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
+  "brand": "Thrustmaster",
+  "model": "T300 Ferrari Integral Racing Wheel Alcantara Edition",
+  "age_years": null,
+  "dimensions": {
+    "length": null,
+    "width": null,
+    "height": null,
+    "unit": "cm" // options: "cm" | "in"
+  },
+  "weight": {
+    "value": null,
+    "unit": "kg" // options: "kg" | "lb"
+  },
+  "color": "Black",
+  "quantity": 1,
+  "original_source": "",
+  "original_link": "",
+  "original_price": null,
+  "status": "draft", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "listed_date": "2026-09-12",
+  "sold_date": null,
+  "preferred_payment": [],
+  "contact_note": "",
+  "no_lowball": false,
+  "price_reduced": false,
+  "previous_lowest_price": null,
+  "min_acceptable_offer": null,
+  "stripe_payment_link": "",
+  "venmo_payment_request": "",
+  "pickup_windows": [],
+  "youtube_link": "",
+  "tags": [
+    "thrustmaster",
+    "t300",
+    "ferrari",
+    "alcantara",
+    "racing-wheel",
+    "force-feedback",
+    "sim-racing",
+    "t3pa",
+    "ps4",
+    "pc"
+  ],
+  "category_override": "",
+  "meta_description": "Thrustmaster T300 Ferrari Integral Racing Wheel Alcantara Edition — Ferrari 599XX EVO Alcantara rim, brushless force feedback (270°–1080°), quick release, and the T3PA 3-pedal set. PS4 / PS3 / PC.",
+  "isbn": "",
+  "course": "",
+  "edition": "",
+  "semester_listed": "",
+  "name_zh": "",
+  "description_zh": ""
+}

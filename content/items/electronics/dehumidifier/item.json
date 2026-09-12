@@ -1,7 +1,7 @@
 {
-  "name": "Dehumidifier",
+  "name": "Mini Dehumidifier for Small Rooms, 35 oz (1000 ml) Tank with 7-Color Night Light",
   "price": {
-    "currency": "US D",
+    "currency": "USD",
     "tiers": [
       {
         "label": "Pickup / ≤ 5 mi",
@@ -23,27 +23,27 @@
     "negotiable": true,
     "show_tiers": false
   },
-  "description": "",
+  "description": "Compact mini dehumidifier for small spaces — bathroom, bedroom, closet, dorm room, or RV. The clear 35 oz (1000 ml) tank pulls up to 16 oz of moisture out of the air in 24 hours in an enclosed room (rated at 86°F / 80% RH), and the unit runs at just 28 dB, quiet enough to leave on overnight. When the tank is full it shuts itself off and shows a red indicator light, so it cannot overflow. The base light can cycle through 7 colors as a night light, or stay off if you just want it working quietly in the background. It measures 5.91 × 5.91 in at the base and stands 10.08 in tall, so it fits on a nightstand, dresser, or windowsill — just leave a little clearance behind the unit so the air intake can breathe. Condition is new, never used.",
   "condition": "new", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
   "brand": "",
   "model": "",
   "age_years": null,
   "dimensions": {
-    "length": null,
-    "width": null,
-    "height": null,
-    "unit": "cm" // options: "cm" | "in"
+    "length": 5.91,
+    "width": 5.91,
+    "height": 10.08,
+    "unit": "in" // options: "cm" | "in"
   },
   "weight": {
     "value": null,
     "unit": "kg" // options: "kg" | "lb"
   },
-  "color": "",
+  "color": "White",
   "quantity": 1,
   "original_source": "",
   "original_link": "",
   "original_price": null,
-  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "status": "draft", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
   "listed_date": "2026-09-12",
   "sold_date": null,
   "preferred_payment": [],
@@ -56,9 +56,20 @@
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [],
+  "tags": [
+    "mini-dehumidifier",
+    "small-dehumidifier",
+    "35oz",
+    "7-color-night-light",
+    "quiet",
+    "auto-shut-off",
+    "bathroom",
+    "closet",
+    "rv",
+    "dorm-room"
+  ],
   "category_override": "",
-  "meta_description": "",
+  "meta_description": "Compact mini dehumidifier with a 35 oz (1000 ml) tank — pulls up to 16 oz of moisture per day, runs at 28 dB, 7-color night light and auto shut-off. Great for bathroom, closet, or RV.",
   "isbn": "",
   "course": "",
   "edition": "",
