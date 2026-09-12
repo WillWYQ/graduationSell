@@ -31,7 +31,7 @@
   "original_source": "",
   "original_link": "",
   "original_price": null,
-  "status": "draft", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
   "listed_date": "2026-09-12",
   "sold_date": null,
   "preferred_payment": [],

@@ -1,49 +1,37 @@
 {
-  "name": "Linksys Mr7350",
+  "name": "Linksys Max-Stream MR7350 AX1800 Dual-Band Wi-Fi 6 Router",
   "price": {
     "currency": "USD",
     "tiers": [
-      {
-        "label": "Pickup / ≤ 5 mi",
-        "miles_max": 5,
-        "amount": 0
-      },
-      {
-        "label": "6 – 15 mi",
-        "miles_min": 5,
-        "miles_max": 15,
-        "amount": 0
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 15,
-        "amount": 0
-      }
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 35 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 45 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 55 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 35 }
     ],
     "negotiable": true,
     "show_tiers": false
   },
-  "description": "",
+  "description": "Linksys Max-Stream MR7350 AX1800 dual-band Wi-Fi 6 (802.11ax) router — up to 574 Mbps on 2.4 GHz and 1201 Mbps on 5 GHz (1.8 Gbps combined), with 2x2 MU-MIMO and OFDMA, rated for homes up to 1,700 sq ft and 25+ devices. It runs a 1.2 GHz quad-core processor with 512 MB of memory and back panel has 4x Gigabit LAN ports, 1x Gigabit WAN port, and a USB 3.0 port for network storage (USB works in parent mode only). Set up and manage everything from the Linksys app over Bluetooth; it supports WPA2/WPA3 and Intelligent Mesh, so it can join a Velop mesh or be paired with a second unit to extend coverage. Two adjustable, non-detachable antennas (215 × 155 × 56 mm, 567 g). In good condition. The photos are the manufacturer's official product images for this model — message me and I'll send photos of the actual unit before you commit.",
   "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
-  "brand": "",
-  "model": "",
+  "brand": "Linksys",
+  "model": "Max-Stream MR7350 (AX1800)",
   "age_years": null,
   "dimensions": {
-    "length": null,
-    "width": null,
-    "height": null,
+    "length": 21.5,
+    "width": 15.5,
+    "height": 5.6,
     "unit": "cm" // options: "cm" | "in"
   },
   "weight": {
-    "value": null,
+    "value": 0.567,
     "unit": "kg" // options: "kg" | "lb"
   },
-  "color": "",
+  "color": "Black",
   "quantity": 1,
   "original_source": "",
   "original_link": "",
   "original_price": null,
-  "status": "draft", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
+  "status": "available", // options: "available" | "pending" | "reserved" | "sold" | "draft" — keep "draft" until ready to publish
   "listed_date": "2026-09-12",
   "sold_date": null,
   "preferred_payment": [],
@@ -56,9 +44,19 @@
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [],
+  "tags": [
+    "wifi 6 router",
+    "linksys mr7350",
+    "ax1800",
+    "mesh wifi",
+    "gigabit router",
+    "dual band",
+    "wpa3",
+    "home network",
+    "moving sale"
+  ],
   "category_override": "",
-  "meta_description": "",
+  "meta_description": "Linksys Max-Stream MR7350 AX1800 dual-band Wi-Fi 6 router — 574 + 1201 Mbps, 1.2 GHz quad-core, 4 Gigabit LAN + WAN + USB 3.0, covers up to 1,700 sq ft / 25+ devices. WPA3 and mesh-ready.",
   "isbn": "",
   "course": "",
   "edition": "",
