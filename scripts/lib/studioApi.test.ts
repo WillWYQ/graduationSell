@@ -13,6 +13,8 @@ import {
   listStudioItems,
   isFileResponse,
   isSseResponse,
+  IMPORT_MAX_URLS_PER_REQUEST,
+  IMPORT_THUMBNAIL_TEMP_FILE_TTL_MS,
   PDF_EXPORT_TTL_MS,
   registerPdfExportForTests,
   type JsonResponse,
@@ -20,6 +22,19 @@ import {
 } from "./studioApi";
 import { listImageFiles } from "./studioImages";
 import { getSyncRunner, resetSyncStateForTests, setSyncRunner, streamImageSync } from "./studioSync";
+import { SsrfError, fetchUrlSafely } from "./ssrfGuard";
+import { __setHeadlessRendererForTests } from "./headlessImport";
+
+// The import-from-URL routes are the only ones in this file that make a
+// network request; every other route is pure filesystem I/O. Mocking just
+// fetchUrlSafely (not the whole ssrfGuard module — SsrfError stays real, via
+// importOriginal) keeps those route tests hermetic without re-testing
+// ssrfGuard's own SSRF logic here (see ssrfGuard.test.ts for that).
+vi.mock("./ssrfGuard", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./ssrfGuard")>();
+  return { ...actual, fetchUrlSafely: vi.fn() };
+});
+const fetchUrlSafelyMock = vi.mocked(fetchUrlSafely);
 
 const run = promisify(execFile);
 
@@ -2861,5 +2876,659 @@ describe("GET/DELETE /api/contact/images/:filename", () => {
       }),
     );
     expect(res.status).toBe(404);
+  });
+});
+
+describe("URL-import batch cap", () => {
+  it("is mirrored by the Studio SPA's own client-side cap", async () => {
+    // studio/src/panes/NewItemDialog.tsx cannot import this module (fs,
+    // child_process — it would never survive the browser bundle), so it
+    // repeats the number. It has to be right: the cap is enforced on the
+    // SECOND of two round trips, after POST /api/items has already created
+    // the item, so a client that lets the seller select more than this leaves
+    // behind a real, empty item and surfaces a raw Zod validation string as
+    // the explanation. Read from source rather than imported, which is the
+    // only way to check a constant that lives on the other side of that
+    // bundling boundary.
+    const source = await fs.readFile(
+      path.join(PROJECT_ROOT, "studio", "src", "panes", "NewItemDialog.tsx"),
+      "utf-8",
+    );
+    const match = /const MAX_IMPORT_PHOTOS_PER_BATCH = (\d+);/.exec(source);
+    expect(match, "NewItemDialog.tsx must declare MAX_IMPORT_PHOTOS_PER_BATCH").not.toBeNull();
+    expect(Number(match![1])).toBe(IMPORT_MAX_URLS_PER_REQUEST);
+  });
+});
+
+describe("POST /api/import-url/preview", () => {
+  beforeEach(() => {
+    fetchUrlSafelyMock.mockReset();
+  });
+
+  afterEach(() => __setHeadlessRendererForTests(null));
+
+  function preview(url: string) {
+    return handleStudioRequest({
+      method: "POST",
+      url: "/api/import-url/preview",
+      body: Buffer.from(JSON.stringify({ url })),
+      projectRoot: PROJECT_ROOT,
+    });
+  }
+
+  it("extracts name and images from the fetched page", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from(
+        `<html><head>
+           <meta property="og:title" content="Vintage Desk Lamp">
+           <meta property="og:image" content="/photos/lamp.jpg">
+         </head><body></body></html>`,
+        "utf-8",
+      ),
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing/123",
+    });
+
+    const res = asJson(await preview("https://example.com/listing/123"));
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      name: "Vintage Desk Lamp",
+      images: ["https://example.com/photos/lamp.jpg"],
+      usedHeadlessFallback: false,
+      headlessFailureReason: null,
+    });
+    // Passed the seller's URL straight through, with SSRF-safe limits — not
+    // some other endpoint's defaults.
+    expect(fetchUrlSafelyMock).toHaveBeenCalledWith(
+      "https://example.com/listing/123",
+      expect.objectContaining({ timeoutMs: expect.any(Number), maxBytes: expect.any(Number) }),
+    );
+  });
+
+  it("reports empty candidates for a non-HTML response instead of parsing binary as text", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from([0xff, 0xd8, 0xff]),
+      contentType: "image/jpeg",
+      finalUrl: "https://example.com/photo.jpg",
+    });
+
+    const res = asJson(await preview("https://example.com/photo.jpg"));
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      name: null,
+      images: [],
+      usedHeadlessFallback: false,
+      headlessFailureReason: null,
+    });
+  });
+
+  it("treats a missing content-type as HTML rather than refusing to parse", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<html><head><title>Old Bike</title></head></html>", "utf-8"),
+      contentType: "",
+      finalUrl: "https://example.com/listing",
+    });
+    // This fixture's Tier 1 extraction finds zero images (title only, no
+    // og:image/img tags), which now falls through to Tier 2. Stub the
+    // renderer as unavailable so Tier 1's already-correct `name` passes
+    // through untouched, rather than letting this test reach the real
+    // renderWithHeadlessBrowser (a real Chromium launch + a real network
+    // request to example.com) — this test is about content-type handling,
+    // not the headless fallback.
+    __setHeadlessRendererForTests(async () => ({ available: false, reason: "navigation-failed" }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    expect(res.status).toBe(200);
+    expect(res.body).toMatchObject({ name: "Old Bike" });
+  });
+
+  it("does not invoke the headless fallback when Tier 1 already finds images", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from(
+        `<html><head><meta property="og:image" content="/photo.jpg"></head></html>`,
+        "utf-8",
+      ),
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing",
+    });
+    let headlessCalled = false;
+    __setHeadlessRendererForTests(async () => {
+      headlessCalled = true;
+      return { available: true, html: "<html></html>", finalUrl: "https://example.com" };
+    });
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    expect(headlessCalled).toBe(false);
+    const body = res.body as { usedHeadlessFallback: boolean; headlessFailureReason: unknown };
+    expect(body.usedHeadlessFallback).toBe(false);
+    expect(body.headlessFailureReason).toBeNull();
+  });
+
+  it("invokes the headless fallback and returns its candidates when Tier 1 finds zero images", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<html><body><div id=\"app\"></div></body></html>", "utf-8"), // SPA shell, nothing to extract
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing",
+    });
+    __setHeadlessRendererForTests(async () => ({
+      available: true,
+      html: '<html><head><meta property="og:image" content="https://example.com/photo.jpg"></head></html>',
+      finalUrl: "https://example.com/rendered",
+    }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    const body = res.body as { images: string[]; usedHeadlessFallback: boolean; headlessFailureReason: unknown };
+    expect(body.usedHeadlessFallback).toBe(true);
+    expect(body.images).toContain("https://example.com/photo.jpg");
+    expect(body.headlessFailureReason).toBeNull();
+  });
+
+  it("sets headlessFailureReason to not-installed when the fallback is unavailable", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<html><body></body></html>", "utf-8"),
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing",
+    });
+    __setHeadlessRendererForTests(async () => ({ available: false, reason: "not-installed" }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    const body = res.body as { usedHeadlessFallback: boolean; headlessFailureReason: unknown };
+    expect(body.usedHeadlessFallback).toBe(true);
+    expect(body.headlessFailureReason).toBe("not-installed");
+  });
+
+  it("sets headlessFailureReason to null when the fallback runs fine but still finds zero images", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<html><body></body></html>", "utf-8"),
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing",
+    });
+    __setHeadlessRendererForTests(async () => ({
+      available: true,
+      html: "<html><body>nothing here</body></html>",
+      finalUrl: "https://example.com/rendered",
+    }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    const body = res.body as { images: string[]; usedHeadlessFallback: boolean; headlessFailureReason: unknown };
+    expect(body.images).toEqual([]);
+    expect(body.usedHeadlessFallback).toBe(true);
+    expect(body.headlessFailureReason).toBeNull();
+  });
+
+  it("sets headlessFailureReason to navigation-failed when the fallback errors after launching", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<html><body></body></html>", "utf-8"),
+      contentType: "text/html",
+      finalUrl: "https://example.com/listing",
+    });
+    __setHeadlessRendererForTests(async () => ({ available: false, reason: "navigation-failed" }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    const body = res.body as { headlessFailureReason: unknown };
+    expect(body.headlessFailureReason).toBe("navigation-failed");
+  });
+
+  it("surfaces an SSRF rejection as a 400 with the guard's own message", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(new SsrfError("Disallowed resolved address for internal.example: 10.0.0.5"));
+
+    const res = asJson(await preview("http://internal.example/"));
+
+    expect(res.status).toBe(400);
+    expect((res.body as { error: string }).error).toContain("10.0.0.5");
+  });
+
+  it("falls back to the headless renderer when the plain fetch times out", async () => {
+    // The exact case this whole feature exists for: a heavy JS-rendered
+    // marketplace that outruns Tier 1's 10s budget. Tier 2 has a longer one,
+    // so a Tier 1 timeout must not end the request.
+    fetchUrlSafelyMock.mockRejectedValue(new Error("Request timed out"));
+    let renderedUrl: string | null = null;
+    __setHeadlessRendererForTests(async (url) => {
+      renderedUrl = url;
+      return {
+        available: true,
+        html: '<html><head><title>Rendered Bike</title><meta property="og:image" content="https://example.com/photo.jpg"></head></html>',
+        finalUrl: "https://example.com/listing",
+      };
+    });
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    expect(res.status).toBe(200);
+    // Rendered from the seller's own URL: a fetch that never completed has no
+    // finalUrl to prefer instead.
+    expect(renderedUrl).toBe("https://example.com/listing");
+    const body = res.body as { name: string | null; images: string[]; usedHeadlessFallback: boolean };
+    expect(body.usedHeadlessFallback).toBe(true);
+    expect(body.images).toEqual(["https://example.com/photo.jpg"]);
+    expect(body.name).toBe("Rendered Bike");
+  });
+
+  it("falls back to the headless renderer when the plain fetch fails at the transport level", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(
+      Object.assign(new Error("socket hang up"), { code: "ECONNRESET" }),
+    );
+    __setHeadlessRendererForTests(async () => ({
+      available: true,
+      html: '<html><head><meta property="og:image" content="https://example.com/rendered.jpg"></head></html>',
+      finalUrl: "https://example.com/listing",
+    }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    expect(res.status).toBe(200);
+    expect((res.body as { images: string[] }).images).toEqual(["https://example.com/rendered.jpg"]);
+  });
+
+  it("reports the headless failure reason when BOTH tiers fail", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(new Error("Request timed out"));
+    __setHeadlessRendererForTests(async () => ({ available: false, reason: "not-installed" }));
+
+    const res = asJson(await preview("https://example.com/listing"));
+
+    // A 200 with an actionable reason, not a 500: neither tier could read the
+    // page, and the seller's next move (install Chromium, or use the paste
+    // escape hatch) is the same one a zero-image Tier 1 would have offered.
+    expect(res.status).toBe(200);
+    const body = res.body as { name: string | null; images: string[]; headlessFailureReason: unknown };
+    expect(body.images).toEqual([]);
+    expect(body.name).toBeNull();
+    expect(body.headlessFailureReason).toBe("not-installed");
+  });
+
+  // SECURITY REGRESSION GUARD — must never be relaxed. The headless path does
+  // re-validate independently (ssrfSafeProxy.ts), but an address the guard has
+  // already refused must never get a second, differently-implemented chance at
+  // being fetched. An SsrfError is a verdict, not a transport failure.
+  it("does NOT attempt the headless fallback when the guard rejects the address", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(new SsrfError("Disallowed resolved address for internal.example: 10.0.0.5"));
+    let headlessCalled = false;
+    __setHeadlessRendererForTests(async () => {
+      headlessCalled = true;
+      return { available: true, html: "<html></html>", finalUrl: "http://internal.example/" };
+    });
+
+    const res = asJson(await preview("http://internal.example/"));
+
+    expect(headlessCalled).toBe(false);
+    expect(res.status).toBe(400);
+    expect((res.body as { error: string }).error).toContain("10.0.0.5");
+  });
+
+  it("does NOT attempt the headless fallback when the guard rejects a non-http(s) scheme", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(new SsrfError("Disallowed URL scheme: file:"));
+    let headlessCalled = false;
+    __setHeadlessRendererForTests(async () => {
+      headlessCalled = true;
+      return { available: true, html: "<html></html>", finalUrl: "file:///etc/passwd" };
+    });
+
+    const res = asJson(await preview("file:///etc/passwd"));
+
+    expect(headlessCalled).toBe(false);
+    expect(res.status).toBe(400);
+  });
+
+  it("does NOT attempt the headless fallback for a non-HTML content type", async () => {
+    // Unchanged by the network-failure fallback: a confident "this isn't a
+    // webpage" verdict is not a failure, and rendering a JPEG in Chromium
+    // would find nothing a second time, slowly.
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from([0xff, 0xd8, 0xff]),
+      contentType: "image/jpeg",
+      finalUrl: "https://example.com/photo.jpg",
+    });
+    let headlessCalled = false;
+    __setHeadlessRendererForTests(async () => {
+      headlessCalled = true;
+      return { available: true, html: "<html></html>", finalUrl: "https://example.com/photo.jpg" };
+    });
+
+    const res = asJson(await preview("https://example.com/photo.jpg"));
+
+    expect(headlessCalled).toBe(false);
+    expect(res.status).toBe(200);
+    expect((res.body as { usedHeadlessFallback: boolean }).usedHeadlessFallback).toBe(false);
+  });
+
+  it("400s on a missing url field", async () => {
+    const res = await handleStudioRequest({
+      method: "POST",
+      url: "/api/import-url/preview",
+      body: Buffer.from(JSON.stringify({})),
+      projectRoot: PROJECT_ROOT,
+    });
+    expect(res.status).toBe(400);
+    expect(fetchUrlSafelyMock).not.toHaveBeenCalled();
+  });
+
+  it("405s a GET", async () => {
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/import-url/preview",
+      body: Buffer.alloc(0),
+      projectRoot: PROJECT_ROOT,
+    });
+    expect(res.status).toBe(405);
+  });
+});
+
+describe("POST /api/items/:cat/:item/images/import", () => {
+  beforeEach(async () => {
+    sandbox = await fs.mkdtemp(path.join(os.tmpdir(), "studio-api-import-"));
+    fetchUrlSafelyMock.mockReset();
+    await seedItem("electronics/desk-lamp");
+  });
+
+  afterEach(async () => {
+    await fs.rm(sandbox, { recursive: true, force: true });
+  });
+
+  function importImages(urls: string[], sourceUrl?: string) {
+    return handleStudioRequest({
+      method: "POST",
+      url: "/api/items/electronics/desk-lamp/images/import",
+      body: Buffer.from(JSON.stringify(sourceUrl ? { urls, sourceUrl } : { urls })),
+      projectRoot: sandbox,
+    });
+  }
+
+  const itemDir = () => path.join(sandbox, "content", "items", "electronics", "desk-lamp");
+
+  it("downloads, sniffs, and writes each selected photo", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://example.com/photos/front.png",
+    });
+
+    const res = asJson(await importImages(["https://example.com/photos/front.png"]));
+
+    expect(res.status).toBe(200);
+    const body = res.body as { imported: number; failed: unknown[]; files: Array<{ name: string }> };
+    expect(body.imported).toBe(1);
+    expect(body.failed).toEqual([]);
+    expect(body.files).toEqual([{ name: "front.png", editable: true }]);
+    const onDisk = await fs.readFile(path.join(itemDir(), "front.png"));
+    expect(onDisk).toEqual(PNG_BYTES);
+  });
+
+  it("forces the written extension to match the sniffed type, not the URL's own extension", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES, // a real PNG served from a path claiming .jpg
+      contentType: "image/jpeg",
+      finalUrl: "https://example.com/cdn/asset.jpg",
+    });
+
+    const res = asJson(await importImages(["https://example.com/cdn/asset.jpg"]));
+
+    const body = res.body as { files: Array<{ name: string }> };
+    expect(body.files).toEqual([{ name: "asset.png", editable: true }]);
+  });
+
+  it("falls back to a generic filename when the URL has no usable path", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://example.com/",
+    });
+
+    const res = asJson(await importImages(["https://example.com/"]));
+
+    const body = res.body as { files: Array<{ name: string }> };
+    expect(body.files).toEqual([{ name: "imported-photo.png", editable: true }]);
+  });
+
+  it("reports a non-image response as a per-url failure without writing anything", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<!doctype html><title>Not an image</title>"),
+      contentType: "text/html",
+      finalUrl: "https://example.com/not-an-image",
+    });
+
+    const res = asJson(await importImages(["https://example.com/not-an-image"]));
+
+    const body = res.body as { imported: number; failed: Array<{ url: string; error: string }>; files: unknown[] };
+    expect(body.imported).toBe(0);
+    expect(body.failed).toEqual([
+      { url: "https://example.com/not-an-image", error: expect.stringContaining("not a JPEG, PNG, WebP or GIF") },
+    ]);
+    expect(body.files).toEqual([]);
+  });
+
+  it("keeps the photos that succeeded when one URL in the batch fails", async () => {
+    fetchUrlSafelyMock.mockImplementation(async (url: string) => {
+      if (url.includes("bad")) throw new SsrfError("Disallowed resolved address for bad.example: 127.0.0.1");
+      return { bytes: PNG_BYTES, contentType: "image/png", finalUrl: url };
+    });
+
+    const res = asJson(
+      await importImages(["https://good.example/one.png", "https://bad.example/two.png"]),
+    );
+
+    const body = res.body as { imported: number; failed: Array<{ url: string }> };
+    expect(body.imported).toBe(1);
+    expect(body.failed).toEqual([
+      { url: "https://bad.example/two.png", error: expect.stringContaining("127.0.0.1") },
+    ]);
+  });
+
+  it("400s an empty urls array", async () => {
+    const res = await importImages([]);
+    expect(res.status).toBe(400);
+    expect(fetchUrlSafelyMock).not.toHaveBeenCalled();
+  });
+
+  it("400s a batch over the per-request cap", async () => {
+    const urls = Array.from({ length: 25 }, (_, i) => `https://example.com/${i}.jpg`);
+    const res = await importImages(urls);
+    expect(res.status).toBe(400);
+    expect(fetchUrlSafelyMock).not.toHaveBeenCalled();
+  });
+
+  it("400s a GET (routed to handleImageGet, which rejects 'import' as a filename — same as the 'reorder' subpath)", async () => {
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/items/electronics/desk-lamp/images/import",
+      body: Buffer.alloc(0),
+      projectRoot: sandbox,
+    });
+    expect(res.status).toBe(400);
+  });
+
+  it("passes the ORIGIN of sourceUrl as referer, not the full URL", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://example.com/photos/front.png",
+    });
+
+    await importImages(
+      ["https://example.com/photos/front.png"],
+      "https://seller-site.example/listing/123?ref=abc",
+    );
+
+    expect(fetchUrlSafelyMock).toHaveBeenCalledWith(
+      "https://example.com/photos/front.png",
+      expect.objectContaining({ referer: "https://seller-site.example" }),
+    );
+  });
+
+  it("passes no referer when sourceUrl is omitted", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://example.com/photos/front.png",
+    });
+
+    await importImages(["https://example.com/photos/front.png"]);
+
+    const [, options] = fetchUrlSafelyMock.mock.calls[0]!;
+    expect((options as { referer?: string }).referer).toBeUndefined();
+  });
+});
+
+describe("POST /api/import-url/thumbnail", () => {
+  beforeEach(() => {
+    fetchUrlSafelyMock.mockReset();
+  });
+
+  function thumbnail(url: string, sourceUrl?: string) {
+    return handleStudioRequest({
+      method: "POST",
+      url: "/api/import-url/thumbnail",
+      body: Buffer.from(JSON.stringify(sourceUrl ? { url, sourceUrl } : { url })),
+      projectRoot: PROJECT_ROOT,
+    });
+  }
+
+  it("returns a FileResponse pointing at a temp file containing the fetched image bytes", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://cdn.example/photo.png",
+    });
+
+    const res = await thumbnail("https://cdn.example/photo.png", "https://seller-site.example/listing");
+
+    expect(isFileResponse(res)).toBe(true);
+    if (isFileResponse(res)) {
+      expect(res.status).toBe(200);
+      expect(res.contentType).toBe("image/png");
+      const bytesOnDisk = await fs.readFile(res.file);
+      expect(bytesOnDisk).toEqual(PNG_BYTES);
+    }
+    expect(fetchUrlSafelyMock).toHaveBeenCalledWith(
+      "https://cdn.example/photo.png",
+      expect.objectContaining({ referer: "https://seller-site.example" }),
+    );
+  });
+
+  it("removes the temp file once onSent fires", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://cdn.example/photo.png",
+    });
+
+    const res = await thumbnail("https://cdn.example/photo.png");
+    if (!isFileResponse(res)) throw new Error("expected a FileResponse");
+
+    const tempPath = res.file;
+    await fs.access(tempPath); // exists before onSent
+    res.onSent?.();
+    await new Promise((resolve) => setTimeout(resolve, 10)); // onSent's cleanup is fire-and-forget
+
+    await expect(fs.access(tempPath)).rejects.toThrow();
+  });
+
+  it("deletes the temp file via the TTL backstop when onSent never fires", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://cdn.example/photo.png",
+    });
+
+    // Fake timers must be installed before the request runs: the backstop's
+    // setTimeout is scheduled inside handleImportThumbnail itself, while the
+    // temp file is being written, so it has to be captured by the fake
+    // clock from the start to be advanceable below.
+    vi.useFakeTimers();
+    try {
+      const res = await thumbnail("https://cdn.example/photo.png");
+      if (!isFileResponse(res)) throw new Error("expected a FileResponse");
+      const tempPath = res.file;
+
+      // onSent is deliberately never called here -- simulating the seller's
+      // browser dropping the request (dialog closed, navigated away, a
+      // newer thumbnail fetch superseding this one) before
+      // studio/vite.config.ts's file-response branch ever reaches "finish".
+      // Only the TTL backstop should be able to clean this up.
+      await vi.advanceTimersByTimeAsync(IMPORT_THUMBNAIL_TEMP_FILE_TTL_MS + 1);
+
+      // The timer callback kicks off a real (non-fake-timer) fs.unlink --
+      // switch back to real timers before polling for it so vi.waitFor's
+      // own retry interval can actually fire (same reasoning as the
+      // PDF-export TTL test elsewhere in this file).
+      vi.useRealTimers();
+      await vi.waitFor(async () => {
+        await expect(fs.access(tempPath)).rejects.toThrow();
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("does not throw when the TTL backstop fires after onSent already removed the file", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: PNG_BYTES,
+      contentType: "image/png",
+      finalUrl: "https://cdn.example/photo.png",
+    });
+
+    vi.useFakeTimers();
+    try {
+      const res = await thumbnail("https://cdn.example/photo.png");
+      if (!isFileResponse(res)) throw new Error("expected a FileResponse");
+      const tempPath = res.file;
+
+      // Run the fast path first, exactly like "removes the temp file once
+      // onSent fires" above, then await the same unlink ourselves so the
+      // file is confirmed gone before the backstop gets a turn below --
+      // this doesn't touch any timer API, so it behaves the same whether
+      // fake timers are active or not.
+      res.onSent?.();
+      await fs.unlink(tempPath).catch(() => {});
+      await expect(fs.access(tempPath)).rejects.toThrow();
+
+      // Both cleanup paths firing for the same file must be safe: the
+      // backstop finding nothing left to unlink is a harmless no-op
+      // (wrapped in .catch(() => {}), same as onSent's), never an
+      // unhandled rejection.
+      await vi.advanceTimersByTimeAsync(IMPORT_THUMBNAIL_TEMP_FILE_TTL_MS + 1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("returns a JSON error when the fetch fails", async () => {
+    fetchUrlSafelyMock.mockRejectedValue(new SsrfError("Disallowed resolved address for bad.example: 127.0.0.1"));
+
+    const res = await thumbnail("http://bad.example/photo.png");
+
+    expect(isFileResponse(res)).toBe(false);
+    expect(asJson(res).body).toMatchObject({ error: expect.stringContaining("127.0.0.1") });
+  });
+
+  it("returns a JSON error when the fetched bytes aren't a real image", async () => {
+    fetchUrlSafelyMock.mockResolvedValue({
+      bytes: Buffer.from("<!doctype html><title>Not an image</title>"),
+      contentType: "text/html",
+      finalUrl: "https://cdn.example/not-an-image",
+    });
+
+    const res = await thumbnail("https://cdn.example/not-an-image");
+
+    expect(isFileResponse(res)).toBe(false);
+    expect(asJson(res).body).toMatchObject({ error: expect.stringContaining("not a JPEG, PNG, WebP or GIF") });
+  });
+
+  it("405s a GET on the thumbnail route", async () => {
+    const res = await handleStudioRequest({
+      method: "GET",
+      url: "/api/import-url/thumbnail",
+      body: Buffer.alloc(0),
+      projectRoot: PROJECT_ROOT,
+    });
+    expect(res.status).toBe(405);
   });
 });

@@ -155,11 +155,38 @@ export const EN = {
   "newItem.modeLabel": "What to create",
   "newItem.mode.item": "Item",
   "newItem.mode.category": "Category",
+  "newItem.mode.url": "Import from URL",
   "newItem.categorySlug": "Category slug",
   "newItem.categorySlugPlaceholder": "e.g. electronics",
   "newItem.categorySlugHint": "Lowercase letters, digits, and hyphens only.",
   "newItem.categoryMeta.show": "Add details",
   "newItem.categoryMeta.hide": "Hide details",
+
+  // ── New item dialog — import from URL ────────────────────────────
+  "newItem.url.sourceUrl": "Product page URL",
+  "newItem.url.sourceUrlPlaceholder": "https://example.com/listing/123",
+  "newItem.url.sourceUrlHint": "Studio fetches the page on your machine and looks for a name and photos. Nothing is saved until you create the item below.",
+  "newItem.url.fetch": "Fetch page",
+  "newItem.url.fetching": "Fetching…",
+  "newItem.url.deepImportUnavailable":
+    "This page may need JavaScript to show photos. Run `npx playwright install chromium` once to enable deeper import (the same one-time step the catalog PDF export uses — already done if you've set that up), then retry — or paste a photo link directly below.",
+  "newItem.url.stillNoImages":
+    "Couldn't find photos on this page automatically (it may block automated access, or require login). Paste a photo link directly below.",
+  "newItem.url.pasteUrls.label": "Or paste photo links directly",
+  "newItem.url.pasteUrls.placeholder": "One or more image URLs, one per line",
+  "newItem.url.pasteUrls.add": "Add",
+  "newItem.url.pasteUrls.invalid": "Enter a valid http(s) image URL.",
+  "newItem.url.pasteUrls.tooMany":
+    "Too many photo links — at most {max} photos can be imported at once, and {selected} are already selected. Remove some links and add the rest after this item is created.",
+  "newItem.url.selectionCapped": "Up to {max} photos per import — untick one to choose a different photo.",
+  "newItem.url.selectPhotos": "Choose photos to import",
+  "newItem.url.selectAll": "Select all",
+  "newItem.url.selectNone": "Select none",
+  "newItem.url.selectedCount": "{count} selected",
+  "newItem.url.create": "Create item & import photos",
+  "newItem.url.creating": "Creating item…",
+  "newItem.url.importing": "Importing photos…",
+  "newItem.url.partialFailure": "Item created, but {count} photo(s) failed to import: {details}",
 
   "categoryMeta.icon": "Icon",
   "categoryMeta.iconHint": "An emoji shown next to the category name, e.g. 📱.",

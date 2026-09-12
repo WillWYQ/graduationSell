@@ -202,6 +202,18 @@ input[type="radio"] {
   white-space: pre-line;
 }
 
+/* Partial success (e.g. the item saved but a photo import failed) — not a
+   failure of the action the seller just took, so it gets the accent wash
+   rather than .alert-error's red. */
+.alert-warning {
+  margin: 0;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  color: var(--ink);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  white-space: pre-line;
+}
+
 /* The app-level error banner sits between header and table, inset like
    the table itself. */
 .page-error {
@@ -647,6 +659,73 @@ tr.failed td {
   line-height: 1.3;
 }
 
+/* ── New item dialog — import from URL picker ─────────────────────────
+   Reuses .thumb-grid's layout; the thumb itself is a <label> (not a plain
+   <li>) so the whole card toggles the checkbox, not just its small hit area. */
+
+.url-fetch-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.url-fetch-row input {
+  flex: 1;
+}
+
+.url-picker-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.url-picker-thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+/* The box lives on ThumbnailImage's wrapper, not on the <img>: a candidate's
+   photo is fetched through the local proxy and only mounted once its blob
+   arrives, so there is no <img> to size while a thumbnail is pending (or if it
+   fails outright). Sizing the image alone would collapse those cards to zero
+   height — which thrashes the grid as thumbnails load in and, worse, makes the
+   whole grid near-zero-height on first paint, so the IntersectionObserver's
+   200px rootMargin calls every candidate "near the viewport" at once and the
+   lazy loading stops being lazy. */
+.url-picker-thumb-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.url-picker-thumb-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A candidate image that failed to load (a dead link, or a site that blocks
+   even the local proxy) still needs a selectable card — the wrapper keeps its
+   square footprint, so hiding the failed thumbnail never collapses the card or
+   takes the checkbox with it. Scoped to the wrapper rather than an <img>: a
+   failed thumbnail puts no <img> in the DOM for an image rule to match. */
+.url-picker-thumb-image.url-picker-thumb-broken {
+  visibility: hidden;
+}
+
 /* ── Sync bar ───────────────────────────────────────────────────────── */
 
 .sync-bar {
@@ -768,6 +847,16 @@ tr.failed td {
 .field-hint {
   font-size: 0.7rem;
   color: var(--ink-soft);
+}
+
+/* A validation failure shown inline under its own field (e.g. the URL-import
+   paste box), applied alongside .field-hint. Same quiet size and position —
+   it belongs to one field, so it gets the danger colour rather than
+   .alert-error's filled banner, matching .config-danger. Must stay AFTER
+   .field-hint: equal specificity, so source order is what lets it win the
+   colour back from the muted default. */
+.field-error {
+  color: var(--danger);
 }
 
 .checkbox-group {
@@ -1484,6 +1573,16 @@ tr.failed td {
   margin: 0 0 0.25rem;
   font-size: var(--step-1);
   font-weight: 600;
+}
+
+/* Bare .dialog has no height cap, so the url-import picker's thumb grid
+   (which can grow to dozens of candidates) pushed the sheet past the
+   viewport with no way to reach the Create/Cancel buttons or the lower
+   thumbnails — the backdrop itself doesn't scroll. Capped and made
+   scrollable like .defaults-dialog / .categories-dialog / .config-dialog. */
+.new-item-dialog {
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .new-item-mode {

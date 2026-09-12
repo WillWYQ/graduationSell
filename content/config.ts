@@ -14,6 +14,15 @@ export const siteConfig: SiteConfig = {
   deploymentMode: "static",
   baseUrl: "https://graduationsell.willsleep.dev",
 
+  // ── PWA ────────────────────────────────────────────────────────────────────
+  // Colors used in the installable "Add to Home Screen" web-app manifest
+  // (app/manifest.ts). Leave unset ("") to keep the default cream (#f8f4ec)
+  // that matches the site's palette.
+  pwa: {
+    themeColor: "#f8f4ec",
+    backgroundColor: "#f8f4ec",
+  },
+
   // ── Image Storage ─────────────────────────────────────────────────────────
   imageStorage: {
     provider: "cloudflare-r2",
