@@ -1,5 +1,5 @@
 {
-  "name": "Warm White Star Curtain String Lights (LED Window / Wall Backdrop)",
+  "name": "Linksys Mr7350",
   "price": {
     "currency": "USD",
     "tiers": [
@@ -23,7 +23,7 @@
     "negotiable": true,
     "show_tiers": false
   },
-  "description": "Warm white star curtain lights on a clear cable — a top wire with strands of assorted-size stars hanging from it, so they drape over a window, a wall, a doorway, or above a bed. The photo shows them hung against a dark window with holiday decorations around them, which is where they look best: the warm white LEDs read as a soft starry backdrop rather than a bright working light. All of the stars light up and the set works normally. The LED count, total run length, and power source (USB or battery) are not marked on the lights themselves, so message me if you need an exact figure before buying.",
+  "description": "",
   "condition": "good", // options: "new" | "like-new" | "good" | "fair" | "for-parts"
   "brand": "",
   "model": "",
@@ -38,7 +38,7 @@
     "value": null,
     "unit": "kg" // options: "kg" | "lb"
   },
-  "color": "Warm White",
+  "color": "",
   "quantity": 1,
   "original_source": "",
   "original_link": "",
@@ -56,18 +56,9 @@
   "venmo_payment_request": "",
   "pickup_windows": [],
   "youtube_link": "",
-  "tags": [
-    "star-curtain-lights",
-    "string-lights",
-    "fairy-lights",
-    "warm-white",
-    "window-lights",
-    "curtain-lights",
-    "holiday-decor",
-    "christmas-decor"
-  ],
+  "tags": [],
   "category_override": "",
-  "meta_description": "Warm white star curtain string lights — hanging star strands for windows, walls, dorm rooms and holiday decor. All stars working; see photos.",
+  "meta_description": "",
   "isbn": "",
   "course": "",
   "edition": "",

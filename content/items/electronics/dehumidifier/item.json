@@ -3,22 +3,10 @@
   "price": {
     "currency": "USD",
     "tiers": [
-      {
-        "label": "Pickup / ≤ 5 mi",
-        "miles_max": 5,
-        "amount": 30
-      },
-      {
-        "label": "6 – 15 mi",
-        "miles_min": 5,
-        "miles_max": 15,
-        "amount": 30
-      },
-      {
-        "label": "Shipping",
-        "miles_min": 15,
-        "amount": 30
-      }
+      { "label": "Local pickup (≤ 15 mi)", "miles_max": 15, "amount": 30 },
+      { "label": "15 – 100 mi", "miles_min": 15, "miles_max": 100, "amount": 35 },
+      { "label": "100 – 200 mi", "miles_min": 100, "miles_max": 200, "amount": 40 },
+      { "label": "Shipping (buyer pay for shipping) as-is", "miles_min": 200, "amount": 30 }
     ],
     "negotiable": true,
     "show_tiers": false
